@@ -39,18 +39,6 @@
       <el-main>
         <router-view>
         </router-view>
-        <div class="mainMenuCard">
-          <el-tabs v-model="editableTabsValue" type="card" editable @edit="handleTabsEdit">
-            <el-tab-pane
-                :key="item.name"
-                v-for="(item) in editableTabs"
-                :label="item.title"
-                :name="item.name"
-            >
-              {{item.content}}
-            </el-tab-pane>
-          </el-tabs>
-        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -418,6 +406,7 @@ export default {
     }
   }
 }
+
 </script>
 
 <style lang="less" scoped>

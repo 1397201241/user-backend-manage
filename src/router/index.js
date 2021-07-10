@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../components/page/Home.vue'
 import Register from "../components/page/Register";
 import Login from "../components/page/Login";
-import Index from "../components/page/Index"
+import Test from "../components/page/Test";
 
 Vue.use(VueRouter)
 
@@ -24,9 +24,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/index',
-    name: 'Index',
-    component: Index
+    path: '/test',
+    name: 'Test',
+    component: Test
   },
 ]
 
