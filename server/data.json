@@ -1,0 +1,163 @@
+{
+  "customer": [
+    {
+      "id": 2,
+      "sex": "男",
+      "name": "郭荣华",
+      "tel": "15273166485",
+      "address": "湖南长沙"
+    },
+    {
+      "id": 3,
+      "sex": "男",
+      "name": "夏🗡冰",
+      "tel": "15273164545",
+      "address": "湖南长沙"
+    },
+    {
+      "id": 40,
+      "sex": "女",
+      "name": "姓名啊",
+      "tel": "15273166485",
+      "address": "地址啊"
+    },
+    {
+      "id": 7,
+      "sex": "女",
+      "name": "郭容华",
+      "tel": "15273166485",
+      "address": "广西玉林"
+    }
+  ],
+  "user": [
+    {
+      "id": 1,
+      "username": "general_user",
+      "password": "123456",
+      "city": "长沙",
+      "country": "中国",
+      "zip": "410000",
+      "phone": "15273166485",
+      "address": "湖南长沙"
+    },
+    {
+      "id": 2,
+      "username": "admin",
+      "password": "123456",
+      "city": "长沙",
+      "country": "中国",
+      "zip": "410000",
+      "phone": "15273166485",
+      "address": "湖南长沙"
+    },
+    {
+      "id": 3,
+      "username": "Noob",
+      "password": "123456",
+      "city": "长沙",
+      "country": "中国",
+      "zip": "410000",
+      "phone": "15273166485",
+      "address": "湖南长沙"
+    }
+  ],
+  "role": [
+    {
+      "id": 1,
+      "name": "general_user",
+      "description": "普通用户"
+    },
+    {
+      "id": 2,
+      "name": "admin",
+      "description": "管理员"
+    }
+  ],
+  "user_role": [
+    {
+      "id": 1,
+      "rid": 1,
+      "uid": 1
+    },
+    {
+      "id": 2,
+      "rid": 2,
+      "uid": 2
+    },
+    {
+      "id": 3,
+      "rid": 1,
+      "uid": 3
+    }
+  ],
+  "permission": [
+    {
+      "id": 1,
+      "title": "ADD_USER",
+      "action": "add_user"
+    },
+    {
+      "id": 2,
+      "title": "CHANGE_USER",
+      "action": "change_user"
+    },
+    {
+      "id": 3,
+      "title": "SEARCH_USER",
+      "action": "search_user"
+    },
+    {
+      "id": 4,
+      "title": "DELETE_USER",
+      "action": "delete_user"
+    },
+    {
+      "id": 5,
+      "title": "CHANGE_ROLE",
+      "action": "change_role"
+    }
+  ],
+  "role_permission": [
+    {
+      "id": 1,
+      "rid": 2,
+      "permission_id": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "id": 2,
+      "rid": 1,
+      "permission_id": [
+        2,
+        3
+      ]
+    }
+  ],
+  "JSEncrypt": [
+    {
+      "publicKey": "-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC8kjsLScGhHDL/E6a4CntomRpZVsCbFUs3+F1B2MWAsIpTDD630RaGxQIDajRbxEzScQkJxdGKXDaZxwwP4+qtnmUtfRboA6GclORuUK2WF+6ItoAbZm3b3jelUC8yqxTxhVzPgAdj7AEe9oEHGmBtaXu4wSSalrkqNuiFiF+ZCQIDAQAB-----END PUBLIC KEY-----",
+      "privateKey": "-----BEGIN RSA PRIVATE KEY-----MIICXQIBAAKBgQC8kjsLScGhHDL/E6a4CntomRpZVsCbFUs3+F1B2MWAsIpTDD630RaGxQIDajRbxEzScQkJxdGKXDaZxwwP4+qtnmUtfRboA6GclORuUK2WF+6ItoAbZm3b3jelUC8yqxTxhVzPgAdj7AEe9oEHGmBtaXu4wSSalrkqNuiFiF+ZCQIDAQABAoGBAId8yc+ifu0zRbDgfbleTq0o1DW8j0beVd0xJlBZYA7GyZxCAA4yvOy4QGoTtOr6b/gEH2pWJ+gxuUlkKtZ/++zk66thluBGHCN6j0FY46pjZWASyzSc59bPqmE0v4XNT/bu6+VfEGZA0ATK2Fu/c8yNONWV47NSI/n6nI2Zbv7BAkEA+KPWEFuLAKDOgAn6gJKc7qfQw5Qk4RzNs3me9FWh+/miCvBHio3dOqhdzjwnjXpWzU5UzA93dyk/7DQ3tTiefwJBAMInM1clpnHBg5XAdz+B3CgPSiDJ/4Xx31PhViE3oHIZHNu++HWS5azKESAbmyMKCQjhb7UY6h2b2nfQh6NUFHcCQGuviabL/wfmnYkWyUemOBGk3OXX46EbuHti0VVBQUbAd04FgvafOpGNGhOYOgksUyvYISHAER2q3+SNORNj0kECQEue5RpOadPo4Y2UV13/AHcB7Ydz5fiPysJrBBcQCYgnS9wzN6bjvl1cnur4laZCJF63H8FToOxDZgZAzHPLLeUCQQDEFisoRWSyp25yoedbvOcCGhZ8zFziqYWthRS8uEykoNlBP8WmWVas+UJz5JYV32unRTSHGY6ZlJBLiySbdPy3-----END RSA PRIVATE KEY-----"
+    }
+  ],
+  "BAS_AGENCY_INFO": [
+    {
+      "AGENCY_ID": "1",
+      "AGENCY_CODE": "100001",
+      "AGENCY_NAME": "单位001",
+      "MOF_DIV_CODE": "福建省",
+      "AGENCY_ADM_LEVEL_CODE": "03",
+      "AGENCY_TYPE_CODE": "行政单位",
+      "AGENCY_LEADER_PER_NAME": "单位法人",
+      "LOCATION": "单位地区行政区划",
+      "PARENT_ID": "父级信息项主键，如果是一级则允许为空",
+      "LEVEL_NO": "级次",
+      "IS_LEAF": "是否末级",
+      "SUPDEP_CODE": "部门标识代码，101人大131政协"
+      }
+  ]
+}

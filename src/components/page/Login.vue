@@ -4,7 +4,7 @@
             <el-form-item style="margin-top: 20px">
                 <span style="font-size: 20px;color: #22ccdd;line-height: 40px;">预算管理一体化系统</span>
             </el-form-item>
-            <el-form-item prop="username" style="width: 390px;margin-top: 20px" >
+            <el-form-item prop="username" style="width: 390px" >
                 <el-input ref="username" v-model="loginForm.username" prefix-icon="el-icon-user" type="text"
                           placeholder="账号" autocomplete="on"></el-input>
             </el-form-item>
@@ -15,11 +15,10 @@
             <el-form-item prop="verificationCode" class="verification-code" style="width: 390px">
                 <el-container>
                     <el-input
-                            prefix-icon="el-icon-lock"
+                            prefix-icon="el-icon-circle-check"
                             v-model="loginForm.verificationCode"
                             ref="verificationCode"
                             placeholder="验证码"
-                            tabindex="3"
                             maxlength="4"
                             autocomplete="off"
                     />
@@ -35,7 +34,7 @@
             </el-form-item>
 
             <el-button type="primary" style="width:390px;margin-bottom:20px;"
-                       @click.prevent="">
+                       @click.prevent="handleLogin">
                 登录
             </el-button>
         </el-form>
@@ -44,7 +43,7 @@
 
 <script>
     import {FormValidate} from "../../utils/validate";
-
+    import JSEncrypt from 'jsencrypt'
     export default {
 
         name: "Login",
@@ -91,12 +90,83 @@
             }
         },
         created() {
-
+            this.getAccount()
         },
         mounted() {
             this.createCode()
         },
         methods:{
+
+            //模拟后台用户验证
+            authenticationUser(username, encryptPassword){
+                //用户组
+                let users=[];
+                for (let user of this.$store.state.user_info.user){
+                    users.push(user['username'])
+                }
+                console.log(users)
+                //用户存在判断
+                if (users.includes(username)){
+                    //创建解密对象实例
+                    let jsEncrypt=new JSEncrypt();
+                    this.$store.dispatch('user_info/getPrivateKey').then(
+                        //私钥
+                        privateKey=>{
+                            //设置解密的私钥
+                            jsEncrypt.setPrivateKey(privateKey);
+                            //密码解密
+                            let decryptPassword=jsEncrypt.decrypt(encryptPassword);
+                            this.$store.dispatch('user_info/authenticationUser',{username,decryptPassword}).then(()=>{
+                                this.$router.push({
+                                    path:'/',
+                                    query:{
+                                        user:{username},
+                                        // user:user
+                                    }
+                                });
+                                this.$notify.success({
+                                    title: '登录成功！'
+                                });
+                            });
+                        }
+                    )
+
+                }else {
+                    this.$notify.error({
+                        title: '用户不存在！'
+                    });
+                }
+            },
+            //获取用户账号密码
+            getAccount(){
+                this.$store.dispatch('user_info/getUser')
+            },
+            //登录
+            handleLogin() {
+                this.$refs['loginForm'].validate(valid=>{
+                    if (valid){
+                        //创建加密对象实例
+                        let jsEncrypt=new JSEncrypt();
+                        //获取公钥并加密
+                        this.$store.dispatch('user_info/getPublicKey').then(
+                            publicKey=>{
+                                //设置加密公钥
+                                jsEncrypt.setPublicKey(publicKey);
+                                //密码加密
+                                let encryptPassword=jsEncrypt.encrypt(this.loginForm.password);
+                                //匹配验证
+                                this.authenticationUser(this.loginForm.username,encryptPassword)
+                            }
+                        )
+                    }
+                    else {
+                        this.$notify.error({
+                            title: '登录失败！'
+                        });
+                    }
+                });
+
+            },
             // 获得验证码
             createCode () {
                 let canvas = this.$refs.code;
@@ -159,38 +229,11 @@
                     return `rgb(${r}, ${g}, ${b})`
                 }
             },
-            //登录
-            /*handleLogin() {
-                this.$refs['loginForm'].validate(valid=>{
-                    if (valid){
-                        //创建加密对象实例
-                        let jsEncrypt=new JSEncrypt();
-                        //获取公钥并加密
-                        this.$store.dispatch('login/getPublicKey').then(
-                            publicKey=>{
-                                //设置加密公钥
-                                jsEncrypt.setPublicKey(publicKey);
-                                //密码加密
-                                let encryptPassword=jsEncrypt.encrypt(this.loginForm.password);
-                                //匹配验证
-                                this.authenticationUser(this.loginForm.username,encryptPassword)
-                            }
-                        )
-                    }
-                    else {
-                        this.$notify.error({
-                            title: '登录失败！'
-                        });
-                    }
-                });
-
-            },*/
-
         }
     }
 </script>
 
-<style scoped>
+<style scoped lang="less">
     #login{
         background-image:url('./../../assets/imgs/background.jpg');
         position: absolute;
@@ -199,20 +242,33 @@
         overflow: hidden;
         top:0;
         left:0;
+        .login_form{
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            background: #fff;
+            padding: 0 25px;
+            opacity: 0.7;
+            max-width: 100%;
+            overflow: hidden;
+            border-radius: 3px;
+            box-shadow: 0 0 .5em #b4a078;
+            animation: shake-baidu 2s ease 0s 1;
+
+        }
 
     }
-    #login .login_form{
-        background: #fff;
-        padding: 0 25px;
-        /*background-color: #B3C0D1;*/
-        position: absolute;
-        top:50%;
-        left:50%;
-        transform:translateX(-50%) translateY(-50%);
-        opacity: 0.7;
-        max-width: 100%;
-        overflow: hidden;
+    @keyframes shake-baidu {
+        from    { transform: rotate(0deg); }
+        4%      { transform: rotate(5deg); }
+        12.5%   { transform: rotate(-5deg); }
+        21%     { transform: rotate(5deg); }
+        29%     { transform: rotate(-5deg); }
+        37.5%   { transform: rotate(5deg); }
+        46%     { transform: rotate(-5deg); }
+        50%,to  { transform: rotate(0deg); }
     }
+
 
 
 </style>
