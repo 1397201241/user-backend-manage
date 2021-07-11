@@ -10,7 +10,6 @@
       <!--      用户头像及下拉框-->
       <div class="headRight">
         <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.username}}</span>
-
         <el-dropdown>
           <img src="../../assets/img/head.png">
           <el-dropdown-menu slot="dropdown">
@@ -74,6 +73,7 @@
 import MenuTree from "../common/MenuTree";
 import User from "./Users";
 import Role from "./Roles";
+import Welcome from "./Welcome";
 
 export default {
   name: "Home",
@@ -96,8 +96,8 @@ export default {
             {
               "id": 253,
               "parentId": 1,
-              "menuName": "单位管理",
-              "url": "/agency",
+              "menuName": "欢迎页面",
+              "url": "/welcome",
               "icon": "el-icon-star-off",
               "orderNum": 1,
               "open": 0,
@@ -137,6 +137,19 @@ export default {
               "parentId": 1,
               "menuName": "部门管理",
               "url": "/departments",
+              "icon": "el-icon-s-home",
+              "orderNum": 3,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
+              "id": 261,
+              "parentId": 1,
+              "menuName": "单位管理",
+              "url": "/agency",
               "icon": "el-icon-s-home",
               "orderNum": 3,
               "open": 0,
@@ -378,7 +391,7 @@ export default {
     }
   },
   // eslint-disable-next-line vue/no-unused-components
-  components: {MenuTree,User,Role},
+  components: {MenuTree,User,Role,Welcome},
   methods:{
     //tab标签点击时，切换相应的路由
     tabClick(tab){
@@ -395,12 +408,12 @@ export default {
       if(targetName === '/'){
         return
       }
-      this.$store.commit('tab_info/delete_tabs', targetName);
+      this.$store.commit('tab_info/DELETE_TABS', targetName);
       if (this.$store.state.tab_info.activeIndex === targetName) {
         // 设置删除后，重新激活的路径
         if (this.$store.state.tab_info.openTab && this.$store.state.tab_info.openTab.length >= 1) {
           //设置路由展示，为索引前一个路由
-          this.$store.commit('tab_info/set_active_index', this.$store.state.tab_info.openTab[this.$store.state.tab_info.openTab.length-1].route);
+          this.$store.commit('tab_info/SET_ACTIVE_INDEX', this.$store.state.tab_info.openTab[this.$store.state.tab_info.openTab.length-1].route);
           //跳转路由
           this.$router.push({path: this.$store.state.tab_info.activeIndex});
         } else {
@@ -424,26 +437,8 @@ export default {
     // 刷新时以当前路由做为tab加入tabs
     // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
     // 当当前路由是首页时，添加首页到store，并设置激活状态
-    if (this.$route.path !== '/' && this.$route.path !== '/home') {
-      console.log('非首页');
-      //通过路由的判断，来加入标签页的名称
-      if(this.$route.path === "/users"){
-        if(!this.$store.commit('tab_info/checkExist','/users')){
-          this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "用户列表"});
-        }
-      }
-      if(this.$route.path === "/roles"){
-        if(!this.$store.commit('tab_info/checkExist','/roles')){
-          this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "角色列表"});
-        }
-      }
-      this.$store.commit('tab_info/set_active_index', this.$route.path);
-    } else {
-      console.log('是首页');
-      this.$store.commit('tab_info/add_tabs', {route: '/users', name: '用户列表'});
-      this.$store.commit('tab_info/set_active_index', '/users');
-      this.$router.push('/users');
-    }
+    console.log(this.$store.state.user_info.info)
+    this.$store.dispatch('tab_info/setTab',this.$route.path)
   },
   watch:{
     '$route'(to,from){
@@ -453,12 +448,9 @@ export default {
       let flag = false;
       console.log(from)
       for(let item of this.$store.state.tab_info.openTab){
-        console.log("item.path",item.route)
-        console.log("t0.path",to.path)
 
         if(item.route === to.path){
-          console.log('to.path',to.path);
-          this.$store.commit('tab_info/set_active_index',to.path)
+          this.$store.commit('tab_info/SET_ACTIVE_INDEX',to.path)
           flag = true;
           break;
         }
@@ -467,17 +459,27 @@ export default {
         console.log('to.path',to.path);
         //通过路由的判断，来加入标签页的名称
         if(to.path === '/users') {
-          if (!this.$store.commit('tab_info/checkExist', '/users')) {
-            this.$store.commit('tab_info/add_tabs', {route: this.$route.path, name: "用户列表"});
+          this.$store.commit('tab_info/CHECK_EXIST','/users')
+          if (!this.$store.state.tab_info.isTabShow) {
+            console.log("监听到切换！u")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path, name: "用户列表"});
           }
         }
         if(to.path === "/roles"){
-          if(!this.$store.commit('tab_info/checkExist','/roles')){
-            this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "角色列表"});
+          this.$store.commit('tab_info/CHECK_EXIST','/roles')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
+          }
+        }
+        if(to.path === "/welcome"){
+          this.$store.commit('tab_info/CHECK_EXIST','/welcome')
+          if(!this.$store.state.tab_info.isTabShow){
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "欢迎页面"});
           }
         }
 
-        this.$store.commit('tab_info/set_active_index', to.path);
+        this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
       }
     }
   }
@@ -579,10 +581,6 @@ export default {
     .el-tabs{
       height: 600px;
       width: 1270px;
-      .el-tab-pane{
-        height: 100%;
-        width: 1270px;
-      }
     }
   }
 

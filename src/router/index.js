@@ -11,6 +11,8 @@ const Roles = ()=>import('../components/page/Roles');
 const Test = ()=>import('../components/page/Test');
 const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
+const Welcome = ()=>import('../components/page/Welcome');
+
 
 Vue.use(VueRouter);
 
@@ -67,6 +69,12 @@ const routes = [
         component:Agency,
         meta:{title:'单位信息',requireAuth:true},
       },
+      {
+        path: '/welcome',
+        name:'Welcome',
+        component:Welcome,
+        meta: {title: '欢迎页面'}
+      }
     ],
   },
 ]
@@ -80,6 +88,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     let token=getToken();
     if (token) {
+      console.log(token)
       //判断用户信息是否已获取，这里只能通过长度判断
       //正常情况下刷新会丢失store里的状态
       if (store.state.user_info.info.length===0){

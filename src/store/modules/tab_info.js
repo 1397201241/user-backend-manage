@@ -1,6 +1,8 @@
+import router from "../../router";
 const state = () => ({
   openTab:[],//所有打开的路由
   activeIndex:'' , //也可以是默认激活路径；激活状态
+  isTabShow:false
 });
 
 // getters 相当于计算属性
@@ -9,20 +11,25 @@ const getters = {
 
 // 提交 mutation 是更改状态的唯一方法，并且这个过程是同步的。
 const mutations = {
-  checkExist(state,name){
-    for(let i of state.openTab){
-      if(i===name){
-        return true
+  CLEAN_TABS(state){
+    state.openTab=[]
+  },
+  CHECK_EXIST(state, name){
+    for(let i=0;i<state.openTab.length;i++){
+      if(state.openTab[i].route===name){
+        console.log("该标签页已存在！")
+        state.isTabShow=true
+        return
       }
     }
-    return false
+    state.isTabShow=false
   },
   // 添加tabs
-  add_tabs (state, data) {
+  ADD_TABS(state, data) {
     state.openTab.push(data)
   },
   // 删除tabs
-  delete_tabs (state, route) {
+  DELETE_TABS (state, route) {
     let index = 0;
     for (let option of state.openTab) {
       if (option.route === route) {
@@ -33,13 +40,49 @@ const mutations = {
     state.openTab.splice(index, 1);
   },
   // 设置当前激活的tab
-  set_active_index (state, index) {
+  SET_ACTIVE_INDEX (state, index) {
     state.activeIndex = index;
   },
 };
 
 // actions 内部可以执行异步操作，context.commit()提交mutations来修改状态
 const actions = {
+  setTab({commit,state},path){
+    console.log('非首页');
+    console.log(path)
+    if (path !== '/' && path !== '/home') {
+      console.log('非首页');
+      //通过路由的判断，来加入标签页的名称
+      if(path === "/users"){
+        commit('CHECK_EXIST','/users')
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "用户列表"});
+        }
+      }
+      else if(path === "/roles"){
+        commit('CHECK_EXIST','/roles')
+        if(!state.isTabShow){
+          console.log("现在添加角色列表",state.isTabShow)
+          commit('ADD_TABS', {route: path , name: "角色列表"});
+        }
+      }
+      else if(path === "/welcome"){
+        commit('CHECK_EXIST','/welcome')
+        if(!state.isTabShow){
+          console.log("现在添加欢迎页面",state.isTabShow)
+          commit('ADD_TABS', {route: path , name: "欢迎页面"});
+        }
+      }
+      commit('SET_ACTIVE_INDEX', path);
+    } else {
+      console.log('是首页', state.isTabShow);
+      commit('CHECK_EXIST','/welcome')
+      if(!state.isTabShow){
+        commit('ADD_TABS', {route: '/welcome', name: '欢迎页面'});
+        commit('SET_ACTIVE_INDEX', '/welcome')}
+      router.push('/welcome').catch();
+    }
+  }
   };
 
 export default {
