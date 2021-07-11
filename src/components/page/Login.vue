@@ -90,10 +90,12 @@
             }
         },
         created() {
+            this.$store.commit('tab_info/CLEAN_TABS')
             this.getAccount()
         },
         mounted() {
             this.createCode()
+
         },
         methods:{
 

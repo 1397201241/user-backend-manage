@@ -9,6 +9,7 @@ const Login = ()=>import('../components/page/Login.vue')
 const Users = ()=>import('../components/page/Users')
 const Roles = ()=>import('../components/page/Roles')
 const NavigationBar = ()=>import('../components/common/NavigationBar')
+const Welcome = ()=>import('../components/page/Welcome')
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,12 @@ const routes = [
         component:Roles,
         meta:{title:'角色权限'},
       },
+      {
+        path: '/welcome',
+        name:'Welcome',
+        component:Welcome,
+        meta: {title: '欢迎页面'}
+      }
     ],
   },
 ]
@@ -65,6 +72,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     let token=getToken();
     if (token) {
+      console.log(token)
       //判断用户信息是否已获取，这里只能通过长度判断
       //正常情况下刷新会丢失store里的状态
       if (store.state['user_info'].info.length===0){
