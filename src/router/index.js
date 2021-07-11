@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NavigationBar from "../components/common/NavigationBar";
 import {getToken} from "../utils/auth";
 import store from '../store'
 
@@ -9,7 +8,6 @@ const Register = ()=>import('../components/page/Register.vue')
 const Login = ()=>import('../components/page/Login.vue')
 const Users = ()=>import('../components/page/Users')
 const Roles = ()=>import('../components/page/Roles')
-const Test = ()=>import('../components/page/Test')
 const NavigationBar = ()=>import('../components/common/NavigationBar')
 
 Vue.use(VueRouter);
