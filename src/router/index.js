@@ -1,12 +1,16 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../components/page/Home.vue'
-import Register from "../components/page/Register";
-import Login from "../components/page/Login";
-import Test from "../components/page/Test";
 import NavigationBar from "../components/common/NavigationBar";
 import {getToken} from "../utils/auth";
 import store from '../store'
+
+const Home = ()=>import('../components/page/Home.vue')
+const Register = ()=>import('../components/page/Register.vue')
+const Login = ()=>import('../components/page/Login.vue')
+const Users = ()=>import('../components/page/Users')
+const Roles = ()=>import('../components/page/Roles')
+const Test = ()=>import('../components/page/Test')
+const NavigationBar = ()=>import('../components/common/NavigationBar')
 
 Vue.use(VueRouter);
 
@@ -34,9 +38,23 @@ const routes = [
     component: Register
   },
   {
-    path: '/test',
-    name: 'Test',
-    component: Test
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    children:[
+      {
+        path:'/users',
+        name:'Users',
+        component:Users,
+        meta:{title:'用户列表'},
+      },
+      {
+        path:'/roles',
+        name:'Roles',
+        component:Roles,
+        meta:{title:'角色权限'},
+      },
+    ],
   },
 ]
 
