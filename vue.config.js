@@ -8,4 +8,5 @@ module.exports = {
       patterns: [path.resolve(__dirname, "src/global.less")]
     }
   }
+
 };
