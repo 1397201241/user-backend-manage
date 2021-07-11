@@ -95,7 +95,7 @@ export default {
             {
               "id": 253,
               "parentId": 1,
-              "menuName": "单位管理",
+              "menuName": "欢迎页面",
               "url": "/welcome",
               "icon": "el-icon-star-off",
               "orderNum": 1,
@@ -427,7 +427,7 @@ export default {
       console.log('非首页');
       //通过路由的判断，来加入标签页的名称
       if(this.$route.path === "/users"){
-        if(!this.$store.commit('tab_info/checkExist','/users')){
+        if(this.$store.commit('tab_info/checkExist','/users')){
           this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "用户列表"});
         }
       }
@@ -439,9 +439,11 @@ export default {
       this.$store.commit('tab_info/set_active_index', this.$route.path);
     } else {
       console.log('是首页');
-      this.$store.commit('tab_info/add_tabs', {route: '/users', name: '用户列表'});
-      this.$store.commit('tab_info/set_active_index', '/users');
-      this.$router.push('/users');
+      if(!this.$store.commit('tab_info/checkExist','/users')){
+        console.log(this.$store.commit('tab_info/checkExist','/users'))
+        this.$store.commit('tab_info/add_tabs', {route: '/users', name: '用户列表'});
+        this.$store.commit('tab_info/set_active_index', '/users')}
+        this.$router.push('/users');
     }
   },
   watch:{

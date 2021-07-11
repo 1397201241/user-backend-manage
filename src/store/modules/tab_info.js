@@ -10,8 +10,8 @@ const getters = {
 // 提交 mutation 是更改状态的唯一方法，并且这个过程是同步的。
 const mutations = {
   checkExist(state,name){
-    for(let i of state.openTab){
-      if(i===name){
+    for(let i=0;i<state.openTab.length;i++){
+      if(state.openTab[i].route===name){
         return true
       }
     }
