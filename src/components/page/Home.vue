@@ -9,7 +9,8 @@
 
       <!--      用户头像及下拉框-->
       <div class="headRight">
-        <span style="color: white;font-size: 30px">Hello,Programmer</span>
+        <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.username}}</span>
+
         <el-dropdown>
           <img src="../../assets/img/head.png">
           <el-dropdown-menu slot="dropdown">
@@ -96,7 +97,7 @@ export default {
               "id": 253,
               "parentId": 1,
               "menuName": "单位管理",
-              "url": "/welcome",
+              "url": "/agency",
               "icon": "el-icon-star-off",
               "orderNum": 1,
               "open": 0,
@@ -391,7 +392,7 @@ export default {
     tabRemove(targetName){
       console.log("tabRemove",targetName);
       //首页不删
-      if(targetName == '/'){
+      if(targetName === '/'){
         return
       }
       this.$store.commit('tab_info/delete_tabs', targetName);
