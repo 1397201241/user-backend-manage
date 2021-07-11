@@ -19,26 +19,49 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
-
     </el-header>
 
 
 
     <el-container>
-      <el-aside width="220px">
+      <el-aside width="200px">
         <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
             @open="handleOpen"
             @close="handleClose"
+            active-text-color="rgba(95,179,236)"
             :router="true">
           <MenuTree :menuList="this.menuList"></MenuTree>
         </el-menu>
       </el-aside>
 
       <el-main>
-        <router-view>
-        </router-view>
+        <!-- 内容区 -->
+        <div class="app-wrap">
+          <!-- 此处放置el-tabs代码 -->
+          <el-tabs
+              v-model="$store.state.tab_info.activeIndex"
+              type="border-card"
+              closable
+              v-if="$store.state.tab_info.openTab.length"
+              @tab-click='tabClick'
+              @tab-remove='tabRemove'
+          >
+            <!-- 获取vuex中的openTab数组数据，循环展示 -->
+            <el-tab-pane
+                :key="index"
+                v-for="(item, index) in $store.state.tab_info.openTab"
+                :label="item.name"
+                :name="item.route"
+            >
+              <div class="content-wrap" style="height: 100%;">
+                <!-- 展示路由内容 -->
+                <router-view></router-view>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
       </el-main>
     </el-container>
   </el-container>
@@ -48,22 +71,13 @@
 
 <script>
 import MenuTree from "../common/MenuTree";
+import User from "./Users";
+import Role from "./Roles";
+
 export default {
   name: "Home",
   data () {
     return {
-      editableTabsValue: '2',
-      editableTabs: [{
-        title: 'Tab 1',
-        name: '1',
-        content: 'Tab 1 content'
-      }, {
-        title: 'Tab 2',
-        name: '2',
-        content: 'Tab 2 content'
-      }],
-      tabIndex: 2,
-
       activePath: '',
       menuList: [
         {
@@ -275,7 +289,7 @@ export default {
               "disabled": false,
               "perms": "",
               "type": 0,
-              /*"children": [
+              "children": [
                 {
                   "id": 298,
                   "parentId": 297,
@@ -289,7 +303,7 @@ export default {
                   "type": 0,
                   "children": []
                 }
-              ]*/
+              ]
             },
             {
               "id": 341,
@@ -362,37 +376,38 @@ export default {
       ]
     }
   },
-  components: {MenuTree},
-  methods: {
-    handleTabsEdit(targetName, action) {
-      if (action === 'add') {
-        let newTabName = ++this.tabIndex + '';
-        this.editableTabs.push({
-          title: 'New Tab',
-          name: newTabName,
-          content: 'New Tab content'
-        });
-        this.editableTabsValue = newTabName;
+  // eslint-disable-next-line vue/no-unused-components
+  components: {MenuTree,User,Role},
+  methods:{
+    //tab标签点击时，切换相应的路由
+    tabClick(tab){
+      console.log("tab",tab);
+      if(this.$route.path === this.$store.state.tab_info.activeIndex){
+        return
       }
-      if (action === 'remove') {
-        let tabs = this.editableTabs;
-        let activeName = this.editableTabsValue;
-        if (activeName === targetName) {
-          tabs.forEach((tab, index) => {
-            if (tab.name === targetName) {
-              let nextTab = tabs[index + 1] || tabs[index - 1];
-              if (nextTab) {
-                activeName = nextTab.name;
-              }
-            }
-          });
+      this.$router.push({path:this.$store.state.tab_info.activeIndex});
+    },
+    //移除tab标签
+    tabRemove(targetName){
+      console.log("tabRemove",targetName);
+      //首页不删
+      if(targetName == '/'){
+        return
+      }
+      this.$store.commit('tab_info/delete_tabs', targetName);
+      if (this.$store.state.tab_info.activeIndex === targetName) {
+        // 设置删除后，重新激活的路径
+        if (this.$store.state.tab_info.openTab && this.$store.state.tab_info.openTab.length >= 1) {
+          //设置路由展示，为索引前一个路由
+          this.$store.commit('tab_info/set_active_index', this.$store.state.tab_info.openTab[this.$store.state.tab_info.openTab.length-1].route);
+          //跳转路由
+          this.$router.push({path: this.$store.state.tab_info.activeIndex});
+        } else {
+          //否则 跳转到首页
+          this.$router.push({path: '/home'});
         }
-
-        this.editableTabsValue = activeName;
-        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-
-      }},
-
+      }
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -401,8 +416,68 @@ export default {
     },
     dropOut(){
       console.log("dropout")
-      this.$router.push('/login')
+      this.$router.push('/')
+    }
+  },
+  mounted () {
+    // 刷新时以当前路由做为tab加入tabs
+    // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
+    // 当当前路由是首页时，添加首页到store，并设置激活状态
+    if (this.$route.path !== '/' && this.$route.path !== '/home') {
+      console.log('非首页');
+      //通过路由的判断，来加入标签页的名称
+      if(this.$route.path === "/users"){
+        if(!this.$store.commit('tab_info/checkExist','/users')){
+          this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "用户列表"});
+        }
+      }
+      if(this.$route.path === "/roles"){
+        if(!this.$store.commit('tab_info/checkExist','/roles')){
+          this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "角色列表"});
+        }
+      }
+      this.$store.commit('tab_info/set_active_index', this.$route.path);
+    } else {
+      console.log('是首页');
+      this.$store.commit('tab_info/add_tabs', {route: '/users', name: '用户列表'});
+      this.$store.commit('tab_info/set_active_index', '/users');
+      this.$router.push('/users');
+    }
+  },
+  watch:{
+    '$route'(to,from){
+      //判断路由是否已经打开
+      //已经打开的 ，将其置为active
+      //未打开的，将其放入队列里
+      let flag = false;
+      console.log(from)
+      for(let item of this.$store.state.tab_info.openTab){
+        console.log("item.path",item.route)
+        console.log("t0.path",to.path)
 
+        if(item.route === to.path){
+          console.log('to.path',to.path);
+          this.$store.commit('tab_info/set_active_index',to.path)
+          flag = true;
+          break;
+        }
+      }
+      if(!flag){
+        console.log('to.path',to.path);
+        //通过路由的判断，来加入标签页的名称
+        if(to.path === '/users') {
+          if (!this.$store.commit('tab_info/checkExist', '/users')) {
+            this.$store.commit('tab_info/add_tabs', {route: this.$route.path, name: "用户列表"});
+          }
+        }
+        if(to.path === "/roles"){
+          if(!this.$store.commit('tab_info/checkExist','/roles')){
+            this.$store.commit('tab_info/add_tabs', {route: this.$route.path , name: "角色列表"});
+          }
+        }
+
+        this.$store.commit('tab_info/set_active_index', to.path);
+      }
     }
   }
 }
@@ -413,8 +488,9 @@ export default {
   .el-container {
   position: page;
   }
+
   .el-header {
-    background-color: #649DD9FF;
+    background-color: #3785c9;
     color: #333;
     text-align: center;
     line-height: 60px;
@@ -422,6 +498,24 @@ export default {
     justify-content: space-between;
     padding-left: 0;
     align-items: center;
+    box-shadow:  3px 0px 5px 2px #9fc1db;
+
+    .headRight {
+      margin-left: 750px;
+      span {
+        font-size: 30px;
+        font-family: 幼圆;
+        font-weight: bolder;
+        color: white;
+      }
+      .el-dropdown > img {
+        width: 50px;
+        height: 50px;
+        margin: 5px 15px -20px 20px;
+        border-radius: 50%;
+        border: #c7e7ea 2px solid;
+      }
+    }
 
     .headLeft {
       display: flex;
@@ -445,33 +539,22 @@ export default {
       }
     }
 
-    .headRight {
-      span {
-        font-size: 30px;
-        font-family: 幼圆;
-        font-weight: bolder;
-        color: white;
-      }
-      .el-dropdown > img {
-        width: 50px;
-        height: 50px;
-        margin: 5px 15px -20px 20px;
-        border-radius: 50%;
-        border: #c7e7ea 2px solid;
-      }
-    }
+
 
   }
 
   .el-aside {
+    box-shadow:  3px 0px 20px 3px #7fc0d0;
     background-color: #f3f3f8;
     color: #333;
     line-height: 200px;
     height: 646px;
 
     .el-menu{
-      margin-left: -40px;
+      margin-left: -16px;
+      text-align: left;
     }
+
 
     .el-menu-vertical-demo {
       background-color: #f4f4fa;
@@ -479,31 +562,28 @@ export default {
   }
 
   .el-main {
+    box-shadow: inset 3px 3px 30px #91c2e3;
     background-color: #f1f3f5;
     color: #333;
     text-align: center;
-    line-height: 160px;
-  }
-
-  body > .el-container {
-    margin-bottom: 40px;
   }
 
   .mainContainer {
     height: 100%;
   }
+  .app-wrap{
+    height: 600px;
+    width: 1250px;
 
-
-.mainMenuCard{
-  height: 50px;
-  width: 100%
-}
-  .el-tabs{
-    height: 40px;
-    background-color: red;
-    .el-tab-pane{
-      height: 40px;
+    .el-tabs{
+      height: 600px;
+      width: 1270px;
+      .el-tab-pane{
+        height: 100%;
+        width: 1270px;
+      }
     }
   }
 
 </style>
+
