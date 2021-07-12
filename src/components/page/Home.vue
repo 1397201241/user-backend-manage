@@ -147,6 +147,19 @@ export default {
               "children": []
             },
             {
+              "id": 261,
+              "parentId": 1,
+              "menuName": "单位管理",
+              "url": "/agency",
+              "icon": "el-icon-s-home",
+              "orderNum": 3,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
               "id": 319,
               "parentId": 1,
               "menuName": "公告管理",
@@ -393,7 +406,7 @@ export default {
     tabRemove(targetName){
       console.log("tabRemove",targetName);
       //首页不删
-      if(targetName == '/'){
+      if(targetName === '/'){
         return
       }
       this.$store.commit('tab_info/DELETE_TABS', targetName);
