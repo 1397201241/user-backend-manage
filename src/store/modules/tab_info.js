@@ -73,6 +73,13 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "欢迎页面"});
         }
       }
+      else if(path === "/project"){
+        commit('CHECK_EXIST','/project')
+        if(!state.isTabShow){
+          console.log("现在添加项目列表",state.isTabShow)
+          commit('ADD_TABS', {route: path , name: "项目列表"});
+        }
+      }
       commit('SET_ACTIVE_INDEX', path);
     } else {
       console.log('是首页', state.isTabShow);

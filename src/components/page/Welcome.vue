@@ -1,6 +1,6 @@
 <template>
-<div class="welcomeStyle" style="border: 10px skyblue solid;width: 1200px;height: 520px;">
-  <img src="../../assets/imgs/background.jpg" style="height: 100%;width: 100%">
+<div style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px">
+  <img src="../../assets/imgs/back.png" style="height: 100%;width: 100%">
 </div>
 </template>
 
@@ -11,6 +11,5 @@ export default {
 </script>
 
 <style scoped>
-.welcomeStyle{
-}
+
 </style>

@@ -10,6 +10,7 @@ const Users = ()=>import('../components/page/Users')
 const Roles = ()=>import('../components/page/Roles')
 const NavigationBar = ()=>import('../components/common/NavigationBar')
 const Welcome = ()=>import('../components/page/Welcome')
+const Project = ()=>import('../components/page/Project')
 
 Vue.use(VueRouter);
 
@@ -58,7 +59,13 @@ const routes = [
         name:'Welcome',
         component:Welcome,
         meta: {title: '欢迎页面'}
-      }
+      },
+      {
+        path: '/project',
+        name:'Project',
+        component:Project,
+        meta: {title: '项目列表'}
+      },
     ],
   },
 ]

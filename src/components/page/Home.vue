@@ -74,6 +74,7 @@ import MenuTree from "../common/MenuTree";
 import User from "./Users";
 import Role from "./Roles";
 import Welcome from "./Welcome";
+const Project = ()=>import('./Project')
 
 export default {
   name: "Home",
@@ -138,7 +139,7 @@ export default {
               "menuName": "部门管理",
               "url": "/departments",
               "icon": "el-icon-s-home",
-              "orderNum": 3,
+              "orderNum": 4,
               "open": 0,
               "disabled": false,
               "perms": "",
@@ -151,7 +152,7 @@ export default {
               "menuName": "公告管理",
               "url": "/notices",
               "icon": "el-icon-s-flag",
-              "orderNum": 4,
+              "orderNum": 5,
               "open": 0,
               "disabled": false,
               "perms": "",
@@ -256,7 +257,7 @@ export default {
                   "menuName": "财政部门审核",
                   "url": "/suppliers",
                   "icon": "el-icon-coordinate",
-                  "orderNum": 5,
+                  "orderNum": 1,
                   "open": 0,
                   "disabled": false,
                   "perms": "",
@@ -273,7 +274,7 @@ export default {
           "menuName": "转移支付管理",
           "url": "",
           "icon": "el-icon-s-marketing",
-          "orderNum": 5,
+          "orderNum": 3,
           "open": 0,
           "disabled": false,
           "perms": "",
@@ -337,10 +338,10 @@ export default {
         {
           "id": 5,
           "parentId": 0,
-          "menuName": "预算批复",
-          "url": "/logs",
-          "icon": "el-icon-camera",
-          "orderNum": 6,
+          "menuName": "项目管理",
+          "url": "/project",
+          "icon": "el-icon-document",
+          "orderNum": 4,
           "open": 0,
           "disabled": false,
           "perms": null,
@@ -349,8 +350,8 @@ export default {
             {
               "id": 271,
               "parentId": 5,
-              "menuName": "登入日志",
-              "url": "/loginLog",
+              "menuName": "项目列表",
+              "url": "/project",
               "icon": "el-icon-date",
               "orderNum": 1,
               "open": 0,
@@ -362,8 +363,8 @@ export default {
             {
               "id": 307,
               "parentId": 5,
-              "menuName": "操作日志",
-              "url": "/logs",
+              "menuName": "新建项目",
+              "url": "/newproject",
               "icon": "el-icon-edit",
               "orderNum": 1,
               "open": 1,
@@ -378,7 +379,7 @@ export default {
     }
   },
   // eslint-disable-next-line vue/no-unused-components
-  components: {MenuTree,User,Role,Welcome},
+  components: {MenuTree,User,Role,Welcome,Project},
   methods:{
     //tab标签点击时，切换相应的路由
     tabClick(tab){
@@ -452,20 +453,25 @@ export default {
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path, name: "用户列表"});
           }
         }
-        if(to.path === "/roles"){
+        else if(to.path === "/roles"){
           this.$store.commit('tab_info/CHECK_EXIST','/roles')
           if(!this.$store.state.tab_info.isTabShow){
             console.log("监听到切换！r")
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
           }
         }
-        if(to.path === "/welcome"){
+        else if(to.path === "/welcome"){
           this.$store.commit('tab_info/CHECK_EXIST','/welcome')
           if(!this.$store.state.tab_info.isTabShow){
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "欢迎页面"});
           }
         }
-
+        else if(to.path === "/project"){
+          this.$store.commit('tab_info/CHECK_EXIST','/project')
+          if(!this.$store.state.tab_info.isTabShow){
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "项目列表"});
+          }
+        }
         this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
       }
     }
@@ -562,12 +568,11 @@ export default {
     height: 100%;
   }
   .app-wrap{
-    height: 600px;
-    width: 1250px;
+    margin: -12px -15px -15px -12px;
 
     .el-tabs{
-      height: 600px;
-      width: 1270px;
+      height: 630px;
+      width: 1305px;
     }
   }
 
