@@ -3,15 +3,22 @@
     <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px" style="margin-top: 0">
       <el-container >
         <el-form-item label="设立年份" prop="SETUP_YEAR">
-        <el-input v-model="formData.SETUP_YEAR" placeholder="请输入设立年份" clearable :style="{width: '80%'}">
-        </el-input>
+<!--        <el-input v-model="formData.SETUP_YEAR" placeholder="请输入设立年份" clearable :style="{width: '80%'}">
+        </el-input>-->
+        <el-select v-model="formData.SETUP_YEAR" placeholder="请选择" :style="{width: '80%'}">
+            <el-option
+                v-for="item in setupYearOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
       </el-form-item>
         <el-form-item label="项目名称" prop="PRO_NAME">
         <el-input v-model="formData.PRO_NAME" placeholder="请输入项目名称" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
       </el-container>
-
       <el-container>
       <el-form-item label="项目预算" prop="PRO_TOTAL_AMT">
         <el-input v-model="formData.PRO_TOTAL_AMT" placeholder="请输入项目预算" clearable :style="{width: '80%'}">
@@ -22,29 +29,84 @@
         </el-input>
       </el-form-item>
       </el-container>
-
       <el-container>
         <el-form-item label="单位代码" prop="AGENCY_CODE">
-          <el-input v-model="formData.AGENCY_CODE" placeholder="请输入单位代码" clearable :style="{width: '80%'}">
-          </el-input>
+<!--          <el-input v-model="formData.AGENCY_CODE" placeholder="请输入单位代码" clearable :style="{width: '80%'}">
+          </el-input>-->
+          <el-select v-model="formData.AGENCY_CODE" placeholder="请选择" :style="{width: '80%'}">
+            <el-option
+                v-for="item in agencyCodeOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="项目ID" prop="PRO_ID">
           <el-input v-model="formData.PRO_ID" placeholder="请输入项目ID" clearable :style="{width: '100%'}">
           </el-input>
         </el-form-item>
       </el-container>
-
       <el-container>
         <el-form-item label="项目期限" prop="PRO_TERM">
           <el-input v-model="formData.PRO_TERM" placeholder="请输入项目期限" clearable :style="{width: '80%'}">
           </el-input>
         </el-form-item>
         <el-form-item label="开工年份" prop="PRO_START_YEAR">
-          <el-input v-model="formData.PRO_START_YEAR" placeholder="请输入开工年份" clearable :style="{width: '100%'}">
-          </el-input>
+<!--          <el-input v-model="formData.PRO_START_YEAR" placeholder="请输入开工年份" clearable :style="{width: '100%'}">
+          </el-input>-->
+          <el-select v-model="formData.PRO_START_YEAR" placeholder="请选择" :style="{width: '100%'}">
+            <el-option
+                v-for="item in startYearOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-container>
-
+      <el-container>
+        <el-form-item label="结束代码" prop="IS_END">
+<!--          <el-input v-model="formData.IS_END" placeholder="请输入结束代码" clearable :style="{width: '80%'}">
+          </el-input>-->
+          <el-select v-model="formData.IS_END" placeholder="请选择" :style="{width: '80%'}">
+            <el-option
+                v-for="item in [{label:0,value:0},{label:1,value:1}]"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="删除代码" prop="IS_DELETE">
+<!--          <el-input v-model="formData.IS_DELETED" placeholder="请输入删除代码" clearable :style="{width: '100%'}">
+          </el-input>-->
+          <el-select v-model="formData.IS_END" placeholder="请选择" :style="{width: '100%'}">
+            <el-option
+                v-for="item in [{label:0,value:0},{label:1,value:1}]"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-container>
+      <el-form-item label="单位建议" prop="PRO_AGENCY_VIEW">
+        <el-input type="textarea" v-model="formData.PRO_AGENCY_VIEW" placeholder="请输入单位建议" clearable :style="{width: '100%'}">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="财政建议" prop="PRO_BGTREVIEW">
+        <el-input type="textarea" v-model="formData.PRO_BGTREVIEW" placeholder="请输入财政建议" clearable :style="{width: '100%'}">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="项目简介" prop="PRO_DESC">
+        <el-input type="textarea" v-model="formData.PRO_DESC" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
+        </el-input>
+      </el-form-item>
+      <el-form-item label="版本号" prop="VERSION">
+        <el-input v-model="formData.VERSION" placeholder="请输入版本号" clearable :style="{width: '100%'}">
+        </el-input>
+      </el-form-item>
     </el-form>
     <div slot="footer" style="margin-top: -50px">
       <el-button @click="close">取消</el-button>
@@ -116,6 +178,95 @@ export default {
         PRO_ID:[{required:true,message:'请输入项目id',trigger:'blur'}],
         AGENCY_CODE:[{required:true,message:'请输入单位代码',trigger:'blur'}]
       },
+      setupYearOptions:[
+        {
+          label:2010,
+          value:2010
+        },
+        {
+          label:2011,
+          value:2011
+        },
+        {
+          label:2012,
+          value:2012
+        },
+        {
+          label:2013,
+          value:2013
+        },
+        {
+          label:2014,
+          value:2014
+        }, {
+          label:2015,
+          value:2015
+        }, {
+          label:2016,
+          value:2016
+        }, {
+          label:2017,
+          value:2017
+        }, {
+          label:2018,
+          value:2018
+        }, {
+          label:2019,
+          value:2019
+        },
+      ],
+      startYearOptions:[
+        {
+          label:2010,
+          value:2010
+        },
+        {
+          label:2011,
+          value:2011
+        },
+        {
+          label:2012,
+          value:2012
+        },
+        {
+          label:2013,
+          value:2013
+        },
+        {
+          label:2014,
+          value:2014
+        }, {
+          label:2015,
+          value:2015
+        }, {
+          label:2016,
+          value:2016
+        }, {
+          label:2017,
+          value:2017
+        }, {
+          label:2018,
+          value:2018
+        }, {
+          label:2019,
+          value:2019
+        },
+      ],
+      agencyCodeOptions:[
+        {
+          label:"省级",
+          value:"SHENG"
+        }, {
+          label:"市级",
+          value:"SHI"
+        }, {
+          label:"县级",
+          value:"XIAN"
+        }, {
+          label:"乡级",
+          value:"XIANG"
+        },
+      ],
     }
   },
   methods:{

@@ -15,7 +15,7 @@
               :options="options"
               @change="handleChange">
           </el-cascader>
-          <el-button type="primary"  icon="el-icon-refresh" style="margin-left: 10px" @click="getProjectList">刷新</el-button>
+          <el-button type="primary"  icon="el-icon-refresh" style="margin-left: 10px" @click="iRefresh">刷新</el-button>
           <el-button @click="selectPro" type="primary" icon="el-icon-search" style="margin-left: 5px">查看</el-button>
         </el-form>
       </div>
@@ -92,7 +92,7 @@
             </template>
           </el-table-column>
           <el-table-column
-                label="设立日期"
+                label="设立年份"
                 width="180">
               <template slot-scope="scope">{{ scope.row.SETUP_YEAR }}</template>
             </el-table-column>
@@ -114,9 +114,9 @@
           <el-table-column
               fixed="right"
               label="操作"
-              width="160">
+              width="200">
            <template slot-scope="scope">
-              <el-button type="primary"  @click="show(2,scope.row.id)">编辑项目信息</el-button>
+              <el-button type="primary"  @click="show(2,scope.row.id)">编辑项目</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -142,12 +142,9 @@
 <script>
 import {get,post,del,put} from "../../utils/request";
 import ProOpera from "../common/ProOpera";
-
 export default {
   name: "Project",
-
   components:{ProOpera},
-
   data(){
     return{
       proTitle:'',
@@ -209,28 +206,29 @@ export default {
       },
     }
     },
-
   created() {
     this.getProjectList()
   },
-
   methods:{
+    iRefresh(){
+      this.getProjectList()
+      this.value=[]
+      this.formInline.projectName=''
+    },
     editProList(formData){
       this.transferPro = formData
       let theURL = this.baseURL+this.projectURL+"/"+this.transferPro.id
       put(theURL,this.transferPro)
     },
-
     selectPro(){
       let filterList = [],lastList = []
       if(this.value[0] && !this.formInline.projectName) {
         for (let i of this.myTableData) {
-          if (i.SETUP_YEAR === this.value[0]) {
+          if (i.SETUP_YEAR == this.value[0]) {
             filterList.push(i)
           }
         }
         this.myTableData = filterList
-        this.value = []
       }
       else if(this.formInline.projectName && !this.value[0]){
         for(let i of this.myTableData){
@@ -239,54 +237,43 @@ export default {
           }
         }
         this.myTableData = filterList
-        this.value = []
       }
       else if(this.value[0] && this.formInline.projectName){
+        console.log(this.value[0])
         for(let i of this.myTableData){
-          if (i.SETUP_YEAR === this.value[0]) {
+          if (i.SETUP_YEAR == this.value[0]) {
             filterList.push(i)
           }
         }
+        console.log(filterList)
         for(let i of filterList){
           if(i.PRO_NAME.includes(this.formInline.projectName)){
             lastList.push(i)
           }
         }
+        console.log(lastList)
         this.myTableData = lastList
-        this.value = []
       }else{
         console.log(this.formInline.projectName,this.value,1)
         this.getProjectList()
         console.log("获取列表")
       }
     },
-
     addProList(formData){
       console.log(this.myTableData[this.myTableData.length-1])
-      this.transferPro.PRO_CODE = formData.PRO_CODE
-      this.transferPro.PRO_NAME = formData.PRO_NAME
-      this.transferPro.SETUP_YEAR = formData.SETUP_YEAR
-      this.transferPro.PRO_TOTAL_AMT = formData.PRO_TOTAL_AMT
-      this.transferPro.AGENCY_CODE = formData.AGENCY_CODE
-      this.transferPro.PRO_ID = formData.PRO_ID
-      this.transferPro.PRO_TERM = formData.PRO_TERM
+      this.transferPro = formData
       let time = new Date()
       this.transferPro.UPDATE_TIME = time.toLocaleDateString()
+      this.transferPro.CREATE_YEAR = time.toLocaleDateString()
       this.transferPro.id = (Number(this.myTableData[this.myTableData.length-1].id)+1).toString()
 
       let theURL = this.baseURL+this.projectURL
       post(theURL, this.transferPro)
       this.getProjectList()
     },
-
     showAddOrUpdate(data){
-      if(data === 'false'){
-        this.addOrUpdateVisible = false
-      }else{
-        this.addOrUpdateVisible = true
-      }
+      this.addOrUpdateVisible = data !== 'false';
     },
-
     show(operaIndex,id){
       if(operaIndex ===  1) {
         this.operaIndex = 1
@@ -303,7 +290,6 @@ export default {
       }
       this.addOrUpdateVisible = true
     },
-
     getProjectList(){
       let theURL = this.baseURL+this.projectURL
       get(theURL).then(myJson=>{
@@ -311,11 +297,9 @@ export default {
         this.totalNum = this.myTableData.length
       })
     },
-
     handleChange(value){
       console.log(this.value,value)
     },
-
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -325,24 +309,20 @@ export default {
         this.$refs.multipleTable.clearSelection();
       }
     },
-
     handleSelectionChange(val) {
       this.multipleSelection = val;
       console.log(this.multipleSelection)
     },
-
     handleSizeChange(val){
       //赋值，然后重新查询
       this.size=val;
       /*this.getUserList()*/
     },
-
     handleCurrentChange(val){
       console.log(this.current)
       this.current=val;
       /*this.getUserList()*/
     },
-
     deleteSome(){
       let toDelete = this.multipleSelection
       let deleteID = ''
@@ -358,7 +338,6 @@ export default {
     }
   }
   }
-
 </script>
 
 <style lang="less" scoped>
@@ -377,7 +356,7 @@ export default {
     color: #5908b1;
   }
 }
-  .projectBtBox{
+.projectBtBox{
     .el-button{
       height: 40px;
     }
