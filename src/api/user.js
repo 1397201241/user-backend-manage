@@ -9,7 +9,7 @@ export function getInfo(token) {
     return fetch('http://localhost:3000/user?username='+token)
         .then(res=>res.json())
         .then(myJson=>myJson[0])
-        .catch(err=> console.log(err));
+        .catch(err=>new Error("获取用户基本信息失败"+err));
 }
 
 /**

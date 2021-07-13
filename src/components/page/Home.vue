@@ -74,6 +74,7 @@ import MenuTree from "../common/MenuTree";
 import User from "./Users";
 import Role from "./Roles";
 import Welcome from "./Welcome";
+import {removeToken} from "../../utils/auth";
 
 export default {
   name: "Home",
@@ -84,7 +85,7 @@ export default {
         {
           "id": 1,
           "parentId": 0,
-          "menuName": "用户管理",
+          "menuName": "基础信息管理",
           "url": "",
           "icon": "el-icon-setting",
           "orderNum": 1,
@@ -109,7 +110,7 @@ export default {
             {
               "id": 226,
               "parentId": 1,
-              "menuName": "用户列表",
+              "menuName": "用户管理",
               "url": "/users",
               "icon": "el-icon-user",
               "orderNum": 2,
@@ -123,7 +124,7 @@ export default {
               "id": 235,
               "parentId": 1,
               "menuName": "角色权限",
-              "url": "/roles",
+              "url": "/role_list",
               "icon": "el-icon-postcard",
               "orderNum": 3,
               "open": 0,
@@ -146,7 +147,7 @@ export default {
               "children": []
             },
             {
-              "id": 261,
+              "id": 262,
               "parentId": 1,
               "menuName": "单位管理",
               "url": "/agency",
@@ -428,9 +429,20 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    /*注销*/
     dropOut(){
-      console.log("dropout")
-      this.$router.push('/')
+      //清除cookie
+      removeToken();
+      //清除用户信息
+      this.$store.commit('base_info/SET_INFO',[]);
+      //清除权限
+      this.$store.commit('base_info/SET_PERMISSIONS',[]);
+      //清除token
+      this.$store.commit('base_info/SET_TOKEN','');
+      //跳转
+      this.$router.push({
+        path:'/login'
+      });
     }
   },
   mounted () {
@@ -470,6 +482,13 @@ export default {
           if(!this.$store.state.tab_info.isTabShow){
             console.log("监听到切换！r")
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
+          }
+        }
+        if(to.path === "/agency"){
+          this.$store.commit('tab_info/CHECK_EXIST','/agency')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位信息列表"});
           }
         }
         if(to.path === "/welcome"){
@@ -547,7 +566,7 @@ export default {
   }
 
   .el-aside {
-    box-shadow:  3px 0px 20px 3px #7fc0d0;
+    box-shadow:  3px 0 20px 3px #7fc0d0;
     background-color: #f3f3f8;
     color: #333;
     line-height: 200px;
@@ -564,6 +583,7 @@ export default {
     }
   }
 
+
   .el-main {
     box-shadow: inset 3px 3px 30px #91c2e3;
     background-color: #f1f3f5;
@@ -575,14 +595,14 @@ export default {
     height: 100%;
   }
   .app-wrap{
-    height: 600px;
-    width: 1250px;
+    margin: -12px -15px -15px -12px;
 
     .el-tabs{
-      height: 600px;
-      width: 1270px;
+      height: 630px;
+      width: 1305px;
     }
   }
+
 
 </style>
 

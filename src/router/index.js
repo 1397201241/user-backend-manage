@@ -7,11 +7,11 @@ const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
 const Users = ()=>import('../components/page/Users');
-const Roles = ()=>import('../components/page/Roles');
 const Test = ()=>import('../components/page/Test');
 const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
+const RoleList = ()=>import('../components/page/RoleList');
 
 
 Vue.use(VueRouter);
@@ -58,10 +58,10 @@ const routes = [
         meta:{title:'用户列表',requireAuth:true},
       },
       {
-        path:'/roles',
-        name:'Roles',
-        component:Roles,
-        meta:{title:'角色权限'},
+        path:'/role_list',
+        name:'RoleList',
+        component:RoleList,
+        meta:{title:'角色权限',requireAuth:true},
       },
       {
         path:'/agency',
@@ -88,15 +88,12 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     let token=getToken();
     if (token) {
-      console.log(token)
       //判断用户信息是否已获取，这里只能通过长度判断
-      //正常情况下刷新会丢失store里的状态
+      //正常情况下刷新会丢失store里的状态,因此每次跳转前获取一次（存在性能问题）
       if (store.state.user_info.info.length===0){
         store.dispatch('user_info/getInfo').catch(err=>{
           console.log(err)
         })
-      }else{
-        console.log("meiyou info")
       }
       next()
     } else {

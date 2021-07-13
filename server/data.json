@@ -27,19 +27,121 @@
       "name": "郭容华",
       "tel": "15273166485",
       "address": "广西玉林"
+    },
+    {
+      "tel": "dnsainiasfn",
+      "id": 41
+    },
+    {
+      "tel": "21312",
+      "id": 42
+    }
+  ],
+  "USERS": [
+    {
+      "id": 1,
+      "USER_ID": 1,
+      "USER_TYPE": "普通用户",
+      "MOF_CODE": "省级财政",
+      "AGENCY_CODE": "所属机构",
+      "USER_NAME": "普通用户",
+      "USER_ACCOUNT": "general_user",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199901022444",
+      "TEL": "15273166485",
+      "NOTE": "general_user",
+      "STATUS": 1,
+      "CREATE_TIME": "21:05 2021/7/11",
+      "UPDATE_TIME": "21:05 2021/7/11",
+      "VERSION": "0.0.1"
+    },
+    {
+      "id": 2,
+      "USER_ID": 2,
+      "USER_TYPE": "管理员",
+      "MOF_CODE": "所属财政",
+      "AGENCY_CODE": "所属机构",
+      "USER_NAME": "单位管理员用户",
+      "USER_ACCOUNT": "admin_user",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199901022445",
+      "TEL": "15273166485",
+      "NOTE": "general_user",
+      "STATUS": 1,
+      "CREATE_TIME": "21:05 2021/7/12",
+      "UPDATE_TIME": "21:05 2021/7/12",
+      "VERSION": "0.0.1"
+    },
+    {
+      "id": 7,
+      "USER_ID": 7,
+      "USER_TYPE": "管理员",
+      "MOF_CODE": "所属财政",
+      "AGENCY_CODE": "所属机构",
+      "USER_NAME": "单位管理员用户",
+      "USER_ACCOUNT": "admin_user",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199901022446",
+      "TEL": "15273166485",
+      "NOTE": "general_user",
+      "STATUS": 1,
+      "CREATE_TIME": "21:05 2021/7/12",
+      "UPDATE_TIME": "21:05 2021/7/12",
+      "VERSION": "0.0.1"
+    },
+    {
+      "id": 8,
+      "USER_ID": 8,
+      "USER_TYPE": "管理员",
+      "MOF_CODE": "所属财政",
+      "AGENCY_CODE": "所属机构",
+      "USER_NAME": "单位管理员用户",
+      "USER_ACCOUNT": "admin_user",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199901022447",
+      "TEL": "15273166485",
+      "NOTE": "general_user",
+      "STATUS": 1,
+      "CREATE_TIME": "21:05 2021/7/12",
+      "UPDATE_TIME": "21:05 2021/7/12",
+      "VERSION": "0.0.1"
+    },
+    {
+      "id": 9,
+      "USER_ID": 9,
+      "USER_TYPE": "管理员",
+      "MOF_CODE": "所属财政",
+      "AGENCY_CODE": "所属机构",
+      "USER_NAME": "单位管理员用户",
+      "USER_ACCOUNT": "admin_user",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199901022449",
+      "TEL": "15273166485",
+      "NOTE": "general_user",
+      "STATUS": 1,
+      "CREATE_TIME": "21:05 2021/7/12",
+      "UPDATE_TIME": "21:05 2021/7/12",
+      "VERSION": "0.0.1"
+    },
+    {
+      "id": "10",
+      "USER_ID": "10",
+      "USER_TYPE": "普通用户",
+      "MOF_CODE": "福建省教育厅招生办财政部门",
+      "AGENCY_CODE": "福建省教育厅招生办",
+      "USER_NAME": "郭荣华",
+      "USER_ACCOUNT": "Zhao ShengBan",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199902122788",
+      "TEL": "18076463654",
+      "NOTE": "",
+      "STATUS": 1,
+      "CREATE_TIME": "",
+      "UPDATE_TIME": "",
+      "VERSION": ""
     }
   ],
   "user": [
-    {
-      "id": 1,
-      "username": "general_user",
-      "password": "123456",
-      "city": "长沙",
-      "country": "中国",
-      "zip": "410000",
-      "phone": "15273166485",
-      "address": "湖南长沙"
-    },
     {
       "id": 2,
       "username": "admin",
@@ -133,6 +235,7 @@
       "id": 2,
       "rid": 1,
       "permission_id": [
+        1,
         2,
         3
       ]
@@ -158,6 +261,6 @@
       "LEVEL_NO": "级次",
       "IS_LEAF": "是否末级",
       "SUPDEP_CODE": "部门标识代码，101人大131政协"
-      }
+    }
   ]
 }

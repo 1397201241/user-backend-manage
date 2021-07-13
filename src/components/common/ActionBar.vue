@@ -1,26 +1,30 @@
 <template>
     <el-container id="navigation_bar">
         <span :class="{span_select:span_select}" @click="span_select=true">单位信息明细列表</span>
-        <el-button size="mini" type="primary" icon="el-icon-refresh">刷新</el-button>
-        <el-button size="mini" type="primary" icon="el-icon-plus">新增</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-refresh" @click="$store.dispatch('base_info/getUsers')">刷新</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-plus" @click="$emit('addBtnClick')">新增</el-button>
         <el-button size="mini" type="primary">
             <i class="iconfont icon-xiugai"></i>
             修改
         </el-button>
-        <el-button size="mini" type="primary" icon="el-icon-delete">删除</el-button>
-        <el-button size="mini" type="primary" icon="el-icon-open">启用</el-button>
-        <el-button size="mini" type="primary" icon="el-icon-turn-off">停用</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-delete" @click="$emit('deleteBtnClick')">删除</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-open" @click="$emit('enableBtnClick')">启用</el-button>
+        <el-button size="mini" type="primary" icon="el-icon-turn-off" @click="$emit('stopBtnClick')">停用</el-button>
     </el-container>
 </template>
 
 <script>
 
     export default {
-        name: "NavigationBar",
+        name: "ActionBar",
         data(){
             return {
                 span_select: false
+
             }
+        },
+        methods:{
+
         }
     }
 </script>
@@ -35,13 +39,14 @@
     #navigation_bar{
         display: flex;
         padding: 5px;
-        height: 100%;
+        height: 40px;
         width: 100%;
         border: 1px solid #22ccdd;
+        box-sizing: border-box;
         background: #c6e2ff;
         span{
             line-height: 27px;
-            margin-right: 200px;
+            margin-right: 600px;
             text-align: center;
             font-size: 16px;
             &:hover{
