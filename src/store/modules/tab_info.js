@@ -79,7 +79,12 @@ const actions = {
       else if(path === "/role_list") {
         commit('CHECK_EXIST', '/role_list');
         if (!state.isTabShow) {
-          commit('ADD_TABS', {route: path, name: "角色管理"});
+          commit('ADD_TABS', {route: path, name: "权限管理"});}}
+      else if(path === "/project"){
+        commit('CHECK_EXIST','/project');
+        if(!state.isTabShow){
+          console.log("现在添加项目列表",state.isTabShow);
+          commit('ADD_TABS', {route: path , name: "项目列表"});
         }
       }
       commit('SET_ACTIVE_INDEX', path);

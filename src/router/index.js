@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import {getToken} from "../utils/auth";
 import store from '../store'
 
+
 const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
@@ -12,6 +13,8 @@ const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
+const Project = ()=>import('../components/page/Project')
+
 
 
 Vue.use(VueRouter);
@@ -61,7 +64,7 @@ const routes = [
         path:'/role_list',
         name:'RoleList',
         component:RoleList,
-        meta:{title:'角色权限',requireAuth:true},
+        meta:{title:'权限管理',requireAuth:true},
       },
       {
         path:'/agency',
@@ -74,7 +77,13 @@ const routes = [
         name:'Welcome',
         component:Welcome,
         meta: {title: '欢迎页面'}
-      }
+      },
+      {
+        path: '/project',
+        name:'Project',
+        component:Project,
+        meta: {title: '项目列表'}
+      },
     ],
   },
 ]
