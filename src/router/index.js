@@ -14,6 +14,8 @@ const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
 const Project = ()=>import('../components/page/Project')
+const PayCheck = ()=>import('../components/page/pay/PayCheck')
+const PayApply = ()=>import('../components/page/pay/PayApply')
 
 
 
@@ -61,6 +63,18 @@ const routes = [
         meta:{title:'用户列表',requireAuth:true},
       },
       {
+        path:'/payApply',
+        name:'payApply',
+        component:PayApply,
+        meta:{title:'支付申请',requireAuth:true},
+      },
+      {
+        path:'/PayCheck',
+        name:'PayCheck',
+        component:PayCheck,
+        meta:{title:'支付审核',requireAuth:true},
+      },
+      {
         path:'/role_list',
         name:'RoleList',
         component:RoleList,
@@ -76,7 +90,7 @@ const routes = [
         path: '/welcome',
         name:'Welcome',
         component:Welcome,
-        meta: {title: '欢迎页面'}
+        meta: {title: '欢迎页面',requireAuth:true}
       },
       {
         path: '/project',

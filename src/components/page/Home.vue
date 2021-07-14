@@ -298,6 +298,32 @@ export default {
           "type": 0,
           "children": [
             {
+              "id": 788,
+              "parentId": 295,
+              "menuName": "支付申请",
+              "url": "/payApply",
+              "icon": "el-icon-view",
+              "orderNum": 1,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
+              "id": 789,
+              "parentId": 295,
+              "menuName": "支付审核",
+              "url": "/payCheck",
+              "icon": "el-icon-view",
+              "orderNum": 1,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
               "id": 297,
               "parentId": 295,
               "menuName": "上级下达",
@@ -464,7 +490,6 @@ export default {
       let flag = false;
       console.log(from)
       for(let item of this.$store.state.tab_info.openTab){
-
         if(item.route === to.path){
           this.$store.commit('tab_info/SET_ACTIVE_INDEX',to.path)
           flag = true;
@@ -493,6 +518,20 @@ export default {
           if(!this.$store.state.tab_info.isTabShow){
             console.log("监听到切换！r")
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
+          }
+        }
+        else if(to.path === "/payApply"){
+          this.$store.commit('tab_info/CHECK_EXIST','/payApply')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付申请"});
+          }
+        }
+        else if(to.path === "/payCheck"){
+          this.$store.commit('tab_info/CHECK_EXIST','/payCheck')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付审核"});
           }
         }
         if(to.path === "/agency"){

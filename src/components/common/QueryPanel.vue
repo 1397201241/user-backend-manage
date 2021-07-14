@@ -4,7 +4,7 @@
  * @LastEditTime: 2020-12-07 21:05:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \sd365-tms-omp-front-end\src\components\SD365UI\index.vue
+ * @FilePath: \sd365-tms-omp-front-end\src\components\SD365UI\PayApply.vue
 -->
 <template>
     <!--设置标签宽度-->

@@ -57,6 +57,18 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "用户列表"});
         }
       }
+      else if(path === "/payApply"){
+        commit('CHECK_EXIST','/payApply');
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "支付申请"});
+        }
+      }
+      else if(path === "/payCheck"){
+        commit('CHECK_EXIST','/payCheck');
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "支付审核"});
+        }
+      }
       else if(path === "/roles"){
         commit('CHECK_EXIST','/roles');
         if(!state.isTabShow){
