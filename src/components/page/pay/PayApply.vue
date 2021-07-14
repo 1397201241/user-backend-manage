@@ -140,7 +140,7 @@
                        :page-sizes="[1,2,3,4]"
                        :page-size="pageSize"
                        layout="total, sizes, prev, pager, next, jumper"
-                       :total="$store.state.base_info.users.length"
+                       :total="$store.state.pay_apply_info.pay_apply.length"
         >
         </el-pagination>
         <!--添加用户对话框-->
@@ -194,44 +194,67 @@
                 width="600px"
                 :before-close="handleClose">
             <el-form :model="changePayApplyForm" :rules="rules" ref="changeForm" label-width="120px" id="change_user" class="demo-ruleForm">
-                <el-form-item label="支付申请ID" prop="PAY_APP_ID">
-                    <el-input v-model="changePayApplyForm.PAY_APP_ID"></el-input>
-                </el-form-item>
-                <el-form-item label="支付申请编号" prop="PAY_APP_NUM">
-                    <el-input v-model="changePayApplyForm.PAY_APP_NUM"></el-input>
-                </el-form-item>
-                <el-form-item label="创建时间" prop="CREATE_AT">
-                    <el-input v-model="changePayApplyForm.CREATE_AT"></el-input>
-                </el-form-item>
-                <el-form-item label="更新时间" prop="UPDATE_AT">
-                    <el-input v-model="changePayApplyForm.UPDATE_AT"></el-input>
-                </el-form-item>
-                <el-form-item label="单位代码" prop="AGENCY_CODE">
-                    <el-input v-model="changePayApplyForm.AGENCY_CODE"></el-input>
-                </el-form-item>
-                <el-form-item label="用途" prop="USE">
-                    <el-input v-model="changePayApplyForm.user_acUSEcount"></el-input>
-                </el-form-item>
-                <el-form-item label="金额" prop="AMOUNT">
-                    <el-input v-model="changePayApplyForm.AMOUNT"></el-input>
-                </el-form-item>
-                <el-form-item label="收款人全称" prop="PAYEE_ACCT_NAME">
-                    <el-input v-model="changePayApplyForm.PAYEE_ACCT_NAME"></el-input>
-                </el-form-item>
-                <el-form-item label="收款人账号" prop="PAYEE_ACCT_NUM">
-                    <el-input v-model="changePayApplyForm.PAYEE_ACCT_NUM"></el-input>
-                </el-form-item>
-                <el-form-item label="收款人开户银行" prop="PAYEE_ACCT_BANK_NAME">
-                    <el-input v-model="changePayApplyForm.PAYEE_ACCT_BANK_NAME"></el-input>
-                </el-form-item>
+                <el-container>
+                    <el-form-item label="支付申请ID" prop="PAY_APP_ID">
+                        <el-input v-model="changePayApplyForm.PAY_APP_ID" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="支付申请编号" prop="PAY_APP_NUM">
+                        <el-input v-model="changePayApplyForm.PAY_APP_NUM" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="创建时间" prop="CREATE_AT">
+                        <el-input v-model="changePayApplyForm.CREATE_AT" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="更新时间" prop="UPDATE_AT" align="left">
+                        <div class="block">
+                            <el-date-picker
+                                    clearable
+                                    arrow-offset="100"
+                                    v-model="changePayApplyForm.UPDATE_AT"
+                                    align="left"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    format="yyyy 年 MM 月 dd 日"
+                                    value-format="yyyy-MM-dd"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                        </div>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="单位代码" prop="AGENCY_CODE">
+                        <el-input v-model="changePayApplyForm.AGENCY_CODE" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="用途" prop="USE">
+                        <el-input v-model="changePayApplyForm.USE" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="金额" prop="AMOUNT">
+                        <el-input v-model="changePayApplyForm.AMOUNT" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="收款人全称" prop="PAYEE_ACCT_NAME">
+                        <el-input v-model="changePayApplyForm.PAYEE_ACCT_NAME" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="收款人账号" prop="PAYEE_ACCT_NUM">
+                        <el-input v-model="changePayApplyForm.PAYEE_ACCT_NUM" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="收款人开户银行" prop="PAYEE_ACCT_BANK_NAME">
+                        <el-input v-model="changePayApplyForm.PAYEE_ACCT_BANK_NAME" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+
                 <el-form-item label="审核状态" prop="AUDIT_STATUS">
-                    <el-input v-model="changePayApplyForm.AUDIT_STATUS"></el-input>
+                    <el-input v-model="changePayApplyForm.AUDIT_STATUS" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="逻辑删除" prop="IS_DELETE">
-                    <el-input v-model="changePayApplyForm.IS_DELETE"></el-input>
+                    <el-input v-model="changePayApplyForm.IS_DELETE" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="版本号" prop="VERSION">
-                    <el-input v-model="changePayApplyForm.VERSION"></el-input>
+                    <el-input v-model="changePayApplyForm.VERSION" clearable></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
@@ -253,6 +276,32 @@
         components: {ActionBar,QueryPanel},
         data() {
             return {
+
+                pickerOptions: {
+                    disabledDate(time) {
+                        return time.getTime() > Date.now();
+                    },
+                    shortcuts: [{
+                        text: '今天',
+                        onClick(picker) {
+                            picker.$emit('pick', new Date());
+                        }
+                    }, {
+                        text: '昨天',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+                            picker.$emit('pick', date);
+                        }
+                    }, {
+                        text: '一周前',
+                        onClick(picker) {
+                            const date = new Date();
+                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', date);
+                        }
+                    }]
+                }, //时间选择框快捷参数
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
@@ -425,7 +474,11 @@
             handleChangeBtnClick(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        let newPayApply={
+                        let newPayApply=this.$refs[formName].model;
+                        newPayApply.id=this.$refs[formName].model.PAY_APP_ID;
+                        console.log(newPayApply)
+                        console.log("11")
+                        /*let newPayApply={
                             id: this.$refs[formName].model.PAY_APP_ID,
                             PAY_APP_ID: this.$refs[formName].model.PAY_APP_ID,
                             PAY_APP_NUM: this.$refs[formName].model.PAY_APP_NUM,
@@ -440,9 +493,10 @@
                             AUDIT_STATUS: this.$refs[formName].model.AUDIT_STATUS,
                             IS_DELETE: this.$refs[formName].model.IS_DELETE,
                             VERSION: this.$refs[formName].model.VERSION
-                        };
+                        };*/
                         if (newPayApply){
-                            this.$store.dispatch('base_info/changeUser',{newPayApply})
+                            console.log("111")
+                            this.$store.dispatch('pay_apply_info/acceptPayApply',{newPayApply})
                         }
                     } else {
                         return false;

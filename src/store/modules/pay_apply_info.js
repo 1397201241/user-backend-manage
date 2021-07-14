@@ -112,7 +112,7 @@ const actions = {
      * @return {Q.Promise<void>}
      */
     acceptPayApply({dispatch}, params){
-        return put("http://localhost:3000/PAYMENT_APPLY/"+params.data.id,params.data)
+        return put("http://localhost:3000/PAYMENT_APPLY/"+params.newPayApply.id,params.newPayApply)
             .then(()=>{
                 //刷新
                 dispatch('getPayApply')

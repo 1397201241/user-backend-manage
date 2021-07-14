@@ -41,7 +41,7 @@ export const menuList = [
           "id": 235,
           "parentId": 1,
           "menuName": "角色权限",
-          "url": "/roles",
+          "url": "/role_list",
           "icon": "el-icon-postcard",
           "orderNum": 3,
           "open": 0,
@@ -210,6 +210,32 @@ export const menuList = [
       "perms": "",
       "type": 0,
       "children": [
+        {
+          "id": 342,
+          "parentId": 295,
+          "menuName": "支付申请",
+          "url": "/payApply",
+          "icon": "el-icon-view",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 343,
+          "parentId": 295,
+          "menuName": "支付审核",
+          "url": "/payCheck",
+          "icon": "el-icon-view",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
         {
           "id": 297,
           "parentId": 295,
