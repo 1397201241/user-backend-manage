@@ -7,7 +7,7 @@
           <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteSome">删除</el-button>
           <el-button size="small" icon="el-icon-share">导出</el-button>
           <el-form-item style="margin-left: 40px; margin-right: -5px">
-            <el-input v-model="formInline.projectName" placeholder="输入项目名称"></el-input>
+            <el-input suffix-icon="el-icon-search" v-model="formInline.projectName" placeholder="输入项目名称"></el-input>
           </el-form-item>
           <el-cascader
               placeholder="起始年份"
@@ -52,9 +52,6 @@
                 <el-form-item label="项目期限">
                   <span>{{ props.row.PRO_TERM }}</span>
                 </el-form-item>
-                <el-form-item label="开工年份">
-                  <span>{{ props.row.PRO_START_YEAR }}</span>
-                </el-form-item>
                 <el-form-item label="项目类型">
                   <span>{{ props.row.PRO_CAT_CODE }}</span>
                 </el-form-item>
@@ -70,6 +67,21 @@
                 <el-form-item label="财政部建议">
                   <span>{{ props.row.PRO_BGTREVIEW }}</span>
                 </el-form-item>
+                <el-form-item label="部门建议代码">
+                  <span>{{ props.row.DEP_AUD_OPNION_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="财政建议代码">
+                  <span>{{ props.row.MOF_AUD_OPNION_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="项目类别">
+                  <span>{{ props.row.PRO_KIND }}</span>
+                </el-form-item>
+                <el-form-item label="项目类别代码">
+                  <span>{{ props.row.PRO_KIND_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="去向单位代码">
+                  <span>{{ props.row.TRAOBJ_AGENCY_CODE }}</span>
+                </el-form-item>
                 <el-form-item label="项目介绍">
                   <span>{{ props.row.PRO_DESC }}</span>
                 </el-form-item>
@@ -83,7 +95,7 @@
                   <span>{{ props.row.IS_DELETED }}</span>
                 </el-form-item>
                 <el-form-item label="表单创建时间">
-                  <span>{{ props.row.CREATE_YEAR }}</span>
+                  <span>{{ props.row.CREATE_TIME }}</span>
                 </el-form-item>
                 <el-form-item label="版本号">
                   <span>{{ props.row.VERSION }}</span>
@@ -201,7 +213,7 @@ export default {
         UPDATE_TIME: "",
         IS_END: 0,
         IS_DELETED: 0,
-        CREATE_YEAR: "",
+        CREATE_TIME: "",
         VERSION: "1.03.5"
       },
     }
@@ -217,6 +229,7 @@ export default {
     },
     editProList(formData){
       this.transferPro = formData
+      this.transferPro.UPDATE_TIME = new Date().toLocaleString()
       let theURL = this.baseURL+this.projectURL+"/"+this.transferPro.id
       put(theURL,this.transferPro)
     },
@@ -263,8 +276,8 @@ export default {
       console.log(this.myTableData[this.myTableData.length-1])
       this.transferPro = formData
       let time = new Date()
-      this.transferPro.UPDATE_TIME = time.toLocaleDateString()
-      this.transferPro.CREATE_YEAR = time.toLocaleDateString()
+      this.transferPro.UPDATE_TIME = time.toLocaleString()
+      this.transferPro.CREATE_TIME = time.toLocaleString()
       this.transferPro.id = (Number(this.myTableData[this.myTableData.length-1].id)+1).toString()
 
       let theURL = this.baseURL+this.projectURL

@@ -1,4 +1,23 @@
 <template>
+<!--  "id": 1,
+  "AGENCY_ABBREVIATION":"博思",
+  "UNIFSOC_CRED_CODE":555,
+  "AGENCY_ADM_LEVEL_CODE":666
+  "AGENCY_ID": "116",
+  "AGENCY_CODE": 1,
+  "AGENCY_NAME": "福建博思软件有限公司",
+  "MOF_DIV_CODE": 165,
+  "AGENCY_LEADER_PER_NAME": "陈航",
+  "AGENCY_ADD": "福建省福州市",
+  "PARENT_ID": "109",
+  "IS_LEAF": 1,
+  "START_AT": "2021-7-13",
+  "END_AT": "2022-8-16",
+  "IS_ENABLED": 1,
+  "IS_DELETE": 1,
+  "CREATE_TIME": "2021/7/13下午3:17:54",
+  "UPDATE_AT":"2021/7/13下午3:17:54",
+  "VERSION": "1.0.5"-->
   <el-dialog v-bind="$attrs" v-on="$listeners" :visible.sync="showDialog" @open="onOpen" @close="onClose" :title=title width="40%">
     <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px" style="margin-top: 0">
       <el-container >
@@ -52,17 +71,9 @@
           <el-input v-model="formData.PRO_TERM" placeholder="请输入项目期限" clearable :style="{width: '80%'}">
           </el-input>
         </el-form-item>
-        <el-form-item label="开工年份" prop="PRO_START_YEAR">
-<!--          <el-input v-model="formData.PRO_START_YEAR" placeholder="请输入开工年份" clearable :style="{width: '100%'}">
-          </el-input>-->
-          <el-select v-model="formData.PRO_START_YEAR" placeholder="请选择" :style="{width: '100%'}">
-            <el-option
-                v-for="item in startYearOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
+        <el-form-item label="版本号" prop="VERSION">
+          <el-input v-model="formData.VERSION" placeholder="请输入版本号" clearable :style="{width: '100%'}">
+          </el-input>
         </el-form-item>
       </el-container>
       <el-container>
@@ -81,7 +92,7 @@
         <el-form-item label="删除代码" prop="IS_DELETE">
 <!--          <el-input v-model="formData.IS_DELETED" placeholder="请输入删除代码" clearable :style="{width: '100%'}">
           </el-input>-->
-          <el-select v-model="formData.IS_END" placeholder="请选择" :style="{width: '100%'}">
+          <el-select v-model="formData.IS_DELETED" placeholder="请选择" :style="{width: '100%'}">
             <el-option
                 v-for="item in [{label:0,value:0},{label:1,value:1}]"
                 :key="item.value"
@@ -91,6 +102,46 @@
           </el-select>
         </el-form-item>
       </el-container>
+
+      <el-container>
+        <el-form-item label-width="50%" label="单位建议代码" prop="DEP_AUD_OPNION_CODE">
+          <el-select v-model="formData.DEP_AUD_OPNION_CODE" placeholder="请选择" :style="{width: '100%'}">
+            <el-option
+                v-for="item in [{label:0,value:0},{label:1,value:1}]"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item style="margin-left: 60px;" label-width="50%" label="财政建议代码" prop="MOF_AUD_OPNION_CODE">
+          <el-select v-model="formData.MOF_AUD_OPNION_CODE" placeholder="请选择" :style="{width: '100%'}">
+            <el-option
+                v-for="item in [{label:0,value:0},{label:1,value:1}]"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-container>
+
+      <el-container>
+        <el-form-item label="项目类型" prop="PRO_KIND">
+          <el-input v-model="formData.PRO_KIND" placeholder="请输入项目类型" clearable :style="{width: '80%'}">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="类型码" prop="PRO_KIND_CODE">
+          <el-input v-model="formData.PRO_KIND_CODE" placeholder="请输入项目类型码" clearable :style="{width: '100%'}">
+          </el-input>
+        </el-form-item>
+      </el-container>
+
+      <el-form-item label="版本号" prop="TRAOBJ_AGENCY_CODE">
+        <el-input v-model="formData.TRAOBJ_AGENCY_CODE" placeholder="去向单位代码" clearable :style="{width: '100%'}">
+        </el-input>
+      </el-form-item>
+
       <el-form-item label="单位建议" prop="PRO_AGENCY_VIEW">
         <el-input type="textarea" v-model="formData.PRO_AGENCY_VIEW" placeholder="请输入单位建议" clearable :style="{width: '100%'}">
         </el-input>
@@ -101,10 +152,6 @@
       </el-form-item>
       <el-form-item label="项目简介" prop="PRO_DESC">
         <el-input type="textarea" v-model="formData.PRO_DESC" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
-        </el-input>
-      </el-form-item>
-      <el-form-item label="版本号" prop="VERSION">
-        <el-input v-model="formData.VERSION" placeholder="请输入版本号" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
     </el-form>
@@ -148,7 +195,6 @@ export default {
         PRO_NAME: "",
         AGENCY_CODE: "",
         PRO_TERM: "",
-        PRO_START_YEAR: "",
         PRO_CAT_CODE: "",
         PRO_TOTAL_AMT: "",
         PRO_AGENCY_VIEW: "",
@@ -158,8 +204,13 @@ export default {
         UPDATE_TIME: "",
         IS_END: 0,
         IS_DELETED: 0,
-        CREATE_YEAR: "",
-        VERSION: "1.03.5"
+        CREATE_TIME: "",
+        VERSION: "1.03.5",
+        DEP_AUD_OPNION_CODE: 1,
+        MOF_AUD_OPNION_CODE: 1,
+        PRO_KIND:"文娱",
+        PRO_KIND_CODE: "03",
+        TRAOBJ_AGENCY_CODE: 4,
       },
       // 控制弹出框显示隐藏
       rules: {
@@ -255,16 +306,16 @@ export default {
       agencyCodeOptions:[
         {
           label:"省级",
-          value:"SHENG"
+          value:1
         }, {
           label:"市级",
-          value:"SHI"
+          value:2
         }, {
           label:"县级",
-          value:"XIAN"
+          value:3
         }, {
           label:"乡级",
-          value:"XIANG"
+          value:4
         },
       ],
     }
@@ -272,7 +323,9 @@ export default {
   methods:{
     onOpen() {
       if(this.opIndex === 2){
-      this.formData = this.pro}
+      this.formData = this.pro}else{
+        this.formData = {}
+      }
     },
     onClose() {
       /*this.$refs['elForm'].resetFields()*/

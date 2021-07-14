@@ -143,21 +143,21 @@ export default {
   .upBox{
     .el-button{
       font-size: 60px;
-      color: rgba(85, 201, 178, 0.43);
+      color: rgba(6, 12, 52, 0.91);
       font-family: 华文彩云;
       margin-left: -180px;
     }
     margin-top: 25px;
     margin-left: 100px;
     .cardBM{
-      background-color: rgba(120, 87, 153, 0.37);
+      background-color: rgba(216, 206, 252, 0.27);
       height: 250px;
       width: 500px;
       font-size: large;
     }
     .cardAgency{
       margin-left: 60px;
-      background-color: rgba(175, 150, 199, 0.51);
+      background-color: rgba(211, 208, 238, 0.36);
       height: 250px;
       width: 500px;
     }
@@ -166,13 +166,13 @@ export default {
     margin-top: 25px;
     margin-left: 100px;
     .cardUser{
-      background-color: rgba(146, 231, 184, 0.45);
+      background-color: rgba(194, 175, 246, 0.32);
       height: 250px;
       width: 500px;
     }
     .cardPro{
       margin-left: 60px;
-      background-color: rgba(187, 234, 215, 0.4);
+      background-color: rgba(197, 187, 234, 0.33);
       height: 250px;
       width: 500px;
     }
