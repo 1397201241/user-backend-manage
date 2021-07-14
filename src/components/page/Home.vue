@@ -92,7 +92,7 @@ export default {
   methods:{
     //tab标签点击时，切换相应的路由
     tabClick(tab){
-      let time = new Date()
+      let time = new Date();
       console.log(time.toLocaleString(),tab);
       if(this.$route.path === this.$store.state.tab_info.activeIndex){
         return
@@ -157,7 +157,6 @@ export default {
       let flag = false;
       console.log(from)
       for(let item of this.$store.state.tab_info.openTab){
-
         if(item.route === to.path){
           this.$store.commit('tab_info/SET_ACTIVE_INDEX',to.path)
           flag = true;
@@ -168,53 +167,31 @@ export default {
         console.log('to.path',to.path);
         //通过路由的判断，来加入标签页的名称
         if(to.path === '/users') {
-          this.$store.commit('tab_info/CHECK_EXIST','/users')
-          if (!this.$store.state.tab_info.isTabShow) {
-            console.log("监听到切换！u")
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path, name: "用户列表"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path, name: "用户列表"});
         }
         else if(to.path === "/roles"){
-          this.$store.commit('tab_info/CHECK_EXIST','/roles')
-          if(!this.$store.state.tab_info.isTabShow){
-            console.log("监听到切换！r")
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
         }
         else if(to.path === "/role_list"){
-          this.$store.commit('tab_info/CHECK_EXIST','/role_list')
-          if(!this.$store.state.tab_info.isTabShow){
-            console.log("监听到切换！r")
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
         }
-        else if(to.path === "/agency"){
-          this.$store.commit('tab_info/CHECK_EXIST','/agency')
-          if(!this.$store.state.tab_info.isTabShow){
-            console.log("监听到切换！r")
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位信息列表"});
-          }
+        else if(to.path === "/payApply"){
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付申请"});
+        }
+        else if(to.path === "/payCheck"){
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付审核"});
         }
         else if(to.path === "/welcome"){
-          this.$store.commit('tab_info/CHECK_EXIST','/welcome')
-          if(!this.$store.state.tab_info.isTabShow){
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "欢迎页面"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "欢迎页面"});
         }
         else if(to.path === "/project"){
-          this.$store.commit('tab_info/CHECK_EXIST','/project')
-          if(!this.$store.state.tab_info.isTabShow){
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "项目列表"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "项目列表"});
         }
         else if(to.path === "/agency"){
           this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位管理"});
         }
         else if(to.path === "/liquidation"){
-          this.$store.commit('tab_info/CHECK_EXIST','/liquidation')
-          if(!this.$store.state.tab_info.isTabShow){
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "清算凭证"});
-          }
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "清算凭证"});
         }
         this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
       }

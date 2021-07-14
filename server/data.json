@@ -41,6 +41,81 @@
       "address": "湖南长沙"
     },
     {
+<<<<<<< HEAD
+=======
+      "id": "10",
+      "USER_ID": "10",
+      "USER_TYPE": "普通用户",
+      "MOF_CODE": "福建省教育厅招生办财政部门",
+      "AGENCY_CODE": "福建省教育厅招生办",
+      "USER_NAME": "郭荣华",
+      "USER_ACCOUNT": "Zhao ShengBan",
+      "USER_PASSWORD": "123456",
+      "ID_CARD_NUM": "450923199902122788",
+      "TEL": "18076463654",
+      "NOTE": "",
+      "STATUS": 1,
+      "CREATE_TIME": "",
+      "UPDATE_TIME": "",
+      "VERSION": ""
+    }
+  ],
+  "PAYMENT_APPLY": [
+    {
+      "id": 1,
+      "PAY_APP_ID": 1,
+      "PAY_APP_NUM": "101",
+      "CREATE_AT": "2021-07-13",
+      "UPDATE_AT": "2021-07-07",
+      "AGENCY_CODE": "福建省教育局",
+      "USE": "建立希望小学",
+      "AMOUNT": "8000000",
+      "PAYEE_ACCT_NAME": "ZHAO XIN",
+      "PAYEE_ACCT_NUM": "450923199901022444",
+      "PAYEE_ACCT_BANK_NAME": "长乐市建设银行",
+      "AUDIT_STATUS": 0,
+      "IS_DELETE": 0,
+      "VERSION": "0.0.1",
+      "AUDIT_STATUS_CN": "未通过"
+    },
+    {
+      "id": 2,
+      "PAY_APP_ID": 2,
+      "PAY_APP_NUM": "102",
+      "CREATE_AT": "2021-07-13",
+      "UPDATE_AT": "2021-07-07",
+      "AGENCY_CODE": "福建省教育局",
+      "USE": "建立图书馆",
+      "AMOUNT": "8000000",
+      "PAYEE_ACCT_NAME": "李青",
+      "PAYEE_ACCT_NUM": "450923199901022444",
+      "PAYEE_ACCT_BANK_NAME": "长乐市建设银行",
+      "AUDIT_STATUS": 1,
+      "IS_DELETE": 0,
+      "VERSION": "0.0.1",
+      "AUDIT_STATUS_CN": "通过"
+    },
+    {
+      "id": 3,
+      "PAY_APP_ID": 3,
+      "PAY_APP_NUM": "103",
+      "CREATE_AT": "2021-07-13",
+      "UPDATE_AT": "2021-07-03",
+      "AGENCY_CODE": "福建省教育局",
+      "USE": "贫困补助",
+      "AMOUNT": "8000000",
+      "PAYEE_ACCT_NAME": "金克斯",
+      "PAYEE_ACCT_NUM": "450923199901022444",
+      "PAYEE_ACCT_BANK_NAME": "长乐市建设银行",
+      "AUDIT_STATUS": 0,
+      "IS_DELETE": 0,
+      "VERSION": "0.0.1",
+      "AUDIT_STATUS_CN": "未通过"
+    }
+  ],
+  "user": [
+    {
+>>>>>>> 4b53ae5e56764cdab24fc6575e8c6fc9bc632c23
       "id": 2,
       "username": "admin",
       "password": "123456",
@@ -134,7 +209,8 @@
       "rid": 1,
       "permission_id": [
         2,
-        3
+        3,
+        5
       ]
     }
   ],

@@ -1,6 +1,6 @@
 <template>
     <el-container id="navigation_bar">
-        <span :class="{span_select:span_select}" @click="span_select=true">单位信息明细列表</span>
+        <span :class="{span_select:span_select}" @click="span_select=true"><slot/></span>
         <el-button size="mini" type="primary" icon="el-icon-refresh" @click="$store.dispatch('base_info/getUsers')">刷新</el-button>
         <el-button size="mini" type="primary" icon="el-icon-plus" @click="$emit('addBtnClick')">新增</el-button>
         <el-button size="mini" type="primary">
