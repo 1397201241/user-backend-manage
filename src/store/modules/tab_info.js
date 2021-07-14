@@ -80,6 +80,13 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "项目列表"});
         }
       }
+      else if(path === "/agency"){
+        commit('CHECK_EXIST','/agency')
+        if(!state.isTabShow){
+          console.log("现在添加单位管理",state.isTabShow)
+          commit('ADD_TABS', {route: path , name: "单位管理"});
+        }
+      }
       commit('SET_ACTIVE_INDEX', path);
     } else {
       console.log('是首页', state.isTabShow);
