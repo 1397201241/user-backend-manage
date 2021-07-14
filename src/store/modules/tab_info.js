@@ -94,6 +94,12 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "单位管理"});
         }
       }
+      else if(path === "/liquidation"){
+        commit('CHECK_EXIST','/liquidation')
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "清算凭证"});
+        }
+      }
       commit('SET_ACTIVE_INDEX', path);
     } else {
       commit('CHECK_EXIST','/welcome');

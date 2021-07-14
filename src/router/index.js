@@ -14,7 +14,7 @@ const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
 const Project = ()=>import('../components/page/Project')
-
+const Liquidation = ()=>import('../components/page/Liquidation')
 
 
 Vue.use(VueRouter);
@@ -83,6 +83,12 @@ const routes = [
         name:'Project',
         component:Project,
         meta: {title: '项目列表'}
+      },
+      {
+        path: '/liquidation',
+        name:'Liquidation',
+        component:Liquidation,
+        meta: {title: '清算凭证'}
       },
     ],
   },

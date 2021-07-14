@@ -80,13 +80,13 @@
                   <span>{{ props.row.PRO_KIND_CODE }}</span>
                 </el-form-item>
                 <el-form-item label="去向单位代码">
-                  <span>{{ props.row.TRAOBJ_AGENCY_CODE }}</span>
+                  <span>{{ props.row.APPLY_LINK }}</span>
                 </el-form-item>
                 <el-form-item label="项目介绍">
                   <span>{{ props.row.PRO_DESC }}</span>
                 </el-form-item>
                 <el-form-item label="更新时间">
-                  <span>{{ props.row.UPDATE_TIME }}</span>
+                  <span>{{ props.row.UPDATE_AT }}</span>
                 </el-form-item>
                 <el-form-item label="结束代码">
                   <span>{{ props.row.IS_END }}</span>
@@ -95,7 +95,7 @@
                   <span>{{ props.row.IS_DELETED }}</span>
                 </el-form-item>
                 <el-form-item label="表单创建时间">
-                  <span>{{ props.row.CREATE_TIME }}</span>
+                  <span>{{ props.row.CREATE_AT }}</span>
                 </el-form-item>
                 <el-form-item label="版本号">
                   <span>{{ props.row.VERSION }}</span>
@@ -195,27 +195,7 @@ export default {
       ],
       myTableData: [],
       multipleSelection: [],
-      transferPro:{
-        id:"",
-        PRO_ID: "",
-        SETUP_YEAR: "",
-        PRO_CODE: "",
-        PRO_NAME: "",
-        AGENCY_CODE: "",
-        PRO_TERM: "",
-        PRO_START_YEAR: "2015",
-        PRO_CAT_CODE: "",
-        PRO_TOTAL_AMT: "",
-        PRO_AGENCY_VIEW: "",
-        PRO_DEPREVIEW: "",
-        PRO_BGTREVIEW: "",
-        PRO_DESC: "",
-        UPDATE_TIME: "",
-        IS_END: 0,
-        IS_DELETED: 0,
-        CREATE_TIME: "",
-        VERSION: "1.03.5"
-      },
+      transferPro:{},
     }
     },
   created() {
@@ -229,7 +209,7 @@ export default {
     },
     editProList(formData){
       this.transferPro = formData
-      this.transferPro.UPDATE_TIME = new Date().toLocaleString()
+      this.transferPro.UPDATE_AT = new Date().toLocaleString()
       let theURL = this.baseURL+this.projectURL+"/"+this.transferPro.id
       put(theURL,this.transferPro)
     },
@@ -276,8 +256,8 @@ export default {
       console.log(this.myTableData[this.myTableData.length-1])
       this.transferPro = formData
       let time = new Date()
-      this.transferPro.UPDATE_TIME = time.toLocaleString()
-      this.transferPro.CREATE_TIME = time.toLocaleString()
+      this.transferPro.UPDATE_AT = time.toLocaleString()
+      this.transferPro.CREATE_AT = time.toLocaleString()
       this.transferPro.id = (Number(this.myTableData[this.myTableData.length-1].id)+1).toString()
 
       let theURL = this.baseURL+this.projectURL

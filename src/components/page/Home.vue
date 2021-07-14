@@ -188,7 +188,7 @@ export default {
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
           }
         }
-        if(to.path === "/agency"){
+        else if(to.path === "/agency"){
           this.$store.commit('tab_info/CHECK_EXIST','/agency')
           if(!this.$store.state.tab_info.isTabShow){
             console.log("监听到切换！r")
@@ -208,9 +208,12 @@ export default {
           }
         }
         else if(to.path === "/agency"){
-          this.$store.commit('tab_info/CHECK_EXIST','/agency')
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位管理"});
+        }
+        else if(to.path === "/liquidation"){
+          this.$store.commit('tab_info/CHECK_EXIST','/liquidation')
           if(!this.$store.state.tab_info.isTabShow){
-            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位管理"});
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "清算凭证"});
           }
         }
         this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
