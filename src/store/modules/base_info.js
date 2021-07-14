@@ -1,15 +1,10 @@
-import {getToken, setToken,} from '../../utils/auth'
-import {getInfo, getPermission, getUserRole,getPermissionID} from '../../api/user'
-import {get} from "../../utils/request";
+import {setToken,} from '../../utils/auth'
+import {getInfo, getPermission, getUserRole, getPermissionID} from '../../api/user'
+import {del, get, post, put} from "../../utils/request";
 // 登录组件状态信息
 const state = () => ({
-    token:getToken(),
-    //账户信息
-    user: [],
     //用户信息
-    info:[],
-    //权限信息
-    permissions:[]
+    users: [],
 
 });
 
@@ -26,8 +21,8 @@ const mutations = {
         state.token = token
     },
     //全体用户账号密码，todo:不安全做法
-    SET_USER: (state, user) => {
-        state.user=user
+    SET_USERS: (state, users) => {
+        state.users=users
     },
     //设置用户信息
     SET_INFO: (state, info) => {
@@ -42,14 +37,89 @@ const mutations = {
 // actions 内部可以执行异步操作，context.commit()提交mutations来修改状态
 const actions = {
     //获取用户账号密码
-    getUser: ({commit}) => {
-        get('http://localhost:3000/user').then(res=>{
-            commit('SET_USER',res)
+    getUsers ({commit}) {
+        return get('http://localhost:3000/USERS').then(res=>{
+            commit('SET_USERS',res)
         }).catch(err=>console.log(err));
+    },
+    /**
+     * @description 添加用户
+     * @param dispatch
+     * @param params
+     * @return {Q.Promise<void>}
+     */
+    addUser({dispatch}, params) {
+        return post("http://localhost:3000/USERS", params.newUser)
+            .then(() => {
+                    dispatch('getUsers')
+                }
+            ).catch(err => console.log(err));
+    },
+    /**
+     * @description 停用数据
+     * @param dispatch
+     * @param params
+     */
+    deleteUser({dispatch},params){
+        const deleteRequest=[];
+        for (const user of params.multipleSelection){
+            deleteRequest.push(
+                del('http://localhost:3000/USERS/'+user.USER_ID)
+            )
+        }
+        Promise.allSettled(deleteRequest).then(res => {
+            for (const item of res) {
+                if (item.status === 'fulfilled') {
+                    console.log(item)
+                }else {
+                    console.log('删除失败')
+                }
+            }
+            dispatch('getUsers')
+        });
+    },
+    /**
+     * @description 启用数据
+     * @param dispatch
+     * @param params
+     */
+    enableUser({dispatch},params){
+        const enableRequest=[];
+        for (const user of params.multipleSelection){
+            user.STATUS=user.STATUS===1?0:1;
+            enableRequest.push(
+                put('http://localhost:3000/USERS/'+user.USER_ID,user)
+            )
+        }
+        Promise.allSettled(enableRequest).then(res => {
+            for (const item of res) {
+                if (item.status === 'fulfilled') {
+                    console.log(item)
+                }else {
+                    console.log('删除失败')
+                }
+            }
+            dispatch('getUsers')
+        });
+    },
+    /**
+     * @description 修改用户
+     * @param dispatch
+     * @param params
+     * @return {Q.Promise<void>}
+     */
+    changeUser({dispatch},params){
+        return put("http://localhost:3000/USERS/"+params.newUser.id,params.newUser)
+            .then(()=>{
+                //刷新
+                dispatch('getUsers')
+            })
+            .catch(err=> console.log(err));
     },
     //用户验证
     authenticationUser({commit,state}, params) {
         return new Promise((resolve) => {
+            //todo:下面需要封装为一个登录的API
             for (let user of state.user){
                 //用户匹配判断
                 if (params.username===user['username']&&params.decryptPassword===user['password']){
@@ -62,12 +132,6 @@ const actions = {
             }
         });
     },
-    /**
-     * @description 获取用户基本信息
-     * @param commit
-     * @param state
-     * @return {Promise<unknown>}
-     */
     getInfo({commit,state}) {
         return new Promise(() => {
             //获取username(即token)对应的用户信息
@@ -85,28 +149,37 @@ const actions = {
                             .then(permission_id=>{
                                 info.rid=user_role.rid;
                                 info.permission_id=permission_id;
-                                commit('SET_INFO',info);
                                 for (const id of permission_id){
                                     permissionRequest.push(
                                         //获取权限ID对应的权限
                                         getPermission(id).then(permission=>permission.title)
-                                            .catch(err=> new Error("获取权限信息失败"+err))
+                                            .catch(err=>{
+                                                console.log(err)
+                                            })
                                     )
                                 }
-                                Promise.allSettled(permissionRequest).then(result=>{
-                                    for (const item of result){
+                                Promise.allSettled(permissionRequest).then(res=>{
+                                    for (const item of res){
                                         if(item.status==='fulfilled'){
                                             permissions.push(item.value)
                                         }
                                     }
+                                }).then(()=>{
                                     commit('SET_PERMISSIONS',permissions);
-                                });// @todo 要不要捕获错误？
+                                });
+                                commit('SET_INFO',info);
                             })
-                            .catch(err=> new Error("获取角色权限失败"+err))
+                            .catch(err=>{
+                                console.log(err)
+                            })
                     })
-                        .catch(err=> new Error("获取用户角色信息失败"+err));
+                        .catch(err=>{
+                            console.log(err)
+                        });
                 })
-                .catch(err=> new Error("获取用户信息失败"+err))
+                .catch(err=> {
+                    console.log(err)
+                })
         });
     },
     //获取公钥

@@ -90,7 +90,7 @@
             }
         },
         created() {
-            this.$store.commit('tab_info/CLEAN_TABS')
+            this.$store.commit('tab_info/CLEAN_TABS');
             this.getAccount()
         },
         mounted() {
@@ -106,7 +106,6 @@
                 for (let user of this.$store.state.user_info.user){
                     users.push(user['username'])
                 }
-                console.log(users)
                 //用户存在判断
                 if (users.includes(username)){
                     //创建解密对象实例
@@ -127,7 +126,8 @@
                                     }
                                 });
                                 this.$notify.success({
-                                    title: '登录成功！'
+                                    title: '登录成功！',
+                                    duration:1500
                                 });
                             });
                         }

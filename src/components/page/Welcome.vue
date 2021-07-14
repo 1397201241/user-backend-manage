@@ -1,20 +1,52 @@
 <template>
-<div style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px;">
-  <div class="background">
-    <img src="../../assets/imgs/back.png" width="1411" height="836" alt="" />
-  </div>
-  <div class="front">
-    <el-container class="upBox">
-      <el-card class="cardBM">
-        <el-button class="text" type="text">预算管理</el-button>
+
+<div class="welcomeStyle" style="width: 1200px;height: 520px;">
+  <el-container direction="vertical">
+    <el-container style="margin: auto">
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/users')"><span>用户管理</span></div>
       </el-card>
-      <el-card class="cardAgency"></el-card>
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>权限管理</span></div>
+      </el-card>
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/agency')"><span>单位管理</span></div>
+      </el-card>
     </el-container>
-    <el-container class="downBox">
-      <el-card class="cardUser"></el-card>
-      <el-card class="cardPro"></el-card>
+
+    <el-container style="margin: auto">
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/department')"><span>部门管理</span></div>
+      </el-card>
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+      </el-card>
+      <el-card :body-style="{backgroundColor:'blue',padding:'0'}"
+               style="height: 150px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+      </el-card>
     </el-container>
-  </div>
+  </el-container>
+
+
+
 </div>
 </template>
 
@@ -29,6 +61,36 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  .welcomeStyle{
+    .el-card{
+      margin: 20px 20px;
+      cursor: pointer;
+      opacity: 0.5;
+      &:hover{
+        opacity: 0.9;
+        .card-title{
+          border: #fff solid 3px;
+        }
+      }
+      .card-title{
+        color: #fff;
+        position: absolute;
+        width: 120px;
+        height: 32px;
+        padding: 10px 0;
+        text-align: center;
+        line-height: 32px;
+        font-size: 16px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
+  }
+
+
+
 .background{
   width: 100%;
   height: 100%;
@@ -79,4 +141,5 @@ export default {
     }
   }
 }
+
 </style>

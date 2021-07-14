@@ -77,6 +77,7 @@ const Welcome = ()=>import('./Welcome')
 const Agency = ()=>import('./Agency')
 const Project = ()=>import('./Project')
 import {menuList} from "../../assets/js/menuData";
+import {removeToken} from "../../utils/auth";
 
 export default {
   name: "Home",
@@ -125,9 +126,20 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
+    /*注销*/
     dropOut(){
-      console.log("dropout")
-      this.$router.push('/')
+      //清除cookie
+      removeToken();
+      //清除用户信息
+      this.$store.commit('base_info/SET_INFO',[]);
+      //清除权限
+      this.$store.commit('base_info/SET_PERMISSIONS',[]);
+      //清除token
+      this.$store.commit('base_info/SET_TOKEN','');
+      //跳转
+      this.$router.push({
+        path:'/login'
+      });
     }
   },
   mounted () {
@@ -167,6 +179,20 @@ export default {
           if(!this.$store.state.tab_info.isTabShow){
             console.log("监听到切换！r")
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
+          }
+        }
+        else if(to.path === "/role_list"){
+          this.$store.commit('tab_info/CHECK_EXIST','/role_list')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
+          }
+        }
+        if(to.path === "/agency"){
+          this.$store.commit('tab_info/CHECK_EXIST','/agency')
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位信息列表"});
           }
         }
         else if(to.path === "/welcome"){
@@ -255,7 +281,7 @@ export default {
   }
 
   .el-aside {
-    box-shadow:  3px 0px 20px 3px #7fc0d0;
+    box-shadow:  3px 0 20px 3px #7fc0d0;
     background-color: #f3f3f8;
     color: #333;
     line-height: 200px;
@@ -271,6 +297,7 @@ export default {
       background-color: #f4f4fa;
     }
   }
+
 
   .el-main {
     box-shadow: inset 3px 3px 30px #91c2e3;
@@ -290,6 +317,7 @@ export default {
       width: 1305px;
     }
   }
+
 
 </style>
 
