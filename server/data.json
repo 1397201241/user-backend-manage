@@ -31,8 +31,8 @@
   ],
   "user": [
     {
-      "id": 1,
-      "username": "general_user",
+      "id": 2,
+      "username": "admin",
       "password": "123456",
       "city": "长沙",
       "country": "中国",
@@ -41,23 +41,14 @@
       "address": "湖南长沙"
     },
     {
-<<<<<<< HEAD
-=======
-      "id": "10",
-      "USER_ID": "10",
-      "USER_TYPE": "普通用户",
-      "MOF_CODE": "福建省教育厅招生办财政部门",
-      "AGENCY_CODE": "福建省教育厅招生办",
-      "USER_NAME": "郭荣华",
-      "USER_ACCOUNT": "Zhao ShengBan",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199902122788",
-      "TEL": "18076463654",
-      "NOTE": "",
-      "STATUS": 1,
-      "CREATE_TIME": "",
-      "UPDATE_TIME": "",
-      "VERSION": ""
+      "id": 3,
+      "username": "Noob",
+      "password": "123456",
+      "city": "长沙",
+      "country": "中国",
+      "zip": "410000",
+      "phone": "15273166485",
+      "address": "湖南长沙"
     }
   ],
   "PAYMENT_APPLY": [
@@ -111,29 +102,6 @@
       "IS_DELETE": 0,
       "VERSION": "0.0.1",
       "AUDIT_STATUS_CN": "未通过"
-    }
-  ],
-  "user": [
-    {
->>>>>>> 4b53ae5e56764cdab24fc6575e8c6fc9bc632c23
-      "id": 2,
-      "username": "admin",
-      "password": "123456",
-      "city": "长沙",
-      "country": "中国",
-      "zip": "410000",
-      "phone": "15273166485",
-      "address": "湖南长沙"
-    },
-    {
-      "id": 3,
-      "username": "Noob",
-      "password": "123456",
-      "city": "长沙",
-      "country": "中国",
-      "zip": "410000",
-      "phone": "15273166485",
-      "address": "湖南长沙"
     }
   ],
   "role": [
@@ -207,11 +175,7 @@
     {
       "id": 2,
       "rid": 1,
-      "permission_id": [
-        2,
-        3,
-        5
-      ]
+      "permission_id": []
     }
   ],
   "JSEncrypt": [
@@ -550,50 +514,143 @@
       "id": 1,
       "LIQU_CERT_ID": 110,
       "CREATE_AT": "2021/7/14下午2:40:18",
-      "UPDATE_AT": "2021/7/14下午2:40:18",
-      "OPERATOR_ID": "操作者ID1",
+      "UPDATE_AT": "2021/7/14下午5:32:54",
+      "OPERATOR_ID": "李白",
       "LIQU_CERT_NUM": 1002345,
       "IS_DELETE": 0,
       "AMOUNT": "$600.95",
       "AGENT_BANK": "中国工商银行",
       "CLEAR_BANK": "中国人民银行",
       "VERSION": "1.0.5"
-    },{
+    },
+    {
       "id": 2,
       "LIQU_CERT_ID": 210,
       "CREATE_AT": "2021/7/14下午2:40:18",
-      "UPDATE_AT": "2021/7/14下午2:40:18",
-      "OPERATOR_ID": "操作者ID2",
+      "UPDATE_AT": "2021/7/14下午5:33:05",
+      "OPERATOR_ID": "韩信",
       "LIQU_CERT_NUM": 1002345,
       "IS_DELETE": 0,
       "AMOUNT": "$640.95",
       "AGENT_BANK": "中国工商银行",
       "CLEAR_BANK": "中国人民银行",
       "VERSION": "1.0.5"
-    },{
-      "id": 1,
+    },
+    {
+      "id": 3,
       "LIQU_CERT_ID": 310,
       "CREATE_AT": "2021/7/14下午2:40:18",
-      "UPDATE_AT": "2021/7/14下午2:40:18",
-      "OPERATOR_ID": "操作者ID3",
+      "UPDATE_AT": "2021/7/14下午5:33:17",
+      "OPERATOR_ID": "赵云",
       "LIQU_CERT_NUM": 100445,
       "IS_DELETE": 0,
       "AMOUNT": "$550.95",
       "AGENT_BANK": "中国工商银行",
       "CLEAR_BANK": "中国人民银行",
       "VERSION": "1.0.5"
-    },{
-      "id": 1,
+    },
+    {
+      "id": 4,
       "LIQU_CERT_ID": 410,
       "CREATE_AT": "2021/7/14下午2:40:18",
-      "UPDATE_AT": "2021/7/14下午2:40:18",
-      "OPERATOR_ID": "操作者ID4",
+      "UPDATE_AT": "2021/7/14下午5:33:43",
+      "OPERATOR_ID": "橘右京",
       "LIQU_CERT_NUM": 1004445,
       "IS_DELETE": 0,
       "AMOUNT": "$63330.95",
       "AGENT_BANK": "中国工商银行",
       "CLEAR_BANK": "中国人民银行",
       "VERSION": "1.0.5"
+    }
+  ],
+  "bgt_pm": [
+    {
+      "id": 1,
+      "BGT_PMAN_ID": 5201313,
+      "MOF_DIV_CODE": "350000",
+      "FISCAL_YEAR": "2016",
+      "AGENCY_CODE": "4623",
+      "PRO_KIND_CODE": "03",
+      "PRO_CODE": "665424332",
+      "APPLY_UP": 12,
+      "FIN_AUDIT_MONEY": 12,
+      "DEPT_CODE": "6534",
+      "APPLY_LINK": "5",
+      "REPLY_AMT": 12,
+      "ADJ_AMT": 12,
+      "CUR_AMT": 12,
+      "BUDGET_LEVEL_CODE": "3",
+      "FOUND_TYPE_CIDE": "001345",
+      "UPDATE_AT": "2021/7/15上午10:36:22",
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "IS_DELETE": 0,
+      "VERSION": "1.0.5"
+    },
+    {
+      "id": 2,
+      "BGT_PMAN_ID": 5201315,
+      "MOF_DIV_CODE": "350000",
+      "FISCAL_YEAR": "2016",
+      "AGENCY_CODE": "4623",
+      "PRO_KIND_CODE": "03",
+      "PRO_CODE": "665544334",
+      "APPLY_UP": 12,
+      "FIN_AUDIT_MONEY": 12,
+      "DEPT_CODE": "6534",
+      "APPLY_LINK": "5",
+      "REPLY_AMT": 12,
+      "ADJ_AMT": 12,
+      "CUR_AMT": 12,
+      "BUDGET_LEVEL_CODE": "3",
+      "FOUND_TYPE_CIDE": "001345",
+      "UPDATE_AT": "2021/7/15上午10:38:26",
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "IS_DELETE": 0,
+      "VERSION": "1.0.5"
+    },
+    {
+      "id": 3,
+      "BGT_PMAN_ID": 5201316,
+      "MOF_DIV_CODE": "350000",
+      "FISCAL_YEAR": "2016",
+      "AGENCY_CODE": "4623",
+      "PRO_KIND_CODE": "03",
+      "PRO_CODE": "665544337",
+      "APPLY_UP": 12,
+      "FIN_AUDIT_MONEY": 12,
+      "DEPT_CODE": "6534",
+      "APPLY_LINK": "5",
+      "REPLY_AMT": 12,
+      "ADJ_AMT": 12,
+      "CUR_AMT": 12,
+      "BUDGET_LEVEL_CODE": "3",
+      "FOUND_TYPE_CIDE": "001345",
+      "UPDATE_AT": "2021/7/15上午10:38:22",
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "IS_DELETE": 0,
+      "VERSION": "1.0.5"
+    },
+    {
+      "AGENCY_CODE": "454244",
+      "PRO_CODE": "665544338",
+      "MOF_DIV_CODE": "350000",
+      "BGT_PMAN_ID": "4545",
+      "FISCAL_YEAR": "2021",
+      "APPLY_UP": "3",
+      "VERSION": "1.0.5",
+      "PRO_KIND_CODE": "03",
+      "IS_DELETE": 0,
+      "DEPT_CODE": "652",
+      "APPLY_LINK": "1",
+      "FIN_AUDIT_MONEY": "12",
+      "REPLY_AMT": "3",
+      "ADJ_AMT": "$200.25",
+      "CUR_AMT": "$2200.25",
+      "BUDGET_LEVEL_CODE": "2",
+      "FOUND_TYPE_CIDE": "545",
+      "CREATE_AT": "2021/7/15上午10:37:38",
+      "UPDATE_AT": "2021/7/15上午10:38:11",
+      "id": 4
     }
   ]
 }

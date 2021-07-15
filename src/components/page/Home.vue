@@ -3,7 +3,7 @@
     <el-header height="60px">
       <!--      logo及项目名-->
       <div class="headLeft">
-        <img src="../../assets/img/sys_logo.png">
+        <img src="../../assets/imgs/sys_logo.png">
         <span>预算管理一体化系统</span>
       </div>
 
@@ -11,7 +11,7 @@
       <div class="headRight">
         <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.username}}</span>
         <el-dropdown>
-          <img src="../../assets/img/head.png">
+          <img src="../../assets/imgs/head.png">
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item icon="el-icon-house">系统首页</el-dropdown-item>
             <el-dropdown-item icon="el-icon-ship">关于我们</el-dropdown-item>
@@ -75,7 +75,7 @@ const User = ()=>import('./Users')
 const Role = ()=>import('./Roles')
 const Welcome = ()=>import('./Welcome')
 const Agency = ()=>import('./Agency')
-const Project = ()=>import('./Project')
+const Project = ()=>import('./Project/Project')
 import {menuList} from "../../assets/js/menuData";
 import {removeToken} from "../../utils/auth";
 
@@ -164,36 +164,28 @@ export default {
         }
       }
       if(!flag){
+        let routerChildren = ['/pro_apply_add']
         console.log('to.path',to.path);
         //通过路由的判断，来加入标签页的名称
-        if(to.path === '/users') {
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path, name: "用户列表"});
+        let path_name_list = {
+          "/users":"用户列表",
+          "/roles":"角色列表",
+          "/role_list":"权限管理",
+          "/payApply":"支付申请",
+          "/payCheck":"支付审核",
+          "/welcome":"欢迎界面",
+          "/project":"项目列表",
+          "/agency":"单位管理",
+          "/liquidation":"清算凭证",
+          "/bgt_pm":"预算申请管理",
+          "/pro_apply":"项目申报",
         }
-        else if(to.path === "/roles"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
+        if(path_name_list[to.path]){
+          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
         }
-        else if(to.path === "/role_list"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "权限管理"});
-        }
-        else if(to.path === "/payApply"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付申请"});
-        }
-        else if(to.path === "/payCheck"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "支付审核"});
-        }
-        else if(to.path === "/welcome"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "欢迎页面"});
-        }
-        else if(to.path === "/project"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "项目列表"});
-        }
-        else if(to.path === "/agency"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "单位管理"});
-        }
-        else if(to.path === "/liquidation"){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "清算凭证"});
-        }
-        this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
+
+        if(!routerChildren.includes(to.path)){
+        this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);}
       }
     }
   }

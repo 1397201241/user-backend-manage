@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getToken} from "../utils/auth";
 import store from '../store'
+import ProApply from "../components/page/Project/ProApply";
+import ProApply_add from "../components/page/Project/ProApply_add";
 
 
 const Home = ()=>import('../components/page/Home.vue');
@@ -13,11 +15,11 @@ const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
-const Project = ()=>import('../components/page/Project')
+const Project = ()=>import('../components/page/Project/Project')
 const Liquidation = ()=>import('../components/page/Liquidation')
 const PayCheck = ()=>import('../components/page/pay/PayCheck')
 const PayApply = ()=>import('../components/page/pay/PayApply')
-
+const Bgt_pm = ()=>import('../components/page/Bgt_pm')
 
 
 Vue.use(VueRouter);
@@ -105,6 +107,25 @@ const routes = [
         component:Liquidation,
         meta: {title: '清算凭证'}
       },
+      {
+        path: '/bgt_pm',
+        name:'Bgt_pm',
+        component:Bgt_pm,
+        meta: {title: '预算申请管理'}
+      },
+      {
+        path: '/pro_apply',
+        name:'ProApply',
+        component:ProApply,
+        meta: {title: '项目申报'},
+        children:[
+          {
+            path: '/pro_apply_add',
+            name:'ProApply_add',
+            component:ProApply_add,
+          },
+        ]
+      }
     ],
   },
 ]

@@ -10,7 +10,7 @@
             <el-input suffix-icon="el-icon-search" v-model="formInline.certNum" placeholder="输入清算凭证单号"></el-input>
           </el-form-item>
           <el-form-item style="margin-left: 10px; margin-right: -5px">
-            <el-input suffix-icon="el-icon-search" v-model="formInline.certNum" placeholder="输入清算银行名"></el-input>
+            <el-input suffix-icon="el-icon-search" v-model="formInline.clearBank" placeholder="输入清算银行名"></el-input>
           </el-form-item>
           <el-button type="primary"  icon="el-icon-refresh" style="margin-left: 10px" @click="getLiquiList">刷新</el-button>
           <el-button  type="primary" icon="el-icon-search" style="margin-left: 5px" @click="selectLiqui">查看</el-button>
@@ -28,66 +28,42 @@
               type="selection"
               width="55">
           </el-table-column>
-<!--          <el-table-column type="expand">
+          <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="单位名称">
-                  <span>{{ props.row.AGENCY_NAME }}</span>
-                </el-form-item>
-                <el-form-item label="单位ID">
-                  <span>{{ props.row.AGENCY_ID }}</span>
-                </el-form-item>
-                <el-form-item label="单位代码">
-                  <span>{{ props.row.AGENCY_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="单位负责人">
-                  <span>{{ props.row.AGENCY_LEADER_PER_NAME }}</span>
-                </el-form-item>
-                <el-form-item label="统一社会信用代码">
-                  <span>{{ props.row.UNIFSOC_CRED_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="行政级别代码">
-                  <span>{{ props.row.AGENCY_ADM_LEVEL_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="单位地址">
-                  <span>{{ props.row.AGENCY_ADD }}</span>
-                </el-form-item>
-                <el-form-item label="父节点ID">
-                  <span>{{ props.row.PARENT_ID }}</span>
-                </el-form-item>
-                <el-form-item label="单位简称">
-                  <span>{{ props.row.AGENCY_ABBREVIATION }}</span>
-                </el-form-item>
-                <el-form-item label="是否叶结点">
-                  <span>{{ props.row.IS_LEAF }}</span>
-                </el-form-item>
-                <el-form-item label="启用日期">
-                  <span>{{ props.row.START_AT }}</span>
-                </el-form-item>
-                <el-form-item label="停用日期">
-                  <span>{{ props.row.END_AT }}</span>
-                </el-form-item>
-                <el-form-item label="启用码">
-                  <span>{{ props.row.IS_ENABLED }}</span>
-                </el-form-item>
-                <el-form-item label="删除码">
-                  <span>{{ props.row.IS_DELETE }}</span>
+                <el-form-item label="清算凭证ID">
+                  <span>{{ props.row.LIQU_CERT_ID }}</span>
                 </el-form-item>
                 <el-form-item label="创建时间">
-                  <span>{{ props.row.CREATE_TIME }}</span>
+                  <span>{{ props.row.CREATE_AT }}</span>
                 </el-form-item>
                 <el-form-item label="更新时间">
                   <span>{{ props.row.UPDATE_AT }}</span>
                 </el-form-item>
-                <el-form-item label="财政区划代码">
-                  <span>{{ props.row.MOF_DIV_CODE }}</span>
+                <el-form-item label="操作者ID">
+                  <span>{{ props.row.OPERATOR_ID }}</span>
                 </el-form-item>
-                <el-form-item label="欢乐锁">
+                <el-form-item label="是否删除">
+                  <span>{{ props.row.IS_DELETE }}</span>
+                </el-form-item>
+                <el-form-item label="清算凭证单号">
+                  <span>{{ props.row.LIQU_CERT_NUM }}</span>
+                </el-form-item>
+                <el-form-item label="总金额">
+                  <span>{{ props.row.AMOUNT }}</span>
+                </el-form-item>
+                <el-form-item label="版本号">
                   <span>{{ props.row.VERSION }}</span>
+                </el-form-item>
+                <el-form-item label="代理银行">
+                  <span>{{ props.row.AGENT_BANK }}</span>
+                </el-form-item>
+                <el-form-item label="清算银行">
+                  <span>{{ props.row.CLEAR_BANK }}</span>
                 </el-form-item>
               </el-form>
             </template>
-          </el-table-column>-->
+          </el-table-column>
           <el-table-column
               label="操作者ID"
               width="220">
@@ -113,7 +89,7 @@
               label="操作"
               width="200">
             <template slot-scope="scope"><!---->
-              <el-button type="primary" @click="show(2,scope.row.AGENCY_ID)">编辑项目</el-button>
+              <el-button type="primary" @click="show(2,scope.row.LIQU_CERT_ID)">编辑项目</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -129,17 +105,27 @@
           layout="total,sizes,prev,pager,next,jumper"
           :total="totalNum">
       </el-pagination>
+      <LiquiOpera :addOrUpdateVisible="addOrUpdateVisible" :title="liquiTitle" @changeShow="showAddOrUpdate"
+                  :opIndex="operaIndex" :liquidation="transferLiqui"
+                  @addLiqui="addLiquiList" @editLiqui="editLiquiList"
+                  ref="addOrUpdateRef"> </LiquiOpera>
     </el-card>
   </div>
 </template>
 
 <script>
-import {get} from "../../utils/request";
+import {del, get, post, put} from "../../utils/request";
+const LiquiOpera = ()=>import('../common/LiquiOpera')
 
 export default {
   name: "Liquidation",
+  components:{LiquiOpera},
   data(){
     return{
+      addOrUpdateVisible:false,
+      liquiTitle:'',
+      operaIndex:1,
+      transferLiqui:{},
       formInline:{
         certNum:'',
         clearBank:'',
@@ -157,13 +143,98 @@ export default {
     this.getLiquiList()
   },
   methods:{
+    addLiquiList(formData){
+      let time = new Date()
+      this.transferLiqui = formData
+      this.transferLiqui.CREATE_AT = time.toLocaleString()
+      this.transferLiqui.UPDATE_AT = time.toLocaleString()
+      this.transferLiqui.id = this.myTableData[this.myTableData.length-1].id+1
+      console.log(this.myTableData[this.myTableData.length-1])
+      post(this.liquidationURL,this.transferLiqui)
+      this.getLiquiList()
+    },
+    editLiquiList(formData){
+      console.log("收到id"+formData)
+      this.transferPro = formData
+      let time = new Date()
+      this.transferLiqui.UPDATE_AT = time.toLocaleString()
+      let theURL = this.liquidationURL+"/"+formData.id
+      console.log(this.transferLiqui)
+      put(theURL,this.transferLiqui)
+    },
     show(index,id){
-      console.log(index,id,"显示弹框环节")
+      if(index ===  1) {
+        this.operaIndex = 1
+        this.proTitle = "添加"
+        console.log("添加")
+      }
+      else{
+        this.operaIndex = 2
+        this.proTitle = "编辑"
+        for(let i of this.myTableData){
+          console.log(i)
+          if(i.LIQU_CERT_ID === id){
+            this.transferLiqui = i
+            break
+          }
+        }
+      }
+      this.addOrUpdateVisible = true
+    },
+    showAddOrUpdate(data){
+      this.addOrUpdateVisible = data !== 'false';
     },
     delLiqui(){
       console.log("删除环节")
+      for(let i in this.multipleSelection){
+        for(let j in this.myTableData){
+          if(this.multipleSelection[i].LIQU_CERT_ID === this.myTableData[j].LIQU_CERT_ID){
+            del(this.liquidationURL+"/"+this.myTableData[j].id)
+            break
+          }
+        }
+      }
+      this.getLiquiList()
     },
-    selectLiqui(){},
+    selectLiqui(){
+      let filterList = [],lastList = []
+      if(this.formInline.clearBank && !this.formInline.certNum) {
+        for (let i of this.myTableData) {
+          console.log(i.CLEAR_BANK)
+          if (i.CLEAR_BANK.includes(this.formInline.clearBank)) {
+            console.log(i.CLEAR_BANK+"包含了"+this.formInline.clearBank)
+            filterList.push(i)
+          }
+        }
+        this.myTableData = filterList
+      }
+      else if(!this.formInline.clearBank && this.formInline.certNum){
+        for(let i of this.myTableData){
+          if(i.LIQU_CERT_NUM.toString().includes(this.formInline.certNum)){
+            filterList.push(i)
+          }
+        }
+        this.myTableData = filterList
+      }
+      else if(this.formInline.clearBank && this.formInline.certNum){
+        for(let i of this.myTableData){
+          if (i.CLEAR_BANK.includes(this.formInline.clearBank)) {
+            filterList.push(i)
+          }
+        }
+        for(let i of filterList){
+          if(i.LIQU_CERT_NUM.toString().includes(this.formInline.certNum)){
+            lastList.push(i)
+          }
+        }
+        console.log(lastList)
+        this.myTableData = lastList
+      }else{
+        console.log(this.formInline.projectName,this.value,1)
+        this.getLiquiList()
+        console.log("获取列表")
+      }
+    },
     getLiquiList(){
       console.log("获取中")
       get(this.liquidationURL).then(myJson=>{

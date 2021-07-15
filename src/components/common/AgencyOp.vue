@@ -147,6 +147,7 @@ export default {
   },
   data(){
     return{
+      id:'',
       provinceList: [], // 省列表
       cityList: [], // 市列表
       originList: [], // 区列表

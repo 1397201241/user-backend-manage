@@ -74,7 +74,7 @@
                     <span>{{ props.row.IS_DELETE }}</span>
                   </el-form-item>
                   <el-form-item label="创建时间">
-                    <span>{{ props.row.CREATE_TIME }}</span>
+                    <span>{{ props.row.CREATE_AT }}</span>
                   </el-form-item>
                   <el-form-item label="更新时间">
                     <span>{{ props.row.UPDATE_AT }}</span>
@@ -139,7 +139,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {get,post,del,put} from "../../utils/request";
-const AgencyOp = ()=>import('./AgencyOp')
+const AgencyOp = ()=>import('../common/AgencyOp')
 export default {
   name: "Agency",
   components:{AgencyOp},
@@ -178,7 +178,7 @@ export default {
     },
     editAgenList(formData){
       console.log("收到id"+formData)
-      this.transferPro = formData
+      this.transferAgen = formData
       let time = new Date()
       this.transferAgen.UPDATE_AT = time.toLocaleString()
       let theURL = this.agencyURL+"/"+formData.id
@@ -192,11 +192,11 @@ export default {
       console.log(id)
       if(operaIndex ===  1) {
         this.operaIndex = 1
-        this.proTitle = "添加单位信息噢！"
+        this.agenTitle = "添加单位信息噢！"
       }
       else{
         this.operaIndex = 2
-        this.proTitle = "编辑单位信息呀！"
+        this.agenTitle = "编辑单位信息呀！"
         for(let i of this.myTableData){
           console.log(i.AGENCY_ID)
           if(i.AGENCY_ID === id){

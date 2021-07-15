@@ -195,6 +195,19 @@ export const menuList = [
               "children": []
             }
           ]
+        },
+        {
+          "id": 444,
+          "parentId": 312,
+          "menuName": "预算申报管理",
+          "url": "/bgt_pm",
+          "icon": "el-icon-date",
+          "orderNum": 4,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children": []
         }
       ]
     },
@@ -332,10 +345,10 @@ export const menuList = [
         {
           "id": 307,
           "parentId": 5,
-          "menuName": "新建项目",
-          "url": "/newproject",
+          "menuName": "项目申报",
+          "url": "/pro_apply",
           "icon": "el-icon-edit",
-          "orderNum": 1,
+          "orderNum": 2,
           "open": 1,
           "disabled": false,
           "perms": "",

@@ -112,6 +112,18 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "清算凭证"});
         }
       }
+      else if(path === "/bgt_pm"){
+        commit('CHECK_EXIST','/bgt_pm')
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "预算申请管理"});
+        }
+      }
+      else if(path === '/pro_apply'){
+        commit('CHECK_EXIST','/pro_apply')
+        if(!state.isTabShow){
+          commit('ADD_TABS',{route: path , name: "项目申报"})
+        }
+      }
       commit('SET_ACTIVE_INDEX', path);
     } else {
       commit('CHECK_EXIST','/welcome');

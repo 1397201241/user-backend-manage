@@ -97,6 +97,9 @@
                 <el-form-item label="表单创建时间">
                   <span>{{ props.row.CREATE_AT }}</span>
                 </el-form-item>
+                <el-form-item label="申报环节">
+                  <span>{{ props.row.APPLY_LINK }}</span>
+                </el-form-item>
                 <el-form-item label="版本号">
                   <span>{{ props.row.VERSION }}</span>
                 </el-form-item>
@@ -152,8 +155,8 @@
 </template>
 
 <script>
-import {get,post,del,put} from "../../utils/request";
-import ProOpera from "../common/ProOpera";
+import {get,post,del,put} from "../../../utils/request";
+import ProOpera from "../../common/ProOpera";
 export default {
   name: "Project",
   components:{ProOpera},

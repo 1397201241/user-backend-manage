@@ -95,7 +95,6 @@
         },
         mounted() {
             this.createCode()
-
         },
         methods:{
 
@@ -167,7 +166,6 @@
                         });
                     }
                 });
-
             },
             // 获得验证码
             createCode () {
