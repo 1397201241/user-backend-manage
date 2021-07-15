@@ -136,12 +136,16 @@
           </el-input>
         </el-form-item>
       </el-container>
-
-      <el-form-item label="版本号" prop="TRAOBJ_AGENCY_CODE">
-        <el-input v-model="formData.TRAOBJ_AGENCY_CODE" placeholder="去向单位代码" clearable :style="{width: '100%'}">
-        </el-input>
-      </el-form-item>
-
+      <el-container>
+        <el-form-item label="申报环节" prop="APPLY_LINK">
+          <el-input v-model="formData.APPLY_LINK" placeholder="申报环节代码" clearable :style="{width: '80%'}">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="乐观锁" prop="VERSION">
+          <el-input v-model="formData.VERSION" placeholder="乐观锁" clearable :style="{width: '100%'}">
+          </el-input>
+        </el-form-item>
+      </el-container>
       <el-form-item label="单位建议" prop="PRO_AGENCY_VIEW">
         <el-input type="textarea" v-model="formData.PRO_AGENCY_VIEW" placeholder="请输入单位建议" clearable :style="{width: '100%'}">
         </el-input>
@@ -210,7 +214,7 @@ export default {
         MOF_AUD_OPNION_CODE: 1,
         PRO_KIND:"文娱",
         PRO_KIND_CODE: "03",
-        TRAOBJ_AGENCY_CODE: 4,
+        APPLY_LINK: 4,
       },
       // 控制弹出框显示隐藏
       rules: {

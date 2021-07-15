@@ -27,103 +27,22 @@
       "name": "郭容华",
       "tel": "15273166485",
       "address": "广西玉林"
-    },
-    {
-      "tel": "dnsainiasfn",
-      "id": 41
-    },
-    {
-      "tel": "21312",
-      "id": 42
     }
   ],
-  "USERS": [
+  "user": [
     {
       "id": 1,
-      "USER_ID": 1,
-      "USER_TYPE": "普通用户",
-      "MOF_CODE": "省级财政",
-      "AGENCY_CODE": "所属机构",
-      "USER_NAME": "普通用户",
-      "USER_ACCOUNT": "general_user",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199901022444",
-      "TEL": "15273166485",
-      "NOTE": "general_user",
-      "STATUS": 1,
-      "CREATE_TIME": "21:05 2021/7/11",
-      "UPDATE_TIME": "21:05 2021/7/11",
-      "VERSION": "0.0.1"
+      "username": "general_user",
+      "password": "123456",
+      "city": "长沙",
+      "country": "中国",
+      "zip": "410000",
+      "phone": "15273166485",
+      "address": "湖南长沙"
     },
     {
-      "id": 2,
-      "USER_ID": 2,
-      "USER_TYPE": "管理员",
-      "MOF_CODE": "所属财政",
-      "AGENCY_CODE": "所属机构",
-      "USER_NAME": "单位管理员用户",
-      "USER_ACCOUNT": "admin_user",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199901022445",
-      "TEL": "15273166485",
-      "NOTE": "general_user",
-      "STATUS": 1,
-      "CREATE_TIME": "21:05 2021/7/12",
-      "UPDATE_TIME": "21:05 2021/7/12",
-      "VERSION": "0.0.1"
-    },
-    {
-      "id": 7,
-      "USER_ID": 7,
-      "USER_TYPE": "管理员",
-      "MOF_CODE": "所属财政",
-      "AGENCY_CODE": "所属机构",
-      "USER_NAME": "单位管理员用户",
-      "USER_ACCOUNT": "admin_user",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199901022446",
-      "TEL": "15273166485",
-      "NOTE": "general_user",
-      "STATUS": 1,
-      "CREATE_TIME": "21:05 2021/7/12",
-      "UPDATE_TIME": "21:05 2021/7/12",
-      "VERSION": "0.0.1"
-    },
-    {
-      "id": 8,
-      "USER_ID": 8,
-      "USER_TYPE": "管理员",
-      "MOF_CODE": "所属财政",
-      "AGENCY_CODE": "所属机构",
-      "USER_NAME": "单位管理员用户",
-      "USER_ACCOUNT": "admin_user",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199901022447",
-      "TEL": "15273166485",
-      "NOTE": "general_user",
-      "STATUS": 1,
-      "CREATE_TIME": "21:05 2021/7/12",
-      "UPDATE_TIME": "21:05 2021/7/12",
-      "VERSION": "0.0.1"
-    },
-    {
-      "id": 9,
-      "USER_ID": 9,
-      "USER_TYPE": "管理员",
-      "MOF_CODE": "所属财政",
-      "AGENCY_CODE": "所属机构",
-      "USER_NAME": "单位管理员用户",
-      "USER_ACCOUNT": "admin_user",
-      "USER_PASSWORD": "123456",
-      "ID_CARD_NUM": "450923199901022449",
-      "TEL": "15273166485",
-      "NOTE": "general_user",
-      "STATUS": 1,
-      "CREATE_TIME": "21:05 2021/7/12",
-      "UPDATE_TIME": "21:05 2021/7/12",
-      "VERSION": "0.0.1"
-    },
-    {
+<<<<<<< HEAD
+=======
       "id": "10",
       "USER_ID": "10",
       "USER_TYPE": "普通用户",
@@ -382,6 +301,7 @@
   ],
   "user": [
     {
+>>>>>>> 4b53ae5e56764cdab24fc6575e8c6fc9bc632c23
       "id": 2,
       "username": "admin",
       "password": "123456",
@@ -474,7 +394,6 @@
       "id": 2,
       "rid": 1,
       "permission_id": [
-        1,
         2,
         3,
         5
@@ -507,7 +426,7 @@
     {
       "id": "1",
       "PRO_ID": "13225945965",
-      "SETUP_YEAR": 2014,
+      "SETUP_YEAR": 2015,
       "PRO_CODE": "SHUISHANGLEYUAN",
       "PRO_NAME": "水上乐园",
       "AGENCY_CODE": 2,
@@ -520,13 +439,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在给人们闲暇之余带来无限欢乐~",
-      "UPDATE_TIME": "2021/7/13下午7:18:33",
+      "UPDATE_AT": "2021/7/14下午2:40:18",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     },
     {
@@ -545,13 +464,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在给人们闲暇之余带来无限欢乐~",
-      "UPDATE_TIME": "2021-07-12",
+      "UPDATE_AT": "2021-07-12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     },
     {
@@ -570,13 +489,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在给打工仔更好的打工环境~",
-      "UPDATE_TIME": "2021-07-12",
+      "UPDATE_AT": "2021-07-12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     },
     {
@@ -595,13 +514,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在使小孩更好的成长~",
-      "UPDATE_TIME": "2021-07-12",
+      "UPDATE_AT": "2021-07-12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     },
     {
@@ -620,13 +539,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在给歌手赚钱~",
-      "UPDATE_TIME": "2021-07-12",
+      "UPDATE_AT": "2021-07-12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     },
     {
@@ -645,13 +564,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "",
       "PRO_DESC": "",
-      "UPDATE_TIME": "2021/7/12",
+      "UPDATE_AT": "2021/7/12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "",
+      "CREATE_AT": "",
       "VERSION": "1.03.5"
     },
     {
@@ -670,13 +589,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "",
       "PRO_DESC": "",
-      "UPDATE_TIME": "2021/7/12",
+      "UPDATE_AT": "2021/7/12",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "",
+      "CREATE_AT": "",
       "VERSION": "1.03.5"
     },
     {
@@ -695,13 +614,13 @@
       "MOF_AUD_OPNION_CODE": 1,
       "PRO_KIND": "文娱",
       "PRO_KIND_CODE": "03",
-      "TRAOBJ_AGENCY_CODE": 4,
+      "APPLY_LINK": 4,
       "PRO_BGTREVIEW": "这项目真的是非常牛逼啊！",
       "PRO_DESC": "该项目旨在给人们闲暇之余带来无限欢乐~",
-      "UPDATE_TIME": "2021/7/13下午3:17:54",
+      "UPDATE_AT": "2021/7/13下午3:17:54",
       "IS_END": 0,
       "IS_DELETED": 0,
-      "CREATE_TIME": "2021-07-12",
+      "CREATE_AT": "2021-07-12",
       "VERSION": "1.03.5"
     }
   ],
@@ -723,7 +642,7 @@
       "END_AT": "2022-8-16",
       "IS_ENABLED": 1,
       "IS_DELETE": 1,
-      "CREATE_TIME": "2021/7/13下午3:17:54",
+      "CREATE_AT": "2021/7/13下午3:17:54",
       "UPDATE_AT": "2021/7/14下午2:03:33",
       "VERSION": "1.0.5"
     },
@@ -744,7 +663,7 @@
       "END_AT": "2022-8-16",
       "IS_ENABLED": 1,
       "IS_DELETE": 1,
-      "CREATE_TIME": "2021/7/13下午3:17:54",
+      "CREATE_AT": "2021/7/13下午3:17:54",
       "UPDATE_AT": "2021/7/14上午11:35:39",
       "VERSION": "1.0.5"
     },
@@ -765,7 +684,7 @@
       "END_AT": "2022-8-16",
       "IS_ENABLED": 1,
       "IS_DELETE": 1,
-      "CREATE_TIME": "2021/7/13下午3:17:54",
+      "CREATE_AT": "2021/7/13下午3:17:54",
       "UPDATE_AT": "2021/7/14上午11:35:57",
       "VERSION": "1.0.5"
     },
@@ -786,7 +705,7 @@
       "END_AT": "2022-8-16",
       "IS_ENABLED": 1,
       "IS_DELETE": 1,
-      "CREATE_TIME": "2021/7/13下午3:17:54",
+      "CREATE_AT": "2021/7/13下午3:17:54",
       "UPDATE_AT": "2021/7/14上午9:39:15",
       "VERSION": "1.0.5"
     },
@@ -810,12 +729,57 @@
       "CREATE_AT": "2021/7/14上午9:39:06",
       "UPDATE_AT": "2021/7/14上午11:35:14",
       "id": 5
-    },
+    }
+  ],
+  "liquidation": [
     {
-      "AGENCY_ADD": "湖北省武汉市江汉区",
-      "CREATE_AT": "2021/7/14下午2:02:45",
-      "UPDATE_AT": "2021/7/14下午2:02:45",
-      "id": 6
+      "id": 1,
+      "LIQU_CERT_ID": 110,
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "UPDATE_AT": "2021/7/14下午2:40:18",
+      "OPERATOR_ID": "操作者ID1",
+      "LIQU_CERT_NUM": 1002345,
+      "IS_DELETE": 0,
+      "AMOUNT": "$600.95",
+      "AGENT_BANK": "中国工商银行",
+      "CLEAR_BANK": "中国人民银行",
+      "VERSION": "1.0.5"
+    },{
+      "id": 2,
+      "LIQU_CERT_ID": 210,
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "UPDATE_AT": "2021/7/14下午2:40:18",
+      "OPERATOR_ID": "操作者ID2",
+      "LIQU_CERT_NUM": 1002345,
+      "IS_DELETE": 0,
+      "AMOUNT": "$640.95",
+      "AGENT_BANK": "中国工商银行",
+      "CLEAR_BANK": "中国人民银行",
+      "VERSION": "1.0.5"
+    },{
+      "id": 1,
+      "LIQU_CERT_ID": 310,
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "UPDATE_AT": "2021/7/14下午2:40:18",
+      "OPERATOR_ID": "操作者ID3",
+      "LIQU_CERT_NUM": 100445,
+      "IS_DELETE": 0,
+      "AMOUNT": "$550.95",
+      "AGENT_BANK": "中国工商银行",
+      "CLEAR_BANK": "中国人民银行",
+      "VERSION": "1.0.5"
+    },{
+      "id": 1,
+      "LIQU_CERT_ID": 410,
+      "CREATE_AT": "2021/7/14下午2:40:18",
+      "UPDATE_AT": "2021/7/14下午2:40:18",
+      "OPERATOR_ID": "操作者ID4",
+      "LIQU_CERT_NUM": 1004445,
+      "IS_DELETE": 0,
+      "AMOUNT": "$63330.95",
+      "AGENT_BANK": "中国工商银行",
+      "CLEAR_BANK": "中国人民银行",
+      "VERSION": "1.0.5"
     }
   ]
 }

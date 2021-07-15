@@ -14,6 +14,7 @@ const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
 const Project = ()=>import('../components/page/Project')
+const Liquidation = ()=>import('../components/page/Liquidation')
 const PayCheck = ()=>import('../components/page/pay/PayCheck')
 const PayApply = ()=>import('../components/page/pay/PayApply')
 const Budget = ()=>import('../components/page/budget/index')
@@ -104,6 +105,12 @@ const routes = [
         name:'Project',
         component:Project,
         meta: {title: '项目列表'}
+      },
+      {
+        path: '/liquidation',
+        name:'Liquidation',
+        component:Liquidation,
+        meta: {title: '清算凭证'}
       },
     ],
   },

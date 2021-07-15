@@ -1,7 +1,7 @@
 <template>
     <div class="agencyStyle" style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px">
       <el-card class="agencyListCard">
-        <div class="agencyBtBox">
+        <div class="liquidationBtBox">
           <el-form :inline="true">
             <el-button type="primary" size="small" icon="el-icon-plus" @click="show(1)">添加</el-button>
             <el-button type="danger" size="small" icon="el-icon-delete" @click="delAgency">删除</el-button>
@@ -211,6 +211,7 @@ export default {
       let filterList = [],lastList = []
       if(this.formInline.agencyName && !this.formInline.agencyChargePerson) {
         for (let i of this.myTableData) {
+          console.log(i.AGENCY_NAME)
           if (i.AGENCY_NAME.includes(this.formInline.agencyName)) {
             console.log(i.AGENCY_NAME+"包含了"+this.formInline.agencyName)
             filterList.push(i)
@@ -285,7 +286,6 @@ export default {
           get(this.agencyURL).then(myJson=>{
             this.myTableData = myJson
             this.totalNum = this.myTableData.length
-            console.log(this.myTableData)
           })
         },
 
@@ -294,7 +294,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.agencyBtBox{
+.liquidationBtBox{
   .el-button{
     height: 40px;
   }
