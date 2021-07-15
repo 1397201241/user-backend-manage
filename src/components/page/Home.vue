@@ -180,6 +180,13 @@ export default {
             this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "角色列表"});
           }
         }
+        else if(to.path === "/budget"){
+          this.$store.commit('tab_info/CHECK_EXIST','/budget');
+          if(!this.$store.state.tab_info.isTabShow){
+            console.log("监听到切换！r")
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: "预算指标"});
+          }
+        }
         else if(to.path === "/role_list"){
           this.$store.commit('tab_info/CHECK_EXIST','/role_list')
           if(!this.$store.state.tab_info.isTabShow){

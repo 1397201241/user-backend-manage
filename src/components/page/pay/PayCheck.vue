@@ -18,140 +18,141 @@
             </el-form-item>
         </QueryPanel>
         <!--数据展示区-->
-        <el-table
-                :data="$store.state.pay_apply_info.pay_apply.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
-                stripe
-                border
-                max-height="276px"
-                @selection-change="handleSelectionChange"
-                style="min-height: 276px;max-width: 1280px"
-        >
-            <!--数据扩展区-->
-            <el-table-column type="expand">
-                <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="支付申请主键">
-                            <span>{{ props.row.PAY_APP_ID }}</span>
-                        </el-form-item>
-                        <el-form-item label="更新日期">
-                            <span>{{ props.row.UPDATE_AT }}</span>
-                        </el-form-item>
-                        <el-form-item label="操作者ID">
-                            <span>{{ props.row.OPERATOR_ID }}</span>
-                        </el-form-item>
-                        <el-form-item
-                                label="逻辑删除"
-                        >
-                            {{ props.row.IS_DELETE }}
-                        </el-form-item>
-                        <el-form-item label="版本">
-                            <span>{{ props.row.VERSION }}</span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column
-                    type="index"
-                    label="序号"
-                    width="50"
-                    align="center"
+        <el-card >
+            <el-table
+                    :data="$store.state.pay_apply_info.pay_apply.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+                    stripe
+                    max-height="312px"
+                    @selection-change="handleSelectionChange"
+                    style="width: 100%"
             >
-            </el-table-column>
-            <el-table-column
-                    type="selection"
-                    width="50"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAY_APP_NUM"
-                    label="支付申请编号"
-                    width="120"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="CREATE_AT"
-                    label="申请日期"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="AGENCY_CODE"
-                    label="单位代码"
-                    width="80"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="USE"
-                    label="用途"
-                    width="100"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="AMOUNT"
-                    label="金额"
-                    width="80"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAYEE_ACCT_NAME"
-                    label="收款人全称"
-                    width="80px"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAYEE_ACCT_NUM"
-                    label="收款人账号"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAYEE_ACCT_BANK_NAME"
-                    label="收款人开户银行"
-                    width="90"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="AUDIT_STATUS_CN"
-                    label="审核状态"
-                    width="80px"
-                    align="center"
-            >
-            </el-table-column>
-
-            <el-table-column
-                    prop="action"
-                    label="操作"
-                    width="200"
-                    align="center"
-            >
-                <template slot-scope="scope">
-                    <el-button
-                            @click.native.prevent="handleAcceptRow(scope)"
-                            size="mini"
-                            icon="el-icon-check"
-                            type="primary"
+                <!--数据扩展区-->
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-form-item label="支付申请主键">
+                                <span>{{ props.row.PAY_APP_ID }}</span>
+                            </el-form-item>
+                            <el-form-item label="更新日期">
+                                <span>{{ props.row.UPDATE_AT }}</span>
+                            </el-form-item>
+                            <el-form-item label="操作者ID">
+                                <span>{{ props.row.OPERATOR_ID }}</span>
+                            </el-form-item>
+                            <el-form-item
+                                    label="逻辑删除"
                             >
+                                {{ props.row.IS_DELETE }}
+                            </el-form-item>
+                            <el-form-item label="版本">
+                                <span>{{ props.row.VERSION }}</span>
+                            </el-form-item>
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        type="index"
+                        label="序号"
+                        width="50"
+                        align="center"
+                >
+                </el-table-column>
+                <el-table-column
+                        type="selection"
+                        width="50"
+                        align="center"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="PAY_APP_NUM"
+                        label="支付申请编号"
+                        width="120"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="CREATE_AT"
+                        label="申请日期"
+                        width="100">
+                </el-table-column>
+                <el-table-column
+                        prop="AGENCY_CODE"
+                        label="单位代码"
+                        width="80"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="USE"
+                        label="用途"
+                        width="100"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="AMOUNT"
+                        label="金额"
+                        width="80"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="PAYEE_ACCT_NAME"
+                        label="收款人全称"
+                        width="80px"
+                        align="center"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="PAYEE_ACCT_NUM"
+                        label="收款人账号"
+                        width="200px"
+                        align="center"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="PAYEE_ACCT_BANK_NAME"
+                        label="收款人开户银行"
+                        width="90"
+                        align="center"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="AUDIT_STATUS_CN"
+                        label="审核状态"
+                        width="80px"
+                        align="center"
+                >
+                </el-table-column>
 
-                        同意
-                    </el-button>
-                    <el-popconfirm
-                            title="您确定要撤销该条支付申请吗"
-                            @confirm="handleRevokeRow(scope)"
-                    >
+                <el-table-column
+                        prop="action"
+                        label="操作"
+                        align="center"
+                >
+                    <template slot-scope="scope">
                         <el-button
-                                type="warning"
-                                slot="reference"
-                                size="mini">
-                            <i class="iconfont icon-chexiao"></i>
-                            撤销
+                                @click.native.prevent="handleAcceptRow(scope)"
+                                size="mini"
+                                icon="el-icon-check"
+                                type="primary"
+                        >
+                            同意
                         </el-button>
-                    </el-popconfirm>
+                        <el-popconfirm
+                                title="您确定要撤销该条支付申请吗"
+                                @confirm="handleRevokeRow(scope)"
+                        >
+                            <el-button
+                                    type="warning"
+                                    slot="reference"
+                                    size="mini">
+                                <i class="iconfont icon-chexiao"></i>
+                                撤销
+                            </el-button>
+                        </el-popconfirm>
 
-                </template>
-            </el-table-column>
-        </el-table>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-card>
+
         <!--分页器-->
         <el-pagination align='center'
                        @size-change="handleSizeChange"
@@ -391,20 +392,24 @@
             },
             /*撤销提示*/
             handleRevokeRow(scope) {
-
-                const data=scope.row;
+                let newPayApply=scope.row;
                 /*注入修改信息*/
-                data.AUDIT_STATUS=0; //修改审核状态为1
-                this.$store.dispatch('pay_apply_info/acceptPayApply',{data})
+                console.log(scope.row)
+                newPayApply.AUDIT_STATUS=0; //修改审核状态为1
+                newPayApply.id=scope.row.PAY_APP_ID; //修改审核状态为1
+                this.$store.dispatch('pay_apply_info/acceptPayApply',{newPayApply})
             },
             /**
              * @description 同意支付申请
              * @param scope
              */
             handleAcceptRow(scope){
-                let data=scope.row;
-                data.AUDIT_STATUS=1; //修改审核状态为1
-                this.$store.dispatch('pay_apply_info/acceptPayApply',{data})
+                let newPayApply=scope.row;
+                /*注入修改信息*/
+                console.log(scope.row)
+                newPayApply.AUDIT_STATUS=1; //修改审核状态为1
+                newPayApply.id=scope.row.PAY_APP_ID; //修改审核状态为1
+                this.$store.dispatch('pay_apply_info/acceptPayApply',{newPayApply})
             },
             //选择一页显示多少行
             handleSizeChange(val) {
@@ -445,14 +450,13 @@
     }
     .demo-table-expand {
         font-size: 0;
-    }
-    .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
+        .el-form-item{
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+            span{
+                color: #5908b1;
+            }
+        }
     }
 </style>

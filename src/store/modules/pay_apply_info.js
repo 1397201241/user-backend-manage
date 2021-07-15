@@ -36,7 +36,11 @@ const mutations = {
 
 // actions 内部可以执行异步操作，context.commit()提交mutations来修改状态
 const actions = {
-    //获取用户账号密码
+    /**
+     * @description 获取支付申请
+     * @param commit
+     * @return {Q.Promise<void>}
+     */
     getPayApply ({commit}) {
         return get('http://localhost:3000/PAYMENT_APPLY').then(res=>{
             for (const item of res){
@@ -51,8 +55,8 @@ const actions = {
      * @param params
      * @return {Q.Promise<void>}
      */
-    addUser({dispatch}, params) {
-        return post("http://localhost:3000/PAYMENT_APPLY", params.newUser)
+    addPayApply({dispatch}, params) {
+        return post("http://localhost:3000/PAYMENT_APPLY", params.newPayApply)
             .then(() => {
                     dispatch('getPayApply')
                 }
@@ -63,11 +67,11 @@ const actions = {
      * @param dispatch
      * @param params
      */
-    deleteUser({dispatch},params){
+    deletePayApply({dispatch}, params){
         const deleteRequest=[];
         for (const user of params.multipleSelection){
             deleteRequest.push(
-                del('http://localhost:3000/USERS/'+user.USER_ID)
+                del('http://localhost:3000/PAYMENT_APPLY/'+user.PAY_APP_ID)
             )
         }
         Promise.allSettled(deleteRequest).then(res => {
@@ -78,7 +82,7 @@ const actions = {
                     console.log('删除失败')
                 }
             }
-            dispatch('getUsers')
+            dispatch('getPayApply')
         });
     },
     /**

@@ -2,7 +2,7 @@
     <el-container id="userList" direction="vertical" style="height: 100%;width: 100%" >
         <!--操作栏-->
         <div style="width: 100%;background-color: #5fb3ec">
-            <ActionBar @addBtnClick="addUserDialogVisible=true"
+            <ActionBar @addBtnClick="addDialogVisible=true"
                        @deleteBtnClick="handleDeleteBtnClick"
                        @enableBtnClick="handleEnableBtnClick"
                        @stopBtnClick="handleEnableBtnClick"
@@ -10,10 +10,10 @@
         </div>
         <!--搜索框-->
         <QueryPanel :queryModel="userQuery" @QueryButtonClick="onQueryBtnClick" style="margin-top: 10px">
-            <el-form-item label="姓名" style="margin-right: 10px">
+            <el-form-item label="单位代码" style="margin-right: 10px" label-width="70px">
                 <el-input v-model="userQuery.name" style="width: 200px"/>
             </el-form-item>
-            <el-form-item label="手机" label-width="40px">
+            <el-form-item label="收款人全称" label-width="120px">
                 <el-input v-model="userQuery.mobile" style="width: 200px"/>
             </el-form-item>
         </QueryPanel>
@@ -22,9 +22,9 @@
                 :data="$store.state.pay_apply_info.pay_apply.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
                 stripe
                 border
-                max-height="276px"
+                max-height="360px"
                 @selection-change="handleSelectionChange"
-                style="min-height: 276px;max-width: 1200px"
+                style="min-height: 360px;max-width: 1200px"
         >
             <!--数据扩展区-->
             <el-table-column type="expand">
@@ -146,43 +146,85 @@
         <!--添加用户对话框-->
         <el-dialog
                 title="添加用户"
-                :visible.sync="addUserDialogVisible"
-                width="600px"
-                center
+                :visible.sync="addDialogVisible"
+                width="700px"
                 :before-close="handleClose">
-            <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="120px" id="addCustomer" class="demo-ruleForm">
-                <el-form-item label="用户ID" prop="user_id">
-                    <el-input v-model="addUserForm.user_id"></el-input>
-                </el-form-item>
-                <el-form-item label="用户类型" prop="user_type">
-                    <el-input v-model="addUserForm.user_type"></el-input>
-                </el-form-item>
-                <el-form-item label="所属财政" prop="mof_code">
-                    <el-input v-model="addUserForm.mof_code"></el-input>
-                </el-form-item>
-                <el-form-item label="所属机构" prop="agency_code">
-                    <el-input v-model="addUserForm.agency_code"></el-input>
-                </el-form-item>
-                <el-form-item label="用户名" prop="user_name">
-                    <el-input v-model="addUserForm.user_name"></el-input>
-                </el-form-item>
-                <el-form-item label="用户账号" prop="user_account">
-                    <el-input v-model="addUserForm.user_account"></el-input>
-                </el-form-item>
-                <el-form-item label="用户密码" prop="user_password">
-                    <el-input v-model="addUserForm.user_password"></el-input>
-                </el-form-item>
-                <el-form-item label="用户身份证" prop="id_card_num">
-                    <el-input v-model="addUserForm.id_card_num"></el-input>
-                </el-form-item>
-                <el-form-item label="用户电话" prop="tel">
-                    <el-input v-model="addUserForm.tel"></el-input>
-                </el-form-item>
-                <el-form-item label="用户状态" prop="status">
-                    <el-input v-model="addUserForm.status"></el-input>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="handleAddBtnClick('addForm')">立即添加</el-button>
+            <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
+                <el-container>
+                    <el-form-item label="支付申请ID" prop="PAY_APP_ID" >
+                        <el-input v-model="addUserForm.PAY_APP_ID" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="支付申请编号" prop="PAY_APP_NUM" label-width="120px">
+                        <el-input v-model="addUserForm.PAY_APP_NUM" clearable style="width: 200px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="创建时间" prop="CREATE_AT" >
+                        <div class="block">
+                            <el-date-picker
+                                    clearable
+                                    v-model="addUserForm.CREATE_AT"
+                                    align="left"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    format="yyyy 年 MM 月 dd 日"
+                                    value-format="yyyy-MM-dd"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="更新时间" prop="UPDATE_AT" >
+                        <div class="block">
+                            <el-date-picker
+                                    clearable
+                                    v-model="addUserForm.UPDATE_AT"
+                                    align="left"
+                                    type="date"
+                                    placeholder="选择日期"
+                                    format="yyyy 年 MM 月 dd 日"
+                                    value-format="yyyy-MM-dd"
+                                    :picker-options="pickerOptions">
+                            </el-date-picker>
+                        </div>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="单位代码" prop="AGENCY_CODE">
+                        <el-input v-model="addUserForm.AGENCY_CODE" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="用途" prop="USE">
+                        <el-input v-model="addUserForm.USE" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="金额" prop="AMOUNT">
+                        <el-input v-model="addUserForm.AMOUNT" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="收款人全称" prop="PAYEE_ACCT_NAME">
+                        <el-input v-model="addUserForm.PAYEE_ACCT_NAME" clearable></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="收款人账号" prop="PAYEE_ACCT_NUM">
+                        <el-input v-model="addUserForm.PAYEE_ACCT_NUM" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="收款人开户银行" prop="PAYEE_ACCT_BANK_NAME" label-width="150px">
+                        <el-input v-model="addUserForm.PAYEE_ACCT_BANK_NAME" clearable style="width: 170px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container >
+                    <el-form-item label="审核状态" prop="AUDIT_STATUS"  >
+                        <el-input v-model="addUserForm.AUDIT_STATUS" clearable style="width: 80px">></el-input>
+                    </el-form-item>
+                    <el-form-item label="逻辑删除" prop="IS_DELETE"  label-width="120px">
+                        <el-input v-model="addUserForm.IS_DELETE" clearable style="width: 80px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="版本号" prop="VERSION" label-width="120px">
+                        <el-input v-model="addUserForm.VERSION" clearable style="width: 80px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-form-item align="center">
+                    <el-button type="primary" @click="handleAddBtnClick('addForm')">立即修改</el-button>
                     <el-button @click="cancelForm('addForm')">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -191,26 +233,25 @@
         <el-dialog
                 title="客户信息修改"
                 :visible.sync="changeDialogVisible"
-                width="600px"
+                width="700px"
                 :before-close="handleClose">
-            <el-form :model="changePayApplyForm" :rules="rules" ref="changeForm" label-width="120px" id="change_user" class="demo-ruleForm">
+            <el-form :model="changePayApplyForm" :rules="rules" ref="changeForm" label-width="100px" class="demo-ruleForm">
                 <el-container>
-                    <el-form-item label="支付申请ID" prop="PAY_APP_ID">
+                    <el-form-item label="支付申请ID" prop="PAY_APP_ID" >
                         <el-input v-model="changePayApplyForm.PAY_APP_ID" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="支付申请编号" prop="PAY_APP_NUM">
-                        <el-input v-model="changePayApplyForm.PAY_APP_NUM" clearable></el-input>
+                    <el-form-item label="支付申请编号" prop="PAY_APP_NUM" label-width="120px">
+                        <el-input v-model="changePayApplyForm.PAY_APP_NUM" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
                     <el-form-item label="创建时间" prop="CREATE_AT">
                         <el-input v-model="changePayApplyForm.CREATE_AT" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="更新时间" prop="UPDATE_AT" align="left">
+                    <el-form-item label="更新时间" prop="UPDATE_AT" >
                         <div class="block">
                             <el-date-picker
                                     clearable
-                                    arrow-offset="100"
                                     v-model="changePayApplyForm.UPDATE_AT"
                                     align="left"
                                     type="date"
@@ -242,21 +283,22 @@
                     <el-form-item label="收款人账号" prop="PAYEE_ACCT_NUM">
                         <el-input v-model="changePayApplyForm.PAYEE_ACCT_NUM" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="收款人开户银行" prop="PAYEE_ACCT_BANK_NAME">
-                        <el-input v-model="changePayApplyForm.PAYEE_ACCT_BANK_NAME" clearable></el-input>
+                    <el-form-item label="收款人开户银行" prop="PAYEE_ACCT_BANK_NAME" label-width="150px">
+                        <el-input v-model="changePayApplyForm.PAYEE_ACCT_BANK_NAME" clearable style="width: 170px"></el-input>
                     </el-form-item>
                 </el-container>
-
-                <el-form-item label="审核状态" prop="AUDIT_STATUS">
-                    <el-input v-model="changePayApplyForm.AUDIT_STATUS" clearable></el-input>
-                </el-form-item>
-                <el-form-item label="逻辑删除" prop="IS_DELETE">
-                    <el-input v-model="changePayApplyForm.IS_DELETE" clearable></el-input>
-                </el-form-item>
-                <el-form-item label="版本号" prop="VERSION">
-                    <el-input v-model="changePayApplyForm.VERSION" clearable></el-input>
-                </el-form-item>
-                <el-form-item>
+                <el-container >
+                    <el-form-item label="审核状态" prop="AUDIT_STATUS"  >
+                        <el-input v-model="changePayApplyForm.AUDIT_STATUS" clearable style="width: 80px">></el-input>
+                    </el-form-item>
+                    <el-form-item label="逻辑删除" prop="IS_DELETE"  label-width="120px">
+                        <el-input v-model="changePayApplyForm.IS_DELETE" clearable style="width: 80px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="版本号" prop="VERSION" label-width="120px">
+                        <el-input v-model="changePayApplyForm.VERSION" clearable style="width: 80px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-form-item align="center">
                     <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
                     <el-button @click="cancelForm('changeForm')">取消</el-button>
                 </el-form-item>
@@ -276,7 +318,6 @@
         components: {ActionBar,QueryPanel},
         data() {
             return {
-
                 pickerOptions: {
                     disabledDate(time) {
                         return time.getTime() > Date.now();
@@ -306,28 +347,29 @@
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
                 //对话框状态
-                addUserDialogVisible:false,
+                addDialogVisible:false,
                 changeDialogVisible:false,
                 //修改的客户姓名，手机号码
                 userQuery:{name:'',mobile:''},
                 //客户信息
                 customers: [],
+                lastChange:{},
                 //添加的客户
                 addUserForm: {
-                    user_id:'',
-                    user_type:'',
-                    mof_code: '',
-                    agency_code: '',
-                    user_name: '',
-                    user_account: '',
-                    user_password: '',
-                    id_card_num: '',
-                    tel: '',
-                    note: '',
-                    status: '',
-                    create_time: '',
-                    update_time: '',
-                    version: '',
+                    id: '',
+                    PAY_APP_ID: '',
+                    PAY_APP_NUM: '',
+                    CREATE_AT: '',
+                    UPDATE_AT: '',
+                    AGENCY_CODE: '',
+                    USE: '',
+                    AMOUNT: '',
+                    PAYEE_ACCT_NAME: '',
+                    PAYEE_ACCT_NUM: '',
+                    PAYEE_ACCT_BANK_NAME: '',
+                    AUDIT_STATUS: '',
+                    IS_DELETE: '',
+                    VERSION: ''
                 },
                 //修改的客户
                 changePayApplyForm:{
@@ -425,79 +467,41 @@
             onQueryBtnClick(){
                 let {name, mobile} = this.userQuery;
                 if (name!==''){
-                    get("http://localhost:3000/USERS?USER_NAME=" + name)
+                    get("http://localhost:3000/PAYMENT_APPLY?AGENCY_CODE=" + name)
                         .then(myJson => {
-                                this.$store.commit('base_info/SET_USERS',myJson);
+                                this.$store.commit('pay_apply_info/SET_PAY_APPLY',myJson);
                             }
                         ).catch(err => console.log(err));
                 }else if (mobile!==''){
-                    get("http://localhost:3000/USERS?USER_TEL="+mobile)
+                    get("http://localhost:3000/PAYMENT_APPLY?PAYEE_ACCT_NAME="+mobile)
                         .then(myJson=>{
-                            this.$store.commit('base_info/SET_USERS',myJson);
+                            this.$store.commit('pay_apply_info/SET_PAY_APPLY',myJson);
                         })
                         .catch(err=> console.log(err));
                 }else alert("请输入您要查询的名字或手机号码")
             },
-            //添加客户
             handleAddBtnClick(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        let newUser = {
-                            "id": this.$refs[formName].model.user_id,
-                            "USER_ID": this.$refs[formName].model.user_id,
-                            "USER_TYPE": this.$refs[formName].model.user_type,
-                            "MOF_CODE": this.$refs[formName].model.mof_code,
-                            "AGENCY_CODE": this.$refs[formName].model.agency_code,
-                            "USER_NAME": this.$refs[formName].model.user_name,
-                            "USER_ACCOUNT": this.$refs[formName].model.user_account,
-                            "USER_PASSWORD": this.$refs[formName].model.user_password,
-                            "ID_CARD_NUM": this.$refs[formName].model.id_card_num,
-                            "TEL": this.$refs[formName].model.tel,
-                            "NOTE": this.$refs[formName].model.note,
-                            "STATUS": this.$refs[formName].model.status,
-                            "CREATE_TIME": this.$refs[formName].model.create_time,
-                            "UPDATE_TIME": this.$refs[formName].model.update_time,
-                            "VERSION": this.$refs[formName].model.version
-                        };
-                        if (newUser) {
-                            this.$store.dispatch('base_info/addUser',{newUser});
+                        let newPayApply=this.$refs[formName].model;
+                        newPayApply.id=this.$refs[formName].model.PAY_APP_ID;
+                        if (newPayApply){
+                            this.$store.dispatch('pay_apply_info/addPayApply',{newPayApply})
                         }
                     } else {
-                        console.log('error submit!!');
                         return false;
                     }
                 });
                 //触发父组件的对话框状态修改事件
-                this.addUserDialogVisible = false
+                this.addDialogVisible = false
             },
-            //修改客户信息
             handleChangeBtnClick(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let newPayApply=this.$refs[formName].model;
                         newPayApply.id=this.$refs[formName].model.PAY_APP_ID;
-                        console.log(newPayApply)
-                        console.log("11")
-                        /*let newPayApply={
-                            id: this.$refs[formName].model.PAY_APP_ID,
-                            PAY_APP_ID: this.$refs[formName].model.PAY_APP_ID,
-                            PAY_APP_NUM: this.$refs[formName].model.PAY_APP_NUM,
-                            CREATE_AT: this.$refs[formName].model.CREATE_AT,
-                            UPDATE_AT: this.$refs[formName].model.UPDATE_AT,
-                            AGENCY_CODE: this.$refs[formName].model.AGENCY_CODE,
-                            USE: this.$refs[formName].model.USE,
-                            AMOUNT: this.$refs[formName].model.AMOUNT,
-                            PAYEE_ACCT_NAME: this.$refs[formName].model.PAYEE_ACCT_NAME,
-                            PAYEE_ACCT_NUM: this.$refs[formName].model.PAYEE_ACCT_NUM,
-                            PAYEE_ACCT_BANK_NAME: this.$refs[formName].model.PAYEE_ACCT_BANK_NAME,
-                            AUDIT_STATUS: this.$refs[formName].model.AUDIT_STATUS,
-                            IS_DELETE: this.$refs[formName].model.IS_DELETE,
-                            VERSION: this.$refs[formName].model.VERSION
-                        };*/
-                        if (newPayApply){
-                            console.log("111")
-                            this.$store.dispatch('pay_apply_info/acceptPayApply',{newPayApply})
-                        }
+                        this.lastChange=newPayApply;
+                        this.$store.dispatch('pay_apply_info/acceptPayApply',{newPayApply})
                     } else {
                         return false;
                     }
@@ -509,20 +513,19 @@
                 const {multipleSelection}=this;
                 this.$store.dispatch('base_info/enableUser',{multipleSelection});
             },
-            /*删除用户信息*/
+            //删除用户信息
             handleDeleteBtnClick(){
                 const {multipleSelection}=this;
-                this.$store.dispatch('base_info/deleteUser',{multipleSelection});
+                this.$store.dispatch('pay_apply_info/deletePayApply',{multipleSelection});
             },
             //打开修改客户对话框
             handleChangeRow(scope) {
-                /*const index=scope.$index;*/
+                console.log(this.changePayApplyForm);
                 const data=scope.row;
                 /*注入修改信息*/
                 this.changePayApplyForm=data;
                 this.changePayApplyForm.id=data.PAY_APP_ID;
                 this.changeDialogVisible=true;
-                //rows.splice(index, 1);
             },
             /**
              * @description 同意支付申请
@@ -550,7 +553,7 @@
             //取消按钮
             cancelForm(formName) {
                 this.$refs[formName].resetFields();
-                this.addUserDialogVisible=false;
+                this.addDialogVisible=false;
                 this.changeDialogVisible=false
             },
             //关闭对话框提示
@@ -574,14 +577,13 @@
     }
     .demo-table-expand {
         font-size: 0;
-    }
-    .demo-table-expand label {
-        width: 90px;
-        color: #99a9bf;
-    }
-    .demo-table-expand .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 50%;
+        .el-form-item{
+            margin-right: 0;
+            margin-bottom: 0;
+            width: 50%;
+            span{
+                color: #5908b1;
+            }
+        }
     }
 </style>
