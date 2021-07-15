@@ -2,6 +2,7 @@
 
 <div class="welcomeStyle" style="width: 1280px;height: 560px">
   <el-container direction="vertical">
+    <i class="iconfont"></i>
     <span style="text-align: left;margin-left: 20px">基础信息管理</span>
     <el-container style="margin-left: 0">
       <el-card :body-style="{padding:'0'}"
@@ -35,7 +36,7 @@
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+        <div class="card-title" @click="$router.push('/budget')"><span>预算指标</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"

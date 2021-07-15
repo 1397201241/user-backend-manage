@@ -6,7 +6,7 @@
                  @deleteBtnClick="handleDeleteBtnClick"
                  @enableBtnClick="handleEnableBtnClick"
                  @stopBtnClick="handleEnableBtnClick"
-      ></ActionBar>
+      >用户信息明细列表</ActionBar>
     </div>
     <!--搜索框-->
     <QueryPanel :queryModel="userQuery" @QueryButtonClick="onQueryBtnClick" style="margin-top: 10px">
@@ -123,6 +123,7 @@
                   @click.native.prevent="handleChangeRow(scope)"
                   type="primary"
                   size="small">
+            <i class="iconfont icon-xiugai"></i>
             修改用户信息
           </el-button>
         </template>
@@ -147,36 +148,55 @@
             center
             :before-close="handleClose">
       <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="120px" id="addCustomer" class="demo-ruleForm">
-        <el-form-item label="用户ID" prop="user_id">
-          <el-input v-model="addUserForm.user_id"></el-input>
-        </el-form-item>
-        <el-form-item label="用户类型" prop="user_type">
-          <el-input v-model="addUserForm.user_type"></el-input>
-        </el-form-item>
-        <el-form-item label="所属财政" prop="mof_code">
-          <el-input v-model="addUserForm.mof_code"></el-input>
-        </el-form-item>
-        <el-form-item label="所属机构" prop="agency_code">
-          <el-input v-model="addUserForm.agency_code"></el-input>
-        </el-form-item>
-        <el-form-item label="用户名" prop="user_name">
-          <el-input v-model="addUserForm.user_name"></el-input>
-        </el-form-item>
-        <el-form-item label="用户账号" prop="user_account">
-          <el-input v-model="addUserForm.user_account"></el-input>
-        </el-form-item>
-        <el-form-item label="用户密码" prop="user_password">
-          <el-input v-model="addUserForm.user_password"></el-input>
-        </el-form-item>
-        <el-form-item label="用户身份证" prop="id_card_num">
-          <el-input v-model="addUserForm.id_card_num"></el-input>
-        </el-form-item>
-        <el-form-item label="用户电话" prop="tel">
-          <el-input v-model="addUserForm.tel"></el-input>
-        </el-form-item>
-        <el-form-item label="用户状态" prop="status">
-          <el-input v-model="addUserForm.status"></el-input>
-        </el-form-item>
+        <el-container>
+          <el-form-item label="用户ID" prop="user_id">
+            <el-input v-model="addUserForm.user_id" clearable></el-input>
+          </el-form-item>
+
+
+          <el-form-item label="用户类型" prop="user_type">
+            <el-select v-model="addUserForm.user_type" clearable placeholder="用户类型">
+              <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="所属财政" prop="mof_code">
+            <el-input v-model="addUserForm.mof_code" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="所属机构" prop="agency_code">
+            <el-input v-model="addUserForm.agency_code" clearable></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户名" prop="user_name">
+            <el-input v-model="addUserForm.user_name" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="用户账号" prop="user_account">
+            <el-input v-model="addUserForm.user_account" clearable></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户密码" prop="user_password">
+            <el-input v-model="addUserForm.user_password" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="用户身份证" prop="id_card_num">
+            <el-input v-model="addUserForm.id_card_num" clearable></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户电话" prop="tel">
+            <el-input v-model="addUserForm.tel" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="用户状态" prop="status">
+            <el-input v-model="addUserForm.status" clearable></el-input>
+          </el-form-item>
+        </el-container>
         <el-form-item>
           <el-button type="primary" @click="handleAddBtnClick('addForm')">立即添加</el-button>
           <el-button @click="cancelForm('addForm')">取消</el-button>
@@ -190,36 +210,47 @@
             width="600px"
             :before-close="handleClose">
       <el-form :model="changeUserForm" :rules="rules" ref="changeForm" label-width="120px" id="change_user" class="demo-ruleForm">
-        <el-form-item label="用户ID" prop="user_id">
-          <el-input v-model="changeUserForm.user_id"></el-input>
-        </el-form-item>
-        <el-form-item label="用户类型" prop="user_type">
-          <el-input v-model="changeUserForm.user_type"></el-input>
-        </el-form-item>
-        <el-form-item label="所属财政" prop="mof_code">
-          <el-input v-model="changeUserForm.mof_code"></el-input>
-        </el-form-item>
-        <el-form-item label="所属机构" prop="agency_code">
-          <el-input v-model="changeUserForm.agency_code"></el-input>
-        </el-form-item>
-        <el-form-item label="用户名" prop="user_name">
-          <el-input v-model="changeUserForm.user_name"></el-input>
-        </el-form-item>
-        <el-form-item label="用户账号" prop="user_account">
-          <el-input v-model="changeUserForm.user_account"></el-input>
-        </el-form-item>
-        <el-form-item label="用户密码" prop="user_password">
-          <el-input v-model="changeUserForm.user_password"></el-input>
-        </el-form-item>
-        <el-form-item label="用户身份证" prop="id_card_num">
-          <el-input v-model="changeUserForm.id_card_num"></el-input>
-        </el-form-item>
-        <el-form-item label="用户电话" prop="tel">
-          <el-input v-model="changeUserForm.tel"></el-input>
-        </el-form-item>
-        <el-form-item label="用户状态" prop="status">
-          <el-input v-model="changeUserForm.status"></el-input>
-        </el-form-item>
+        <el-container>
+          <el-form-item label="用户ID" prop="user_id">
+            <el-input v-model="changeUserForm.user_id"></el-input>
+          </el-form-item>
+          <el-form-item label="用户类型" prop="user_type">
+            <el-input v-model="changeUserForm.user_type"></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="所属财政" prop="mof_code">
+            <el-input v-model="changeUserForm.mof_code"></el-input>
+          </el-form-item>
+          <el-form-item label="所属机构" prop="agency_code">
+            <el-input v-model="changeUserForm.agency_code"></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户名" prop="user_name">
+            <el-input v-model="changeUserForm.user_name"></el-input>
+          </el-form-item>
+          <el-form-item label="用户账号" prop="user_account">
+            <el-input v-model="changeUserForm.user_account"></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户密码" prop="user_password">
+            <el-input v-model="changeUserForm.user_password"></el-input>
+          </el-form-item>
+          <el-form-item label="用户身份证" prop="id_card_num">
+            <el-input v-model="changeUserForm.id_card_num"></el-input>
+          </el-form-item>
+        </el-container>
+        <el-container>
+          <el-form-item label="用户电话" prop="tel">
+            <el-input v-model="changeUserForm.tel"></el-input>
+          </el-form-item>
+          <el-form-item label="用户状态" prop="status">
+            <el-input v-model="changeUserForm.status"></el-input>
+          </el-form-item>
+        </el-container>
+
         <el-form-item>
           <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
           <el-button @click="cancelForm('changeForm')">取消</el-button>
@@ -240,6 +271,22 @@
     components: {ActionBar,QueryPanel},
     data() {
       return {
+        options: [{
+          value: '单位人员',
+          label: '单位人员'
+        }, {
+          value: '单位管理员',
+          label: '单位管理员'
+        }, {
+          value: '部门人员',
+          label: '部门人员'
+        }, {
+          value: '部门管理员',
+          label: '部门管理员'
+        }, {
+          value: '财政人员',
+          label: '财政人员'
+        }],
         currentPage: 1, // 当前页码
         total: 20, // 总条数
         pageSize: 4, // 每页的数据条数,
@@ -507,17 +554,20 @@
 </script>
 
 <style lang="less" scoped>
-
+  @import "https://at.alicdn.com/t/font_2666070_9sqbmj98x8t.css?spm=a313x.7781069.1998910419.40&file=font_2666070_9sqbmj98x8t.css";
+  /*通用图标大小*/
+  .iconfont{
+    font-size: 12px;
+  }
   .demo-table-expand {
     font-size: 0;
-  }
-  .demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-  }
-  .demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
+    .el-form-item{
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 50%;
+      span{
+        color: #5908b1;
+      }
+    }
   }
 </style>

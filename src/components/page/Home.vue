@@ -183,9 +183,9 @@ export default {
         if(path_name_list[to.path]){
           this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
         }
-
         if(!routerChildren.includes(to.path)){
         this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);}
+
       }
     }
   }

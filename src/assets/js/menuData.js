@@ -157,6 +157,19 @@ export const menuList = [
           ]
         },
         {
+          "id": 313,
+          "parentId": 312,
+          "menuName": "预算指标",
+          "url": "/budget",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
           "id": 311,
           "parentId": 312,
           "menuName": "预算审核",

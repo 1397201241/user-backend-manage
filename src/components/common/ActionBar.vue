@@ -7,7 +7,7 @@
             <i class="iconfont icon-xiugai"></i>
             修改
         </el-button>
-        <el-button size="mini" type="primary" icon="el-icon-delete" @click="$emit('deleteBtnClick')">删除</el-button>
+        <el-button size="mini" type="danger" icon="el-icon-delete" @click="$emit('deleteBtnClick')">删除</el-button>
         <el-button size="mini" type="primary" icon="el-icon-open" @click="$emit('enableBtnClick')">启用</el-button>
         <el-button size="mini" type="primary" icon="el-icon-turn-off" @click="$emit('stopBtnClick')">停用</el-button>
     </el-container>

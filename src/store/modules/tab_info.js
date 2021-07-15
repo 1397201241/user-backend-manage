@@ -69,6 +69,12 @@ const actions = {
           commit('ADD_TABS', {route: path , name: "支付审核"});
         }
       }
+      else if(path === "/budget"){
+        commit('CHECK_EXIST','/budget');
+        if(!state.isTabShow){
+          commit('ADD_TABS', {route: path , name: "预算指标"});
+        }
+      }
       else if(path === "/roles"){
         commit('CHECK_EXIST','/roles');
         if(!state.isTabShow){

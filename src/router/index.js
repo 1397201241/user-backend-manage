@@ -20,6 +20,8 @@ const Liquidation = ()=>import('../components/page/Liquidation')
 const PayCheck = ()=>import('../components/page/pay/PayCheck')
 const PayApply = ()=>import('../components/page/pay/PayApply')
 const Bgt_pm = ()=>import('../components/page/Bgt_pm')
+const Budget = ()=>import('../components/page/budget/index')
+
 
 
 Vue.use(VueRouter);
@@ -88,6 +90,12 @@ const routes = [
         name:'Agency',
         component:Agency,
         meta:{title:'单位信息',requireAuth:true},
+      },
+      {
+        path:'/budget',
+        name:'Budget',
+        component:Budget,
+        meta:{title:'预算指标',requireAuth:true},
       },
       {
         path: '/welcome',
