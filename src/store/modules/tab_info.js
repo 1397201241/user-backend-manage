@@ -50,84 +50,25 @@ const actions = {
   setTab({commit,state},path){
     console.log(path);
     if (path !== '/' && path !== '/home') {
+      let path_name_list = {
+        "/users":"用户列表",
+        "/roles":"角色列表",
+        "/role_list":"权限管理",
+        "/payApply":"支付申请",
+        "/payCheck":"支付审核",
+        "/welcome":"欢迎界面",
+        "/project":"项目列表",
+        "/agency":"单位管理",
+        "/liquidation":"清算凭证",
+        "/bgt_pm":"预算申请管理",
+        "/pro_apply":"项目申报",
+        "/budget":"预算指标",
+      }
       //通过路由的判断，来加入标签页的名称
-      if(path === "/users"){
-        commit('CHECK_EXIST','/users');
+      if(path_name_list[path]){
+        commit('CHECK_EXIST',path);
         if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "用户列表"});
-        }
-      }
-      else if(path === "/payApply"){
-        commit('CHECK_EXIST','/payApply');
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "支付申请"});
-        }
-      }
-      else if(path === "/payCheck"){
-        commit('CHECK_EXIST','/payCheck');
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "支付审核"});
-        }
-      }
-      else if(path === "/budget"){
-        commit('CHECK_EXIST','/budget');
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "预算指标"});
-        }
-      }
-      else if(path === "/roles"){
-        commit('CHECK_EXIST','/roles');
-        if(!state.isTabShow){
-          console.log("现在添加角色列表",state.isTabShow);
-          commit('ADD_TABS', {route: path , name: "角色列表"});
-        }
-      }
-      else if(path === "/welcome"){
-        commit('CHECK_EXIST','/welcome');
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "欢迎页面"});
-        }
-      }
-      else if(path === "/agency") {
-        commit('CHECK_EXIST', '/agency');
-        if (!state.isTabShow) {
-          commit('ADD_TABS', {route: path, name: "单位管理"});
-        }
-      }
-      else if(path === "/role_list") {
-        commit('CHECK_EXIST', '/role_list');
-        if (!state.isTabShow) {
-          commit('ADD_TABS', {route: path, name: "权限管理"});}}
-      else if(path === "/project"){
-        commit('CHECK_EXIST','/project');
-        if(!state.isTabShow){
-          console.log("现在添加项目列表",state.isTabShow);
-          commit('ADD_TABS', {route: path , name: "项目列表"});
-        }
-      }
-      else if(path === "/agency"){
-        commit('CHECK_EXIST','/agency')
-        if(!state.isTabShow){
-          console.log("现在添加单位管理",state.isTabShow)
-          commit('ADD_TABS', {route: path , name: "单位管理"});
-        }
-      }
-      else if(path === "/liquidation"){
-        commit('CHECK_EXIST','/liquidation')
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "清算凭证"});
-        }
-      }
-      else if(path === "/bgt_pm"){
-        commit('CHECK_EXIST','/bgt_pm')
-        if(!state.isTabShow){
-          commit('ADD_TABS', {route: path , name: "预算申请管理"});
-        }
-      }
-      else if(path === '/pro_apply'){
-        commit('CHECK_EXIST','/pro_apply')
-        if(!state.isTabShow){
-          commit('ADD_TABS',{route: path , name: "项目申报"})
+          commit('ADD_TABS', {route: path , name: path_name_list[path]});
         }
       }
       commit('SET_ACTIVE_INDEX', path);

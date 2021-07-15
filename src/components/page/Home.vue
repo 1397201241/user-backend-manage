@@ -179,7 +179,8 @@ export default {
           "/liquidation":"清算凭证",
           "/bgt_pm":"预算申请管理",
           "/pro_apply":"项目申报",
-        }
+          "/budget":"预算指标",
+        };
         if(path_name_list[to.path]){
           this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
         }
