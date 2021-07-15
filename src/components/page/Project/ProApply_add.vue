@@ -12,8 +12,7 @@ export default {
 
 <style scoped>
 .paaBoxStyle{
-  background-color: red;
-  width: 100px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
 }
 </style>

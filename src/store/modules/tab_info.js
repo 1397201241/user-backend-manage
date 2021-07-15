@@ -50,7 +50,21 @@ const actions = {
   setTab({commit,state},path){
     console.log(path);
     if (path !== '/' && path !== '/home') {
+      /*let path_name_list = {
+        "/users":"用户列表",
+        "/roles":"角色列表",
+        "/role_list":"权限管理",
+        "/payApply":"支付申请",
+        "/payCheck":"支付审核",
+        "/welcome":"欢迎界面",
+        "/project":"项目列表",
+        "/agency":"单位管理",
+        "/liquidation":"清算凭证",
+        "/bgt_pm":"预算申请管理",
+        "/pro_apply":"项目申报",
+      }*/
       //通过路由的判断，来加入标签页的名称
+
       if(path === "/users"){
         commit('CHECK_EXIST','/users');
         if(!state.isTabShow){
