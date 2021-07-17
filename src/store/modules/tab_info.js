@@ -62,8 +62,17 @@ const actions = {
         "/liquidation":"清算凭证",
         "/bgt_pm":"预算申请管理",
         "/pro_apply":"项目申报",
-        "/budget":"预算指标",
-      }
+        "/budget_index":"预算指标",
+        "/agency_budget_apply":"单位预算申报",
+        "/budget_apply_details":"预算申报详情",
+        "/budget_apply_details2":"预算申报详情",
+        "/budget_apply_details3":"预算申报详情",
+        "/budget_apply_list":"预算申报列表",
+        "/agency_project_list":"单位项目列表",
+        "/budget_apply_list2":"预算申请列表",
+        "/draft_budget":"单位预算草案",
+        "/draft_budget2":"部门预算草案",
+      };
       //通过路由的判断，来加入标签页的名称
       if(path_name_list[path]){
         commit('CHECK_EXIST',path);

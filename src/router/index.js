@@ -5,7 +5,6 @@ import store from '../store'
 import ProApply from "../components/page/Project/ProApply";
 import ProApply_add from "../components/page/Project/ProApply_add";
 
-
 const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
@@ -15,14 +14,22 @@ const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
 const RoleList = ()=>import('../components/page/RoleList');
-const Project = ()=>import('../components/page/Project/Project')
-const Liquidation = ()=>import('../components/page/Liquidation')
-const PayCheck = ()=>import('../components/page/pay/PayCheck')
-const PayApply = ()=>import('../components/page/pay/PayApply')
-const Bgt_pm = ()=>import('../components/page/Bgt_pm')
-const Budget = ()=>import('../components/page/budget/index')
-
-
+const Project = ()=>import('../components/page/Project/Project');
+const Liquidation = ()=>import('../components/page/Liquidation');
+const PayCheck = ()=>import('../components/page/pay/PayCheck');
+const PayApply = ()=>import('../components/page/pay/PayApply');
+const Bgt_pm = ()=>import('../components/page/Bgt_pm');
+const BudgetIndex = ()=>import('../components/page/budget/BudgetIndex');
+const AgencyBudgetApply = ()=>import('../components/page/budget/AgencyBudgetApply');
+const BudgetApplyDetails = ()=>import('../components/page/budget/BudgetApplyDetails');
+const BudgetApplyDetails2 = ()=>import('../components/page/budget/BudgetApplyDetails2');
+const BudgetApplyDetails3 = ()=>import('../components/page/budget/BudgetApplyDetails3');
+const BudgetApplyList = ()=>import('../components/page/budget/BudgetApplyList');
+const BudgetApplyList2 = ()=>import('../components/page/budget/BudgetApplyList2');
+const AgencyProjectList = ()=>import('../components/page/budget/AgencyProjectList');
+const DraftBudget = ()=>import('../components/page/budget/DraftBudget');
+const DraftBudget2 = ()=>import('../components/page/budget/DraftBudget2');
+const Chart = ()=>import('../components/common/chart');
 
 Vue.use(VueRouter);
 
@@ -54,6 +61,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/chart',
+    name: 'Chart',
+    component: Chart
   },
   {
     path: '/home',
@@ -92,10 +104,64 @@ const routes = [
         meta:{title:'单位信息',requireAuth:true},
       },
       {
-        path:'/budget',
-        name:'Budget',
-        component:Budget,
+        path:'/budget_index',
+        name:'BudgetIndex',
+        component:BudgetIndex,
         meta:{title:'预算指标',requireAuth:true},
+      },
+      {
+        path:'/agency_budget_apply',
+        name:'AgencyBudgetApply',
+        component:AgencyBudgetApply,
+        meta:{title:'新建申报',requireAuth:true},
+      },
+      {
+        path:'/budget_apply_list',
+        name:'BudgetApplyList',
+        component:BudgetApplyList,
+        meta:{title:'申报列表',requireAuth:true},
+      },
+      {
+        path:'/budget_apply_list2',
+        name:'BudgetApplyList2',
+        component:BudgetApplyList2,
+        meta:{title:'申报列表',requireAuth:true},
+      },
+      {
+        path:'/agency_project_list',
+        name:'AgencyProjectList',
+        component:AgencyProjectList,
+        meta:{title:'项目列表',requireAuth:true},
+      },
+      {
+        path:'/budget_apply_details',
+        name:'MyBudgetApply',
+        component:BudgetApplyDetails,
+        meta:{title:'申请详情',requireAuth:true},
+      },
+      {
+        path:'/budget_apply_details2',
+        name:'BudgetApplyDetails2',
+        component:BudgetApplyDetails2,
+        meta:{title:'申请详情',requireAuth:true},
+      },
+      {
+        path:'/budget_apply_details3',
+        name:'BudgetApplyDetails3',
+        component:BudgetApplyDetails3,
+        meta:{title:'申请详情',requireAuth:true},
+      },
+      {
+        path:'/draft_budget',
+        name:'DraftBudget',
+        component:DraftBudget,
+        meta:{title:'单位预算草案',requireAuth:true},
+      },
+      {
+        path:'/draft_budget2',
+        name:'DraftBudget2',
+        component:DraftBudget2,
+        meta:{title:'部门预算草案',requireAuth:true},
       },
       {
         path: '/welcome',

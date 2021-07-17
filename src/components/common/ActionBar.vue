@@ -46,7 +46,7 @@
         background: #c6e2ff;
         span{
             line-height: 27px;
-            margin-right: 600px;
+            margin-right: 500px;
             text-align: center;
             font-size: 16px;
             &:hover{
