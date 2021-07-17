@@ -129,9 +129,10 @@
           <el-table-column
               fixed="right"
               label="操作"
-              width="200">
+              width="240">
            <template slot-scope="scope">
-              <el-button type="primary"  @click="show(2,scope.row.id)">编辑项目</el-button>
+             <el-button type="primary"  @click="viewProgress(scope.row.id)">查看进度</el-button>
+             <el-button type="primary"  @click="show(2,scope.row.id)">编辑项目</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -205,6 +206,15 @@ export default {
     this.getProjectList()
   },
   methods:{
+    viewProgress(id){
+      for(let i of this.myTableData){
+        if(i.id === id){
+          this.$router.push(
+              {path:'/view_pro_progress',
+                query:{name:"data",data:JSON.stringify(i)}})
+        }
+        }
+    },
     iRefresh(){
       this.getProjectList()
       this.value=[]

@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getToken} from "../utils/auth";
 import store from '../store'
-import ProApply from "../components/page/Project/ProApply";
-import ProApply_add from "../components/page/Project/ProApply_add";
 
-
+const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
+const ProApply = ()=>import("../components/page/Project/ProApply");
+const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
 const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
@@ -21,8 +21,11 @@ const PayCheck = ()=>import('../components/page/pay/PayCheck')
 const PayApply = ()=>import('../components/page/pay/PayApply')
 const Bgt_pm = ()=>import('../components/page/Bgt_pm')
 const Budget = ()=>import('../components/page/budget/index')
-
-
+const ProApply_exam = ()=>import('../components/page/Project/ProApply_exam')
+const Reply = ()=>import('../components/page/Reply/Reply')
+const DraftApproval = ()=>import('../components/page/Reply/DraftApproval')
+const ReplyNavi = ()=>import('../components/page/Reply/ReplyNavi')
+const TargetDown = ()=>import('../components/page/Reply/TargetDown')
 
 Vue.use(VueRouter);
 
@@ -61,6 +64,12 @@ const routes = [
     component: Home,
     meta:{title:'首页',requireAuth:true},
     children:[
+      {
+        path:'/reply',
+        name:'Reply',
+        component:Reply,
+        meta:{title:'预算批复',requireAuth:true},
+      },
       {
         path:'/users',
         name:'Users',
@@ -128,11 +137,36 @@ const routes = [
         meta: {title: '项目申报'},
         children:[
           {
-            path: '/pro_apply_add',
+            path: '/pro_apply/add',
             name:'ProApply_add',
             component:ProApply_add,
           },
+          {
+            path: '/pro_apply/exam',
+            name:'ProApply_exam',
+            component:ProApply_exam,
+          },
         ]
+      },
+      {
+        path: '/view_pro_progress',
+        name: 'ViewProProgress',
+        component:ViewProProgress
+      },
+      {
+        path: '/draft_app',
+        name: 'DraftApproval',
+        component:DraftApproval
+      },
+      {
+        path: '/reply_navi',
+        name: 'ReplyNavi',
+        component:ReplyNavi
+      },
+      {
+        path: '/target_down',
+        name: 'TargetDown',
+        component:TargetDown
       }
     ],
   },

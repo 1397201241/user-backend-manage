@@ -1,23 +1,4 @@
 <template>
-<!--  "id": 1,
-  "AGENCY_ABBREVIATION":"博思",
-  "UNIFSOC_CRED_CODE":555,
-  "AGENCY_ADM_LEVEL_CODE":666
-  "AGENCY_ID": "116",
-  "AGENCY_CODE": 1,
-  "AGENCY_NAME": "福建博思软件有限公司",
-  "MOF_DIV_CODE": 165,
-  "AGENCY_LEADER_PER_NAME": "陈航",
-  "AGENCY_ADD": "福建省福州市",
-  "PARENT_ID": "109",
-  "IS_LEAF": 1,
-  "START_AT": "2021-7-13",
-  "END_AT": "2022-8-16",
-  "IS_ENABLED": 1,
-  "IS_DELETE": 1,
-  "CREATE_TIME": "2021/7/13下午3:17:54",
-  "UPDATE_AT":"2021/7/13下午3:17:54",
-  "VERSION": "1.0.5"-->
   <el-dialog v-bind="$attrs" v-on="$listeners" :visible.sync="showDialog" @open="onOpen" @close="onClose" :title=title width="40%">
     <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px" style="margin-top: 0">
       <el-container >

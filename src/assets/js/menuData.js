@@ -156,19 +156,7 @@ export const menuList = [
             },
           ]
         },
-        {
-          "id": 313,
-          "parentId": 312,
-          "menuName": "预算指标",
-          "url": "/budget",
-          "icon": "el-icon-date",
-          "orderNum": 1,
-          "open": 1,
-          "disabled": false,
-          "perms": "el-icon-date",
-          "type": 0,
-          "children":[]
-        },
+
         {
           "id": 311,
           "parentId": 312,
@@ -342,7 +330,7 @@ export const menuList = [
       "perms": null,
       "type": 0,
       "children": [
-        {
+        /*{
           "id": 271,
           "parentId": 5,
           "menuName": "项目列表",
@@ -354,7 +342,7 @@ export const menuList = [
           "perms": "login:log",
           "type": 0,
           "children": []
-        },
+        },*/
         {
           "id": 307,
           "parentId": 5,
@@ -367,7 +355,112 @@ export const menuList = [
           "perms": "",
           "type": 0,
           "children": []
+        },
+        {
+          "id": 308,
+          "parentId": 5,
+          "menuName": "新建项目申报",
+          "url": "/pro_apply/add",
+          "icon": "el-icon-edit",
+          "orderNum": 3,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 309,
+          "parentId": 5,
+          "menuName": "审查项目申报",
+          "url": "/pro_apply/exam",
+          "icon": "el-icon-edit",
+          "orderNum": 4,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 310,
+          "parentId": 5,
+          "menuName": "查看本部项目",
+          "url": "/project",
+          "icon": "el-icon-edit",
+          "orderNum": 5,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
         }
       ]
-    }
+    },
+    {
+      "id": 7,
+      "parentId": 0,
+      "menuName": "预算批复",
+      "url": "/reply",
+      "icon": "el-icon-edit",
+      "orderNum": 1,
+      "open": 1,
+      "disabled": false,
+      "perms": null,
+      "type": 0,
+      "children": [
+        {
+          "id": 70,
+          "parentId": 7,
+          "menuName": "预算批复导航",
+          "url": "/reply_navi",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          children: []
+        },
+        {
+          "id": 71,
+          "parentId": 7,
+          "menuName": "草案批准",
+          "url": "/draft_app",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          children: []
+        },
+        {
+          "id": 72,
+          "parentId": 7,
+          "menuName": "预算指标管理",
+          "url": "/budget",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
+          "id": 73,
+          "parentId": 7,
+          "menuName": "预算指标下达",
+          "url": "/target_down",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        }
+      ]
+    },
   ]

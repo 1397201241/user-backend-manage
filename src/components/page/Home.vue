@@ -151,6 +151,11 @@ export default {
   },
   watch:{
     '$route'(to,from){
+      //项目申请界面按钮显示与关闭
+      if(to.path === '/pro_apply'){
+        this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_TRUE')
+        console.log("改变了按钮显示")
+      }
       //判断路由是否已经打开
       //已经打开的 ，将其置为active
       //未打开的，将其放入队列里
@@ -164,7 +169,6 @@ export default {
         }
       }
       if(!flag){
-        let routerChildren = ['/pro_apply_add']
         console.log('to.path',to.path);
         //通过路由的判断，来加入标签页的名称
         let path_name_list = {
@@ -179,14 +183,20 @@ export default {
           "/liquidation":"清算凭证",
           "/bgt_pm":"预算申请管理",
           "/pro_apply":"项目申报",
+          "/pro_apply/add":"新建项目申报",
+          "/pro_apply/exam":"审核项目申报",
+          "/view_pro_progress":"项目进度查看",
+          "/budget":"指标管理",
+          "/reply":"预算批复",
+          "/draft_app":"草案批准",
+          "/reply_navi":"预算批复导航",
+          "/target_down":"指标下达"
         }
         if(path_name_list[to.path]){
           this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
         }
-        if(!routerChildren.includes(to.path)){
-        this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);}
-
-      }
+        this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);
+        }
     }
   }
 }

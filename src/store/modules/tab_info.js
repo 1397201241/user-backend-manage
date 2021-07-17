@@ -1,8 +1,11 @@
 import router from "../../router";
+
 const state = () => ({
   openTab:[],//所有打开的路由
   activeIndex:'' , //也可以是默认激活路径；激活状态
-  isTabShow:false
+  isTabShow:false,
+  isProApplyBtShow:true,
+  dsb:"das"
 });
 
 // getters 相当于计算属性
@@ -13,6 +16,12 @@ const getters = {
 const mutations = {
   CLEAN_TABS(state){
     state.openTab=[]
+  },
+  CHANGE_PROAPPBTSHOW_TRUE(state){
+    state.isProApplyBtShow = true
+  },
+  CHANGE_PROAPPBTSHOW_FALSE(state){
+    state.isProApplyBtShow = false
   },
   CHECK_EXIST(state, name){
     for(let i=0;i<state.openTab.length;i++){
@@ -62,6 +71,14 @@ const actions = {
         "/liquidation":"清算凭证",
         "/bgt_pm":"预算申请管理",
         "/pro_apply":"项目申报",
+        "/view_pro_progress":"项目进度查看",
+        "/pro_apply/add":"新建项目申报",
+        "/pro_apply/exam":"审核项目申报",
+        "/budget":"指标管理",
+        "/reply":"预算批复",
+        "/draft_app":"草案批准",
+        "/reply_navi":"预算批复导航",
+        "/target_down":"指标下达"
       }
       //通过路由的判断，来加入标签页的名称
       if(path_name_list[path]){
@@ -69,8 +86,8 @@ const actions = {
         if(!state.isTabShow){
           commit('ADD_TABS', {route: path , name: path_name_list[path]});
         }
+        commit('SET_ACTIVE_INDEX', path)
       }
-      commit('SET_ACTIVE_INDEX', path);
     } else {
       commit('CHECK_EXIST','/welcome');
       if(!state.isTabShow){
