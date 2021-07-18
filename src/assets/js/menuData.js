@@ -438,7 +438,7 @@ export const menuList = [
         {
           "id": 72,
           "parentId": 7,
-          "menuName": "预算指标管理",
+          "menuName": "未下发指标管理",
           "url": "/budget",
           "icon": "el-icon-date",
           "orderNum": 1,
@@ -460,7 +460,20 @@ export const menuList = [
           "perms": "el-icon-date",
           "type": 0,
           "children":[]
-        }
+        },
+        /*{
+          "id": 73,
+          "parentId": 7,
+          "menuName": "接受预算指标",
+          "url": "/ac_target",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        }*/
       ]
     },
   ]

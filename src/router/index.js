@@ -26,6 +26,7 @@ const Reply = ()=>import('../components/page/Reply/Reply')
 const DraftApproval = ()=>import('../components/page/Reply/DraftApproval')
 const ReplyNavi = ()=>import('../components/page/Reply/ReplyNavi')
 const TargetDown = ()=>import('../components/page/Reply/TargetDown')
+/*const AcTarget = ()=>import('../components/page/Reply/AcTarget')*/
 
 Vue.use(VueRouter);
 
@@ -167,7 +168,12 @@ const routes = [
         path: '/target_down',
         name: 'TargetDown',
         component:TargetDown
-      }
+      },
+      /*{
+        path: '/ac_target',
+        name: 'AcTarget',
+        component:AcTarget
+      }*/
     ],
   },
 ]

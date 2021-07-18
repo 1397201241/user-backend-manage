@@ -3,19 +3,14 @@
     <div style="position:absolute;width: 100%;height: 100%;">
       <img src="../../../assets/imgs/back_xishi.png" style="height: 100%;width: 100%;opacity: 1;" alt="">
     </div>
-
-      <el-breadcrumb separator="/" style="padding-left: 10px;padding-top: 10px;font-size: 13px;position: absolute;z-index: 1;">
-        <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/ReplyNavi' }">指标导航</el-breadcrumb-item>
-        <el-breadcrumb-item >下发指标</el-breadcrumb-item>
-      </el-breadcrumb>
     <el-card>
+      <span class="atTitle">预算指标下达</span>
       <el-table
           :data="$store.state.budget_info.budget.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
           stripe
-          max-height="600px"
+          max-height="420px"
           @selection-change="handleSelectionChange"
-          style="max-width: 1100px;min-height: 370px;opacity: 0.8;margin-top: 60px;margin-left: 20px;"
+          style="max-width: 1100px;min-height: 420px;opacity: 1;margin-top: 70px;margin-left: 20px;"
       >
         <!--数据扩展区-->
         <el-table-column type="expand">
@@ -148,27 +143,24 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
       <el-pagination align='center'
-                       @size-change="handleSizeChange"
-                       @current-change="handleCurrentChange"
-                       :current-page="currentPage"
-                       :page-sizes="[6,10,15,20]"
-                       :page-size="pageSize"
-                       layout="total, sizes, prev, pager, next, jumper"
-                       :total="$store.state.budget_info.budget.length"
-                       style="margin-top: 20px;margin-left: -100px;position:absolute;z-index: 1;margin-left: 350px;"
-        >
-        </el-pagination>
-
-
-
-    </div>
+                     @size-change="handleSizeChange"
+                     @current-change="handleCurrentChange"
+                     :current-page="currentPage"
+                     :page-sizes="[6,10,15,20]"
+                     :page-size="pageSize"
+                     layout="total, sizes, prev, pager, next, jumper"
+                     :total="$store.state.budget_info.budget.length"
+                     style="margin-top: 20px;margin-left: -100px;position:absolute;z-index: 1;margin-left: 350px;"
+      >
+      </el-pagination>
+    </el-card>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "TargetDown",
+  name: "AcTarget",
   data(){
     return{
       currentPage:1,
@@ -208,7 +200,7 @@ export default {
 .iconfont{
   font-size: 12px;
 }
-.tdTitle{
+.atTitle{
   opacity: 1;
   font-size: 40px;
   font-family: 华文彩云;
