@@ -4,10 +4,10 @@
         <el-card style="width: 100%">
             <el-table
                     ref="multipleTable"
-                    :data="myTableData.slice((current-1)*size,current*size)"
+                    :data="myTableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                     tooltip-effect="dark"
-                    max-height="375"
-                    style="width: 100%"
+                    max-height="260"
+                    style="width: 100%;min-height: 260px"
                     @selection-change="handleSelectionChange">
                 <el-table-column
                         type="selection"
@@ -105,7 +105,17 @@
                     </template>
                 </el-table-column>
             </el-table>
-
+            <!--分页器-->
+            <el-pagination align='center'
+                           @size-change="handleSizeChange"
+                           @current-change="handleCurrentChange"
+                           :current-page="currentPage"
+                           :page-sizes="[1,2,3,4]"
+                           :page-size="pageSize"
+                           layout="total, sizes, prev, pager, next, jumper"
+                           :total="myTableData.length"
+            >
+            </el-pagination>
         </el-card>
     </el-container>
 </template>
@@ -119,8 +129,9 @@
             return {
                 myTableData:[],
                 bgtURL:"http://localhost:3000/bgt_pm",
-                current:1,
-                size:5,
+                currentPage: 1, // 当前页码
+                total: 20, // 总条数
+                pageSize: 4, // 每页的数据条数,
 
             }
         },
@@ -136,7 +147,21 @@
             },
             Note(){
                 this.$router.push('/budget_apply_details2')
-            }
+            },
+            //选择框
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            //选择一页显示多少行
+            handleSizeChange(val) {
+                this.currentPage = 1;
+                this.pageSize = val;
+            },
+            //跳转其他页
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+                this.currentPage = val;
+            },
         }
     }
 </script>

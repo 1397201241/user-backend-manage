@@ -294,7 +294,6 @@ export default {
   }
   .app-wrap{
     margin: -12px -15px -15px -12px;
-
     .el-tabs{
       height: 630px;
       width: 1305px;

@@ -29,7 +29,6 @@
                     </el-form-item>
                 </el-container>
                 <el-container>
-
                     <el-form-item label="设立年份" prop="SETUP_YEAR">
                         <el-select v-model="formData.SETUP_YEAR" placeholder="请选择" disabled>
                             <el-option
@@ -108,6 +107,92 @@
                     UPDATE_AT:"2021/7/14下午2:40:18",
                     VERSION:"1.03.5（后台生成）",
                     id:"1",
+                },
+                //表单校验
+                rules: {
+                    BGT_ID: [
+                        { required: true, message: '请输入ID', trigger: 'blur' }
+                    ],
+                    APPLY_UP: [
+                        { required: true, message: '请输入申请预算', trigger: 'blur' }
+                    ],
+                    PRO_AGENCY_VIEW: [
+                        { required: true, message: '请输入单位建议', trigger: 'blur' }
+                    ],
+                    MOF_DIV_CODE:[
+                        { required: true, message: '请输入用户类型', trigger: 'blur' },
+                    ],
+                    FISCAL_YEAR:[
+                        { required: true, message: '请输入用户所属财政', trigger: 'blur' },
+                    ],
+                    COR_BGT_DOC_NO:[
+                        { required: true, message: '请输入用户所属机构', trigger: 'blur' },
+                    ],
+                    BGT_DOC_TITLE:[
+                        { required: true, message: '请输入用户姓名', trigger: 'blur' },
+                    ],
+                    DOC_DATE:[
+                        { required: true, message: '请输入用户账号', trigger: 'blur' },
+                    ],
+                    BGT_DEC:[
+                        { required: true, message: '请输入用户密码', trigger: 'blur' },
+                    ],
+                    BUDGET_LEVEL_CODE:[
+                        { required: true, message: '请输入用户身份证', trigger: 'blur' },
+                    ],
+                    SUP_BGT_DOC_NO:[
+                        { required: true, message: '请输入用户电话', trigger: 'blur' },
+                    ],
+                    PRO_CODE: [
+                        { required: true, message: '请输入用户备注', trigger: 'blur' },
+                    ],
+                    BGT_EXE_FLAG: [
+                        { required: true, message: '请输入用户状态', trigger: 'blur' }
+                    ],
+                    IS_TRACK: [
+                        { required: true, message: '请输入用户创建时间', trigger: 'blur' }
+                    ],
+                    TRACK_PRO_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    AGENCY_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    BGT_TYPE_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    AMOUNT: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    BGT_MOF_DEP_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    ORI_BGT_ID: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ]
+                    ,
+                    FOUND_TYPE_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ]
+                    ,
+                    BGT_PMAN_ID: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    IS_DELETED: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    SOURCE_TYPE_CODE: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    CREATE_AT: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    UPDATE_AT: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ],
+                    VERSION: [
+                        { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+                    ]
                 },
                 agencyCodeOptions:[
                     {
