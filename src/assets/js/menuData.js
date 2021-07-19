@@ -51,7 +51,7 @@ export const menuList = [
           "children": []
         },
         {
-          "id": 261,
+          "id": 2261,
           "parentId": 1,
           "menuName": "部门管理",
           "url": "/departments",
@@ -261,53 +261,14 @@ export const menuList = [
           "type": 0,
           "children": []
         },
+
         {
-          "id": 297,
-          "parentId": 295,
-          "menuName": "上级下达",
-          "url": "",
-          "icon": "el-icon-warning",
-          "orderNum": 1,
-          "open": 0,
-          "disabled": false,
-          "perms": "",
-          "type": 0,
-          "children": [
-            {
-              "id": 298,
-              "parentId": 297,
-              "menuName": "SQL监控",
-              "url": "/druid",
-              "icon": "el-icon-view",
-              "orderNum": 1,
-              "open": 0,
-              "disabled": false,
-              "perms": null,
-              "type": 0,
-              "children": []
-            }
-          ]
-        },
-        {
-          "id": 341,
-          "parentId": 295,
-          "menuName": "下级转移",
-          "url": "/blog",
-          "icon": "el-icon-view",
-          "orderNum": 1,
-          "open": 0,
-          "disabled": false,
-          "perms": "",
-          "type": 0,
-          "children": []
-        },
-        {
-          "id": 296,
-          "parentId": 295,
-          "menuName": "其他部门",
-          "url": "/swagger",
+          "id": 298,
+          "parentId": 296,
+          "menuName": "支付凭证",
+          "url": "/pay_voucher",
           "icon": "el-icon-document",
-          "orderNum": 2,
+          "orderNum": 3,
           "open": 0,
           "disabled": false,
           "perms": null,
@@ -315,7 +276,20 @@ export const menuList = [
           "children": []
         },
         {
-          "id": 297,
+          "id": 2988,
+          "parentId": 296,
+          "menuName": "资金清算",
+          "url": "/capital_liquidation",
+          "icon": "el-icon-document",
+          "orderNum": 3,
+          "open": 0,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 2997,
           "parentId": 296,
           "menuName": "清算凭证",
           "url": "/liquidation",

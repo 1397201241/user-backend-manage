@@ -29,7 +29,9 @@ const BudgetApplyList2 = ()=>import('../components/page/budget/BudgetApplyList2'
 const AgencyProjectList = ()=>import('../components/page/budget/AgencyProjectList');
 const DraftBudget = ()=>import('../components/page/budget/DraftBudget');
 const DraftBudget2 = ()=>import('../components/page/budget/DraftBudget2');
-const Chart = ()=>import('../components/common/chart');
+const Chart = ()=>import('../components/common/Pie');
+const PayVoucher = ()=>import('../components/page/audit/PayVoucher');
+const CapitalLiquidation = ()=>import('../components/page/audit/CapitalLiquidation');
 
 Vue.use(VueRouter);
 
@@ -174,6 +176,19 @@ const routes = [
         name:'Project',
         component:Project,
         meta: {title: '项目列表'}
+      },
+
+      {
+        path: '/pay_voucher',
+        name:'PayVoucher',
+        component:PayVoucher,
+        meta: {title: '支付凭证'}
+      },
+      {
+        path: '/capital_liquidation',
+        name:'CapitalLiquidation',
+        component:CapitalLiquidation,
+        meta: {title: '资金清算'}
       },
       {
         path: '/liquidation',

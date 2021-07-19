@@ -21,8 +21,6 @@
       </div>
     </el-header>
 
-
-
     <el-container>
       <el-aside width="200px">
         <el-menu
@@ -57,7 +55,9 @@
             >
               <div class="content-wrap" style="height: 100%;">
                 <!-- 展示路由内容 -->
-                <router-view></router-view>
+                <router-view>
+                  <!--<Pie v-if="$route.path==='/draft_budget2'"></Pie>-->
+                </router-view>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -70,6 +70,7 @@
 </template>
 
 <script>
+
 const MenuTree = ()=>import('../common/MenuTree');
 const User = ()=>import('./Users')
 const Role = ()=>import('./Roles')
@@ -88,7 +89,7 @@ export default {
     }
   },
   // eslint-disable-next-line vue/no-unused-components
-  components: {MenuTree,User,Role,Welcome,Project,Agency},
+  components: { MenuTree,User,Role,Welcome,Project,Agency},
   methods:{
     //tab标签点击时，切换相应的路由
     tabClick(tab){
@@ -176,6 +177,8 @@ export default {
           "/welcome":"欢迎界面",
           "/project":"项目列表",
           "/agency":"单位管理",
+          "/pay_voucher":"支付凭证",
+          "/capital_liquidation":"资金清算",
           "/liquidation":"清算凭证",
           "/bgt_pm":"预算申请管理",
           "/pro_apply":"项目申报",
@@ -192,7 +195,11 @@ export default {
 
         };
         if(path_name_list[to.path]){
-          this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
+          if (to.path==='/draft_budget2'){
+            this.$store.commit('tab_info/ADD_TABS2', {route: this.$route.path , name: path_name_list[to.path]});
+          }else {
+            this.$store.commit('tab_info/ADD_TABS', {route: this.$route.path , name: path_name_list[to.path]});
+          }
         }
         if(!routerChildren.includes(to.path)){
         this.$store.commit('tab_info/SET_ACTIVE_INDEX', to.path);}

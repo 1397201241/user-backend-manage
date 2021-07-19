@@ -9,8 +9,12 @@ export default function request(method, url, body) {
   return fetch(url, {
     method,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": 'application/json',
+      "Accept": 'application/json',
+      "Origin": '*',
+      "Access-Control-Allow-Origin": '*'
     },
+    mode:"cors",
     body
   })
       //使用json()读取并解析数据

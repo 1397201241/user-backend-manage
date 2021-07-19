@@ -4,14 +4,17 @@
             <el-form-item style="margin-top: 20px">
                 <span style="font-size: 20px;color: #22ccdd;line-height: 40px;">预算管理一体化系统</span>
             </el-form-item>
+            <!--用户名-->
             <el-form-item prop="username" style="width: 390px" >
                 <el-input ref="username" v-model="loginForm.username" prefix-icon="el-icon-user" type="text"
                           placeholder="账号" autocomplete="on"></el-input>
             </el-form-item>
+            <!--密码-->
             <el-form-item style="width: 390px" prop="password">
                 <el-input prefix-icon="el-icon-lock" type="password" placeholder="密码" ref="password"
                           v-model="loginForm.password" autocomplete="on"></el-input>
             </el-form-item>
+            <!--验证码-->
             <el-form-item prop="verificationCode" class="verification-code" style="width: 390px">
                 <el-container>
                     <el-input
@@ -32,7 +35,7 @@
                     </canvas>
                 </el-container>
             </el-form-item>
-
+            <!--登录按钮-->
             <el-button type="primary" style="width:390px;margin-bottom:20px;"
                        @click.prevent="handleLogin">
                 登录
@@ -42,6 +45,7 @@
 </template>
 
 <script>
+    import { post} from "../../utils/request";
     import {FormValidate} from "../../utils/validate";
     import JSEncrypt from 'jsencrypt'
     export default {
@@ -90,6 +94,7 @@
             }
         },
         created() {
+
             this.$store.commit('tab_info/CLEAN_TABS');
             this.getAccount()
         },
@@ -146,6 +151,9 @@
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
+                        post('http://192.168.110.79:8001/login',this.loginForm).then(res=>{
+                            console.log(res)
+                        }).catch(err=>console.log(err));
                         //创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
                         //获取公钥并加密

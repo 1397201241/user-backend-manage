@@ -24,33 +24,68 @@
                 border
                 max-height="360px"
                 @selection-change="handleSelectionChange"
-                style="min-height: 360px;max-width: 1200px"
+                style="min-height: 360px"
         >
             <!--数据扩展区-->
             <el-table-column type="expand">
                 <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form label-position="left" inline label-width="140" class="demo-table-expand">
                         <el-form-item label="支付申请主键">
                             <span>{{ props.row.PAY_APP_ID }}</span>
+                        </el-form-item>
+                        <el-form-item label="支付申请编号">
+                            <span>{{ props.row.PAY_APP_NUM }}</span>
+                        </el-form-item>
+                        <el-form-item label="申请日期">
+                            <span>{{ props.row.CREATE_AT }}</span>
                         </el-form-item>
                         <el-form-item label="更新日期">
                             <span>{{ props.row.UPDATE_AT }}</span>
                         </el-form-item>
+                        <el-form-item label="单位代码">
+                            <span>{{ props.row.AGENCY_CODE }}</span>
+                        </el-form-item>
+                        <el-form-item label="项目代码">
+                            <span>{{ props.row.PRO_CODE }}</span>
+                        </el-form-item>
+                        <el-form-item label="用途">
+                            <span>{{ props.row.FUNDS_USE }}</span>
+                        </el-form-item>
+                        <el-form-item label="金额">
+                            <span>{{ props.row.AMOUNT }}</span>
+                        </el-form-item>
+                        <el-form-item label="收款人全称">
+                            <span>{{ props.row.PAYEE_ACCT_NAME }}</span>
+                        </el-form-item>
+                        <el-form-item label="收款人账号">
+                            <span>{{ props.row.PAYEE_ACCT_NUM }}</span>
+                        </el-form-item>
+                        <el-form-item label="收款人开户银行">
+                            <span>{{ props.row.PAYEE_ACCT_BANK_NAME }}</span>
+                        </el-form-item>
+                        <el-form-item label="付款人全称">
+                            <span>{{ props.row.PAY_ACCT_NAME }}</span>
+                        </el-form-item>
+                        <el-form-item label="付款人账号">
+                            <span>{{ props.row.PAY_ACCT_NUM }}</span>
+                        </el-form-item>
+                        <el-form-item label="付款人开户银行">
+                            <span>{{ props.row.PAY_ACCT_BANK_NAME }}</span>
+                        </el-form-item>
+                        <el-form-item label="审核状态">
+                            <span>{{ props.row.AUDIT_STATUS }}</span>
+                        </el-form-item>
                         <el-form-item label="逻辑删除">
                             <span>{{ props.row.IS_DELETE }}</span>
+                        </el-form-item>
+                        <el-form-item label="指标文号">
+                            <span>{{ props.row.COR_BGT_DOC_NO }}</span>
                         </el-form-item>
                         <el-form-item label="版本">
                             <span>{{ props.row.VERSION }}</span>
                         </el-form-item>
                     </el-form>
                 </template>
-            </el-table-column>
-            <el-table-column
-                    type="index"
-                    label="序号"
-                    width="50"
-                    align="center"
-            >
             </el-table-column>
             <el-table-column
                     type="selection"
@@ -61,13 +96,14 @@
             <el-table-column
                     prop="PAY_APP_NUM"
                     label="支付申请编号"
-                    width="120"
+                    width="110"
             >
             </el-table-column>
             <el-table-column
-                    prop="CREATE_AT"
-                    label="申请日期"
-                    width="100">
+                    prop="PRO_CODE"
+                    label="项目代码"
+                    width="80"
+            >
             </el-table-column>
             <el-table-column
                     prop="AGENCY_CODE"
@@ -78,47 +114,30 @@
             <el-table-column
                     prop="USE"
                     label="用途"
-                    width="100"
+                    width="200"
             >
             </el-table-column>
             <el-table-column
                     prop="AMOUNT"
                     label="金额"
-                    width="80"
+                    width="180"
             >
             </el-table-column>
             <el-table-column
-                    prop="PAYEE_ACCT_NAME"
-                    label="收款人全称"
-                    width="80px"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAYEE_ACCT_NUM"
-                    label="收款人账号"
-                    width="80px"
-                    align="center"
-            >
-            </el-table-column>
-            <el-table-column
-                    prop="PAYEE_ACCT_BANK_NAME"
-                    label="收款人开户银行"
-                    width="80px"
-                    align="center"
-            >
+                    prop="CREATE_AT"
+                    label="申请日期"
+                    width="160">
             </el-table-column>
             <el-table-column
                     prop="AUDIT_STATUS_CN"
                     label="审核状态"
-                    width="80px"
+                    width="180px"
                     align="center"
             >
             </el-table-column>
             <el-table-column
                     prop="action"
                     label="操作"
-                    width="150px"
                     align="center"
             >
                 <template slot-scope="scope">
@@ -580,7 +599,7 @@
         .el-form-item{
             margin-right: 0;
             margin-bottom: 0;
-            width: 50%;
+            width: 25%;
             span{
                 color: #5908b1;
             }
