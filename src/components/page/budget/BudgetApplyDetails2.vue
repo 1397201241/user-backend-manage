@@ -177,9 +177,6 @@
     .iconfont{
         font-size: 24px;
     }
-    .my-step .el-step .el-step__head .el-step__icon.is-text{
-        border: none;
-    }
     .iconClass{
         color: #22ccdd;
     }

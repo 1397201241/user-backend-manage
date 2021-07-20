@@ -229,18 +229,14 @@
             handleAddBtnClick(){
                 this.$router.push('/budget_apply_list')
             }
-
         }
     }
 </script>
 
-<style>
+<style scoped>
     @import "https://at.alicdn.com/t/font_2666070_gud9cyspuwb.css?spm=a313x.7781069.1998910419.40&file=font_2666070_gud9cyspuwb.css";
     /*通用图标大小*/
     .iconfont{
         font-size: 24px;
-    }
-    .my-step .el-step .el-step__head .el-step__icon.is-text{
-        border: none;
     }
 </style>

@@ -37,6 +37,10 @@ const mutations = {
   ADD_TABS(state, data) {
     state.openTab.push(data)
   },
+  // 添加tabs
+  ADD_TABS2(state, data) {
+    state.openTab.unshift(data)
+  },
   // 删除tabs
   DELETE_TABS (state, route) {
     let index = 0;
@@ -68,6 +72,8 @@ const actions = {
         "/welcome":"欢迎界面",
         "/project":"项目列表",
         "/agency":"单位管理",
+        "/pay_voucher":"支付凭证",
+        "/capital_liquidation":"资金清算",
         "/liquidation":"清算凭证",
         "/bgt_pm":"预算申请管理",
         "/pro_apply":"项目申报",
@@ -93,7 +99,7 @@ const actions = {
         "/target_detail":"指标详情",
         "/add_pay":"新建支付申请",
         "/add_pay_2":"新建申请",
-        "/pay_voucher":"支付凭证",
+        "/pay_voucher_list":"支付凭证",
         "/pay_voucher_detail":"支付凭证详情"
       };
       //通过路由的判断，来加入标签页的名称

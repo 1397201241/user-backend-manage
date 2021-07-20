@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import {getToken} from "../utils/auth";
 import store from '../store'
 
+const PayVoucher = ()=>import('../components/page/audit/PayVoucher')
 const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
 const ProApply = ()=>import("../components/page/Project/ProApply");
 const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
@@ -35,14 +36,15 @@ const BudgetApplyList2 = ()=>import('../components/page/budget/BudgetApplyList2'
 const AgencyProjectList = ()=>import('../components/page/budget/AgencyProjectList');
 const DraftBudget = ()=>import('../components/page/budget/DraftBudget');
 const DraftBudget2 = ()=>import('../components/page/budget/DraftBudget2');
-const Chart = ()=>import('../components/common/chart');
+const Pie = ()=>import('../components/common/Pie');
 const RoleList = ()=>import('../components/page/RoleList')
 const AcTarget = ()=>import('../components/page/Reply/AcTarget')
 const TargetDetail = ()=>import('../components/page/Reply/TargetDetail')
 const AddPay = ()=>import('../components/page/pay/AddPay')
 const AddPay2 = ()=>import('../components/page/pay/PayApply2')
-const PayVoucher = ()=>import('../components/page/pay/PayVoucher')
+const PayVoucherList = ()=>import('../components/page/pay/PayVoucherList')
 const PayVoucherDetail = ()=>import('../components/page/pay/PayVoucherDetail')
+const CapitalLiquidation = ()=>import('../components/page/audit/CapitalLiquidation');
 
 Vue.use(VueRouter);
 
@@ -76,9 +78,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/chart',
-    name: 'Chart',
-    component: Chart
+    path: '/pie',
+    name: 'Pie',
+    component: Pie
   },
   {
     path: '/home',
@@ -194,6 +196,19 @@ const routes = [
         component:Project,
         meta: {title: '项目列表'}
       },
+
+      {
+        path: '/pay_voucher',
+        name:'PayVoucher',
+        component:PayVoucher,
+        meta: {title: '支付凭证'}
+      },
+      {
+        path: '/capital_liquidation',
+        name:'CapitalLiquidation',
+        component:CapitalLiquidation,
+        meta: {title: '资金清算'}
+      },
       {
         path: '/liquidation',
         name:'Liquidation',
@@ -265,9 +280,9 @@ const routes = [
         component:AddPay2
       },
       {
-        path: '/pay_voucher',
-        name:'PayVoucher',
-        component:PayVoucher
+        path: '/pay_voucher_list',
+        name:'PayVoucherList',
+        component:PayVoucherList
       },
       {
         path: '/pay_voucher_detail',

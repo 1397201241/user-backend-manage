@@ -88,11 +88,9 @@
             </el-form>
         </el-card>
     </el-container>
-
 </template>
 
 <script>
-
     export default {
         name: "AgencyBudgetApply",
         data(){
@@ -193,7 +191,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     @import "https://at.alicdn.com/t/font_2666070_w01oy5mbpaa.css?spm=a313x.7781069.1998910419.44&file=font_2666070_w01oy5mbpaa.css";
     /*通用图标大小*/
     .iconfont{

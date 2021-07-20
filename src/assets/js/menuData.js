@@ -51,7 +51,7 @@ export const menuList = [
           "children": []
         },
         {
-          "id": 261,
+          "id": 2261,
           "parentId": 1,
           "menuName": "部门管理",
           "url": "/departments",
@@ -235,7 +235,7 @@ export const menuList = [
           "type": 0,
           "children": []
         },
-        {
+        /*{
           "id": 343,
           "parentId": 295,
           "menuName": "支付审核",
@@ -247,7 +247,8 @@ export const menuList = [
           "perms": "",
           "type": 0,
           "children": []
-        },
+        },*/
+
         {
           "id": 244,
           "parentId": 295,
@@ -291,18 +292,44 @@ export const menuList = [
         {
           "id": 341,
           "parentId": 295,
+          "menuName": "支付凭证列表",
+          "url": "/pay_voucher_list",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 349,
+          "parentId": 295,
           "menuName": "支付凭证",
           "url": "/pay_voucher",
           "icon": "el-icon-edit",
           "orderNum": 1,
           "open": 0,
           "disabled": false,
-          "perms": "",
+          "perms": null,
           "type": 0,
           "children": []
         },
         {
-          "id": 297,
+          "id": 2988,
+          "parentId": 296,
+          "menuName": "资金清算",
+          "url": "/capital_liquidation",
+          "icon": "el-icon-document",
+          "orderNum": 3,
+          "open": 0,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 2997,
           "parentId": 296,
           "menuName": "清算凭证",
           "url": "/liquidation",
