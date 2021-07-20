@@ -51,38 +51,12 @@ export const menuList = [
           "children": []
         },
         {
-          "id": 2261,
-          "parentId": 1,
-          "menuName": "部门管理",
-          "url": "/departments",
-          "icon": "el-icon-s-home",
-          "orderNum": 4,
-          "open": 0,
-          "disabled": false,
-          "perms": "",
-          "type": 0,
-          "children": []
-        },
-        {
           "id": 261,
           "parentId": 1,
           "menuName": "单位管理",
           "url": "/agency",
           "icon": "el-icon-s-home",
           "orderNum": 3,
-          "open": 0,
-          "disabled": false,
-          "perms": "",
-          "type": 0,
-          "children": []
-        },
-        {
-          "id": 319,
-          "parentId": 1,
-          "menuName": "公告管理",
-          "url": "/notices",
-          "icon": "el-icon-s-flag",
-          "orderNum": 5,
           "open": 0,
           "disabled": false,
           "perms": "",

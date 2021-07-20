@@ -1,33 +1,32 @@
 <template>
 
-<div class="welcomeStyle" style="width: 1280px;height: 560px">
+<div class="welcomeStyle" style="padding:-30px -150px -150px -30px">
   <el-container direction="vertical">
-    <i class="iconfont"></i>
     <span style="text-align: left;margin-left: 20px">基础信息管理</span>
     <el-container style="margin-left: 0">
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/a.jpg" style="width: 100%"/>
-        <div class="card-title" ><span>xxx管理</span></div>
+        <img src="./../../assets/imgs/card9.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/welcome')"><span>欢迎界面</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/c.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <img src="./../../assets/imgs/card10.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>用户列表</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/b.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+        <img src="./../../assets/imgs/card11.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>角色权限</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <img src="./../../assets/imgs/card12.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/role_list')"><span>单位管理</span></div>
       </el-card>
     </el-container>
     <span style="text-align: left;margin-left: 20px">预算信息管理</span>
@@ -35,25 +34,25 @@
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card1.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/budget')"><span>预算指标</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/c.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card2.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card3.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card4.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
       </el-card>
     </el-container>
@@ -62,25 +61,25 @@
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card5.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/pay')"><span>支付管理</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card6.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card7.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/test.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card8.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
       </el-card>
     </el-container>
@@ -89,14 +88,20 @@
 </template>
 
 <script>
-export default {
+  /*import {getToken, getUsernameToken} from "../../utils/auth";*/
+
+  export default {
   name: "Welcome",
   data(){
     return{
   }
   },
   methods:{
+  },
+  created() {
+
   }
+
 }
 </script>
 
@@ -125,7 +130,6 @@ export default {
           border: #fff solid 3px;
         }
       }
-
     }
   }
 

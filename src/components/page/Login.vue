@@ -45,9 +45,10 @@
 </template>
 
 <script>
-    import { post} from "../../utils/request";
     import {FormValidate} from "../../utils/validate";
     import JSEncrypt from 'jsencrypt'
+    import querystring from 'querystring';
+    import {setToken, setUsernameToken} from "../../utils/auth";
     export default {
 
         name: "Login",
@@ -64,13 +65,13 @@
                 }
             };
             return {
-                verificationC:'',
-                loginForm:{
+                verificationC:'',//验证码
+                loginForm:{//登录表单
                     username:'',
                     password:'',
                     verificationCode:''
                 },
-                loginRules:{
+                loginRules:{ //登录校验
                     username:[
                         {
                             validator:FormValidate().Form().Name,
@@ -94,18 +95,17 @@
             }
         },
         created() {
-
             this.$store.commit('tab_info/CLEAN_TABS');
-            this.getAccount()
+            //this.getAccount()
+
         },
         mounted() {
             this.createCode()
         },
         methods:{
 
-            //模拟后台用户验证
+            /*模拟后台用户验证*/
             authenticationUser(username, encryptPassword){
-                //用户组
                 let users=[];
                 for (let user of this.$store.state.user_info.user){
                     users.push(user['username'])
@@ -143,19 +143,50 @@
                     });
                 }
             },
-            //获取用户账号密码
+            /*获取用户账号密码*/
             getAccount(){
                 this.$store.dispatch('user_info/getUser')
             },
-            //登录
+            /*登录*/
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
-                        post('http://192.168.110.79:8001/login',this.loginForm).then(res=>{
-                            console.log(res)
-                        }).catch(err=>console.log(err));
-                        //创建加密对象实例
+                        let loginForm={};
+                        const username=this.loginForm.username;
+                        loginForm.username=this.loginForm.username;
+                        loginForm.password=this.loginForm.password;
+                        fetch('http://192.168.110.79:8001/login',{
+                            method:'POST',
+                            headers:{
+                                "Content-Type": 'application/x-www-form-urlencoded',
+                                /*"Accept": 'application/json;charset=UTF-8',*/
+                            },
+                            /*credentials:"include",*/
+                            mode:"cors",
+                            body:querystring.stringify(loginForm)
+                            })
+                            .then(res=>{
+                                let token=res.headers.get('Authorization');
+                                setUsernameToken(username);
+                                setToken(token);
+                                return res.json()
+                            })
+                            .then(res=>{
+                                if (res.code===200){
+                                    this.$router.push({
+                                        path:'/',
+                                        params:{
+                                            username,
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error=>{
+                                console.log(error)
+                            });
+                        /*//创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
+                        console.log(jsEncrypt)
                         //获取公钥并加密
                         this.$store.dispatch('user_info/getPublicKey').then(
                             publicKey=>{
@@ -166,7 +197,7 @@
                                 //匹配验证
                                 this.authenticationUser(this.loginForm.username,encryptPassword)
                             }
-                        )
+                        )*/
                     }
                     else {
                         this.$notify.error({
@@ -175,7 +206,7 @@
                     }
                 });
             },
-            // 获得验证码
+            /*创建验证码*/
             createCode () {
                 let canvas = this.$refs.code;
                 let context = canvas.getContext('2d');

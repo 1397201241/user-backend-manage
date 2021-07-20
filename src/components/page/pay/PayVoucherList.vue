@@ -7,7 +7,6 @@
           :data="myTableData.slice((current-1)*size,current*size)"
           tooltip-effect="dark"
           max-height="375"
-
           @selection-change="handleSelectionChange">
         <el-table-column
             type="selection"
