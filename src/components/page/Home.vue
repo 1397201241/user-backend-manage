@@ -9,7 +9,7 @@
 
       <!--      用户头像及下拉框-->
       <div class="headRight">
-        <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.username}}</span>
+        <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.name}}</span>
         <el-dropdown>
           <img src="../../assets/imgs/head.png">
           <el-dropdown-menu slot="dropdown">

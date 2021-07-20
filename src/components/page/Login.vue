@@ -45,9 +45,10 @@
 </template>
 
 <script>
-    import { post} from "../../utils/request";
     import {FormValidate} from "../../utils/validate";
     import JSEncrypt from 'jsencrypt'
+    import querystring from 'querystring';
+    import {setToken, setUsernameToken} from "../../utils/auth";
     export default {
 
         name: "Login",
@@ -95,7 +96,8 @@
         },
         created() {
             this.$store.commit('tab_info/CLEAN_TABS');
-            this.getAccount()
+            //this.getAccount()
+
         },
         mounted() {
             this.createCode()
@@ -149,20 +151,44 @@
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
-                        let loginForm='';
-                        loginForm='username='+this.loginForm.username+'&password='+this.loginForm.password
-
-
-                        console.log(loginForm)
-                        post('http://192.168.110.79:8001/login',loginForm).then(res=>{
-                            console.log("success")
-                            console.log(res)
-                        }).catch(err=>console.log(err));
-                        //创建加密对象实例
+                        let loginForm={};
+                        const username=this.loginForm.username;
+                        loginForm.username=this.loginForm.username;
+                        loginForm.password=this.loginForm.password;
+                        fetch('http://192.168.110.79:8001/login',{
+                            method:'POST',
+                            headers:{
+                                "Content-Type": 'application/x-www-form-urlencoded',
+                                /*"Accept": 'application/json;charset=UTF-8',*/
+                            },
+                            /*credentials:"include",*/
+                            mode:"cors",
+                            body:querystring.stringify(loginForm)
+                            })
+                            .then(res=>{
+                                let token=res.headers.get('Authorization');
+                                setUsernameToken(username);
+                                setToken(token);
+                                return res.json()
+                            })
+                            .then(res=>{
+                                if (res.code===200){
+                                    this.$router.push({
+                                        path:'/',
+                                        params:{
+                                            username,
+                                        }
+                                    });
+                                }
+                            })
+                            .catch(error=>{
+                                console.log(error)
+                            });
+                        /*//创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
                         console.log(jsEncrypt)
                         //获取公钥并加密
-                        /*this.$store.dispatch('user_info/getPublicKey').then(
+                        this.$store.dispatch('user_info/getPublicKey').then(
                             publicKey=>{
                                 //设置加密公钥
                                 jsEncrypt.setPublicKey(publicKey);

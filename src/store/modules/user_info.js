@@ -4,6 +4,7 @@ import {get} from "../../utils/request";
 // 登录组件状态信息
 const state = () => ({
     token:getToken(),
+    username:'',
     //账户信息
     user: [],
     //用户信息
@@ -24,6 +25,9 @@ const getters = {
 const mutations = {
     SET_TOKEN: (state, token) => {
         state.token = token
+    },
+    SET_USERNAME: (state, username) => {
+        state.username = username
     },
     //全体用户账号密码，todo:不安全做法
     SET_USER: (state, user) => {

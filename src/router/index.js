@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {getToken} from "../utils/auth";
+import {getToken,getUsernameToken} from "../utils/auth";
 import store from '../store'
 
-const PayVoucher = ()=>import('../components/page/audit/PayVoucher')
+const PayVoucher = ()=>import('../components/page/audit/PayVoucher');
 const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
 const ProApply = ()=>import("../components/page/Project/ProApply");
 const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
@@ -70,6 +70,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
+    /*meta:{title:'登录界面',requireAuth:true},*/
     component: Login
   },
   {
@@ -201,7 +202,7 @@ const routes = [
         path: '/pay_voucher',
         name:'PayVoucher',
         component:PayVoucher,
-        meta: {title: '支付凭证'}
+        meta: {title: '支付凭证',requireAuth:true}
       },
       {
         path: '/capital_liquidation',
@@ -301,16 +302,25 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     let token=getToken();
+    let username=getUsernameToken();
     if (token) {
       //判断用户信息是否已获取，这里只能通过长度判断
       //正常情况下刷新会丢失store里的状态,因此每次跳转前获取一次（存在性能问题）
       if (store.state.user_info.info.length===0){
-        store.dispatch('user_info/getInfo').catch(err=>{
-          console.log(err)
+        fetch('http://192.168.110.79:8002/bm-fasp-tcauser/username/'+username,{
+          method:'GET',
+          mode:'cors'
         })
+            .then(res=>res.json())
+            .then(res=>{
+              const data=res.data;
+              store.commit('user_info/SET_INFO',data);
+              next()
+            })
+      }else {
+        next()
       }
-      next()
-    } else {
+    }else {
       next({path: '/Login'})
     }
   } else {
