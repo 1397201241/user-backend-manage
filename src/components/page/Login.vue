@@ -149,16 +149,20 @@
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
-                        let loginForm={};
-                        loginForm.username=this.loginForm.username
-                        loginForm.password=this.loginForm.password
+                        let loginForm='';
+                        loginForm='username='+this.loginForm.username+'&password='+this.loginForm.password
+
+
+                        console.log(loginForm)
                         post('http://192.168.110.79:8001/login',loginForm).then(res=>{
+                            console.log("success")
                             console.log(res)
                         }).catch(err=>console.log(err));
                         //创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
+                        console.log(jsEncrypt)
                         //获取公钥并加密
-                        this.$store.dispatch('user_info/getPublicKey').then(
+                        /*this.$store.dispatch('user_info/getPublicKey').then(
                             publicKey=>{
                                 //设置加密公钥
                                 jsEncrypt.setPublicKey(publicKey);
@@ -167,7 +171,7 @@
                                 //匹配验证
                                 this.authenticationUser(this.loginForm.username,encryptPassword)
                             }
-                        )
+                        )*/
                     }
                     else {
                         this.$notify.error({
