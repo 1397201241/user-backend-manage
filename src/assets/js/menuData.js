@@ -131,19 +131,6 @@ export const menuList = [
           ]
         },
         {
-          "id": 313,
-          "parentId": 312,
-          "menuName": "预算指标管理",
-          "url": "/budget_index",
-          "icon": "el-icon-date",
-          "orderNum": 1,
-          "open": 1,
-          "disabled": false,
-          "perms": "el-icon-date",
-          "type": 0,
-          "children":[]
-        },
-        {
           "id": 21312,
           "parentId": 312,
           "menuName": "单位预算草案",
@@ -200,7 +187,7 @@ export const menuList = [
     {
       "id": 295,
       "parentId": 0,
-      "menuName": "转移支付管理",
+      "menuName": "支付申请",
       "url": "",
       "icon": "el-icon-s-marketing",
       "orderNum": 3,
@@ -212,7 +199,7 @@ export const menuList = [
         {
           "id": 342,
           "parentId": 295,
-          "menuName": "支付申请",
+          "menuName": "支付申请管理",
           "url": "/payApply",
           "icon": "el-icon-view",
           "orderNum": 1,
@@ -222,7 +209,7 @@ export const menuList = [
           "type": 0,
           "children": []
         },
-        {
+        /*{
           "id": 343,
           "parentId": 295,
           "menuName": "支付审核",
@@ -234,15 +221,68 @@ export const menuList = [
           "perms": "",
           "type": 0,
           "children": []
-        },
+        },*/
 
         {
-          "id": 298,
-          "parentId": 296,
+          "id": 244,
+          "parentId": 295,
+          "menuName": "新建支付申请",
+          "url": "/add_pay",
+          "icon": "el-icon-warning",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": [
+              {
+            "id": 297,
+            "parentId": 295,
+            "menuName": "可选指标列表",
+            "url": "/add_pay",
+            "icon": "el-icon-warning",
+            "orderNum": 1,
+            "open": 0,
+            "disabled": false,
+            "perms": "",
+            "type": 0,
+            "children": []
+          },
+            {
+              "id": 298,
+              "parentId": 295,
+              "menuName": "新建申请",
+              "url": "/add_pay_2",
+              "icon": "el-icon-warning",
+              "orderNum": 1,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+          },
+          ]
+        },
+        {
+          "id": 341,
+          "parentId": 295,
+          "menuName": "支付凭证列表",
+          "url": "/pay_voucher_list",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 349,
+          "parentId": 295,
           "menuName": "支付凭证",
           "url": "/pay_voucher",
-          "icon": "el-icon-document",
-          "orderNum": 3,
+          "icon": "el-icon-edit",
+          "orderNum": 1,
           "open": 0,
           "disabled": false,
           "perms": null,
@@ -289,7 +329,7 @@ export const menuList = [
       "perms": null,
       "type": 0,
       "children": [
-        {
+        /*{
           "id": 271,
           "parentId": 5,
           "menuName": "项目列表",
@@ -301,7 +341,7 @@ export const menuList = [
           "perms": "login:log",
           "type": 0,
           "children": []
-        },
+        },*/
         {
           "id": 307,
           "parentId": 5,
@@ -314,7 +354,138 @@ export const menuList = [
           "perms": "",
           "type": 0,
           "children": []
+        },
+        {
+          "id": 308,
+          "parentId": 5,
+          "menuName": "新建项目申报",
+          "url": "/pro_apply/add",
+          "icon": "el-icon-edit",
+          "orderNum": 3,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 309,
+          "parentId": 5,
+          "menuName": "审查项目申报",
+          "url": "/pro_apply/exam",
+          "icon": "el-icon-edit",
+          "orderNum": 4,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
+        },
+        {
+          "id": 310,
+          "parentId": 5,
+          "menuName": "查看本部项目",
+          "url": "/project",
+          "icon": "el-icon-edit",
+          "orderNum": 5,
+          "open": 1,
+          "disabled": false,
+          "perms": "",
+          "type": 0,
+          "children": []
         }
       ]
-    }
+    },
+    {
+      "id": 7,
+      "parentId": 0,
+      "menuName": "预算批复",
+      "url": "/reply",
+      "icon": "el-icon-edit",
+      "orderNum": 1,
+      "open": 1,
+      "disabled": false,
+      "perms": null,
+      "type": 0,
+      "children": [
+        {
+          "id": 70,
+          "parentId": 7,
+          "menuName": "预算批复导航",
+          "url": "/reply_navi",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          children: []
+        },
+        {
+          "id": 71,
+          "parentId": 7,
+          "menuName": "草案批准",
+          "url": "/draft_app",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          children: []
+        },
+        {
+          "id": 72,
+          "parentId": 7,
+          "menuName": "未下发指标管理",
+          "url": "/budget_index",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
+          "id": 73,
+          "parentId": 7,
+          "menuName": "预算指标下达",
+          "url": "/target_down",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
+          "id": 73,
+          "parentId": 7,
+          "menuName": "单位查看指标",
+          "url": "/ac_target",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        /*{
+          "id": 74,
+          "parentId": 7,
+          "menuName": "查看指标详情",
+          "url": "/target_detail",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        }*/
+      ]
+    },
   ]

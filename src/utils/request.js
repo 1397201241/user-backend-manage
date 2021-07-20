@@ -1,16 +1,17 @@
 //默认导出
 export default function request(method, url, body) {
+
   if (method === "GET") {
     body = undefined;
   } else {
     //转化为json
     body = body && JSON.stringify(body);
   }
+  console.log("body:"+body)
   return fetch(url, {
     method,
     headers: {
-      "Content-Type": 'application/json',
-      "Accept": 'application/json',
+      "Content-Type": 'application/x-www-form-urlencoded',
       "Origin": '*',
       "Access-Control-Allow-Origin": '*'
     },

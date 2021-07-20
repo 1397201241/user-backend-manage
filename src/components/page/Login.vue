@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    //import { post} from "../../utils/request";
+    import { post} from "../../utils/request";
     import {FormValidate} from "../../utils/validate";
     import JSEncrypt from 'jsencrypt'
     export default {
@@ -149,9 +149,12 @@
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
-                        /*post('http://192.168.110.79:8001/login',this.loginForm.username).then(res=>{
+                        let loginForm={};
+                        loginForm.username=this.loginForm.username
+                        loginForm.password=this.loginForm.password
+                        post('http://192.168.110.79:8001/login',loginForm).then(res=>{
                             console.log(res)
-                        }).catch(err=>console.log(err));*/
+                        }).catch(err=>console.log(err));
                         //创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
                         //获取公钥并加密

@@ -35,73 +35,64 @@
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
                 <el-form-item label="项目名称">
-                  <span>{{ props.row.PRO_NAME }}</span>
+                  <span>{{ props.row.proName }}</span>
                 </el-form-item>
                 <el-form-item label="项目ID">
-                  <span>{{ props.row.PRO_ID }}</span>
+                  <span>{{ props.row.proId }}</span>
                 </el-form-item>
                 <el-form-item label="项目代码">
-                  <span>{{ props.row.PRO_CODE }}</span>
+                  <span>{{ props.row.proCode }}</span>
                 </el-form-item>
                 <el-form-item label="设立年份">
-                  <span>{{ props.row.SETUP_YEAR }}</span>
+                  <span>{{ props.row.setupYear }}</span>
                 </el-form-item>
                 <el-form-item label="单位代码">
-                  <span>{{ props.row.AGENCY_CODE }}</span>
+                  <span>{{ props.row.agencyCode }}</span>
                 </el-form-item>
                 <el-form-item label="项目期限">
-                  <span>{{ props.row.PRO_TERM }}</span>
-                </el-form-item>
-                <el-form-item label="项目类型">
-                  <span>{{ props.row.PRO_CAT_CODE }}</span>
+                  <span>{{ props.row.proTerm }}</span>
                 </el-form-item>
                 <el-form-item label="项目预算">
-                  <span>{{ props.row.PRO_TOTAL_AMT }}</span>
-                </el-form-item>
-                <el-form-item label="单位建议">
-                  <span>{{ props.row.PRO_AGENCY_VIEW }}</span>
+                  <span>{{ props.row.proTotalAmt }}</span>
                 </el-form-item>
                 <el-form-item label="部门建议">
-                  <span>{{ props.row.PRO_DEPREVIEW }}</span>
+                  <span>{{ props.row.proDepreview }}</span>
                 </el-form-item>
                 <el-form-item label="财政部建议">
-                  <span>{{ props.row.PRO_BGTREVIEW }}</span>
+                  <span>{{ props.row.proBgtreview }}</span>
                 </el-form-item>
                 <el-form-item label="部门建议代码">
-                  <span>{{ props.row.DEP_AUD_OPNION_CODE }}</span>
+                  <span>{{ props.row.depAudOpinionCode }}</span>
                 </el-form-item>
                 <el-form-item label="财政建议代码">
-                  <span>{{ props.row.MOF_AUD_OPNION_CODE }}</span>
+                  <span>{{ props.row.mofAudOpnionCode }}</span>
                 </el-form-item>
                 <el-form-item label="项目类别">
-                  <span>{{ props.row.PRO_KIND }}</span>
+                  <span>{{ props.row.proKind }}</span>
                 </el-form-item>
                 <el-form-item label="项目类别代码">
-                  <span>{{ props.row.PRO_KIND_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="去向单位代码">
-                  <span>{{ props.row.APPLY_LINK }}</span>
-                </el-form-item>
-                <el-form-item label="项目介绍">
-                  <span>{{ props.row.PRO_DESC }}</span>
-                </el-form-item>
-                <el-form-item label="更新时间">
-                  <span>{{ props.row.UPDATE_AT }}</span>
-                </el-form-item>
-                <el-form-item label="结束代码">
-                  <span>{{ props.row.IS_END }}</span>
-                </el-form-item>
-                <el-form-item label="删除代码">
-                  <span>{{ props.row.IS_DELETED }}</span>
-                </el-form-item>
-                <el-form-item label="表单创建时间">
-                  <span>{{ props.row.CREATE_AT }}</span>
+                  <span>{{ props.row.proKindCode }}</span>
                 </el-form-item>
                 <el-form-item label="申报环节">
-                  <span>{{ props.row.APPLY_LINK }}</span>
+                  <span>{{ props.row.applyLink }}</span>
+                </el-form-item>
+                <el-form-item label="项目介绍">
+                  <span>{{ props.row.proDesc }}</span>
+                </el-form-item>
+                <el-form-item label="更新时间">
+                  <span>{{ props.row.updateAt }}</span>
+                </el-form-item>
+                <el-form-item label="结束代码">
+                  <span>{{ props.row.isTerminated }}</span>
+                </el-form-item>
+                <el-form-item label="删除代码">
+                  <span>{{ props.row.isDelete }}</span>
+                </el-form-item>
+                <el-form-item label="表单创建时间">
+                  <span>{{ props.row.createAt }}</span>
                 </el-form-item>
                 <el-form-item label="版本号">
-                  <span>{{ props.row.VERSION }}</span>
+                  <span>{{ props.row.version }}</span>
                 </el-form-item>
               </el-form>
             </template>
@@ -109,29 +100,30 @@
           <el-table-column
                 label="设立年份"
                 width="180">
-              <template slot-scope="scope">{{ scope.row.SETUP_YEAR }}</template>
+              <template slot-scope="scope">{{ scope.row.setupYear }}</template>
             </el-table-column>
           <el-table-column
-                prop="PRO_NAME"
+                prop="proName"
                 label="项目名称"
-                width="180">
+                width="240">
             </el-table-column>
           <el-table-column
-                prop="PRO_TOTAL_AMT"
+                prop="proTotalAmt"
                 label="预算"
-                width="180">
+                width="120">
             </el-table-column>
           <el-table-column
-                prop="PRO_CODE"
+                prop="proCode"
                 label="项目代码"
                 width="180">
             </el-table-column>
           <el-table-column
               fixed="right"
               label="操作"
-              width="200">
+              width="240">
            <template slot-scope="scope">
-              <el-button type="primary"  @click="show(2,scope.row.id)">编辑项目</el-button>
+             <el-button type="primary"  @click="viewProgress(scope.row.proId)">查看进度</el-button>
+             <el-button type="primary"  @click="show(2,scope.row.proId)">编辑项目</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -155,8 +147,9 @@
 </template>
 
 <script>
-import {get,post,del,put} from "../../../utils/request";
+import {get,put,post,del} from "../../../utils/request";
 import ProOpera from "../../common/ProOpera";
+/*let bigDecimal = require('js-big-decimal')*/
 export default {
   name: "Project",
   components:{ProOpera},
@@ -205,6 +198,16 @@ export default {
     this.getProjectList()
   },
   methods:{
+    viewProgress(proId){
+      for(let i of this.myTableData){
+        if(i.proId === proId){
+          console.log("aaa",i)
+          this.$router.push(
+              {path:'/view_pro_progress',
+                query:{name:"data",data:JSON.stringify(i)}})
+        }
+        }
+    },
     iRefresh(){
       this.getProjectList()
       this.value=[]
@@ -212,15 +215,15 @@ export default {
     },
     editProList(formData){
       this.transferPro = formData
-      this.transferPro.UPDATE_AT = new Date().toLocaleString()
-      let theURL = this.baseURL+this.projectURL+"/"+this.transferPro.id
-      put(theURL,this.transferPro)
+      /*this.transferPro.proTotalAmt = new bigDecimal(""+this.transferPro.proTotalAmt).value*/
+      console.log("我要发送",this.transferPro)
+      put("http://192.168.110.142:8003/project/update",this.transferPro)
     },
     selectPro(){
       let filterList = [],lastList = []
       if(this.value[0] && !this.formInline.projectName) {
         for (let i of this.myTableData) {
-          if (i.SETUP_YEAR == this.value[0]) {
+          if (i.setupYear === this.value[0]) {
             filterList.push(i)
           }
         }
@@ -259,8 +262,8 @@ export default {
       console.log(this.myTableData[this.myTableData.length-1])
       this.transferPro = formData
       let time = new Date()
-      this.transferPro.UPDATE_AT = time.toLocaleString()
-      this.transferPro.CREATE_AT = time.toLocaleString()
+      this.transferPro.updateAt = time.toLocaleString()
+      this.transferPro.createAt = time.toLocaleString()
       this.transferPro.id = (Number(this.myTableData[this.myTableData.length-1].id)+1).toString()
 
       let theURL = this.baseURL+this.projectURL
@@ -279,7 +282,7 @@ export default {
         this.operaIndex = 2
         this.proTitle = "编辑项目呀！"
         for(let i of this.myTableData){
-          if(i.id === id){
+          if(i.proId === id){
             this.transferPro = i
           }
         }
@@ -287,9 +290,14 @@ export default {
       this.addOrUpdateVisible = true
     },
     getProjectList(){
-      let theURL = this.baseURL+this.projectURL
+      /*let theURL = this.baseURL+this.projectURL
       get(theURL).then(myJson=>{
         this.myTableData = myJson
+        this.totalNum = this.myTableData.length
+      })*/
+      get("http://192.168.110.142:8003/project/list/100000").then(myJson=>{
+        console.log(myJson.data)
+        this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
       })
     },

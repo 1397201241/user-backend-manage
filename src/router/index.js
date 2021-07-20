@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getToken} from "../utils/auth";
 import store from '../store'
-import ProApply from "../components/page/Project/ProApply";
-import ProApply_add from "../components/page/Project/ProApply_add";
 
+const PayVoucher = ()=>import('../components/page/audit/PayVoucher')
+const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
+const ProApply = ()=>import("../components/page/Project/ProApply");
+const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
 const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
@@ -13,7 +15,12 @@ const Test = ()=>import('../components/page/Test');
 const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
-const RoleList = ()=>import('../components/page/RoleList');
+const ProApply_exam = ()=>import('../components/page/Project/ProApply_exam')
+const Reply = ()=>import('../components/page/Reply/Reply')
+const DraftApproval = ()=>import('../components/page/Reply/DraftApproval')
+const ReplyNavi = ()=>import('../components/page/Reply/ReplyNavi')
+const TargetDown = ()=>import('../components/page/Reply/TargetDown')
+/*const AcTarget = ()=>import('../components/page/Reply/AcTarget')*/
 const Project = ()=>import('../components/page/Project/Project');
 const Liquidation = ()=>import('../components/page/Liquidation');
 const PayCheck = ()=>import('../components/page/pay/PayCheck');
@@ -29,8 +36,14 @@ const BudgetApplyList2 = ()=>import('../components/page/budget/BudgetApplyList2'
 const AgencyProjectList = ()=>import('../components/page/budget/AgencyProjectList');
 const DraftBudget = ()=>import('../components/page/budget/DraftBudget');
 const DraftBudget2 = ()=>import('../components/page/budget/DraftBudget2');
-const Chart = ()=>import('../components/common/Pie');
-const PayVoucher = ()=>import('../components/page/audit/PayVoucher');
+const Pie = ()=>import('../components/common/Pie');
+const RoleList = ()=>import('../components/page/RoleList')
+const AcTarget = ()=>import('../components/page/Reply/AcTarget')
+const TargetDetail = ()=>import('../components/page/Reply/TargetDetail')
+const AddPay = ()=>import('../components/page/pay/AddPay')
+const AddPay2 = ()=>import('../components/page/pay/PayApply2')
+const PayVoucherList = ()=>import('../components/page/pay/PayVoucherList')
+const PayVoucherDetail = ()=>import('../components/page/pay/PayVoucherDetail')
 const CapitalLiquidation = ()=>import('../components/page/audit/CapitalLiquidation');
 
 Vue.use(VueRouter);
@@ -65,9 +78,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/chart',
-    name: 'Chart',
-    component: Chart
+    path: '/pie',
+    name: 'Pie',
+    component: Pie
   },
   {
     path: '/home',
@@ -75,6 +88,12 @@ const routes = [
     component: Home,
     meta:{title:'首页',requireAuth:true},
     children:[
+      {
+        path:'/reply',
+        name:'Reply',
+        component:Reply,
+        meta:{title:'预算批复',requireAuth:true},
+      },
       {
         path:'/users',
         name:'Users',
@@ -209,11 +228,66 @@ const routes = [
         meta: {title: '项目申报'},
         children:[
           {
-            path: '/pro_apply_add',
+            path: '/pro_apply/add',
             name:'ProApply_add',
             component:ProApply_add,
           },
+          {
+            path: '/pro_apply/exam',
+            name:'ProApply_exam',
+            component:ProApply_exam,
+          },
         ]
+      },
+      {
+        path: '/view_pro_progress',
+        name: 'ViewProProgress',
+        component:ViewProProgress
+      },
+      {
+        path: '/draft_app',
+        name: 'DraftApproval',
+        component:DraftApproval
+      },
+      {
+        path: '/reply_navi',
+        name: 'ReplyNavi',
+        component:ReplyNavi
+      },
+      {
+        path: '/target_down',
+        name: 'TargetDown',
+        component:TargetDown
+      },
+      {
+        path: '/ac_target',
+        name: 'AcTarget',
+        component:AcTarget
+      },
+      {
+        path: '/target_detail',
+        name:'TargetDetail',
+        component:TargetDetail
+      },
+      {
+        path: '/add_pay',
+        name:'AddPay',
+        component:AddPay
+      },
+      {
+        path: '/add_pay_2',
+        name:'AddPay2',
+        component:AddPay2
+      },
+      {
+        path: '/pay_voucher_list',
+        name:'PayVoucherList',
+        component:PayVoucherList
+      },
+      {
+        path: '/pay_voucher_detail',
+        name: 'PayVoucherDetail',
+        component:PayVoucherDetail
       }
     ],
   },

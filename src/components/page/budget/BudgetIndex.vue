@@ -27,56 +27,78 @@
         >
             <!--数据扩展区-->
             <el-table-column type="expand">
-                <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                        <el-form-item label="项目代码">
-                            <span>{{ props.row.PRO_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="指标可执行标志">
-                            <span>{{ props.row.BGT_EXE_FLAG }}</span>
-                        </el-form-item>
-                        <el-form-item label="是否追踪">
-                            <span>{{ props.row.IS_TRACK }}</span>
-                        </el-form-item>
-                        <el-form-item label="需要追踪项目代码">
-                            <span>{{ props.row.TRACK_PRO_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="单位代码">
-                            <span>{{ props.row.AGENCY_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="指标类型代码">
-                            <span>{{ props.row.BGT_TYPE_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="指标金额">
-                            <span>{{ props.row.AMOUNT }}</span>
-                        </el-form-item>
-                        <el-form-item label="指标管理处室代码">
-                            <span>{{ props.row.BGT_MOF_DEP_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="源指标主键">
-                            <span>{{ props.row.ORI_BGT_ID }}</span>
-                        </el-form-item>
-                        <el-form-item label="资金来源代码">
-                            <span>{{ props.row.FOUND_TYPE_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="项目年度预算主键">
-                            <span>{{ props.row.BGT_PMAN_ID }}</span>
-                        </el-form-item>
-                        <el-form-item label="是否删除">
-                            <span>{{ props.row.IS_DELETED }}</span>
-                        </el-form-item>
-                        <el-form-item label="指标来源代码">
-                            <span>{{ props.row.SOURCE_TYPE_CODE }}</span>
-                        </el-form-item>
-                        <el-form-item label="创建时间">
-                            <span>{{ props.row.CREATE_AT }}</span>
-                        </el-form-item>
-                        <el-form-item label="更新时间">
-                            <span>{{ props.row.UPDATE_AT }}</span>
-                        </el-form-item>
-                        <el-form-item label="版本">
-                            <span>{{ props.row.VERSION }}</span>
-                        </el-form-item>
+            <template slot-scope="props">
+              <el-form label-position="left" inline class="demo-table-expand">
+                <el-form-item label="项目代码">
+                  <span>{{ props.row.PRO_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="指标说明">
+                  <span>{{ props.row.BGT_DEC }}</span>
+                </el-form-item>
+                <el-form-item label="指标可执行标志">
+                  <span>{{ props.row.BGT_EXE_FLAG }}</span>
+                </el-form-item>
+                <el-form-item label="是否追踪">
+                  <span>{{ props.row.IS_TRACK }}</span>
+                </el-form-item>
+                <el-form-item label="上级指标文号">
+                  <span>{{ props.row.SUP_BGT_DOC_NO }}</span>
+                </el-form-item>
+                <el-form-item label="需要追踪项目代码">
+                  <span>{{ props.row.TRACK_PRO_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="单位代码">
+                  <span>{{ props.row.AGENCY_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="指标类型代码">
+                  <span>{{ props.row.BGT_TYPE_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="指标金额">
+                  <span>{{ props.row.AMOUNT }}</span>
+                </el-form-item>
+                <el-form-item label="指标管理处室代码">
+                  <span>{{ props.row.BGT_MOF_DEP_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="发文时间">
+                  <span>{{ props.row.DOC_DATE }}</span>
+                </el-form-item>
+                <el-form-item label="源指标主键">
+                  <span>{{ props.row.ORI_BGT_ID }}</span>
+                </el-form-item>
+                <el-form-item label="资金来源代码">
+                  <span>{{ props.row.FOUND_TYPE_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="项目年度预算主键">
+                  <span>{{ props.row.BGT_PMAN_ID }}</span>
+                </el-form-item>
+                <el-form-item label="是否删除">
+                  <span>{{ props.row.IS_DELETED }}</span>
+                </el-form-item>
+                <el-form-item label="指标来源代码">
+                  <span>{{ props.row.SOURCE_TYPE_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="财政区划代码">
+                  <span>{{ props.row.MOF_DIV_CODE }}</span>
+                </el-form-item>
+                <el-form-item label="预算年度">
+                  <span>{{ props.row.FISCAL_YEAR }}</span>
+                </el-form-item>
+                <el-form-item label="本机指标文号">
+                  <span>{{ props.row.COR_BGT_DOC_NO }}</span>
+                </el-form-item>
+                <el-form-item label="指标文号题">
+                  <span>{{ props.row.BGT_DOC_TITLE }}</span>
+                </el-form-item>
+                <el-form-item label="创建时间">
+                  <span>{{ props.row.CREATE_AT }}</span>
+                </el-form-item>
+                <el-form-item label="更新时间">
+                  <span>{{ props.row.UPDATE_AT }}</span>
+                </el-form-item>
+                <el-form-item label="版本">
+                  <span>{{ props.row.VERSION }}</span>
+                </el-form-item>
+
 
                     </el-form>
                 </template>
@@ -183,15 +205,23 @@
                         <i class="iconfont icon-xiugai"></i>
                         修改
                     </el-button>
+                  <!--                      @click.native.prevent="handleChangeRow(scope)"-->
+                  <el-button
+                      type="primary"
+                      size="small">
+                    <i class="iconfont icon-xiugai"></i>
+                    查看进度
+                  </el-button>
                 </template>
             </el-table-column>
+
         </el-table>
         <!--分页器-->
         <el-pagination align='center'
                        @size-change="handleSizeChange"
                        @current-change="handleCurrentChange"
                        :current-page="currentPage"
-                       :page-sizes="[1,2,3,4]"
+                       :page-sizes="[6,10,15,20]"
                        :page-size="pageSize"
                        layout="total, sizes, prev, pager, next, jumper"
                        :total="$store.state.budget_index_info.budgetIndex.length"
