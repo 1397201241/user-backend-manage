@@ -45,7 +45,7 @@
 </template>
 
 <script>
-    import { post} from "../../utils/request";
+    //import { post} from "../../utils/request";
     import {FormValidate} from "../../utils/validate";
     import JSEncrypt from 'jsencrypt'
     export default {
@@ -64,13 +64,13 @@
                 }
             };
             return {
-                verificationC:'',
-                loginForm:{
+                verificationC:'',//验证码
+                loginForm:{//登录表单
                     username:'',
                     password:'',
                     verificationCode:''
                 },
-                loginRules:{
+                loginRules:{ //登录校验
                     username:[
                         {
                             validator:FormValidate().Form().Name,
@@ -94,7 +94,6 @@
             }
         },
         created() {
-
             this.$store.commit('tab_info/CLEAN_TABS');
             this.getAccount()
         },
@@ -103,9 +102,8 @@
         },
         methods:{
 
-            //模拟后台用户验证
+            /*模拟后台用户验证*/
             authenticationUser(username, encryptPassword){
-                //用户组
                 let users=[];
                 for (let user of this.$store.state.user_info.user){
                     users.push(user['username'])
@@ -143,17 +141,17 @@
                     });
                 }
             },
-            //获取用户账号密码
+            /*获取用户账号密码*/
             getAccount(){
                 this.$store.dispatch('user_info/getUser')
             },
-            //登录
+            /*登录*/
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
                     if (valid){
-                        post('http://192.168.110.79:8001/login',this.loginForm).then(res=>{
+                        /*post('http://192.168.110.79:8001/login',this.loginForm.username).then(res=>{
                             console.log(res)
-                        }).catch(err=>console.log(err));
+                        }).catch(err=>console.log(err));*/
                         //创建加密对象实例
                         let jsEncrypt=new JSEncrypt();
                         //获取公钥并加密
@@ -175,7 +173,7 @@
                     }
                 });
             },
-            // 获得验证码
+            /*创建验证码*/
             createCode () {
                 let canvas = this.$refs.code;
                 let context = canvas.getContext('2d');
