@@ -8,18 +8,15 @@
     <el-card class="pro_apex_card">
       <div class="projectBtBox">
         <el-form :inline="true">
-            <el-cascader
-                placeholder="选择部门"
-                v-model="valueDep"
-                :options="depOptions">
-            </el-cascader>
           <el-cascader
-              placeholder="选择单位"
+              placeholder="选择所属部门/单位"
               v-model="valueAgency"
               :options="agencyOptions">
           </el-cascader>
           <el-button @click="iRefresh"  icon="el-icon-refresh" style="width: 120px;margin-left: 10px">刷新</el-button>
-          <el-button  type="primary" icon="el-icon-search" style="width: 120px;margin-left: 5px">查看</el-button>
+          <el-button  type="primary" icon="el-icon-search" style="width: 160px;margin-left: 5px"
+                      @click="viewDetail"
+          >查看</el-button>
         </el-form>
       </div>
       <el-table
@@ -150,6 +147,8 @@
 
 <script>
 import {get} from "../../../utils/request";
+/*const mof = /^\d+0{4}$/
+const dep = /^\d+0{2}$/*/
 
 export default {
   name: "ProApply_exam",
@@ -159,9 +158,7 @@ export default {
   },
   data(){
     return{
-      depOptions:[],
       agencyOptions:[],
-      valueDep:'',
       valueAgency:'',
       options: [
         {
@@ -188,8 +185,8 @@ export default {
       current:1,
       size:5,
       totalNum:5,
-      projectURL:'http://localhost:3000/project',
-      agencyURL:'http://localhost:3000/agency',
+      projectURL:'http://192.168.110.146:8003',
+      agencyURL:'http://192.168.110.79:8002/bm-bas-agency-info/subAgency/',
 
     }
   },
@@ -197,17 +194,28 @@ export default {
     this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_FALSE')
   },
   methods:{
+    viewDetail(){
+      console.log(this.valueAgency[0])
+      get(this.projectURL+"/project/list/dept/project/agency?agencyCode="+this.valueAgency[0]).then(
+          myJson=>{
+            console.log(myJson)
+            this.myTableData = myJson.data
+          }
+      )
+    },
     iRefresh() {
       this.valueAgency = ''
-      this.valueDep = ''
     },
     setAgencyAndDepartOptions(){
-      get(this.agencyURL).then(myJson=>{
-        let agencyData = myJson
-        for(let i of agencyData){
-          this.agencyOptions.push({label:i.AGENCY_NAME,value:i.AGENCY_ID})
-        }
-      })
+      console.log(this.$store.state.user_info.info)
+      get(this.agencyURL+this.$store.state.user_info.info.agencyId).then(
+          myJson=>{
+            console.log(myJson)
+            for(let i of myJson.data){
+              this.agencyOptions.push({label:i.agencyName,value:i.agencyCode})
+            }
+          }
+      )
 
       this.depOptions = [
         {label:"1号部门",value:"10001"},{label:"2号部门",value:"10002"},{label:"3号部门",value:"10003"},
@@ -275,13 +283,22 @@ export default {
       console.log(this.multipleSelection)
     },
     getProjectList(){
-      get("http://192.168.110.146:8003/project/list/agency?agencyCode=100000").then(myJson=>{
+      /*get("http://192.168.110.146:8003/project/list/agency?agencyCode=100000").then(myJson=>{
         console.log(myJson.data)
         this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
         this.setApplyLink()
-      })
-      }}}
+      })*/
+      get(this.projectURL+"/project/list/dept/project?id="+this.$store.state.user_info.info.guid).then(
+          myJson=>{
+            this.myTableData = myJson.data
+            this.totalNum = this.myTableData.length
+            this.setApplyLink()
+            console.log(myJson)
+          }
+      )
+    }
+  }}
 
 
 

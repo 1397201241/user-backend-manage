@@ -1,7 +1,7 @@
 <template>
 
-<div class="welcomeStyle" style="padding:-30px -150px -150px -30px">
-  <el-container direction="vertical">
+<div class="welcomeStyle" style="padding:-30px -150px -150px -30px;">
+  <el-container  direction="vertical">
     <span style="text-align: left;margin-left: 20px">基础信息管理</span>
     <el-container style="margin-left: 0">
       <el-card :body-style="{padding:'0'}"
@@ -35,25 +35,25 @@
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card1.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/budget')"><span>预算指标</span></div>
+        <div class="card-title" @click="$router.push('/agency_project_list')"><span>新建预算</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card2.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <div class="card-title" @click="$router.push('/draft_budget')"><span>草案查看</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card3.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+        <div class="card-title" @click="$router.push('/budget_apply_list2')"><span>预算审核</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card4.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <div class="card-title" @click="$router.push('/bgt_pm')"><span>申报管理</span></div>
       </el-card>
     </el-container>
     <span style="text-align: left;margin-left: 20px">转移支付管理</span>
@@ -62,26 +62,54 @@
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card5.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/pay')"><span>支付管理</span></div>
+        <div class="card-title" @click="$router.push('/add_pay')"><span>新建支付申请</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card6.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <div class="card-title" @click="$router.push('/pay_voucher_list')"><span>支付凭证列表</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card7.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+        <div class="card-title" @click="$router.push('/capital_liquidation')"><span>资金清算</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card8.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>建议反馈</span></div>
+        <div class="card-title" @click="$router.push('/liquidation')"><span>清算凭证</span></div>
       </el-card>
+    </el-container>
+    <span style="text-align: left;margin-left: 20px">项目管理</span>
+    <el-container style="margin-left: 0">
+      <el-card :body-style="{padding:'0'}"
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card8.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/pro_apply')"><span>项目导航</span></div>
+      </el-card>
+      <el-card :body-style="{padding:'0'}"
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card5.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/pro_apply/add')"><span>新建项目</span></div>
+      </el-card>
+      <el-card :body-style="{padding:'0'}"
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card6.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/pro_apply/exam')"><span>项目审核</span></div>
+      </el-card>
+      <el-card :body-style="{padding:'0'}"
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card7.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/project')"><span>查看项目</span></div>
+      </el-card>
+
     </el-container>
   </el-container>
 </div>
@@ -106,6 +134,7 @@
 </script>
 
 <style lang="less" scoped>
+
   .welcomeStyle{
     .el-card{
       margin: 20px 20px;

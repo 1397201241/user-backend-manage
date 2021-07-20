@@ -17,7 +17,7 @@ export default function request(method, url,body) {
       "Content-Type": 'application/json',
       "Accept": 'application/json',
       "Origin": '*',
-      "Access-Control-Allow-Origin": '*'
+      "Access-Control-Allow-Origin": '*',
     },
     mode:"cors",
     body
