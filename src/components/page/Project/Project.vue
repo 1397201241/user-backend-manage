@@ -3,20 +3,22 @@
     <el-card class="projectListCard">
       <div class="projectBtBox">
         <el-form :inline="true">
-          <el-button type="primary" size="small" icon="el-icon-plus" @click="show(1)">添加</el-button>
-          <el-button type="danger" size="small" icon="el-icon-delete" @click="deleteSome">删除</el-button>
+          <el-button disabled type="primary" size="small" icon="el-icon-plus" @click="show(1)">添加</el-button>
+          <el-button :disabled="!isStorageList" type="danger" size="small" icon="el-icon-delete" @click="deleteSome">删除</el-button>
           <el-button size="small" icon="el-icon-share">导出</el-button>
           <el-form-item style="margin-left: 40px; margin-right: -5px">
             <el-input suffix-icon="el-icon-search" v-model="formInline.projectName" placeholder="输入项目名称"></el-input>
           </el-form-item>
           <el-cascader
+              disabled
               placeholder="起始年份"
               v-model="value"
               :options="options"
               @change="handleChange">
           </el-cascader>
-          <el-button type="primary"  icon="el-icon-refresh" style="margin-left: 10px" @click="iRefresh">刷新</el-button>
-          <el-button @click="selectPro" type="primary" icon="el-icon-search" style="margin-left: 5px">查看</el-button>
+          <el-button  icon="el-icon-refresh" style="margin-left: 10px" @click="iRefresh">刷新</el-button>
+          <el-button :disabled="isStorageList" @click="selectPro" type="primary" icon="el-icon-search" style="margin-left: 5px">查找</el-button>
+          <el-button @click="viewStorageList()"  type="primary" icon="el-icon-search" style="margin-left: 5px">{{ viewBtName }}</el-button>
         </el-form>
       </div>
       <el-card style="margin:0 0 0 5px; height: 410px;">
@@ -122,8 +124,9 @@
               label="操作"
               width="240">
            <template slot-scope="scope">
-             <el-button type="primary"  @click="viewProgress(scope.row.proId)">查看进度</el-button>
-             <el-button type="primary"  @click="show(2,scope.row.proId)">编辑项目</el-button>
+             <el-button type="primary"  v-if="!isStorageList" @click="viewProgress(scope.row.proId)">查看进度</el-button>
+             <el-button type="primary"  v-if="isStorageList" @click="show(2,scope.row.proId)">编辑项目</el-button>
+             <el-button type="danger"  v-if="isStorageList" @click="applyPro(scope.row.proId)">申报项目</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -147,7 +150,7 @@
 </template>
 
 <script>
-import {get,put,post,del} from "../../../utils/request";
+import {post,get} from "../../../utils/request";
 import ProOpera from "../../common/ProOpera";
 /*let bigDecimal = require('js-big-decimal')*/
 export default {
@@ -155,6 +158,8 @@ export default {
   components:{ProOpera},
   data(){
     return{
+      viewBtName:"查看暂存项目列表",
+      isStorageList:false,
       proTitle:'',
       operaIndex:0,
       current:1,
@@ -162,7 +167,7 @@ export default {
       totalNum:7,
       baseURL:"http://localhost:3000",
       projectURL:"/project",
-
+      xprojectURL:"http://192.168.110.146:8003/project/",
       addOrUpdateVisible: false,
       formInline:{
         projectName:'',
@@ -198,6 +203,30 @@ export default {
     this.getProjectList()
   },
   methods:{
+    getStorageProjectList(){
+      get("http://192.168.110.146:8003/project/list/unapply/agency?"+"agencyCode="+"100000").then(myJson=>{
+        console.log("get拿到",myJson.data)
+        this.myTableData = myJson.data
+        this.totalNum = this.myTableData.length
+      })
+    },
+    applyPro(proId){
+      post("http://192.168.110.146:8003/project/apply",proId).then(myJson=>{
+        console.log(proId,"申请post拿到",myJson)
+        this.getStorageProjectList()
+      })
+    },
+    viewStorageList(){
+      this.isStorageList = !this.isStorageList
+      if(!this.isStorageList){
+        this.getProjectList()
+        this.viewBtName = '查看暂存项目列表'
+      }else{
+        this.viewBtName = '查看本部项目列表'
+        this.getStorageProjectList()
+        console.log("获取暂存列表")
+      }
+    },
     viewProgress(proId){
       for(let i of this.myTableData){
         if(i.proId === proId){
@@ -216,11 +245,20 @@ export default {
     editProList(formData){
       this.transferPro = formData
       /*this.transferPro.proTotalAmt = new bigDecimal(""+this.transferPro.proTotalAmt).value*/
-      console.log("我要发送",this.transferPro)
-      put("http://192.168.110.142:8003/project/update",this.transferPro)
+      console.log("我要发送", this.transferPro)
+      post("http://192.168.110.146:8003/project/update", this.transferPro)
+      /*this.$axios.post(
+          "http://192.168.110.146:8003/project/update",
+          this.transferPro
+      ).then(
+          resp => {
+            console.log(resp)
+          }
+      )*/
     },
     selectPro(){
       let filterList = [],lastList = []
+
       if(this.value[0] && !this.formInline.projectName) {
         for (let i of this.myTableData) {
           if (i.setupYear === this.value[0]) {
@@ -230,12 +268,19 @@ export default {
         this.myTableData = filterList
       }
       else if(this.formInline.projectName && !this.value[0]){
-        for(let i of this.myTableData){
+        /*for(let i of this.myTableData){
           if(i.PRO_NAME.includes(this.formInline.projectName)){
             filterList.push(i)
           }
         }
-        this.myTableData = filterList
+        this.myTableData = filterList*/
+        post(this.xprojectURL+"search",this.formInline.projectName).then(
+            myJson=>{
+              console.log(myJson)
+              this.myTableData = myJson.data
+            }
+
+        )
       }
       else if(this.value[0] && this.formInline.projectName){
         console.log(this.value[0])
@@ -273,7 +318,7 @@ export default {
     showAddOrUpdate(data){
       this.addOrUpdateVisible = data !== 'false';
     },
-    show(operaIndex,id){
+    show(operaIndex,proId){
       if(operaIndex ===  1) {
         this.operaIndex = 1
         this.proTitle = "添加项目噢！"
@@ -282,7 +327,7 @@ export default {
         this.operaIndex = 2
         this.proTitle = "编辑项目呀！"
         for(let i of this.myTableData){
-          if(i.proId === id){
+          if(i.proId === proId){
             this.transferPro = i
           }
         }
@@ -295,11 +340,13 @@ export default {
         this.myTableData = myJson
         this.totalNum = this.myTableData.length
       })*/
-      get("http://192.168.110.142:8003/project/list/100000").then(myJson=>{
-        console.log(myJson.data)
+      console.log("getProjectList")
+      get("http://192.168.110.146:8003/project/list/agency?"+"agencyCode="+"100000").then(myJson=>{
+        console.log("get拿到",myJson.data)
         this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
       })
+
     },
     handleChange(value){
       console.log(this.value,value)
@@ -329,17 +376,14 @@ export default {
     },
     deleteSome(){
       let toDelete = this.multipleSelection
-      let deleteID = ''
+      let toDeleteProId = []
       for(let i of toDelete){
-        for(let j in this.myTableData){
-          if(i === this.myTableData[j]){
-            deleteID = this.myTableData[j].id
-            del(this.baseURL+this.projectURL+"/"+deleteID)
-            this.myTableData.splice(j,1)
-          }
-        }
+        toDeleteProId.push(i.proId)
       }
+      post("http://192.168.110.146:8003/project/batchDelete",toDeleteProId)
+      //post("http://192.168.110.146:8003/project/delete",toDeleteProId[0])
     }
+
   }
   }
 </script>

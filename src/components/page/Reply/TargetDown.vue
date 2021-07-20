@@ -9,7 +9,7 @@
         <el-breadcrumb-item :to="{ path: '/reply_navi' }">指标导航</el-breadcrumb-item>
         <el-breadcrumb-item >下发指标</el-breadcrumb-item>
       </el-breadcrumb>
-    <el-card style="margin:40px 0 0 30px; height: 500px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.85;">
+    <el-card style="margin:40px 0 0 30px; height: 500px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.9;">
 <!--      <span style="border-radius:5pt;background-color:rgba(224,221,221,0.6);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
               margin-top: 10px;color:rgb(24,62,196);">待下发指标列表</span>-->
       <el-table

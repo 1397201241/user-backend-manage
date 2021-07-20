@@ -1,10 +1,15 @@
 //默认导出
-export default function request(method, url, body) {
+export default function request(method, url,body) {
   if (method === "GET") {
     body = undefined;
   } else {
     //转化为json
-    body = body && JSON.stringify(body);
+
+    if(typeof body !== "string"){
+      body = body && JSON.stringify(body);
+      console.log("要传的数据",body)
+    }
+
   }
   return fetch(url, {
     method,

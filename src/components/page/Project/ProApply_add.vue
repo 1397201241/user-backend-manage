@@ -9,12 +9,12 @@
 
       <el-form style="margin-top: 20px" :model="formData" ref="pro_apply_add_form">
         <el-container>
-          <el-form-item label-width="39%" label="项目名称" prop="PRO_NAME">
-            <el-input v-model="formData.PRO_NAME" placeholder="请输入项目名称" clearable :style="{width: '110%'}">
+          <el-form-item label-width="39%" label="项目名称" prop="proName">
+            <el-input v-model="formData.proName" placeholder="请输入项目名称" clearable :style="{width: '110%'}">
             </el-input>
           </el-form-item>
-          <el-form-item style="margin-left: 20px;" label-width="40%" label="设立年度" prop="SETUP_YEAR">
-            <el-select v-model="formData.SETUP_YEAR" placeholder="请选择" :style="{width: '110%'}">
+          <el-form-item style="margin-left: 20px;" label-width="40%" label="设立年度" prop="setupYear">
+            <el-select v-model="formData.setupYear" placeholder="请选择" :style="{width: '110%'}">
               <el-option
                   v-for="item in proSetupOptions"
                   :key="item.value"
@@ -23,12 +23,12 @@
               </el-option>
             </el-select>
           </el-form-item>
-          <el-form-item style="margin-left: 20px;" label-width="40%" label="项目类别" prop="PRO_KIND">
-            <el-cascader v-model="formData.PRO_KIND_CODE" :options="proKindOption" :show-all-levels="false" placeholder="请选择" :style="{width: '110%'}">
+          <el-form-item style="margin-left: 20px;" label-width="40%" label="项目类别" prop="proKindCode">
+            <el-cascader v-model="formData.proKindCode" :options="proKindOption" :show-all-levels="false" placeholder="请选择" :style="{width: '110%'}">
             </el-cascader>
           </el-form-item>
-          <el-form-item style="margin-left: 20px;" label-width="40%" label="项目期限" prop="PRO_TERM">
-            <el-select v-model="formData.PRO_TERM" placeholder="请选择" :style="{width: '186%'}">
+          <el-form-item style="margin-left: 20px;" label-width="40%" label="项目期限" prop="proTerm">
+            <el-select v-model="formData.proTerm" placeholder="请选择" :style="{width: '186%'}">
               <el-option
                   v-for="item in proTermOptions"
                   :key="item.value"
@@ -39,19 +39,18 @@
           </el-form-item>
         </el-container>
 
-        <el-form-item label-width="8%" label="项目总额" prop="PRO_TOTAL_AMT">
-          <el-input v-model="formData.PRO_TOTAL_AMT" placeholder="请输入项目总额（单位：万元）" clearable :style="{width: '100%'}">
+        <el-form-item label-width="8%" label="项目总额" prop="proTotalAmt">
+          <el-input v-model="formData.proTotalAmt" placeholder="请输入项目总额（单位：万元）" clearable :style="{width: '100%'}">
           </el-input>
         </el-form-item>
-        <el-form-item label-width="8%" label="项目简介" prop="PRO_DESC">
-          <el-input type="textarea" v-model="formData.PRO_DESC" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
+        <el-form-item label-width="8%" label="项目简介" prop="proDesc">
+          <el-input type="textarea" v-model="formData.proDesc" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
           </el-input>
         </el-form-item>
       </el-form>
       <div  style="margin: 50px 0 0 -530px">
         <el-button @click="resetBt">重置</el-button>
-        <el-button style="width: 140px;" type="primary" @click="handleConfirm">暂存</el-button>
-        <el-button style="width: 140px;" type="danger" @click="handleConfirm">提交</el-button>
+        <el-button style="width: 140px;" type="primary" @click="handleStorage">暂存</el-button>
         <el-button style="width: 140px;"  @click="handleReturn">返回</el-button>
       </div>
     </el-card>
@@ -59,36 +58,28 @@
 </template>
 
 <script>
-/*import {post} from '../../../utils/request'*/
+import {post} from '../../../utils/request'
 let bigDecimal = require('js-big-decimal');
 export default {
   name: "ProApply_add",
   data(){
     return{
       formData: {
-        id:"",
-        PRO_ID: "",
-        SETUP_YEAR: "",
-        PRO_CODE: "",
-        PRO_NAME: "",
-        AGENCY_CODE: "",
-        PRO_TERM: "",
-        PRO_CAT_CODE: "",
-        PRO_TOTAL_AMT: "",
-        PRO_AGENCY_VIEW: "",
-        PRO_DEPREVIEW: "",
-        PRO_BGTREVIEW: "",
-        PRO_DESC: "",
-        UPDATE_TIME: "",
-        IS_END: 0,
-        IS_DELETED: 0,
-        CREATE_TIME: "",
-        VERSION: "1.03.5",
-        DEP_AUD_OPNION_CODE: 1,
-        MOF_AUD_OPNION_CODE: 1,
-        PRO_KIND:"文娱",
-        PRO_KIND_CODE: "03",
-        APPLY_LINK: 4,
+        setupYear: "",
+        proCode: "",
+        proName: "",
+        agencyCode: "100000",
+        proTerm: "",
+        proTotalAmt: "",
+        proDepreview: "",
+        proBgtreview: "",
+        proDesc: "",
+        isDelete: 0,
+        depAudOpnionCode: 1,
+        mofAudOpinionCode: 1,
+        proKind:"文娱",
+        proKindCode: "03",
+        applyLink:0
       },
       proKindOption:[
         {label:"人员类项目",value:"01",},
@@ -114,22 +105,25 @@ export default {
         {value:2010,label:"2010年"},{value:2011,label:"2011年"},{value:2012,label:"2012年"},{value:2013,label:"2013年"},
         {value:2014,label:"2014年"},{value:2015,label:"2015年"},{value:2016,label:"2016年"},{value:2017,label:"2017年"},
         {value:2018,label:"2018年"},{value:2019,label:"2019年"},{value:2020,label:"2020年"},{value:2021,label:"2021年"},
-      ]
+      ],
     }
   },
   methods:{
     setProKind(){
-      this.formData.PRO_KIND_CODE = this.formData.PRO_KIND_CODE[this.formData.PRO_KIND_CODE.length-1]
+      //03->3
+      if(this.formData.proKindCode){
+        this.formData.proKindCode = this.formData.proKindCode[this.formData.proKindCode.length-1]
+      }
       //通过项目类别代码获取项目类别名
       for(let i of this.proKindOption){
-        if(i.value === this.formData.PRO_KIND_CODE){
-          this.formData.PRO_KIND = i.label
+        if(i.value === this.formData.proKindCode){
+          this.formData.proKind = i.label
           break
         }
         if(i.children){
           for(let j of i.children){
-            if(j.value === this.formData.PRO_KIND_CODE){
-              this.formData.PRO_KIND = j.label
+            if(j.value === this.formData.proKindCode){
+              this.formData.proKind = j.label
               break
             }
           }
@@ -150,24 +144,54 @@ export default {
       if(minute<10){minute = "0"+ minute}
       let second = time.getSeconds();
       if(second<10){second = "0"+ second}
-      this.formData.PRO_CODE = this.formData.PRO_KIND_CODE + year + month + day + hour + minute + second
+      this.formData.proCode = this.formData.proKindCode + year + month + day + hour + minute + second
     },
     handleReturn(){
       this.$router.push('/pro_apply')
     },
-    handleConfirm(){
+    handleStorage(){
       //生成项目类别名、项目代码
       this.setProKind()
       this.setRroCode()
       //当撤销项目申请时中止逻辑为1
       this.formData.IS_END = 0
-      //最终表单
-      console.log(this.formData)
       //转换金币格式为bigdecimal
-      console.log(new bigDecimal("0.09"))
-      this.formData.PRO_TOTAL_AMT = new bigDecimal(""+this.formData.PRO_TOTAL_AMT).value
+      this.formData.proTotalAmt = new bigDecimal(""+this.formData.proTotalAmt).value
       console.log(this.formData)
-      /*post("http://192.168.110.142:8003/project/add",this.formData)*/
+      post("http://192.168.110.146:8003/project/add",this.formData)
+      this.putMessageOut()
+    },
+    putMessageOut(){
+      this.$confirm('确定提交吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '提交成功!等待审核！请前往本地库查看！'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消。'
+        });
+      });
+      this.$confirm('确定提交吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '提交成功!请前往本地项目库查看！'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消。'
+        });
+      });
     },
     resetBt(){
       this.$refs.pro_apply_add_form.resetFields()
