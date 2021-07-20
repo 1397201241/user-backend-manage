@@ -10,13 +10,15 @@
     </el-breadcrumb>
     <el-card>
       <!--数据展示区-->
-      <el-card style="margin:0 0 0 5px; height: 410px;">
+      <el-card style="margin:30px 0 0 30px; height: 490px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.85;">
+        <span style="width:100%;border-radius:5pt;background-color:rgba(224,221,221,0.53);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
+              margin-top: 10px;color:rgba(61,128,179,0.6);">待审核草案列表</span>
         <el-table
             ref="multipleTable"
             :data="myTableData.slice((current-1)*size,current*size)"
             tooltip-effect="dark"
             max-height="375"
-            style="max-width: 1100px;min-height: 370px;opacity: 0.8;margin-top: 60px;margin-left: 20px;"
+            style="max-width: 1100px;min-height: 370px;opacity: 0.8;margin-top: 80px;margin-left: 20px;"
             @selection-change="handleSelectionChange">
           <el-table-column
               type="selection"
@@ -98,8 +100,8 @@
               width="180">
           </el-table-column>
           <el-table-column
-              prop="APPLY_LINK"
-              label="申报环节"
+              prop="MOF_DIV_CODE"
+              label="财政区划代码"
               width="180">
           </el-table-column>
           <el-table-column
@@ -108,7 +110,7 @@
               width="200">
             <template slot-scope="scope"><!---->
               <el-button
-                  type="text"
+                  type="primary"
                   @click.native.prevent="gentleTarget(scope.row.BGT_ID)"
               >
                 <i class="iconfont icon-xiugai"></i>
@@ -126,7 +128,7 @@
                      :page-size="size"
                      layout="total, sizes, prev, pager, next, jumper"
                      :total="totalNum"
-                     style="margin-top: 20px;margin-left: 350px;z-index: 1;position: absolute"
+                     style="margin-top: 460px;margin-left: 390px;z-index: 1;position:absolute;"
       >
       </el-pagination>
       <el-dialog
@@ -293,7 +295,7 @@ export default {
           { required: true, message: '请输入用户更新时间', trigger: 'blur' }
         ]
       },
-      myTableData:'',
+      myTableData:[],
       bgtURL:"http://localhost:3000/bgt_pm",
       fiscalYearOptions: [
         {value:2010,label:"2010年"},{value:2011,label:"2011年"},{value:2012,label:"2012年"},
@@ -304,8 +306,8 @@ export default {
     }
   },
   created() {
+    console.log("created中")
     this.getBgtList()
-
     },
   methods:{
     gentleTarget(id){
@@ -404,7 +406,7 @@ export default {
 }
 .daDialog{
   opacity: 1;
-  background-color: #f6f6f6;
+  background-color: rgba(246, 246, 246, 0.52);
 }
 .daDialog .el-form-item__label{
     font-weight: bolder;

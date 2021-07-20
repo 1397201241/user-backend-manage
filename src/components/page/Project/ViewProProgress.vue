@@ -14,90 +14,74 @@
       <el-form   class="demo-table-expand">
       <el-container>
         <el-form-item label="项目名称">
-          <span>{{ this.showData.PRO_NAME }}</span>
+          <span>{{ this.showData.proName }}</span>
         </el-form-item>
         <el-form-item label="项目ID">
-          <span>{{ this.showData.PRO_ID }}</span>
+          <span>{{ this.showData.proId }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="项目代码">
-          <span>{{ this.showData.PRO_CODE }}</span>
+          <span>{{ this.showData.proCode}}</span>
         </el-form-item>
         <el-form-item label="设立年份">
-          <span>{{ this.showData.SETUP_YEAR }}</span>
+          <span>{{ this.showData.setupYear }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="单位代码">
-          <span>{{ this.showData.AGENCY_CODE }}</span>
+          <span>{{ this.showData.agencyCode }}</span>
         </el-form-item>
         <el-form-item label="项目期限">
-          <span>{{ this.showData.PRO_TERM }}</span>
+          <span>{{ this.showData.proTerm }}</span>
         </el-form-item>
       </el-container>
       <el-container>
-        <el-form-item label="项目类型">
-          <span>{{ this.showData.PRO_CAT_CODE }}</span>
-        </el-form-item>
         <el-form-item label="项目预算">
-          <span>{{ this.showData.PRO_TOTAL_AMT }}</span>
-        </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item label="单位建议">
-          <span>{{ this.showData.PRO_AGENCY_VIEW }}</span>
+          <span>{{ this.showData.proTotalAmt }}</span>
         </el-form-item>
         <el-form-item label="部门建议">
-          <span>{{ this.showData.PRO_DEPREVIEW }}</span>
+          <span>{{ this.showData.proDepreview }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="财政部建议">
-          <span>{{ this.showData.PRO_BGTREVIEW }}</span>
+          <span>{{ this.showData.proBgtreview }}</span>
         </el-form-item>
         <el-form-item label="部门建议代码">
-          <span>{{ this.showData.DEP_AUD_OPNION_CODE }}</span>
+          <span>{{ this.showData.depAudOpnionCode }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="财政建议代码">
-          <span>{{ this.showData.MOF_AUD_OPNION_CODE }}</span>
+          <span>{{ this.showData.mofAudOpinionCode }}</span>
         </el-form-item>
         <el-form-item label="项目类别">
-          <span>{{ this.showData.PRO_KIND }}</span>
-        </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item label="项目类别代码">
-          <span>{{ this.showData.PRO_KIND_CODE }}</span>
-        </el-form-item>
-        <el-form-item label="去向单位代码">
-          <span>{{ this.showData.APPLY_LINK }}</span>
+          <span>{{ this.showData.proKind }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="项目介绍">
-          <span>{{ this.showData.PRO_DESC }}</span>
+          <span>{{ this.showData.proDesc }}</span>
         </el-form-item>
         <el-form-item label="更新时间">
-          <span>{{ this.showData.UPDATE_AT }}</span>
+          <span>{{ this.showData.updateAt}}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="结束代码">
-          <span>{{ this.showData.IS_END }}</span>
+          <span>{{ this.showData.isTerminated }}</span>
         </el-form-item>
         <el-form-item label="删除代码">
-          <span>{{ this.showData.IS_DELETED }}</span>
+          <span>{{ this.showData.isDelete }}</span>
         </el-form-item>
       </el-container>
       <el-container>
         <el-form-item label="表单创建时间">
-          <span>{{ this.showData.CREATE_AT }}</span>
+          <span>{{ this.showData.createAt }}</span>
         </el-form-item>
         <el-form-item label="版本号">
-          <span>{{ this.showData.VERSION }}</span>
+          <span>{{ this.showData.version }}</span>
         </el-form-item>
       </el-container>
     </el-form>
@@ -120,7 +104,7 @@ export default {
   methods:{
     getParams(){
       this.showData =JSON.parse(this.$route.query.data)
-      this.active = this.showData.APPLY_LINK
+      this.active = Number(this.showData.applyLink)
       console.log(this.showData)
     }
   }

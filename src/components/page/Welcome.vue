@@ -9,7 +9,7 @@
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/a.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>公告管理</span></div>
+        <div class="card-title" ><span>xxx管理</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
@@ -94,6 +94,8 @@ export default {
   data(){
     return{
   }
+  },
+  methods:{
   }
 }
 </script>

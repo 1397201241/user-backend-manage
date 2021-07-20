@@ -50,7 +50,7 @@
       </el-form>
       <div  style="margin: 50px 0 0 -530px">
         <el-button @click="resetBt">重置</el-button>
-        <el-button style="width: 140px;" type="primary" @click="handleConfirm">新建</el-button>
+        <el-button style="width: 140px;" type="primary" @click="handleConfirm">暂存</el-button>
         <el-button style="width: 140px;" type="danger" @click="handleConfirm">提交</el-button>
         <el-button style="width: 140px;"  @click="handleReturn">返回</el-button>
       </div>
@@ -59,6 +59,8 @@
 </template>
 
 <script>
+/*import {post} from '../../../utils/request'*/
+let bigDecimal = require('js-big-decimal');
 export default {
   name: "ProApply_add",
   data(){
@@ -161,6 +163,11 @@ export default {
       this.formData.IS_END = 0
       //最终表单
       console.log(this.formData)
+      //转换金币格式为bigdecimal
+      console.log(new bigDecimal("0.09"))
+      this.formData.PRO_TOTAL_AMT = new bigDecimal(""+this.formData.PRO_TOTAL_AMT).value
+      console.log(this.formData)
+      /*post("http://192.168.110.142:8003/project/add",this.formData)*/
     },
     resetBt(){
       this.$refs.pro_apply_add_form.resetFields()
@@ -178,7 +185,7 @@ export default {
   height: 100%;
 }
 .pro_apad_card{
-  opacity: 0.8;
+  opacity: 0.9;
   top:10%;
   left: 5%;
   width: 1100px;

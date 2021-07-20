@@ -116,24 +116,11 @@ export const menuList = [
           "type": 0,
           "children": [
             {
-              "id": 230,
+              "id": 1666,
               "parentId": 229,
-              "menuName": "单位申报",
-              "url": "/inStocks",
-              "icon": "el-icon-date",
-              "orderNum": 1,
-              "open": 1,
-              "disabled": false,
-              "perms": "el-icon-date",
-              "type": 0,
-              "children": []
-            },
-            {
-              "id": 267,
-              "parentId": 229,
-              "menuName": "部门申报",
-              "url": "/products",
-              "icon": "el-icon-goods",
+              "menuName": "新建申报",
+              "url": "/agency_budget_apply",
+              "icon": "el-icon-star-off",
               "orderNum": 2,
               "open": 0,
               "disabled": false,
@@ -142,10 +129,23 @@ export const menuList = [
               "children": []
             },
             {
-              "id": 268,
+              "id": 1766,
               "parentId": 229,
-              "menuName": "财政部门申报",
-              "url": "/productCategorys",
+              "menuName": "申报列表",
+              "url": "/budget_apply_list",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
+              "id": 1564,
+              "parentId": 229,
+              "menuName": "项目列表",
+              "url": "/agency_project_list",
               "icon": "el-icon-star-off",
               "orderNum": 2,
               "open": 0,
@@ -156,46 +156,44 @@ export const menuList = [
             },
           ]
         },
-
+        {
+          "id": 21312,
+          "parentId": 312,
+          "menuName": "单位预算草案",
+          "url": "/draft_budget",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
+          "id": 2312,
+          "parentId": 312,
+          "menuName": "部门预算草案",
+          "url": "/draft_budget2",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
         {
           "id": 311,
           "parentId": 312,
           "menuName": "预算审核",
-          "url": null,
+          "url": "/budget_apply_list2",
           "icon": "el-icon-edit",
           "orderNum": 3,
           "open": 0,
           "disabled": false,
           "perms": null,
           "type": 0,
-          "children": [
-            {
-              "id": 310,
-              "parentId": 311,
-              "menuName": "部门审核",
-              "url": "/consumers",
-              "icon": "el-icon-edit",
-              "orderNum": 1,
-              "open": 0,
-              "disabled": false,
-              "perms": "",
-              "type": 0,
-              "children": []
-            },
-            {
-              "id": 269,
-              "parentId": 311,
-              "menuName": "财政部门审核",
-              "url": "/suppliers",
-              "icon": "el-icon-coordinate",
-              "orderNum": 1,
-              "open": 0,
-              "disabled": false,
-              "perms": "",
-              "type": 0,
-              "children": []
-            }
-          ]
+          "children": []
         },
         {
           "id": 444,
@@ -215,7 +213,7 @@ export const menuList = [
     {
       "id": 295,
       "parentId": 0,
-      "menuName": "转移支付管理",
+      "menuName": "支付申请",
       "url": "",
       "icon": "el-icon-s-marketing",
       "orderNum": 3,
@@ -227,7 +225,7 @@ export const menuList = [
         {
           "id": 342,
           "parentId": 295,
-          "menuName": "支付申请",
+          "menuName": "支付申请管理",
           "url": "/payApply",
           "icon": "el-icon-view",
           "orderNum": 1,
@@ -251,10 +249,10 @@ export const menuList = [
           "children": []
         },
         {
-          "id": 297,
+          "id": 244,
           "parentId": 295,
-          "menuName": "上级下达",
-          "url": "",
+          "menuName": "新建支付申请",
+          "url": "/add_pay",
           "icon": "el-icon-warning",
           "orderNum": 1,
           "open": 0,
@@ -262,44 +260,44 @@ export const menuList = [
           "perms": "",
           "type": 0,
           "children": [
+              {
+            "id": 297,
+            "parentId": 295,
+            "menuName": "可选指标列表",
+            "url": "/add_pay",
+            "icon": "el-icon-warning",
+            "orderNum": 1,
+            "open": 0,
+            "disabled": false,
+            "perms": "",
+            "type": 0,
+            "children": []
+          },
             {
               "id": 298,
-              "parentId": 297,
-              "menuName": "SQL监控",
-              "url": "/druid",
-              "icon": "el-icon-view",
+              "parentId": 295,
+              "menuName": "新建申请",
+              "url": "/add_pay_2",
+              "icon": "el-icon-warning",
               "orderNum": 1,
               "open": 0,
               "disabled": false,
-              "perms": null,
+              "perms": "",
               "type": 0,
               "children": []
-            }
+          },
           ]
         },
         {
           "id": 341,
           "parentId": 295,
-          "menuName": "下级转移",
-          "url": "/blog",
-          "icon": "el-icon-view",
+          "menuName": "支付凭证",
+          "url": "/pay_voucher",
+          "icon": "el-icon-edit",
           "orderNum": 1,
           "open": 0,
           "disabled": false,
           "perms": "",
-          "type": 0,
-          "children": []
-        },
-        {
-          "id": 296,
-          "parentId": 295,
-          "menuName": "其他部门",
-          "url": "/swagger",
-          "icon": "el-icon-document",
-          "orderNum": 2,
-          "open": 0,
-          "disabled": false,
-          "perms": null,
           "type": 0,
           "children": []
         },
@@ -439,7 +437,7 @@ export const menuList = [
           "id": 72,
           "parentId": 7,
           "menuName": "未下发指标管理",
-          "url": "/budget",
+          "url": "/budget_index",
           "icon": "el-icon-date",
           "orderNum": 1,
           "open": 1,
@@ -461,11 +459,24 @@ export const menuList = [
           "type": 0,
           "children":[]
         },
-        /*{
+        {
           "id": 73,
           "parentId": 7,
-          "menuName": "接受预算指标",
+          "menuName": "单位查看指标",
           "url": "/ac_target",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        /*{
+          "id": 74,
+          "parentId": 7,
+          "menuName": "查看指标详情",
+          "url": "/target_detail",
           "icon": "el-icon-date",
           "orderNum": 1,
           "open": 1,

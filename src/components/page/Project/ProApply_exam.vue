@@ -6,10 +6,30 @@
       <el-breadcrumb-item >项目审核</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="pro_apex_card">
+      <div class="projectBtBox">
+        <el-form :inline="true">
+<!--            <el-cascader
+                placeholder="选择部门"
+                v-model="value"
+                :options="depOptions">
+            </el-cascader>-->
+          <el-cascader
+              placeholder="选择单位"
+              v-model="value"
+              :options="agencyOptions">
+          </el-cascader>
+          <el-cascader
+              placeholder="起始年份"
+              v-model="value"
+              :options="options">
+          </el-cascader>
+          <el-button @click="console.log('重新获取')" type="primary"  icon="el-icon-refresh" style="margin-left: 10px">刷新</el-button>
+          <el-button  type="primary" icon="el-icon-search" style="margin-left: 5px">查看</el-button>
+        </el-form>
+      </div>
       <el-table
           ref="multipleTable"
           :data="myTableData.slice((current-1)*size,current*size)"
-
           tooltip-effect="dark"
           max-height="520px"
           style="width: 100%;"
@@ -133,7 +153,7 @@
           @current-change="handleCurrentChange"
           background
           :current-page.sync="current"
-          :page-sizes="[6, 10, 20, 30]"
+          :page-sizes="[5, 10, 20, 30]"
           :page-size="size"
           layout="total,sizes,prev,pager,next,jumper"
           :total="totalNum">
@@ -149,22 +169,61 @@ export default {
   name: "ProApply_exam",
   created() {
     this.getProjectList()
+    this.setAgencyAndDepartOptions()
   },
   data(){
     return{
+      depOptions:[],
+      agencyOptions:[],
+      value:[],
+      options: [
+        {
+          value: '2014',
+          label: '2014',},
+        {
+          value: '2015',
+          label: '2015',},
+        {
+          value: '2016',
+          label: '2016',},
+        {
+          value: '2017',
+          label: '2017',},
+        {
+          value: '2018',
+          label: '2018',},
+        {
+          value: '2019',
+          label: '2019',},
+      ],
       myTableData:[
-
       ],
       current:1,
-      size:6,
+      size:5,
       totalNum:5,
       projectURL:'http://localhost:3000/project',
+      agencyURL:'http://localhost:3000/agency',
+
     }
   },
   mounted() {
     this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_FALSE')
   },
   methods:{
+    setAgencyAndDepartOptions(){
+      get(this.agencyURL).then(myJson=>{
+        let agencyData = myJson
+        for(let i of agencyData){
+          this.agencyOptions.push({label:i.AGENCY_NAME,value:i.AGENCY_ID})
+        }
+      })
+      /*get(this.agencyURL).then(myJson=>{
+        let agencyData = myJson
+        for(let i of agencyData){
+          this.agencyOptions.push({label:agencyData.AGENCY_NAME,value:agencyData.AGENCY_ID})
+        }
+      })*/
+    },
     handleSizeChange(val){
       //赋值，然后重新查询
       this.size=val;
@@ -232,6 +291,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.projectBtBox{
+  .el-button{
+    height: 40px;
+  }
+  padding: 5px;
+  .el-form{
+    display: flex;
+    justify-content: left;
+    .el-cascader{
+      margin-left: 10px;
+    }
+  }
+}
 .paeBoxStyle{
   width: 1600px;
   height: 100%;

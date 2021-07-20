@@ -3,14 +3,21 @@
     <div style="position:absolute;width: 100%;height: 100%;">
       <img src="../../../assets/imgs/back_xishi.png" style="height: 100%;width: 100%;opacity: 1;" alt="">
     </div>
-    <el-card>
-      <span class="atTitle">预算指标下达</span>
+
+    <el-breadcrumb separator="/" style="padding-left: 10px;padding-top: 10px;font-size: 13px;position: absolute;z-index: 1;">
+      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/reply_navi' }">指标导航</el-breadcrumb-item>
+      <el-breadcrumb-item >下发指标</el-breadcrumb-item>
+    </el-breadcrumb>
+    <el-card style="margin:40px 0 0 30px; height: 525px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.85;">
+      <span style="width:100%;border-radius:5pt;background-color:rgba(224,221,221,0.6);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
+              margin-top: 10px;color:rgba(61,128,179,0.6);">单位待接受指标</span>
       <el-table
-          :data="$store.state.budget_info.budget.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+          :data="$store.state.budget_index_info.budgetIndex.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
           stripe
-          max-height="420px"
+          max-height="600px"
           @selection-change="handleSelectionChange"
-          style="max-width: 1100px;min-height: 420px;opacity: 1;margin-top: 70px;margin-left: 20px;"
+          style="max-width: 1100px;min-height: 370px;opacity: 0.85;margin-top: 70px;margin-left: 20px;"
       >
         <!--数据扩展区-->
         <el-table-column type="expand">
@@ -101,7 +108,7 @@
         <el-table-column
             prop="FISCAL_YEAR"
             label="预算年度"
-            width="180"
+            width="120"
         >
         </el-table-column>
         <el-table-column
@@ -120,41 +127,50 @@
         <el-table-column
             prop="BUDGET_LEVEL_CODE"
             label="预算级次代码"
-            width="180px"
+            width="200px"
             align="center"
         >
         </el-table-column>
         <el-table-column
             prop="action"
             label="操作"
-            width="240px"
+            width="300px"
             align="center"
         >
           <template slot-scope="scope">
             <!--            slot-scope="scope"-->
             <!--            @click.native.prevent="handleChangeRow(scope)"-->
             <el-button
-                type="text"
-                @click.native.prevent="handleChangeRow(scope)"
+                type="primary"
+                @click.native.prevent="accept"
             >
               <i class="iconfont icon-xiugai"></i>
-              下发指标
+              确认接受
+            </el-button>
+            <el-button
+                @click.native.prevent="viewTargetDetail(scope.row)"
+            >
+              <i class="iconfont icon-xiugai"></i>
+              查看详情
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination align='center'
-                     @size-change="handleSizeChange"
-                     @current-change="handleCurrentChange"
-                     :current-page="currentPage"
-                     :page-sizes="[6,10,15,20]"
-                     :page-size="pageSize"
-                     layout="total, sizes, prev, pager, next, jumper"
-                     :total="$store.state.budget_info.budget.length"
-                     style="margin-top: 20px;margin-left: -100px;position:absolute;z-index: 1;margin-left: 350px;"
-      >
-      </el-pagination>
     </el-card>
+    <el-pagination align='center'
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange"
+                   :current-page="currentPage"
+                   :page-sizes="[6,10,15,20]"
+                   :page-size="pageSize"
+                   layout="total, sizes, prev, pager, next, jumper"
+                   :total="$store.state.budget_index_info.budgetIndex.length"
+                   style="margin-top: 520px;position:absolute;z-index: 1;margin-left: 370px;"
+    >
+    </el-pagination>
+
+
+
   </div>
 </template>
 
@@ -172,9 +188,16 @@ export default {
     this.getBudget()
   },
   methods:{
+    viewTargetDetail(data){
+      this.$router.push(
+          {path:'/target_detail',
+            query:{name:"data",data:JSON.stringify(
+                data
+              )}})
+    },
     /*获取支付申请*/
     getBudget(){
-      this.$store.dispatch('budget_info/getBudget')
+      this.$store.dispatch('budget_index_info/getBudgetIndex')
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -200,15 +223,7 @@ export default {
 .iconfont{
   font-size: 12px;
 }
-.atTitle{
-  opacity: 1;
-  font-size: 40px;
-  font-family: 华文彩云;
-  color: #181717;
-  margin-left: -160px;
-  position:absolute;
-  z-index: 1;
-}
+
 .demo-table-expand {
   font-size: 0;
   .el-form-item{

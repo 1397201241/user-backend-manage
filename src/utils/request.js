@@ -11,6 +11,7 @@ export default function request(method, url, body) {
     headers: {
       'Content-Type': 'application/json',
     },
+    mode:"cors",
     body
   })
       //使用json()读取并解析数据

@@ -78,8 +78,24 @@ const actions = {
         "/reply":"预算批复",
         "/draft_app":"草案批准",
         "/reply_navi":"预算批复导航",
-        "/target_down":"指标下达"
-      }
+        "/target_down":"指标下达",
+        "/budget_index":"预算指标",
+        "/agency_budget_apply":"单位预算申报",
+        "/budget_apply_details":"预算申报详情",
+        "/budget_apply_details2":"预算申报详情",
+        "/budget_apply_details3":"预算申报详情",
+        "/budget_apply_list":"预算申报列表",
+        "/agency_project_list":"单位项目列表",
+        "/budget_apply_list2":"预算申请列表",
+        "/draft_budget":"单位预算草案",
+        "/draft_budget2":"部门预算草案",
+        "/ac_target":"接受预算指标",
+        "/target_detail":"指标详情",
+        "/add_pay":"新建支付申请",
+        "/add_pay_2":"新建申请",
+        "/pay_voucher":"支付凭证",
+        "/pay_voucher_detail":"支付凭证详情"
+      };
       //通过路由的判断，来加入标签页的名称
       if(path_name_list[path]){
         commit('CHECK_EXIST',path);

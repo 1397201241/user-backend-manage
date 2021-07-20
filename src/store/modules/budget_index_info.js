@@ -2,7 +2,7 @@ import {del, get, post, put} from "../../utils/request";
 // 登录组件状态信息
 const state = () => ({
     //用户信息
-    budget: [],
+    budgetIndex: [],
 });
 
 // getters 相当于计算属性
@@ -13,8 +13,8 @@ const getters = {
 // 提交 mutation 是更改状态的唯一方法，并且这个过程是同步的。
 const mutations = {
     //全体用户账号密码，todo:不安全做法
-    SET_BUDGET: (state, budget) => {
-        state.budget=budget
+    SET_BUDGET_INDEX: (state, budgetIndex) => {
+        state.budgetIndex=budgetIndex
     },
 };
 
@@ -26,9 +26,9 @@ const actions = {
      * @param commit
      * @return {Q.Promise<void>}
      */
-    getBudget ({commit}) {
+    getBudgetIndex ({commit}) {
         return get('http://localhost:3000/bm_ba_bgt_info').then(res=>{
-            commit('SET_BUDGET',res)
+            commit('SET_BUDGET_INDEX',res)
         }).catch(err=>console.log(err));
     },
     /**

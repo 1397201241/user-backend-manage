@@ -1,5 +1,5 @@
 <template>
-    <el-container direction="vertical" style="height: 100%;width: 100%" >
+    <el-container direction="vertical" style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px" >
         <!--操作栏-->
         <div style="width: 100%;background-color: #5fb3ec">
             <ActionBar @addBtnClick="addDialogVisible=true"
@@ -10,21 +10,20 @@
         </div>
         <!--搜索框-->
         <QueryPanel :queryModel="userQuery" @QueryButtonClick="onQueryBtnClick" style="margin-top: 10px">
-            <el-form-item label="单位代码" style="margin-right: 10px" label-width="70px">
+            <el-form-item label="项目代码" style="margin-right: 10px" label-width="70px">
                 <el-input v-model="userQuery.name" style="width: 200px"/>
             </el-form-item>
-            <el-form-item label="收款人全称" label-width="120px">
+            <el-form-item label="单位代码" label-width="120px">
                 <el-input v-model="userQuery.mobile" style="width: 200px"/>
             </el-form-item>
         </QueryPanel>
         <!--数据展示区-->
         <el-table
-
-                :data="$store.state.budget_info.budget.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+                :data="$store.state.budget_index_info.budgetIndex.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
                 stripe
                 max-height="360px"
                 @selection-change="handleSelectionChange"
-                style="min-height: 360px;max-width: 1200px"
+                style="min-height: 360px"
         >
             <!--数据扩展区-->
             <el-table-column type="expand">
@@ -100,38 +99,102 @@
                   <span>{{ props.row.VERSION }}</span>
                 </el-form-item>
 
-              </el-form>
-            </template>
-          </el-table-column>
-          <el-table-column
-              type="selection"
-              width="50"
-              align="center"
-          >
-          </el-table-column>
-          <el-table-column
-              prop="FISCAL_YEAR"
-              label="预算年度"
-              width="180"
-          >
-          </el-table-column>
-          <el-table-column
-              prop="BGT_DOC_TITLE"
-              label="指标文标题"
-              width="180"
-          >
-          </el-table-column>
-          <el-table-column
-              prop="DOC_DATE"
-              label="发文时间"
-              width="240px"
-              align="center"
-          >
-          </el-table-column>
+
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    type="selection"
+                    width="50"
+                    align="center"
+            >
+            </el-table-column>
+            <!--<el-table-column
+                    prop="BGT_ID"
+                    label="指标主键"
+                    width="120"
+            >
+            </el-table-column>-->
+            <!--<el-table-column
+                    prop="MOF_DIV_CODE"
+                    label="财政区划代码"
+                    width="100">
+            </el-table-column>-->
+            <el-table-column
+                    prop="BGT_DOC_TITLE"
+                    label="指标文标题"
+                    width="160"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="PRO_CODE"
+                    label="项目代码"
+                    width="160"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="AMOUNT"
+                    label="指标金额"
+                    width="160"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="FISCAL_YEAR"
+                    label="预算年度"
+                    width="160"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="AGENCY_CODE"
+                    label="单位代码"
+                    width="160"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="DOC_DATE"
+                    label="发文时间"
+                    width="160"
+            >
+            </el-table-column>
+
+            <!--<el-table-column
+                    prop="COR_BGT_DOC_NO"
+                    label="本级指标文号"
+                    width="100"
+            >
+            </el-table-column>
+
+            <el-table-column
+                    prop="DOC_DATE"
+                    label="发文时间"
+                    width="80px"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="BGT_DEC"
+                    label="指标说明"
+                    width="80px"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="BUDGET_LEVEL_CODE"
+                    label="预算级次代码"
+                    width="80px"
+                    align="center"
+            >
+            </el-table-column>
+            <el-table-column
+                    prop="SUP_BGT_DOC_NO"
+                    label="上级指标文号"
+                    width="80px"
+                    align="center"
+            >
+            </el-table-column>-->
             <el-table-column
                     prop="action"
                     label="操作"
-                    width="300px"
                     align="center"
             >
                 <template slot-scope="scope">
@@ -161,7 +224,7 @@
                        :page-sizes="[6,10,15,20]"
                        :page-size="pageSize"
                        layout="total, sizes, prev, pager, next, jumper"
-                       :total="$store.state.budget_info.budget.length"
+                       :total="$store.state.budget_index_info.budgetIndex.length"
         >
         </el-pagination>
         <!--添加用户对话框-->
@@ -170,7 +233,7 @@
                 :visible.sync="addDialogVisible"
                 width="700px"
                 :before-close="handleClose">
-            <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
+            <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="160px" class="demo-ruleForm">
                 <el-container>
                     <el-form-item label="指标ID" prop="BGT_ID" >
                         <el-input v-model="addUserForm.BGT_ID" clearable></el-input>
@@ -270,6 +333,7 @@
                                     placeholder="选择日期"
                                     format="yyyy 年 MM 月 dd 日"
                                     value-format="yyyy-MM-dd"
+                                    style="width: 160px"
                                     :picker-options="pickerOptions">
                             </el-date-picker>
                         </div>
@@ -281,6 +345,7 @@
                                     v-model="addUserForm.UPDATE_AT"
                                     align="left"
                                     type="date"
+                                    style="width: 160px"
                                     placeholder="选择日期"
                                     format="yyyy 年 MM 月 dd 日"
                                     value-format="yyyy-MM-dd"
@@ -290,28 +355,30 @@
                     </el-form-item>
                 </el-container>
                 <el-container >
-                    <el-form-item label="版本号" prop="VERSION" label-width="120px">
-                        <el-input v-model="addUserForm.VERSION" clearable style="width: 80px"></el-input>
+                    <el-form-item label="版本号" prop="VERSION">
+                        <el-input v-model="addUserForm.VERSION" clearable style="width: 160px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-form-item align="center">
-                    <el-button type="primary" @click="handleAddBtnClick('addForm')">立即修改</el-button>
-                    <el-button @click="cancelForm('addForm')">取消</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="handleAddBtnClick('addForm')">立即添加</el-button>
+                    <el-button  type="primary" @click="cancelForm('addForm')">
+                        <i class="iconfont icon-deleteclosecancel"></i>
+                        取消</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
         <!--修改用户对话框-->
         <el-dialog
-                title="客户信息修改"
+                title="预算指标修改"
                 :visible.sync="changeDialogVisible"
                 width="700px"
                 :before-close="handleClose">
             <el-form :model="changePayApplyForm" :rules="rules" ref="changeForm" label-width="100px" class="demo-ruleForm">
                 <el-container>
-                    <el-form-item label="指标ID" prop="BGT_ID" >
+                    <el-form-item label="指标ID" prop="BGT_ID">
                         <el-input v-model="changePayApplyForm.BGT_ID" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="财政区划" prop="MOF_DIV_CODE" label-width="120px">
+                    <el-form-item label="财政区划" prop="MOF_DIV_CODE" >
                         <el-input v-model="changePayApplyForm.MOF_DIV_CODE" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
@@ -319,8 +386,8 @@
                     <el-form-item label="预算年度" prop="FISCAL_YEAR">
                         <el-input v-model="changePayApplyForm.FISCAL_YEAR" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="本级指标文号" prop="COR_BGT_DOC_NO">
-                        <el-input v-model="changePayApplyForm.COR_BGT_DOC_NO" clearable></el-input>
+                    <el-form-item label="本级指标文号" prop="COR_BGT_DOC_NO" label-width="120px">
+                        <el-input v-model="changePayApplyForm.COR_BGT_DOC_NO" clearable style="width: 180px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
@@ -328,71 +395,71 @@
                         <el-input v-model="changePayApplyForm.BGT_DOC_TITLE" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="发文时间" prop="DOC_DATE">
-                        <el-input v-model="changePayApplyForm.DOC_DATE" clearable></el-input>
+                        <el-input v-model="changePayApplyForm.DOC_DATE" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
                     <el-form-item label="指标说明" prop="BGT_DEC">
                         <el-input v-model="changePayApplyForm.BGT_DEC" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="预算级次代码" prop="BUDGET_LEVEL_CODE" label-width="150px">
-                        <el-input v-model="changePayApplyForm.BUDGET_LEVEL_CODE" clearable style="width: 170px"></el-input>
+                    <el-form-item label="预算级次代码" prop="BUDGET_LEVEL_CODE" label-width="120px">
+                        <el-input v-model="changePayApplyForm.BUDGET_LEVEL_CODE" clearable style="width: 180px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
-                    <el-form-item label="上级指标文号" prop="SUP_BGT_DOC_NO">
-                        <el-input v-model="changePayApplyForm.SUP_BGT_DOC_NO" clearable></el-input>
+                    <el-form-item label="上级指标文号" prop="SUP_BGT_DOC_NO" label-width="120px">
+                        <el-input v-model="changePayApplyForm.SUP_BGT_DOC_NO" clearable style="width: 200px"></el-input>
                     </el-form-item>
-                    <el-form-item label="项目代码" prop="PRO_CODE" label-width="150px">
-                        <el-input v-model="changePayApplyForm.PRO_CODE" clearable style="width: 170px"></el-input>
-                    </el-form-item>
-                </el-container>
-                <el-container>
-                    <el-form-item label="指标可执行标志" prop="BGT_EXE_FLAG">
-                        <el-input v-model="changePayApplyForm.BGT_EXE_FLAG" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="是否追踪" prop="IS_TRACK" label-width="150px">
-                        <el-input v-model="changePayApplyForm.IS_TRACK" clearable style="width: 170px"></el-input>
+                    <el-form-item label="项目代码" prop="PRO_CODE" >
+                        <el-input v-model="changePayApplyForm.PRO_CODE" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
-                    <el-form-item label="需要追踪项目代码" prop="TRACK_PRO_CODE">
-                        <el-input v-model="changePayApplyForm.TRACK_PRO_CODE" clearable></el-input>
+                    <el-form-item label="指标可执行标志" prop="BGT_EXE_FLAG" label-width="140px">
+                        <el-input v-model="changePayApplyForm.BGT_EXE_FLAG" clearable style="width: 180px"></el-input>
                     </el-form-item>
-                    <el-form-item label="单位代码" prop="AGENCY_CODE" label-width="150px">
-                        <el-input v-model="changePayApplyForm.AGENCY_CODE" clearable style="width: 170px"></el-input>
-                    </el-form-item>
-                </el-container>
-                <el-container>
-                    <el-form-item label="指标类型代码" prop="BGT_TYPE_CODE">
-                        <el-input v-model="changePayApplyForm.BGT_TYPE_CODE" clearable></el-input>
-                    </el-form-item>
-                    <el-form-item label="指标金额" prop="AMOUNT" label-width="150px">
-                        <el-input v-model="changePayApplyForm.AMOUNT" clearable style="width: 170px"></el-input>
+                    <el-form-item label="是否追踪" prop="IS_TRACK">
+                        <el-input v-model="changePayApplyForm.IS_TRACK" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
-                    <el-form-item label="指标管理处室代码" prop="BGT_MOF_DEP_CODE">
-                        <el-input v-model="changePayApplyForm.BGT_MOF_DEP_CODE" clearable></el-input>
+                    <el-form-item label="需要追踪项目代码" prop="TRACK_PRO_CODE" label-width="160px">
+                        <el-input v-model="changePayApplyForm.TRACK_PRO_CODE" clearable style="width: 160px"></el-input>
                     </el-form-item>
-                    <el-form-item label="源指标主键" prop="ORI_BGT_ID" label-width="150px">
-                        <el-input v-model="changePayApplyForm.ORI_BGT_ID" clearable style="width: 170px"></el-input>
+                    <el-form-item label="单位代码" prop="AGENCY_CODE">
+                        <el-input v-model="changePayApplyForm.AGENCY_CODE" clearable style="width: 200px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
-                    <el-form-item label="资金来源代码" prop="FOUND_TYPE_CODE">
-                        <el-input v-model="changePayApplyForm.FOUND_TYPE_CODE" clearable></el-input>
+                    <el-form-item label="指标类型代码" prop="BGT_TYPE_CODE" label-width="120px">
+                        <el-input v-model="changePayApplyForm.BGT_TYPE_CODE" clearable style="width: 200px"></el-input>
                     </el-form-item>
-                    <el-form-item label="项目年度预算主键" prop="BGT_PMAN_ID" label-width="150px">
-                        <el-input v-model="changePayApplyForm.BGT_PMAN_ID" clearable style="width: 170px"></el-input>
+                    <el-form-item label="指标金额" prop="AMOUNT" >
+                        <el-input v-model="changePayApplyForm.AMOUNT" clearable style="width: 200px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="指标管理处室代码" prop="BGT_MOF_DEP_CODE" label-width="160px">
+                        <el-input v-model="changePayApplyForm.BGT_MOF_DEP_CODE" clearable style="width: 160px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="源指标主键" prop="ORI_BGT_ID">
+                        <el-input v-model="changePayApplyForm.ORI_BGT_ID" clearable style="width: 200px"></el-input>
+                    </el-form-item>
+                </el-container>
+                <el-container>
+                    <el-form-item label="资金来源代码" prop="FOUND_TYPE_CODE" label-width="120px">
+                        <el-input v-model="changePayApplyForm.FOUND_TYPE_CODE" clearable style="width: 200px"></el-input>
+                    </el-form-item>
+                    <el-form-item label="项目年度预算主键" prop="BGT_PMAN_ID" label-width="160px">
+                        <el-input v-model="changePayApplyForm.BGT_PMAN_ID" clearable style="width: 140px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
                     <el-form-item label="是否删除" prop="IS_DELETED">
                         <el-input v-model="changePayApplyForm.IS_DELETED" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="指标来源代码" prop="SOURCE_TYPE_CODE" label-width="150px">
-                        <el-input v-model="changePayApplyForm.SOURCE_TYPE_CODE" clearable style="width: 170px"></el-input>
+                    <el-form-item label="指标来源代码" prop="SOURCE_TYPE_CODE" label-width="120px">
+                        <el-input v-model="changePayApplyForm.SOURCE_TYPE_CODE" clearable style="width: 180px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
@@ -417,6 +484,7 @@
                                     v-model="changePayApplyForm.UPDATE_AT"
                                     align="left"
                                     type="date"
+                                    style="width: 200px"
                                     placeholder="选择日期"
                                     format="yyyy 年 MM 月 dd 日"
                                     value-format="yyyy-MM-dd"
@@ -426,13 +494,15 @@
                     </el-form-item>
                 </el-container>
                 <el-container >
-                    <el-form-item label="版本号" prop="VERSION" label-width="120px">
-                        <el-input v-model="changePayApplyForm.VERSION" clearable style="width: 80px"></el-input>
+                    <el-form-item label="版本号" prop="VERSION">
+                        <el-input v-model="changePayApplyForm.VERSION" clearable style="width: 220px"></el-input>
                     </el-form-item>
                 </el-container>
                 <el-form-item align="center">
-                    <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
-                    <el-button @click="cancelForm('changeForm')">取消</el-button>
+                    <el-button type="primary" icon="el-icon-plus" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
+                    <el-button type="primary" @click="cancelForm('changeForm')">
+                        <i class="iconfont icon-deleteclosecancel"></i>
+                        取消</el-button>
                 </el-form-item>
             </el-form>
         </el-dialog>
@@ -443,7 +513,6 @@
 <script>
     import ActionBar from "../../../components/common/ActionBar";
     import QueryPanel from "../../../components/common/QueryPanel";
-    /*import {FormValidate} from "../../utils/validate"*/
     import {get} from "../../../utils/request";
     export default {
         name: "index",
@@ -647,15 +716,15 @@
         },
         created:function(){
             // 初始化状态
-            this.getBudget()
+            this.getBudgetIndex()
         },
         mounted() {
 
         },
         methods: {
             /*获取支付申请*/
-            getBudget(){
-                this.$store.dispatch('budget_info/getBudget')
+            getBudgetIndex(){
+                this.$store.dispatch('budget_index_info/getBudgetIndex')
             },
             //查询客户
             onQueryBtnClick(){
@@ -667,9 +736,9 @@
                             }
                         ).catch(err => console.log(err));
                 }else if (mobile!==''){
-                    get("http://localhost:3000/bm_ba_bgt_info?PRO_CODE="+mobile)
+                    get("http://localhost:3000/bm_ba_bgt_info?AGENCY_CODE="+mobile)
                         .then(myJson=>{
-                            this.$store.commit('budget_info/SET_BUDGET',myJson);
+                            this.$store.commit('budget_index_info/SET_BUDGET_INDEX',myJson);
                         })
                         .catch(err=> console.log(err));
                 }else alert("请输入您要查询的名字或手机号码")
@@ -764,17 +833,17 @@
 
 <style lang="less" scoped>
     /*font-class方式导入阿里图标*/
-    @import "https://at.alicdn.com/t/font_2666070_9sqbmj98x8t.css?spm=a313x.7781069.1998910419.40&file=font_2666070_9sqbmj98x8t.css";
+    @import "https://at.alicdn.com/t/font_2666070_97upot5zrh.css?spm=a313x.7781069.1998910419.77&file=font_2666070_97upot5zrh.css";
     /*通用图标大小*/
     .iconfont{
-        font-size: 12px;
+        font-size: 16px;
     }
     .demo-table-expand {
         font-size: 0;
             .el-form-item{
                 margin-right: 0;
                 margin-bottom: 0;
-                width: 50%;
+                width: 25%;
                 span{
                     color: #5908b1;
                 }

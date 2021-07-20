@@ -1,5 +1,5 @@
 <template>
-    <el-container id="userList" direction="vertical" style="height: 100%;width: 100%" >
+    <el-container id="userList" direction="vertical" style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px" >
         <!--操作栏-->
         <div style="width: 100%;background-color: #5fb3ec">
             <ActionBar @addBtnClick="addDialogVisible=true"

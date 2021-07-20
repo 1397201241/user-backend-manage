@@ -6,18 +6,18 @@
   <div>
     <div class="rnUpCards">
       <el-card style="background-color: rgba(255,255,255,0.75)">
-        <div><i class="el-icon-edit"></i>预算草案批复</div>
+        <div @click="$router.push('/draft_app')"><i class="el-icon-edit"></i>预算草案批复</div>
       </el-card>
       <el-card style="background-color: rgba(204,241,246,0.79)">
-        <div><i class="el-icon-bottom"></i>预算指标下达</div>
+        <div @click="$router.push('/target_down')"><i class="el-icon-bottom"></i>预算指标下达</div>
       </el-card>
     </div>
     <div class="rnDownCards">
       <el-card style="background-color: rgba(255,255,255,0.76)">
-        <div><i class="el-icon-view"></i>本部指标查看</div>
+        <div @click="$router.push('/ac_target')"><i class="el-icon-view"></i>单位查看指标</div>
       </el-card>
       <el-card style="background-color: rgba(180,236,243,0.76)">
-        <div><i class="el-icon-setting"></i>未下发指标管理</div>
+        <div @click="$router.push('/budget_index')"><i class="el-icon-setting"></i>未下发指标管理</div>
       </el-card>、
     </div>
   </div>

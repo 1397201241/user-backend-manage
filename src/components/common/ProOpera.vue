@@ -2,10 +2,10 @@
   <el-dialog v-bind="$attrs" v-on="$listeners" :visible.sync="showDialog" @open="onOpen" @close="onClose" :title=title width="40%">
     <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px" style="margin-top: 0">
       <el-container >
-        <el-form-item label="设立年份" prop="SETUP_YEAR">
+        <el-form-item label="设立年份" prop="setupYear">
 <!--        <el-input v-model="formData.SETUP_YEAR" placeholder="请输入设立年份" clearable :style="{width: '80%'}">
         </el-input>-->
-        <el-select v-model="formData.SETUP_YEAR" placeholder="请选择" :style="{width: '80%'}">
+        <el-select v-model="formData.setupYear" placeholder="请选择" :style="{width: '80%'}">
             <el-option
                 v-for="item in setupYearOptions"
                 :key="item.value"
@@ -14,129 +14,27 @@
             </el-option>
           </el-select>
       </el-form-item>
-        <el-form-item label="项目名称" prop="PRO_NAME">
-        <el-input v-model="formData.PRO_NAME" placeholder="请输入项目名称" clearable :style="{width: '100%'}">
+        <el-form-item label="项目名称" prop="proName">
+        <el-input v-model="formData.proName" placeholder="请输入项目名称" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
       </el-container>
       <el-container>
-      <el-form-item label="项目预算" prop="PRO_TOTAL_AMT">
-        <el-input v-model="formData.PRO_TOTAL_AMT" placeholder="请输入项目预算" clearable :style="{width: '80%'}">
+      <el-form-item label="项目预算" prop="proTotalAmt">
+        <el-input v-model="formData.proTotalAmt" placeholder="请输入项目预算" clearable :style="{width: '80%'}">
         </el-input>
       </el-form-item>
-      <el-form-item label="项目代码" prop="PRO_CODE">
-        <el-input v-model="formData.PRO_CODE" placeholder="请输入项目代码" clearable :style="{width: '100%'}">
-        </el-input>
-      </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item label="单位代码" prop="AGENCY_CODE">
-<!--          <el-input v-model="formData.AGENCY_CODE" placeholder="请输入单位代码" clearable :style="{width: '80%'}">
-          </el-input>-->
-          <el-select v-model="formData.AGENCY_CODE" placeholder="请选择" :style="{width: '80%'}">
-            <el-option
-                v-for="item in agencyCodeOptions"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="项目ID" prop="PRO_ID">
-          <el-input v-model="formData.PRO_ID" placeholder="请输入项目ID" clearable :style="{width: '100%'}">
+        <el-form-item label="项目期限" prop="proTearm">
+          <el-input v-model="formData.proTearm" placeholder="请输入项目期限" clearable :style="{width: '80%'}">
           </el-input>
         </el-form-item>
       </el-container>
-      <el-container>
-        <el-form-item label="项目期限" prop="PRO_TERM">
-          <el-input v-model="formData.PRO_TERM" placeholder="请输入项目期限" clearable :style="{width: '80%'}">
-          </el-input>
+        <el-form-item label="项目类型" prop="proKind">
+          <el-cascader v-model="formData.proKindCode" :options="proKindOption" :show-all-levels="false" placeholder="请选择" :style="{width: '110%'}">
+          </el-cascader>
         </el-form-item>
-        <el-form-item label="版本号" prop="VERSION">
-          <el-input v-model="formData.VERSION" placeholder="请输入版本号" clearable :style="{width: '100%'}">
-          </el-input>
-        </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item label="结束代码" prop="IS_END">
-<!--          <el-input v-model="formData.IS_END" placeholder="请输入结束代码" clearable :style="{width: '80%'}">
-          </el-input>-->
-          <el-select v-model="formData.IS_END" placeholder="请选择" :style="{width: '80%'}">
-            <el-option
-                v-for="item in [{label:0,value:0},{label:1,value:1}]"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="删除代码" prop="IS_DELETE">
-<!--          <el-input v-model="formData.IS_DELETED" placeholder="请输入删除代码" clearable :style="{width: '100%'}">
-          </el-input>-->
-          <el-select v-model="formData.IS_DELETED" placeholder="请选择" :style="{width: '100%'}">
-            <el-option
-                v-for="item in [{label:0,value:0},{label:1,value:1}]"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-container>
-
-      <el-container>
-        <el-form-item label-width="50%" label="单位建议代码" prop="DEP_AUD_OPNION_CODE">
-          <el-select v-model="formData.DEP_AUD_OPNION_CODE" placeholder="请选择" :style="{width: '100%'}">
-            <el-option
-                v-for="item in [{label:0,value:0},{label:1,value:1}]"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item style="margin-left: 60px;" label-width="50%" label="财政建议代码" prop="MOF_AUD_OPNION_CODE">
-          <el-select v-model="formData.MOF_AUD_OPNION_CODE" placeholder="请选择" :style="{width: '100%'}">
-            <el-option
-                v-for="item in [{label:0,value:0},{label:1,value:1}]"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-container>
-
-      <el-container>
-        <el-form-item label="项目类型" prop="PRO_KIND">
-          <el-input v-model="formData.PRO_KIND" placeholder="请输入项目类型" clearable :style="{width: '80%'}">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="类型码" prop="PRO_KIND_CODE">
-          <el-input v-model="formData.PRO_KIND_CODE" placeholder="请输入项目类型码" clearable :style="{width: '100%'}">
-          </el-input>
-        </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item label="申报环节" prop="APPLY_LINK">
-          <el-input v-model="formData.APPLY_LINK" placeholder="申报环节代码" clearable :style="{width: '80%'}">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="乐观锁" prop="VERSION">
-          <el-input v-model="formData.VERSION" placeholder="乐观锁" clearable :style="{width: '100%'}">
-          </el-input>
-        </el-form-item>
-      </el-container>
-      <el-form-item label="单位建议" prop="PRO_AGENCY_VIEW">
-        <el-input type="textarea" v-model="formData.PRO_AGENCY_VIEW" placeholder="请输入单位建议" clearable :style="{width: '100%'}">
-        </el-input>
-      </el-form-item>
-      <el-form-item label="财政建议" prop="PRO_BGTREVIEW">
-        <el-input type="textarea" v-model="formData.PRO_BGTREVIEW" placeholder="请输入财政建议" clearable :style="{width: '100%'}">
-        </el-input>
-      </el-form-item>
-      <el-form-item label="项目简介" prop="PRO_DESC">
-        <el-input type="textarea" v-model="formData.PRO_DESC" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
+      <el-form-item label="项目简介" prop="proDesc">
+        <el-input type="textarea" v-model="formData.proDesc" placeholder="请输入项目简介" clearable :style="{width: '100%'}">
         </el-input>
       </el-form-item>
     </el-form>
@@ -170,33 +68,34 @@ export default {
   },
   data(){
     return{
+      proKindOption:[
+        {label:"人员类项目",value:"01",},
+        {
+          label:"运转类",
+          value:"04",
+          children:[
+            {
+              label: "其他运转类项目",
+              value:"02"
+            },
+            {
+              label: "公用经费项目",
+              value:"03"
+            }
+          ]},
+      ],
+      proTermOptions:[
+        {value:1,label:"1年"},{value:2,label:"2年"},{value:3,label:"3年"},{value:4,label:"4年"},{value:5,label:"5年"},
+        {value:6,label:"6年"},{value:7,label:"7年"},{value:8,label:"8年"},{value:9,label:"9年"},{value:10,label:"10年"},
+      ],
+      proSetupOptions:[
+        {value:2010,label:"2010年"},{value:2011,label:"2011年"},{value:2012,label:"2012年"},{value:2013,label:"2013年"},
+        {value:2014,label:"2014年"},{value:2015,label:"2015年"},{value:2016,label:"2016年"},{value:2017,label:"2017年"},
+        {value:2018,label:"2018年"},{value:2019,label:"2019年"},{value:2020,label:"2020年"},{value:2021,label:"2021年"},
+      ],
       // 控制弹出框显示隐藏
       showDialog:false,
-      formData: {
-        id:"",
-        PRO_ID: "",
-        SETUP_YEAR: "",
-        PRO_CODE: "",
-        PRO_NAME: "",
-        AGENCY_CODE: "",
-        PRO_TERM: "",
-        PRO_CAT_CODE: "",
-        PRO_TOTAL_AMT: "",
-        PRO_AGENCY_VIEW: "",
-        PRO_DEPREVIEW: "",
-        PRO_BGTREVIEW: "",
-        PRO_DESC: "",
-        UPDATE_TIME: "",
-        IS_END: 0,
-        IS_DELETED: 0,
-        CREATE_TIME: "",
-        VERSION: "1.03.5",
-        DEP_AUD_OPNION_CODE: 1,
-        MOF_AUD_OPNION_CODE: 1,
-        PRO_KIND:"文娱",
-        PRO_KIND_CODE: "03",
-        APPLY_LINK: 4,
-      },
+      formData: {},
       // 控制弹出框显示隐藏
       rules: {
         SETUP_YEAR: [{required:true,message:'请输入设立年份',trigger:'blur'},],
@@ -306,6 +205,27 @@ export default {
     }
   },
   methods:{
+    //生成项目类别名、项目代码
+    setProKind(){
+      //去0，03->3
+      if(this.formData.proKindCode)
+      {this.formData.proKindCode = this.formData.proKindCode[this.formData.proKindCode.length-1]}
+      //通过项目类别代码获取项目类别名
+      for(let i of this.proKindOption){
+        if(i.value === this.formData.proKindCode){
+          this.formData.proKind = i.label
+          break
+        }
+        if(i.children){
+          for(let j of i.children){
+            if(j.value === this.formData.proKindCode){
+              this.formData.proKind = j.label
+              break
+            }
+          }
+        }
+      }
+    },
     onOpen() {
       if(this.opIndex === 2){
       this.formData = this.pro}else{
@@ -322,6 +242,7 @@ export default {
 
     },
     handelConfirm(){
+      this.setProKind()
       console.log(this.opIndex)
       this.$refs['elForm'].validate(valid => {
         if (!valid) return

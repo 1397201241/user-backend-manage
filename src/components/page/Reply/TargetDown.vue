@@ -6,16 +6,18 @@
 
       <el-breadcrumb separator="/" style="padding-left: 10px;padding-top: 10px;font-size: 13px;position: absolute;z-index: 1;">
         <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/ReplyNavi' }">指标导航</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/reply_navi' }">指标导航</el-breadcrumb-item>
         <el-breadcrumb-item >下发指标</el-breadcrumb-item>
       </el-breadcrumb>
-    <el-card>
+    <el-card style="margin:40px 0 0 30px; height: 500px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.85;">
+<!--      <span style="border-radius:5pt;background-color:rgba(224,221,221,0.6);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
+              margin-top: 10px;color:rgb(24,62,196);">待下发指标列表</span>-->
       <el-table
-          :data="$store.state.budget_info.budget.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+          :data="$store.state.budget_index_info.budgetIndex.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
           stripe
           max-height="600px"
           @selection-change="handleSelectionChange"
-          style="max-width: 1100px;min-height: 370px;opacity: 0.8;margin-top: 60px;margin-left: 20px;"
+          style="max-width: 1100px;min-height: 370px;opacity: 0.8;margin-top: 25px;margin-left: 20px;"
       >
         <!--数据扩展区-->
         <el-table-column type="expand">
@@ -106,7 +108,7 @@
         <el-table-column
             prop="FISCAL_YEAR"
             label="预算年度"
-            width="180"
+            width="160"
         >
         </el-table-column>
         <el-table-column
@@ -132,18 +134,24 @@
         <el-table-column
             prop="action"
             label="操作"
-            width="240px"
+            width="300px"
             align="center"
         >
           <template slot-scope="scope">
             <!--            slot-scope="scope"-->
             <!--            @click.native.prevent="handleChangeRow(scope)"-->
             <el-button
-                type="text"
+                type="primary"
                 @click.native.prevent="handleChangeRow(scope)"
             >
               <i class="iconfont icon-xiugai"></i>
               下发指标
+            </el-button>
+            <el-button
+                @click.native.prevent="viewDetails(scope.row)"
+            >
+              <i class="iconfont icon-xiugai"></i>
+              查看详情
             </el-button>
           </template>
         </el-table-column>
@@ -156,8 +164,8 @@
                        :page-sizes="[6,10,15,20]"
                        :page-size="pageSize"
                        layout="total, sizes, prev, pager, next, jumper"
-                       :total="$store.state.budget_info.budget.length"
-                       style="margin-top: 20px;margin-left: -100px;position:absolute;z-index: 1;margin-left: 350px;"
+                       :total="$store.state.budget_index_info.budgetIndex.length"
+                       style="margin-top: 495px;position:absolute;z-index: 1;margin-left: 400px;"
         >
         </el-pagination>
 
@@ -180,9 +188,16 @@ export default {
     this.getBudget()
   },
   methods:{
+    viewDetails(data){
+      this.$router.push(
+      {path:'/target_detail',
+          query:{name:'data',data:JSON.stringify(
+          data
+      )}})
+    },
     /*获取支付申请*/
     getBudget(){
-      this.$store.dispatch('budget_info/getBudget')
+      this.$store.dispatch('budget_index_info/getBudgetIndex')
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
