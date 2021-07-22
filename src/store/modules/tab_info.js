@@ -35,6 +35,7 @@ const mutations = {
   },
   // 添加tabs
   ADD_TABS(state, data) {
+
     state.openTab.push(data)
   },
   // 添加tabs

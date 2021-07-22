@@ -13,7 +13,7 @@
 <!--      <span style="border-radius:5pt;background-color:rgba(224,221,221,0.6);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
               margin-top: 10px;color:rgb(24,62,196);">待下发指标列表</span>-->
       <el-table
-          :data="$store.state.budget_index_info.budgetIndex.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+          :data="myTableData.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
           stripe
           max-height="600px"
           @selection-change="handleSelectionChange"
@@ -23,78 +23,34 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="预算年度">
+                <span>{{ props.row.fiscalYear }}</span>
+              </el-form-item>
+              <el-form-item label="指标文号">
+                <span>{{ props.row.indicatorPaperNumber }}</span>
+              </el-form-item>
+              <el-form-item label="指标文标题">
+                <span>{{ props.row.indicatorPaperTitle }}</span>
+              </el-form-item>
+              <el-form-item label="发文时间">
+                <span>{{ props.row.indicatorPagerTime }}</span>
+              </el-form-item>
               <el-form-item label="项目代码">
-                <span>{{ props.row.PRO_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="指标说明">
-                <span>{{ props.row.BGT_DEC }}</span>
-              </el-form-item>
-              <el-form-item label="指标可执行标志">
-                <span>{{ props.row.BGT_EXE_FLAG }}</span>
-              </el-form-item>
-              <el-form-item label="是否追踪">
-                <span>{{ props.row.IS_TRACK }}</span>
-              </el-form-item>
-              <el-form-item label="预算次级代码">
-                <span>{{ props.row.BUDGET_LEVEL_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="上级指标文号">
-                <span>{{ props.row.SUP_BGT_DOC_NO }}</span>
-              </el-form-item>
-              <el-form-item label="需要追踪项目代码">
-                <span>{{ props.row.TRACK_PRO_CODE }}</span>
+                <span>{{ props.row.projectCode }}</span>
               </el-form-item>
               <el-form-item label="单位代码">
-                <span>{{ props.row.AGENCY_CODE }}</span>
+                <span>{{ props.row.agencyCode }}</span>
               </el-form-item>
               <el-form-item label="指标类型代码">
                 <span>{{ props.row.BGT_TYPE_CODE }}</span>
               </el-form-item>
               <el-form-item label="指标金额">
-                <span>{{ props.row.AMOUNT }}</span>
+                <span>{{ props.row.indicatorAmount }}</span>
               </el-form-item>
-              <el-form-item label="指标管理处室代码">
-                <span>{{ props.row.BGT_MOF_DEP_CODE }}</span>
+              <el-form-item label="指标说明">
+                <span>{{ props.row.indicatorDescribe }}</span>
               </el-form-item>
-              <el-form-item label="发文时间">
-                <span>{{ props.row.DOC_DATE }}</span>
-              </el-form-item>
-              <el-form-item label="源指标主键">
-                <span>{{ props.row.ORI_BGT_ID }}</span>
-              </el-form-item>
-              <el-form-item label="资金来源代码">
-                <span>{{ props.row.FOUND_TYPE_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="项目年度预算主键">
-                <span>{{ props.row.BGT_PMAN_ID }}</span>
-              </el-form-item>
-              <el-form-item label="是否删除">
-                <span>{{ props.row.IS_DELETED }}</span>
-              </el-form-item>
-              <el-form-item label="指标来源代码">
-                <span>{{ props.row.SOURCE_TYPE_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="财政区划代码">
-                <span>{{ props.row.MOF_DIV_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="预算年度">
-                <span>{{ props.row.FISCAL_YEAR }}</span>
-              </el-form-item>
-              <el-form-item label="本机指标文号">
-                <span>{{ props.row.COR_BGT_DOC_NO }}</span>
-              </el-form-item>
-              <el-form-item label="指标文号题">
-                <span>{{ props.row.BGT_DOC_TITLE }}</span>
-              </el-form-item>
-              <el-form-item label="创建时间">
-                <span>{{ props.row.CREATE_AT }}</span>
-              </el-form-item>
-              <el-form-item label="更新时间">
-                <span>{{ props.row.UPDATE_AT }}</span>
-              </el-form-item>
-              <el-form-item label="版本">
-                <span>{{ props.row.VERSION }}</span>
-              </el-form-item>
+
 
             </el-form>
           </template>
@@ -106,28 +62,21 @@
         >
         </el-table-column>
         <el-table-column
-            prop="FISCAL_YEAR"
+            prop="fiscalYear"
             label="预算年度"
-            width="160"
+            width="200"
         >
         </el-table-column>
         <el-table-column
-            prop="BGT_DOC_TITLE"
+            prop="indicatorPaperTitle"
             label="指标文标题"
-            width="180"
+            width="200"
         >
         </el-table-column>
         <el-table-column
-            prop="DOC_DATE"
-            label="发文时间"
-            width="180px"
-            align="center"
-        >
-        </el-table-column>
-        <el-table-column
-            prop="BUDGET_LEVEL_CODE"
-            label="预算级次代码"
-            width="180px"
+            prop="indicatorPaperNumber"
+            label="指标文号"
+            width="240px"
             align="center"
         >
         </el-table-column>
@@ -142,7 +91,7 @@
             <!--            @click.native.prevent="handleChangeRow(scope)"-->
             <el-button
                 type="primary"
-                @click.native.prevent="handleChangeRow(scope)"
+                @click.native.prevent="sendTarget(scope.row)"
             >
               <i class="iconfont icon-xiugai"></i>
               下发指标
@@ -161,7 +110,7 @@
                        @size-change="handleSizeChange"
                        @current-change="handleCurrentChange"
                        :current-page="currentPage"
-                       :page-sizes="[6,10,15,20]"
+                       :page-sizes="[4,10,15,20]"
                        :page-size="pageSize"
                        layout="total, sizes, prev, pager, next, jumper"
                        :total="$store.state.budget_index_info.budgetIndex.length"
@@ -175,19 +124,94 @@
 </template>
 
 <script>
+import {get,post} from '../../../utils/request'
+const mof = /^\d+0{4}$/
+//const dep = /^\d+0{2}$/
+const npc = /^\d*0{6}$/
 export default {
   name: "TargetDown",
   data(){
     return{
+      myTableData:[],
       currentPage:1,
-      pageSize:6,
+      pageSize:4,
       total:5,
+      sendUrl:"http://192.168.110.85:8001/reply",
     }
   },
   created() {
     this.getBudget()
   },
   methods:{
+    sendTarget(data){
+      ///npc/{indicatorPaperNo
+      let no = data.indicatorPaperNumber
+      let agencyCode = this.$store.state.user_info.info.agencyCode
+      console.log("指标文号是",no,data,agencyCode)
+      if(npc.test(agencyCode)){
+        console.log("调接口")
+        post(this.sendUrl+"/npc/"+no).then(
+            res=>{
+              console.log(res)
+              if(res.code !== 200){
+
+                this.$message({
+                  type: 'info',
+                  message: "还没轮到你"
+                });
+              }else{
+                this.$message({
+                  type: 'info',
+                  message: "成功！"
+                });
+              }
+            }
+        )
+        this.getBudget()
+      }
+      else if(mof.test(agencyCode)){
+        ///financeDept/{indicatorPaperNo}
+        post(this.sendUrl+"/financeDept/"+no).then(
+            res=>{
+              console.log(res)
+              if(res.code !== 200){
+                this.$message({
+                  type: 'info',
+                  message: "还没轮到你~"
+                });
+              }else{
+                this.$message({
+                  type: 'success',
+                  message: "下发成功！"
+                });
+              }
+            }
+        )
+        this.getBudget()
+        console.log("mof")
+      }else{
+        post(this.sendUrl+"/dept/"+no).then(
+            res=>{
+              console.log(res)
+              if(res.code !== 200){
+                this.$message({
+                  type: 'info',
+                  message: "还没轮到你~"
+                });
+              }else{
+                this.$message({
+                  type: 'info',
+                  message: "成功！"
+                });
+              }
+            }
+        )
+        this.getBudget()
+        console.log("dep")
+      }
+
+
+    },
     viewDetails(data){
       this.$router.push(
       {path:'/target_detail',
@@ -198,6 +222,15 @@ export default {
     /*获取支付申请*/
     getBudget(){
       this.$store.dispatch('budget_index_info/getBudgetIndex')
+
+      let id = this.$store.state.user_info.info.agencyId
+      console.log(id)
+      get('http://192.168.110.5:8005/info/unfinished/'+id).then(
+          res => {
+            this.myTableData = res.data
+            console.log(res)
+          }
+      )
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;

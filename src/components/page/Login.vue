@@ -64,6 +64,9 @@
                     callback();
                 }
             };
+            /*const validateUserName = (rule,value,callback)=>{
+              console.log("??")
+            }*/
             return {
                 verificationC:'',//验证码
                 loginForm:{//登录表单
@@ -155,17 +158,19 @@
                         const username=this.loginForm.username;
                         loginForm.username=this.loginForm.username;
                         loginForm.password=this.loginForm.password;
-                        fetch('http://192.168.110.79:8001/login',{
+                        fetch('http://192.168.110.85:8001/login',{
                             method:'POST',
                             headers:{
                                 "Content-Type": 'application/x-www-form-urlencoded',
                                 /*"Accept": 'application/json;charset=UTF-8',*/
+                                /*"Content-Type": 'application/json',*/
                             },
                             /*credentials:"include",*/
                             mode:"cors",
                             body:querystring.stringify(loginForm)
                             })
                             .then(res=>{
+                              console.log(res)
                                 let token=res.headers.get('Authorization');
                                 setUsernameToken(username);
                                 setToken(token);

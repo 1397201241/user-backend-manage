@@ -12,28 +12,28 @@
         <div class="my-icon"><i class="iconfont icon-xiangmumingcheng iconClass" slot="icon" style="line-height: 40px"></i></div>
         <el-container direction="vertical" class="my-card">
           <span class="my-title">指标标题</span>
-          <span class="my-title1">{{ showData.BGT_DOC_TITLE }}</span>
+          <span class="my-title1">{{ showData.indicatorPaperTitle }}</span>
         </el-container>
       </el-container>
       <el-container>
         <div class="my-icon"><i class="iconfont icon-danweidaima iconClass" slot="icon" style="line-height: 40px"></i></div>
         <el-container direction="vertical" class="my-card">
           <span class="my-title">单位代码</span>
-          <span class="my-title1">{{ showData.AGENCY_CODE }}</span>
+          <span class="my-title1">{{ showData.agencyCode }}</span>
         </el-container>
       </el-container>
       <el-container>
         <div class="my-icon"><i class="iconfont icon-jine iconClass" slot="icon" style="line-height: 40px"></i></div>
         <el-container direction="vertical" class="my-card">
           <span class="my-title">指标金额</span>
-          <span class="my-title1">{{ showData.AMOUNT }}</span>
+          <span class="my-title1">{{ showData.indicatorAmount }}</span>
         </el-container>
       </el-container>
       <el-container>
         <div class="my-icon"><i class="iconfont icon-niandu iconClass" slot="icon" style="line-height: 40px"></i></div>
         <el-container direction="vertical" class="my-card">
           <span class="my-title">预算年度</span>
-          <span class="my-title1">{{ showData.FISCAL_YEAR }}</span>
+          <span class="my-title1">{{ showData.fiscalYear }}</span>
         </el-container>
       </el-container>
     </el-container>
@@ -41,26 +41,18 @@
       <el-form   class="demo-table-expand">
         <el-container>
           <el-form-item label="指标文号">
-            <span>{{ showData.COR_BGT_DOC_NO }}</span>
+            <span>{{ showData.indicatorPaperNumber }}</span>
           </el-form-item>
           <el-form-item label="发文日期">
-            <span>{{ this.showData.DOC_DATE }}</span>
+            <span>{{ this.showData.indicatorPagerTime }}</span>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="财政区划代码">
-            <span>{{ this.showData.MOF_DIV_CODE }}</span>
-          </el-form-item>
-          <el-form-item label="上级指标文号">
-            <span>{{ this.showData.SUP_BGT_DOC_NO }}</span>
-          </el-form-item>
-        </el-container>
-        <el-container>
-          <el-form-item label="单位代码">
-            <span>{{ this.showData.AGENCY_CODE }}</span>
-          </el-form-item>
           <el-form-item label="项目代码">
-            <span>{{ this.showData.PRO_CODE }}</span>
+            <span>{{ this.showData.proCode }}</span>
+          </el-form-item>
+          <el-form-item label="预算主键">
+            <span>{{ this.showData.budgetId }}</span>
           </el-form-item>
         </el-container>
       </el-form>
@@ -84,7 +76,7 @@ export default {
   methods:{
     getQuery(){
       this.showData =JSON.parse(this.$route.query.data)
-      this.active = this.showData.BGT_EXE_FLAG
+      this.active = this.showData.executable
     }
   },
 }

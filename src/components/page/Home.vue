@@ -78,7 +78,7 @@ const Welcome = ()=>import('./Welcome')
 const Agency = ()=>import('./Agency')
 const Project = ()=>import('./Project/Project')
 import {menuList} from "../../assets/js/menuData";
-import {removeToken} from "../../utils/auth";
+import {removeToken, removeUsernameToken} from "../../utils/auth";
 
 export default {
   name: "Home",
@@ -131,13 +131,17 @@ export default {
     dropOut(){
       //清除cookie
       removeToken();
+      removeUsernameToken();
       //清除用户信息
       this.$store.commit('base_info/SET_INFO',[]);
       //清除权限
       this.$store.commit('base_info/SET_PERMISSIONS',[]);
       //清除token
       this.$store.commit('base_info/SET_TOKEN','');
+      this.$store.commit('user_info/SET_USER', []);
       //跳转
+
+
       this.$router.push({
         path:'/login'
       });

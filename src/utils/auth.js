@@ -25,3 +25,6 @@ export function setUsernameToken(token) {
 export function removeToken() {
     return Cookies.remove(TokenKey)
 }
+export function removeUsernameToken() {
+    return Cookies.remove(username)
+}

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-divider content-position="left"><span style="color: red;font-size: large;">可申请凭证列表</span></el-divider>
+    <el-divider content-position="left"><span style="color: red;font-size: large;">单位凭证列表</span></el-divider>
     <el-card style="margin:0 0 0 5px; height: 410px;">
       <el-table
           ref="multipleTable"
@@ -15,75 +15,65 @@
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
-              <el-form-item label="支付凭证号">
-                <span>{{ props.row.PAY_CERT_NUM }}</span>
+              <el-form-item label="单位代码">
+                <span>{{ props.row.agencyCode }}</span>
               </el-form-item>
               <el-form-item label="总金额">
-                <span>{{ props.row.TOTAL_AMOUNT }}</span>
+                <span>{{ props.row.totalAmount }}</span>
               </el-form-item>
               <el-form-item label="已付金额">
-                <span>{{ props.row.PAID_AMOUNT }}</span>
+                <span>{{ props.row.paidAmount }}</span>
               </el-form-item>
               <el-form-item label="收款人名称">
-                <span>{{ props.row.PAYEE_ACCT_NAME }}</span>
+                <span>{{ props.row.payeeAcctName }}</span>
               </el-form-item>
               <el-form-item label="收款人账号">
-                <span>{{ props.row.PAYEE_ACCT_NUM }}</span>
+                <span>{{ props.row.payeeAcctNum }}</span>
               </el-form-item>
               <el-form-item label="收款人开户银行">
-                <span>{{ props.row.PAYEE_ACCT_BANK_NAME }}</span>
+                <span>{{ props.row.payeeAcctBankName }}</span>
               </el-form-item>
               <el-form-item label="付款人名称">
-                <span>{{ props.row.PAY_ACCT_NAME }}</span>
+                <span>{{ props.row.payAcctName}}</span>
               </el-form-item>
               <el-form-item label="付款人账号">
-                <span>{{ props.row.PAY_ACCT_NUM }}</span>
+                <span>{{ props.row.payAcctNum }}</span>
               </el-form-item>
               <el-form-item label="付款人开户银行">
-                <span>{{ props.row.PAY_ACCT_BANK_NAME }}</span>
-              </el-form-item>
-              <el-form-item label="更新时间">
-                <span>{{ props.row.UPDATE_AT }}</span>
-              </el-form-item>
-              <el-form-item label="删除代码">
-                <span>{{ props.row.IS_DELETED }}</span>
-              </el-form-item>
-              <el-form-item label="创建时间">
-                <span>{{ props.row.CREATE_AT }}</span>
-              </el-form-item>
-              <el-form-item label="版本号">
-                <span>{{ props.row.VERSION }}</span>
+                <span>{{ props.row.payAcctBankName }}</span>
               </el-form-item>
             </el-form>
           </template>
 
         </el-table-column>
         <el-table-column
-            label="支付凭证号"
+            label="指标文号"
             width="240">
-          <template slot-scope="scope">{{ scope.row.PAY_CERT_NUM }}</template>
+          <template slot-scope="scope">{{ scope.row.indicatorPaperNumber }}</template>
         </el-table-column>
         <el-table-column
-            prop="TOTAL_AMOUNT"
-            label="总金额"
+            prop="totalAmount"
+            label="指标金额"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="PAID_AMOUNT"
-            label="已付金额"
+            prop="paidAmount"
+            label="已申请金额"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="PAYEE_ACCT_NAME"
+            prop="payeeAcctName"
             label="收款人名称"
             width="180">
         </el-table-column>
         <el-table-column
             label="操作"
-            width="240">
+            width="320">
           <template slot-scope="scope">
-            <el-button type="primary"  @click="dialogVisible = true">进行申请</el-button>
-            <el-button @click=viewPayVoucherDetail(scope.row)  >查看详情</el-button>
+<!--            <el-button type="primary"  @click="dialogVisible = true">进行申请</el-button>-->
+            <el-button @click=viewPayVoucherDetail(scope.row)  type="primary">查看详情</el-button>
+            <el-button style="width: 140px;">
+              <a class="downloadStyle" :href=downloadUrl+scope.row.payAppNum >下载凭证回单</a> </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -124,6 +114,8 @@ export default {
   name: "Payvoucher",
   data(){
     return{
+      downloadUrl:'http://192.168.110.85:8001/payVoucher/downloadVoucher/',
+      addPayUrl:"http://192.168.110.85:8001",
       dialogVisible:false,
       formData:{
         PAY_CERT_ID: 13225945966,
@@ -194,11 +186,14 @@ export default {
       this.current=val;
       /*this.getUserList()*/
     },
-    async getVoucherDatas(){
-      await get(this.url).then(myJson=>{
-        this.myTableData = myJson
-        this.totalNum = this.myTableData.length
-      })
+    getVoucherDatas(){
+      get(this.addPayUrl+"/payVoucher/listAll/"+this.$store.state.user_info.info.agencyCode).then(
+          res => {
+            console.log(res)
+            this.myTableData = res.data
+            this.totalNum = this.myTableData.length
+          }
+      )
     }
   },
 }
@@ -225,6 +220,15 @@ span{
   font-family: 幼圆;
   font-size: 18px;
   color: #000;
+}
+.downloadStyle{
+  &:visited{
+    color: rgb(152, 122, 234);
+  }
+  &:link{
+    color: rgb(108, 190, 229);
+  }
+  text-decoration: none;
 }
 .pvDialogTitle{
   width: 100%;
