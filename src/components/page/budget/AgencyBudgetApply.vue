@@ -224,7 +224,7 @@
                 apply.AGENCY_CODE=this.formData.agencyCode;
                 apply.PRO_CODE=this.formData.proCode;
                 apply.APPLY_UP=this.formData.applyUp;
-                post('http://localhost:3000/bgt_pm',apply).then(res=>{
+                post('http://localhost:3000/bgt_pm',apply).then(()=>{
                     this.$router.push('/budget_apply_list')
                 }).catch(err=>{
                     console.log(err)

@@ -119,8 +119,6 @@
 
 <script>
 
-    import {post, put} from "../../../utils/request";
-
     export default {
         name: "BudgetApplyList",
         data(){
@@ -175,6 +173,7 @@
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
+                        console.log(myJson)
                         this.getBgtList()
                     }).catch(err=>{
                     console.log(err)
