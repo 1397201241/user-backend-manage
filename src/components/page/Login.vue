@@ -162,8 +162,6 @@
                             method:'POST',
                             headers:{
                                 "Content-Type": 'application/x-www-form-urlencoded',
-                                /*"Accept": 'application/json;charset=UTF-8',*/
-                                /*"Content-Type": 'application/json',*/
                             },
                             /*credentials:"include",*/
                             mode:"cors",

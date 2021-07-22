@@ -34,7 +34,7 @@
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/card1.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card13.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/agency_project_list')"><span>新建预算</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
@@ -135,13 +135,17 @@
 
 <style lang="less" scoped>
 
+  @import "https://at.alicdn.com/t/font_2666070_zpx1dwunyrc.css?spm=a313x.7781069.1998910419.40&file=font_2666070_zpx1dwunyrc.css";
+  .iconfont{
+    font-size: 16px;
+  }
   .welcomeStyle{
     .el-card{
       margin: 20px 20px;
       cursor: pointer;
       opacity: 0.5;
+      color: rgba(255,255,255,1);
       .card-title{
-        color: #fff;
         position: absolute;
         width: 120px;
         height: 32px;

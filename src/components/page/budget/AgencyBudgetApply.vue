@@ -5,47 +5,30 @@
             <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px"
                      style="margin-top: 30px;width: 100%;height: 350px">
                 <el-container >
-                    <el-form-item label="项目代码" prop="PRO_CODE">
-                        <el-select placeholder="请选择" v-model="formData.PRO_CODE">
-                            <el-option
-                                    v-for="item in projectCodeOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
+                    <el-form-item label="项目代码" prop="proCode">
+                        <el-input placeholder="请选择" v-model="formData.proCode" disabled></el-input>
                     </el-form-item>
-                    <el-form-item label="项目名称" prop="PRO_NAME">
-                        <el-input v-model="formData.PRO_NAME" placeholder="请输入项目名称" clearable disabled>
+                    <el-form-item label="项目名称" prop="proName">
+                        <el-input v-model="formData.proName" placeholder="请输入项目名称" clearable disabled>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="项目预算" prop="APPLY_UP">
-                        <el-input v-model="formData.APPLY_UP" placeholder="请输入项目预算" clearable>
+                    <el-form-item label="项目ID" prop="proCode">
+                        <el-input v-model="formData.proCode" placeholder="请输入项目ID" clearable disabled>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="预算年度" prop="FISCAL_YEAR">
-                        <el-input v-model="formData.FISCAL_YEAR" placeholder="请输入预算年度" clearable>
+                    <el-form-item label="项目期限" prop="proTerm">
+                        <el-input v-model="formData.proTerm" placeholder="请输入项目期限" clearable disabled>
                         </el-input>
                     </el-form-item>
                 </el-container>
                 <el-container>
-                    <el-form-item label="设立年份" prop="SETUP_YEAR">
-                        <el-select v-model="formData.SETUP_YEAR" placeholder="请选择" disabled>
-                            <el-option
-                                    v-for="item in setupYearOptions"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="项目ID" prop="PRO_ID" >
-                        <el-input v-model="formData.PRO_ID" placeholder="请输入项目ID" clearable disabled>
+                    <el-form-item label="设立年份" prop="setupYear">
+                        <el-input v-model="formData.setupYear" placeholder="请选择" disabled>
                         </el-input>
                     </el-form-item>
 
-                    <el-form-item label="单位代码" prop="AGENCY_CODE">
-                        <el-select placeholder="请选择" v-model="formData.AGENCY_CODE" disabled>
+                    <el-form-item label="单位代码" prop="agencyCode">
+                        <el-select placeholder="请选择" v-model="formData.agencyCode" disabled>
                             <el-option
                                     v-for="item in agencyCodeOptions"
                                     :key="item.value"
@@ -54,13 +37,13 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="版本号" prop="VERSION">
-                        <el-input v-model="formData.VERSION" placeholder="请输入版本号" clearable disabled>
+                    <el-form-item label="申报数" prop="applyUp">
+                        <el-input v-model="formData.applyUp" placeholder="请输入申报数" clearable>
                         </el-input>
                     </el-form-item>
                 </el-container>
-                <el-form-item label="单位建议" prop="PRO_AGENCY_VIEW" style="width: 100%">
-                    <el-input  v-model="formData.PRO_AGENCY_VIEW" placeholder="请输入单位建议" clearable>
+                <el-form-item label="单位建议" prop="proReview" style="width: 100%">
+                    <el-input  v-model="formData.proReview" placeholder="请输入单位建议" clearable>
                     </el-input>
                 </el-form-item>
 
@@ -84,29 +67,15 @@
         data(){
             return {
                 formData:{
-                    AGENCY_CODE:'后台自动获取（还是确认选取）',
-                    APPLY_LINK:0,
-                    CREATE_AT:"2021-07-12",
-                    DEP_AUD_OPNION_CODE:1,
-                    IS_DELETE:0,
-                    IS_TERMINATED:0,
-                    MOF_AUD_OPNION_CODE:1,
-                    PRO_AGENCY_VIEW:"这项目很牛逼！（在这一步填写还是下一波）",
-                    PRO_BGTREVIEW:"这项目真的是非常牛逼啊！",
-                    PRO_CAT_CODE:"04",
-                    PRO_CODE:"",
-                    PRO_DEPREVIEW:"这项目确实很牛逼！",
-                    PRO_DESC:"该项目旨在给人们闲暇之余带来无限欢乐~(选取项目代码后自动填充)",
-                    PRO_ID:"13225945965(自动获取)",
-                    PRO_KIND:"文娱",
-                    PRO_KIND_CODE:"03",
-                    PRO_NAME:"水上乐园（自动获取）",
-                    FISCAL_YEAR:"",
-                    APPLY_UP:"",//预算金额
-                    SETUP_YEAR:"2015(自动获取)",
-                    UPDATE_AT:"2021/7/14下午2:40:18",
-                    VERSION:"1.03.5（后台生成）",
-                    id:"1",
+                    agencyCode:"010101",
+                    proId:"1415591700188930049",
+                    proCode:"",
+                    proName:"会展中心二期建设",
+                    proTerm:3,
+                    setupYear:2021,
+                    proReview:'',
+                    applyUp:''
+
                 },
                 //表单校验
                 rules: {
@@ -220,14 +189,35 @@
             }
         },
         created() {
-
+            this.formData=this.$store.state.agency_budget_apply.budget_apply_project
         },
         mounted() {
 
         },
         methods: {
             handleAddBtnClick(){
-                this.$router.push('/budget_apply_list')
+                let apply={};//
+                apply.agencyCode=this.formData.agencyCode;
+                apply.proCode=this.formData.proCode;
+                apply.applyUp=this.formData.applyUp;
+                fetch("http://192.168.110.146:8004/budgetmaking/addbudgetdraft?proReview="+this.formData.proReview,{
+                    method:'POST',
+                    headers:{
+                        "Content-Type": 'application/json',
+                        "Accept": 'application/json',
+                        "Origin": '*',
+                        "Access-Control-Allow-Origin": '*',
+                    },
+                    body:JSON.stringify(apply),
+                    mode:'cors'
+                })
+                    .then(myJson=>{
+                        console.log(myJson);
+                        this.$router.push('/budget_apply_list')
+                    }).catch(err=>{
+                    console.log(err)
+                })
+
             }
         }
     }

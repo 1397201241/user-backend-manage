@@ -1,6 +1,6 @@
 import {setToken,} from '../../utils/auth'
 import {getInfo, getPermission, getUserRole, getPermissionID} from '../../api/user'
-import {del, get, post, put} from "../../utils/request";
+import {del, get, put} from "../../utils/request";
 // 登录组件状态信息
 const state = () => ({
     //用户信息
@@ -17,16 +17,9 @@ const getters = {
 
 // 提交 mutation 是更改状态的唯一方法，并且这个过程是同步的。
 const mutations = {
-    SET_TOKEN: (state, token) => {
-        state.token = token
-    },
     //全体用户账号密码，todo:不安全做法
     SET_USERS: (state, users) => {
         state.users=users
-    },
-    //设置用户信息
-    SET_INFO: (state, info) => {
-        state.info=info;
     },
     //设置用户信息
     SET_PERMISSIONS: (state, permissions) => {
@@ -38,9 +31,35 @@ const mutations = {
 const actions = {
     //获取用户账号密码
     getUsers ({commit}) {
-        return get('http://localhost:3000/USERS').then(res=>{
-            commit('SET_USERS',res)
-        }).catch(err=>console.log(err));
+        return fetch('http://192.168.110.85:8001/bm-fasp-tcauser/list/',{
+            method:'GET',
+            mode:'cors'
+        })
+            .then(res=>res.json())
+            .then(res=>{
+                let users=[];
+                const data=res.data;
+                console.log(data)
+                for (const user of data){
+                    let newUser=user;
+                    fetch('http://192.168.110.85:8001/bm-bas-agency-info/id/'+user.agencyId,{
+                        method:'GET',
+                        mode:'cors'
+                    })
+                        .then(res=>res.json())
+                        .then(res=>{
+                            newUser.agencyName=res.data.agencyName;
+                            newUser.agencyLeaderPerName=res.data.agencyLeaderPerName;
+                            newUser.agencyAdd=res.data.agencyAdd;
+                            users.push(newUser)
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                }
+                console.log(users)
+                commit('SET_USERS',users)
+            });
     },
     /**
      * @description 添加用户
@@ -49,11 +68,25 @@ const actions = {
      * @return {Q.Promise<void>}
      */
     addUser({dispatch}, params) {
-        return post("http://localhost:3000/USERS", params.newUser)
+        return fetch('http://192.168.110.79:8002/bm-fasp-tcauser/add',{
+            method:'POST',
+            headers:{
+                "Content-Type": 'application/json',
+            },
+            body:JSON.stringify(params.newUser),
+            mode:'cors'
+        })
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
+                dispatch('getUsers')
+            })
+
+       /* return post("http://localhost:3000/USERS", params.newUser)
             .then(() => {
-                    dispatch('getUsers')
+
                 }
-            ).catch(err => console.log(err));
+            ).catch(err => console.log(err));*/
     },
     /**
      * @description 停用数据
@@ -109,12 +142,19 @@ const actions = {
      * @return {Q.Promise<void>}
      */
     changeUser({dispatch},params){
-        return put("http://localhost:3000/USERS/"+params.newUser.id,params.newUser)
-            .then(()=>{
-                //刷新
+        return fetch('http://192.168.110.79:8002/bm-fasp-tcauser/update',{
+            method:'PUT',
+            headers:{
+                "Content-Type": 'application/json',
+            },
+            body:JSON.stringify(params.newUser),
+            mode:'cors'
+        })
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
                 dispatch('getUsers')
             })
-            .catch(err=> console.log(err));
     },
     //用户验证
     authenticationUser({commit,state}, params) {

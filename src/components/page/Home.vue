@@ -66,17 +66,16 @@
     </el-container>
   </el-container>
 
-
 </template>
 
 <script>
 
 const MenuTree = ()=>import('../common/MenuTree');
-const User = ()=>import('./Users')
-const Role = ()=>import('./Roles')
-const Welcome = ()=>import('./Welcome')
-const Agency = ()=>import('./Agency')
-const Project = ()=>import('./Project/Project')
+const User = ()=>import('./Users');
+const Role = ()=>import('./Roles');
+const Welcome = ()=>import('./Welcome');
+const Agency = ()=>import('./Agency');
+const Project = ()=>import('./Project/Project');
 import {menuList} from "../../assets/js/menuData";
 import {removeToken, removeUsernameToken} from "../../utils/auth";
 
@@ -206,8 +205,11 @@ export default {
           "/budget_apply_details3":"预算申报详情",
           "/agency_project_list":"单位项目列表",
           "/budget_apply_list2":"预算申请列表",
+          "/budget_apply_list3":"预算申请列表",
+          "/budget_apply_list4":"预算申请列表",
           "/draft_budget":"单位预算草案",
           "/draft_budget2":"部门预算草案",
+          "/draft_budget_list":"预算草案列表",
           "/ac_target":"单位查看指标",
           "/target_detail":"指标详情",
           "/add_pay":"新建支付申请",
