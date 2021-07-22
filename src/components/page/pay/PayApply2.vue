@@ -8,73 +8,65 @@
     <el-divider content-position="left"><span style="color: red;font-size: large;">新建支付申请表</span></el-divider>
     <el-form :model="formData" :rules="rules" ref="genPayApplyForm">
       <el-container style="margin-top: 50px;">
-        <el-form-item   prop="PAYEE_ACCT_NAME" label="收款人名称" label-width="35%" style="width: 25%">
-          <el-input v-model="formData.PAYEE_ACCT_NAME"></el-input>
+        <el-form-item   prop="payeeAcctName" label="收款人名称" label-width="35%" style="width: 25%">
+          <el-input v-model="formData.payeeAcctName"></el-input>
         </el-form-item>
-        <el-form-item  prop="PAYEE_ACCT_BANK_NAME" label="收款人开户银行名称" label-width="40%"  style="width: 35%">
-          <el-input clearable v-model="formData.PAYEE_ACCT_BANK_NAME"></el-input>
+        <el-form-item  prop="payeeAcctBankName" label="收款人开户银行名称" label-width="40%"  style="width: 35%">
+          <el-input clearable v-model="formData.payeeAcctBankName"></el-input>
         </el-form-item>
-        <el-form-item prop="PAYEE_ACCT_NUM" label="收款人账号" label-width="17%" style="width: 50%;">
-          <el-input v-model="formData.PAYEE_ACCT_NUM" style="width: 390px;margin-left: -70px;"></el-input>
-        </el-form-item>
-      </el-container>
-      <el-container>
-        <el-form-item   prop="PAY_ACCT_NAME" label="付款人名称" label-width="35%" style="width: 25%">
-          <el-input disabled v-model="formData.PAY_ACCT_NAME"></el-input>
-        </el-form-item>
-        <el-form-item  prop="PAY_ACCT_BANK_NAME" label="付款人开户银行名称" label-width="40%"  style="width: 35%">
-          <el-input disabled clearable v-model="formData.PAY_ACCT_BANK_NAME"></el-input>
-        </el-form-item>
-        <el-form-item prop="PAY_ACCT_NUM" label="付款人账号" label-width="17%" style="width: 50%;">
-          <el-input disabled v-model="formData.PAY_ACCT_NUM" style="width: 390px;margin-left: -70px;"></el-input>
+        <el-form-item prop="payeeAcctNumber" label="收款人账号" label-width="17%" style="width: 50%;">
+          <el-input v-model="formData.payeeAcctNum" style="width: 390px;margin-left: -70px;"></el-input>
         </el-form-item>
       </el-container>
       <el-container>
-        <el-form-item  label-width="32%" prop="AMOUNT" label="申请金额" style="width: 25%;">
-          <el-input v-model="formData.AMOUNT" style="width: 186px;margin-left: -30px;"></el-input>
+        <el-form-item   prop="payAcctName" label="付款人名称" label-width="35%" style="width: 25%">
+          <el-input  v-model="formData.payAcctName"></el-input>
         </el-form-item>
-        <el-form-item label-width="41%" prop="IS_DELETE" label="删除逻辑" style="width: 25%;">
-          <el-select disabled v-model="formData.IS_DELETE" style="width: 246px;">
-            <el-option v-for="item in [{label:'删除',value:1},{label:'保留',value: 0}]"
-                       :key="item.value"
-                       :label="item.label"
-                       :value="item.value">
-            </el-option>
-          </el-select>
+        <el-form-item  prop="payAcctBankName" label="付款人开户银行名称" label-width="40%"  style="width: 35%">
+          <el-input  clearable v-model="formData.payAcctBankName"></el-input>
+        </el-form-item>
+        <el-form-item prop="payAcctNumber" label="付款人账号" label-width="17%" style="width: 50%;">
+          <el-input  v-model="formData.payAcctNum" style="width: 390px;margin-left: -70px;"></el-input>
         </el-form-item>
       </el-container>
-      <el-form-item style="margin-left: -220px;">
-        <el-button >暂存</el-button>
-        <el-button style="width: 240px;" type="primary" @click="handleAddPayApply">提交申请</el-button>
+      <el-container>
+      <el-form-item  label-width="32%" prop="applyAmount" label="申请金额" style="width: 25%;">
+        <el-input v-model="formData.applyAmount" style="width: 186px;margin-left: -30px;"></el-input>
       </el-form-item>
+      <el-form-item  label-width="32%" prop="fundsUse" label="用途" style="margin-left: 40px;width: 25%;">
+        <el-input v-model="formData.fundsUse" style="width: 236px;margin-left: -10px;"></el-input>
+      </el-form-item>
+      </el-container>
+      <el-container style="margin-left: 350px;">
+      <el-form-item >
+        <el-button style="width: 240px;" type="primary" @click="handleStorage">暂存</el-button>
+      </el-form-item>
+        <el-form-item >
+          <el-button @click="$router.push('add_pay')" style="width: 120px;margin-left: 10px;">返回</el-button>
+        </el-form-item>
+      </el-container>
     </el-form>
   </div>
 </template>
 
 <script>
+import {post,} from '../../../utils/request'
+let BigDecimal = require('js-big-decimal')
 export default {
   name: "PayApply2",
   data() {
     return {
       formData: {
-        id: 2,
-        PAY_APP_ID: 2,
-        PAY_APP_NUM: "102",
-        CREATE_AT: "2021-07-13",
-        UPDATE_AT: "2021-07-07",
-        AGENCY_CODE: "福建省教育局",
-        FOUNDS_USE: "建立图书馆",
-        AMOUNT: "8000000",
-        PAYEE_ACCT_NAME: "Qin Li",
-        PAYEE_ACCT_NUM: "450923199901022444",
-        PAYEE_ACCT_BANK_NAME: "湖南省建设银行",
-        PAY_ACCT_NAME: "Qin Li",
-        PAY_ACCT_NUM: "450923199901022444",
-        PAY_ACCT_BANK_NAME: "湖南省建设银行",
-        AUDIT_STATUS: 0,
-        IS_DELETE: 0,
-        VERSION: "0.0.1",
-        AUDIT_STATUS_CN: "通过"
+        fundsUse:"",
+        payAcctName:'',
+        payAcctNum:'',
+        payAcctBankName:'',
+        payeeAcctName:'',
+        payeeAcctNum:'',
+        payeeAcctBankName:'',
+        applyAmount:'',
+        agencyCode:'',
+        indicatorPaperNumber:''
       },
       //表单校验
       rules: {
@@ -174,9 +166,36 @@ export default {
           {required: true, message: '请输入用户更新时间', trigger: 'blur'}
         ]
       },
+      baseUrl:"http://192.168.110.85:8001",
     }
   },
+  created() {
+    console.log(this.$route.query)
+  },
   methods: {
+    handleStorage() {
+      this.formData.agencyCode = this.$store.state.user_info.info.agencyCode
+      this.formData.applyAmount = new BigDecimal(""+this.formData.applyAmount).value
+      this.formData.indicatorPaperNumber = this.$route.query.data
+      post(this.baseUrl+"/payApplication/add",this.formData).then(
+          res => {
+            console.log(res)
+            if(res.code === 200){
+              this.$message({
+                type: 'success',
+                message: "提交成功"
+              })
+            }else{
+              this.$message({
+                type: 'error',
+                message: "提交失败"
+              })
+            }
+          }
+      )
+
+
+    },
     handleAddPayApply() {
       console.log("..")
       this.$confirm('确定提交吗?', '提示', {
@@ -184,6 +203,9 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        this.formData.applyAmount =new BigDecimal(""+this.formData.applyAmount).value
+
+        /*post(this.baseUrl+"/payApplication/submit/"+)*/
         this.$message({
           type: 'success',
           message: '提交成功!请前往支付凭证页面申请支付！'

@@ -5,35 +5,23 @@
     <div style="width: 40%;">
       <el-card style="height: 460px;width: 100%">
         <el-form   class="demo-table-expand">
-          <el-form-item label="支付凭证号">
-            <span>{{ this.showData.PAY_CERT_NUM }}</span>
-          </el-form-item>
           <el-form-item label="付款人名字">
-            <span>{{ this.showData.PAY_ACCT_NAME }}</span>
+            <span>{{ this.showData.payAcctName }}</span>
           </el-form-item>
             <el-form-item label="付款人账号">
-              <span>{{ this.showData.PAY_ACCT_NUM }}</span>
+              <span>{{ this.showData.payAcctNum }}</span>
             </el-form-item>
             <el-form-item label="付款人开户银行">
-              <span>{{ this.showData.PAY_ACCT_BANK_NAME }}</span>
-            </el-form-item>
-            <el-form-item label="删除逻辑">
-              <span>{{ this.showData.IS_DELETE }}</span>
+              <span>{{ this.showData.payAcctBankName }}</span>
             </el-form-item>
             <el-form-item label="收款人名字">
-              <span>{{ this.showData.PAYEE_ACCT_NAME }}</span>
+              <span>{{ this.showData.payeeAcctName }}</span>
             </el-form-item>
             <el-form-item label="收款人账号">
-              <span>{{ this.showData.PAYEE_ACCT_NUM }}</span>
+              <span>{{ this.showData.payeeAcctNum }}</span>
             </el-form-item>
             <el-form-item label="收款人开户银行">
-              <span>{{ this.showData.PAYEE_ACCT_BANK_NAME }}</span>
-            </el-form-item>
-            <el-form-item label="更新时间">
-              <span>{{ this.showData.UPDATE_AT }}</span>
-            </el-form-item>
-            <el-form-item label="收款人开户银行">
-              <span>{{ this.showData.CREATE_AT }}</span>
+              <span>{{ this.showData.payeeAcctBankName }}</span>
             </el-form-item>
         </el-form>
       </el-card>
@@ -86,7 +74,7 @@ export default {
             top: '40%',
             left: 'center',
             style: {
-              text: this.showData.TOTAL_AMOUNT,
+              text: this.showData.totalAmount,
               fill: '#333333',
               fontSize: 20,
               fontWeight: 'normal'
@@ -166,8 +154,8 @@ export default {
             },
             // 系列中的数据内容数组。
             data:[
-              {value:this.showData.PAID_AMOUNT, name:'已用金额'},
-              {value:this.showData.TOTAL_AMOUNT-this.showData.PAID_AMOUNT, name:'剩余金额'}
+              {value:this.showData.paidAmount, name:'已用金额'},
+              {value:this.showData.totalAmount-this.showData.paidAmount, name:'剩余金额'}
             ]
           }
         ]

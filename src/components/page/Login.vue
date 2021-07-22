@@ -64,6 +64,9 @@
                     callback();
                 }
             };
+            /*const validateUserName = (rule,value,callback)=>{
+              console.log("??")
+            }*/
             return {
                 verificationC:'',//验证码
                 loginForm:{//登录表单
@@ -165,6 +168,7 @@
                             body:querystring.stringify(loginForm)
                             })
                             .then(res=>{
+                              console.log(res)
                                 let token=res.headers.get('Authorization');
                                 setUsernameToken(username);
                                 setToken(token);

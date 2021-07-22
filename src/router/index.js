@@ -127,7 +127,7 @@ const routes = [
         path:'/budget_index',
         name:'BudgetIndex',
         component:BudgetIndex,
-        meta:{title:'预算指标',requireAuth:true},
+        /*meta:{title:'预算指标',requireAuth:true},*/
       },
       {
         path:'/agency_budget_apply',
@@ -211,7 +211,7 @@ const routes = [
         path: '/project',
         name:'Project',
         component:Project,
-        meta: {title: '项目列表'}
+        meta:{title:"项目列表",requireAuth:true}
       },
 
       {
@@ -230,30 +230,31 @@ const routes = [
         path: '/capital_liquidation',
         name:'CapitalLiquidation',
         component:CapitalLiquidation,
-        meta: {title: '资金清算'}
+        meta: {title: '资金清算',requireAuth: true}
       },
       {
         path: '/liquidation',
         name:'Liquidation',
         component:Liquidation,
-        meta: {title: '清算凭证'}
+        meta: {title: '清算凭证',requireAuth: true}
       },
       {
         path: '/bgt_pm',
         name:'Bgt_pm',
         component:Bgt_pm,
-        meta: {title: '预算申请管理'}
+        meta: {title: '预算申请管理',requireAuth: true}
       },
       {
         path: '/pro_apply',
         name:'ProApply',
         component:ProApply,
-        meta: {title: '项目申报'},
+        meta: {title: '项目申报',requireAuth: true},
         children:[
           {
             path: '/pro_apply/add',
             name:'ProApply_add',
             component:ProApply_add,
+            meta:{title:"新建项目",requireAuth:true}
           },
           {
             path: '/pro_apply/exam',
@@ -266,52 +267,62 @@ const routes = [
       {
         path: '/view_pro_progress',
         name: 'ViewProProgress',
-        component:ViewProProgress
+        component:ViewProProgress,
+        meta:{title:"查看详细",requireAuth:true}
       },
       {
         path: '/draft_app',
         name: 'DraftApproval',
-        component:DraftApproval
+        component:DraftApproval,
+        meta:{title:"草案批准",requireAuth:true}
       },
       {
         path: '/reply_navi',
         name: 'ReplyNavi',
-        component:ReplyNavi
+        component:ReplyNavi,
+        meta:{title:"批复导航",requireAuth:true}
       },
       {
         path: '/target_down',
         name: 'TargetDown',
-        component:TargetDown
+        component:TargetDown,
+        meta:{title:"预算指标下达",requireAuth:true}
       },
       {
         path: '/ac_target',
         name: 'AcTarget',
-        component:AcTarget
+        component:AcTarget,
+        meta:{title:"单位接受指标",requireAuth:true}
       },
       {
         path: '/target_detail',
         name:'TargetDetail',
-        component:TargetDetail
+        component:TargetDetail,
+        meta:{title:"指标详细",requireAuth:true}
       },
       {
         path: '/add_pay',
         name:'AddPay',
-        component:AddPay
+        component:AddPay,
+        meta:{title:"可选指标",requireAuth:true}
       },
       {
         path: '/add_pay_2',
         name:'AddPay2',
-        component:AddPay2
+        component:AddPay2,
+        meta:{title:"新建申请",requireAuth:true}
       },
       {
         path: '/pay_voucher_list',
         name:'PayVoucherList',
-        component:PayVoucherList
+        component:PayVoucherList,
+        meta:{title:"单位凭证列表",requireAuth:true}
       },
       {
         path: '/pay_voucher_detail',
         name: 'PayVoucherDetail',
-        component:PayVoucherDetail
+        component:PayVoucherDetail,
+        meta:{title:"凭证详情",requireAuth:true}
       }
     ],
   },
@@ -331,12 +342,12 @@ router.beforeEach((to, from, next) => {
       //正常情况下刷新会丢失store里的状态,因此每次跳转前获取一次（存在性能问题）
       if (store.state.user_info.info.length===0){
         getInfo(username).then(res=>{
-          console.log(res)
           const data=res;
           store.dispatch('user_info/setInfo', {data}).then(()=>{
             next()
           });
         }).catch(err=>console.log(err))
+
       }else {
         next()
       }

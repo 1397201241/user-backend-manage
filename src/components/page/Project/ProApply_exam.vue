@@ -124,8 +124,8 @@
             fixed="right"
             label="操作"
             width="240">
-          <template>
-            <el-button type="primary">建议并通过</el-button>
+          <template slot-scope="scope">
+            <el-button type="primary" @click="Pass(scope.row)">通过</el-button>
             <el-button type="danger">驳回</el-button>
           </template>
         </el-table-column>
@@ -147,8 +147,8 @@
 
 <script>
 import {get} from "../../../utils/request";
-/*const mof = /^\d+0{4}$/
-const dep = /^\d+0{2}$/*/
+const mof = /^\d+0{4}$/
+const dep = /^\d+0{2}$/
 
 export default {
   name: "ProApply_exam",
@@ -158,6 +158,11 @@ export default {
   },
   data(){
     return{
+      isMofInputShow:false,
+      dialogForm: {
+        depDes:'',
+        mofDes:''
+      },
       agencyOptions:[],
       valueAgency:'',
       options: [
@@ -185,8 +190,8 @@ export default {
       current:1,
       size:5,
       totalNum:5,
-      projectURL:'http://192.168.110.146:8003',
-      agencyURL:'http://192.168.110.79:8002/bm-bas-agency-info/subAgency/',
+      projectURL:'http://192.168.110.85:8001',
+      agencyURL:'http://192.168.110.85:8001/bm-bas-agency-info/subAgency/',
 
     }
   },
@@ -194,25 +199,70 @@ export default {
     this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_FALSE')
   },
   methods:{
+    Pass(data){
+        let proId = data.proId.toString()
+            //http://192.168.110.146:8003
+        get(this.projectURL+"/project/examine?proId="+proId).then(
+            res => {
+              console.log(proId)
+              if(res.code === 200){
+                this.getProjectList()
+              }else{
+                this.$message('操作失败')
+              }
+            }
+        )
+
+      this.getProjectList()
+    },
+
+
+
+
     viewDetail(){
-      console.log(this.valueAgency[0])
-      get(this.projectURL+"/project/list/dept/project/agency?agencyCode="+this.valueAgency[0]).then(
-          myJson=>{
-            console.log(myJson)
-            this.myTableData = myJson.data
+      let agencyCode = this.$store.state.user_info.info.agencyCode
+      let userinfo = this.$store.state.user_info.info
+      console.log(agencyCode,userinfo)
+      if(mof.test(agencyCode)){
+        console.log("当前用户是财政部门人员，执行查找财政名下所有部门的项目的方法！")
+        let deptId = ''
+        for(let i of this.agencyOptions){
+          if(this.valueAgency[0] === i.value){
+            deptId = i.needId
+            console.log(" 部门id是",deptId)
           }
-      )
+        }
+        //http://192.168.110.146:8003
+        get(this.projectURL+"/project/list/mof/project?deptId="+deptId).then(
+            myJson=>{
+              console.log(myJson)
+              this.myTableData = myJson.data
+              this.setApplyLink()
+            }
+        )
+        }else if(dep.test(agencyCode)){
+        console.log("目前是部门，执行查找部门名下所有单位的项目的方法！")
+        get(this.projectURL+"/project/list/dept/project/agency?agencyCode="+this.valueAgency[0]).then(
+            myJson=>{
+              console.log("agencyCode是",agencyCode,this.valueAgency[0])
+              this.myTableData = myJson.data
+            }
+        )
+      }
     },
     iRefresh() {
       this.valueAgency = ''
+      this.getProjectList()
     },
     setAgencyAndDepartOptions(){
-      console.log(this.$store.state.user_info.info)
-      get(this.agencyURL+this.$store.state.user_info.info.agencyId).then(
+      console.log("用户信息是@@",this.$store.state.user_info.info)
+      let id = this.$store.state.user_info.info.agencyId
+
+      get(this.agencyURL+id).then(
           myJson=>{
             console.log(myJson)
             for(let i of myJson.data){
-              this.agencyOptions.push({label:i.agencyName,value:i.agencyCode})
+              this.agencyOptions.push({label:i.agencyName,value:i.agencyCode,needId:i.agencyId})
             }
           }
       )
@@ -283,13 +333,25 @@ export default {
       console.log(this.multipleSelection)
     },
     getProjectList(){
+      if(mof.test(this.$store.state.user_info.info.agencyCode)){
+        console.log("目前是财政")
+        get(this.projectURL+"/project/list/mof/project").then(
+            myJson=>{
+              console.log(myJson)
+              this.myTableData = myJson.data
+              this.setApplyLink()
+            }
+        )
+      }else if(dep.test(this.$store.state.user_info.info.agencyCode)){
       /*get("http://192.168.110.146:8003/project/list/agency?agencyCode=100000").then(myJson=>{
         console.log(myJson.data)
         this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
         this.setApplyLink()
       })*/
-      get(this.projectURL+"/project/list/dept/project?id="+this.$store.state.user_info.info.guid).then(
+      let id = this.$store.state.user_info.info.guid
+      console.log("目前是部门，获取待部门审核数据",id)
+      get(this.projectURL+"/project/list/dept/project?id="+id).then(
           myJson=>{
             this.myTableData = myJson.data
             this.totalNum = this.myTableData.length
@@ -297,8 +359,10 @@ export default {
             console.log(myJson)
           }
       )
-    }
-  }}
+    }else{
+        this.myTableData = []
+      }
+  }}}
 
 
 

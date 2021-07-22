@@ -257,6 +257,7 @@ export default {
           this.$emit('changeShow', 'false')}
         else if(this.opIndex === 2){
           console.log("执行编辑函数！")
+          console.log(this.formData.agencyCode)
           this.$emit('editPro',this.formData)
           this.$emit('changeShow', 'false')
         }

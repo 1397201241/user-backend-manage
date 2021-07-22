@@ -79,6 +79,7 @@ const Welcome = ()=>import('./Welcome');
 const Agency = ()=>import('./Agency');
 const Project = ()=>import('./Project/Project');
 import {menuList} from "../../assets/js/menuData";
+
 import {removeToken,removeUsernameToken} from "../../utils/auth";
 export default {
   name: "Home",
@@ -161,7 +162,10 @@ export default {
       this.$store.commit('base_info/SET_TOKEN','');
       //清除用户信息
       this.$store.commit('user_info/SET_INFO',[]);
+
       //跳转
+
+
       this.$router.push({
         path:'/login'
       });

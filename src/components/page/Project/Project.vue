@@ -166,8 +166,7 @@ export default {
       size:5,
       totalNum:7,
       baseURL:"http://localhost:3000",
-      projectURL:"/project",
-      xprojectURL:"http://192.168.110.146:8003/project/",
+      projectURL:"http://192.168.110.85:8001/project/",
       addOrUpdateVisible: false,
       formInline:{
         projectName:'',
@@ -201,17 +200,19 @@ export default {
     },
   created() {
     this.getProjectList()
+
   },
   methods:{
     getStorageProjectList(){
-      get("http://192.168.110.146:8003/project/list/unapply/agency?"+"agencyCode="+"100000").then(myJson=>{
+      let agencyCode = this.$store.state.user_info.info.agencyCode
+      get(this.projectURL+"list/unapply/agency?"+"agencyCode="+agencyCode).then(myJson=>{
         console.log("get拿到",myJson.data)
         this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
       })
     },
     applyPro(proId){
-      post("http://192.168.110.146:8003/project/apply",proId).then(myJson=>{
+      post(this.projectURL+"apply",proId).then(myJson=>{
         console.log(proId,"申请post拿到",myJson)
         this.getStorageProjectList()
       })
@@ -246,7 +247,11 @@ export default {
       this.transferPro = formData
       /*this.transferPro.proTotalAmt = new bigDecimal(""+this.transferPro.proTotalAmt).value*/
       console.log("我要发送", this.transferPro)
-      post("http://192.168.110.146:8003/project/update", this.transferPro)
+      post(this.projectURL+"update", this.transferPro).then(
+          res=>{
+            console.log(res)
+          }
+      )
       /*this.$axios.post(
           "http://192.168.110.146:8003/project/update",
           this.transferPro
@@ -257,63 +262,29 @@ export default {
       )*/
     },
     selectPro(){
-      let filterList = [],lastList = []
 
-      if(this.value[0] && !this.formInline.projectName) {
-        for (let i of this.myTableData) {
-          if (i.setupYear === this.value[0]) {
-            filterList.push(i)
-          }
-        }
-        this.myTableData = filterList
-      }
-      else if(this.formInline.projectName && !this.value[0]){
+      if(this.formInline.projectName && !this.value[0]){
         /*for(let i of this.myTableData){
           if(i.PRO_NAME.includes(this.formInline.projectName)){
             filterList.push(i)
           }
         }
         this.myTableData = filterList*/
-        post(this.xprojectURL+"search",this.formInline.projectName).then(
+        post(this.projectURL+"search",this.formInline.projectName).then(
             myJson=>{
               console.log(myJson)
               this.myTableData = myJson.data
             }
 
         )
-      }
-      else if(this.value[0] && this.formInline.projectName){
-        console.log(this.value[0])
-        for(let i of this.myTableData){
-          if (i.SETUP_YEAR == this.value[0]) {
-            filterList.push(i)
-          }
-        }
-        console.log(filterList)
-        for(let i of filterList){
-          if(i.PRO_NAME.includes(this.formInline.projectName)){
-            lastList.push(i)
-          }
-        }
-        console.log(lastList)
-        this.myTableData = lastList
-      }else{
+      } else if(!this.formInline.projectName && !this.value[0]){
         console.log(this.formInline.projectName,this.value,1)
         this.getProjectList()
         console.log("获取列表")
       }
     },
     addProList(formData){
-      console.log(this.myTableData[this.myTableData.length-1])
-      this.transferPro = formData
-      let time = new Date()
-      this.transferPro.updateAt = time.toLocaleString()
-      this.transferPro.createAt = time.toLocaleString()
-      this.transferPro.id = (Number(this.myTableData[this.myTableData.length-1].id)+1).toString()
-
-      let theURL = this.baseURL+this.projectURL
-      post(theURL, this.transferPro)
-      this.getProjectList()
+      console.log(this.myTableData[this.myTableData.length-1],formData)
     },
     showAddOrUpdate(data){
       this.addOrUpdateVisible = data !== 'false';
@@ -341,7 +312,8 @@ export default {
         this.totalNum = this.myTableData.length
       })*/
       console.log("getProjectList")
-      get("http://192.168.110.146:8003/project/list/agency?"+"agencyCode="+"100000").then(myJson=>{
+      let agencyCode = this.$store.state.user_info.info.agencyCode
+      get(this.projectURL+"list/agency?"+"agencyCode="+agencyCode).then(myJson=>{
         console.log("get拿到",myJson.data)
         this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
@@ -380,7 +352,8 @@ export default {
       for(let i of toDelete){
         toDeleteProId.push(i.proId)
       }
-      post("http://192.168.110.146:8003/project/batchDelete",toDeleteProId)
+      post(this.projectURL+"batchDelete",toDeleteProId)
+      this.getStorageProjectList()
       //post("http://192.168.110.146:8003/project/delete",toDeleteProId[0])
     }
 

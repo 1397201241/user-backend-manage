@@ -27,81 +27,69 @@
           <el-table-column type="expand">
             <template slot-scope="props">
               <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="项目年度预算ID">
-                  <span>{{ props.row.BGT_PMAN_ID }}</span>
-                </el-form-item>
                 <el-form-item label="预算年度">
-                  <span>{{ props.row.FISCAL_YEAR }}</span>
+                  <span>{{ props.row.fiscalYear }}</span>
                 </el-form-item>
                 <el-form-item label="单位代码">
-                  <span>{{ props.row.AGENCY_CODE }}</span>
+                  <span>{{ props.row.agencyCode }}</span>
                 </el-form-item>
                 <el-form-item label="项目类别码">
-                  <span>{{ props.row.PRO_KIND_CODE }}</span>
+                  <span>{{ props.row.proKindCode }}</span>
                 </el-form-item>
                 <el-form-item label="项目代码">
-                  <span>{{ props.row.PRO_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="申报环节">
-                  <span>{{ props.row.APPLY_LINK }}</span>
+                  <span>{{ props.row.proCode }}</span>
                 </el-form-item>
                 <el-form-item label="财政审核数">
-                  <span>{{ props.row.FIN_AUDIT_MONEY }}</span>
+                  <span>{{ props.row.finAuditMoney }}</span>
                 </el-form-item>
                 <el-form-item label="部门代码">
-                  <span>{{ props.row.DEPT_CODE }}</span>
+                  <span>{{ props.row.deptCode }}</span>
                 </el-form-item>
                 <el-form-item label="申报数">
-                  <span>{{ props.row.APPLY_UP }}</span>
+                  <span>{{ props.row.applyUp }}</span>
                 </el-form-item>
                 <el-form-item label="年初批复数">
-                  <span>{{ props.row.REPLY_AMT }}</span>
+                  <span>{{ props.row.replyAmt }}</span>
                 </el-form-item>
                 <el-form-item label="调整金额">
-                  <span>{{ props.row.ADJ_AMT }}</span>
+                  <span>{{ props.row.adjAmt }}</span>
                 </el-form-item>
                 <el-form-item label="变动后预算数">
-                  <span>{{ props.row.CUR_AMT }}</span>
-                </el-form-item>
-                <el-form-item label="资金来源代码">
-                  <span>{{ props.row.FOUND_TYPE_CIDE }}</span>
+                  <span>{{ props.row.curAmt }}</span>
                 </el-form-item>
                 <el-form-item label="创建时间">
-                  <span>{{ props.row.CREATE_AT }}</span>
+                  <span>{{ props.row.createAt }}</span>
                 </el-form-item>
                 <el-form-item label="更新时间">
-                  <span>{{ props.row.UPDATE_AT }}</span>
+                  <span>{{ props.row.updateAt }}</span>
                 </el-form-item>
-                <el-form-item label="财政区划代码">
-                  <span>{{ props.row.MOF_DIV_CODE }}</span>
-                </el-form-item>
-                <el-form-item label="欢乐锁">
-                  <span>{{ props.row.VERSION }}</span>
+                <el-form-item label="版本号">
+                  <span>{{ props.row.version }}</span>
                 </el-form-item>
                 <el-form-item label="是否删除">
-                  <span>{{ props.row.IS_DELETE }}</span>
+                  <span>{{ props.row.isDelete }}</span>
                 </el-form-item>
               </el-form>
             </template>
           </el-table-column>
           <el-table-column
               label="项目代码"
-              width="240">
-            <template slot-scope="scope">{{ scope.row.PRO_CODE }}</template>
+              width="200">
+            <template slot-scope="scope">{{ scope.row.proCode }}</template>
           </el-table-column>
           <el-table-column
-              prop="AGENCY_CODE"
+              prop="agencyCode"
               label="单位代码"
-              width="180">
+              width="200">
           </el-table-column>
           <el-table-column
-              prop="FISCAL_YEAR"
+              prop="fiscalYear"
               label="预算年度"
               width="180">
           </el-table-column>
           <el-table-column
-              prop="MOF_DIV_CODE"
-              label="财政区划代码"
+              prop="replyAmt"
+              label="年初批复数"
               width="180">
           </el-table-column>
           <el-table-column
@@ -111,7 +99,7 @@
             <template slot-scope="scope"><!---->
               <el-button
                   type="primary"
-                  @click.native.prevent="gentleTarget(scope.row.BGT_ID)"
+                  @click.native.prevent="gentleTarget(scope.row)"
               >
                 <i class="iconfont icon-xiugai"></i>
                 生成指标
@@ -124,7 +112,7 @@
                      @size-change="handleSizeChange"
                      @current-change="handleCurrentChange"
                      :current-page="current"
-                     :page-sizes="[6,10,15,20]"
+                     :page-sizes="[4,10]"
                      :page-size="size"
                      layout="total, sizes, prev, pager, next, jumper"
                      :total="totalNum"
@@ -139,8 +127,8 @@
         <div class="daDialogTitle">生成指标</div>
         <el-form :model="formData" :rules="rules" ref="genTargetForm">
           <el-container>
-            <el-form-item  prop="FISCAL_YEAR" label="预算年度" style="width: 50%;">
-              <el-select v-model="formData.FISCAL_YEAR" style="width: 98%;">
+            <el-form-item  prop="fiscalYear" label="预算年度" style="width: 50%;">
+              <el-select v-model="formData.fiscalYear" style="width: 98%;">
                 <el-option v-for="item in fiscalYearOptions"
                            :key="item.value"
                            :label="item.label"
@@ -149,23 +137,19 @@
                 </el-option>
               </el-select>
             </el-form-item>
-            <el-form-item prop="COR_BGT_DOC_NO" label="本级指标文号" style="width: 50%;">
-              <el-input v-model="formData.COR_BGT_DOC_NO" style="width: 98%;left: 0;"></el-input>
+            <el-form-item prop="indicatorPaperNumber" label="本级指标文号" style="width: 50%;">
+              <el-input v-model="formData.indicatorPaperNumber" style="width: 98%;left: 0;"></el-input>
             </el-form-item>
           </el-container>
-          <el-form-item prop="BGT_DOC_TITLE" label="指标文标题" style="width: 100%;">
-            <el-input v-model="formData.BGT_DOC_TITLE" style="width: 98%;left: 0;"></el-input>
+          <el-form-item prop="indicatorPaperTitle" label="指标文标题" style="width: 100%;">
+            <el-input v-model="formData.indicatorPaperTitle" style="width: 98%;left: 0;"></el-input>
           </el-form-item>
-          <el-container>
-            <el-form-item prop="AMOUNT" label="指标金额" style="width: 50%;">
-              <el-input v-model="formData.AMOUNT" style="width: 98%;left: 0;"></el-input>
+            <el-form-item prop="indicatorAmount" label="指标金额" style="width: 100%;">
+              <el-input v-model="formData.indicatorAmount" style="width: 98%;left: 0;"></el-input>
             </el-form-item>
-            <el-form-item prop="IS_DELETE" label="是否删除" style="width: 50%;">
-              <el-input v-model="formData.IS_DELETE" style="width: 98%;left: 0;"></el-input>
-            </el-form-item>
-          </el-container>
-          <el-form-item prop="BGT_DEC" label="指标说明" style="width:100%;">
-            <el-input v-model="formData.BGT_DEC" type="textarea" style="width: 98%;left: 0;"></el-input>
+
+          <el-form-item prop="indicatorDescribe" label="指标说明" style="width:100%;">
+            <el-input v-model="formData.indicatorDescribe" type="textarea" style="width: 98%;left: 0;"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" style="margin-top: -50px">
@@ -178,144 +162,75 @@
 </template>
 
 <script>
-import {get} from "../../../utils/request";
+import {get,put} from "../../../utils/request";
 
 export default {
   name: "DraftApproval",
   data(){
     return{
+      theDraftUrl : "http://192.168.110.85:8001/reply",
       formData:{
-        BGT_ID: 2,
-        MOF_DIV_CODE: '',
-        FISCAL_YEAR: '',
-        COR_BGT_DOC_NO: '',
-        BGT_DOC_TITLE: '',
-        DOC_DATE: "",
-        BGT_DEC: "",
-        SUP_BGT_DOC_NO: "",
-        PRO_CODE: "",
-        BGT_EXE_FLAG: "",
-        IS_TRACK: "",
-        TRACK_PRO_CODE: "",
-        AGENCY_CODE: "",
-        BGT_TYPE_CODE: "",
-        AMOUNT: "",
-        BGT_MOF_DEP_CODE: "",
-        ORI_BGT_ID: "",
-        FOUND_TYPE_CODE: "",
-        BGT_PMAN_ID: "",
-        IS_DELETE: 0,
-        SOURCE_TYPE_CODE: "",
-        CREATE_AT: "",
-        UPDATE_AT: "",
-        VERSION: ""
+        fiscalYear: '',
+        indicatorPaperNumber: '',//本级指标文号
+        indicatorDescribe:'',
+        indicatorAmount:'',
+        indicatorPaperTitle:'',
+        budgetId:'',
+        projectCode:'',
+        agencyCode:''
       },
       dialogVisible:false,
       current:1,
-      size:6,
+      size:4,
       totalNum: 20,
       changeDialogVisible:false,
       //表单校验
       rules: {
-        BGT_ID: [
-          { required: true, message: '请输入ID', trigger: 'blur' }
+        fiscalYear: [
+          { required: true, message: '预算年度', trigger: 'blur' },
         ],
-        MOF_DIV_CODE:[
-          { required: true, message: '请输入用户类型', trigger: 'blur' },
+        indicatorPaperNumber: [
+          { required: true, message: '指标文号', trigger: 'blur' },
         ],
-        FISCAL_YEAR:[
-          { required: true, message: '请输入用户所属财政', trigger: 'blur' },
+        indicatorDescribe: [
+          { required: true, message: '指标描述', trigger: 'blur' },
         ],
-        COR_BGT_DOC_NO:[
-          { required: true, message: '请输入用户所属机构', trigger: 'blur' },
+        indicatorAmount: [
+          { required: true, message: '指标金额', trigger: 'blur' },
         ],
-        BGT_DOC_TITLE:[
-          { required: true, message: '请输入用户姓名', trigger: 'blur' },
+        indicatorPaperTitle: [
+          { required: true, message: '指标文标题', trigger: 'blur' },
         ],
-        DOC_DATE:[
-          { required: true, message: '请输入用户账号', trigger: 'blur' },
-        ],
-        BGT_DEC:[
-          { required: true, message: '请输入用户密码', trigger: 'blur' },
-        ],
-        BUDGET_LEVEL_CODE:[
-          { required: true, message: '请输入用户身份证', trigger: 'blur' },
-        ],
-        SUP_BGT_DOC_NO:[
-          { required: true, message: '请输入用户电话', trigger: 'blur' },
-        ],
-        PRO_CODE: [
-          { required: true, message: '请输入用户备注', trigger: 'blur' },
-        ],
-        BGT_EXE_FLAG: [
-          { required: true, message: '请输入用户状态', trigger: 'blur' }
-        ],
-        IS_TRACK: [
-          { required: true, message: '请输入用户创建时间', trigger: 'blur' }
-        ],
-        TRACK_PRO_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        AGENCY_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        BGT_TYPE_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        AMOUNT: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        BGT_MOF_DEP_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        ORI_BGT_ID: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ]
-        ,
-        FOUND_TYPE_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ]
-        ,
-        BGT_PMAN_ID: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        IS_DELETE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        SOURCE_TYPE_CODE: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        CREATE_AT: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        UPDATE_AT: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ],
-        VERSION: [
-          { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-        ]
       },
       myTableData:[],
-      bgtURL:"http://localhost:3000/bgt_pm",
       fiscalYearOptions: [
         {value:2010,label:"2010年"},{value:2011,label:"2011年"},{value:2012,label:"2012年"},
         {value:2013,label:"2013年"},{value:2014,label:"2014年"},{value:2015,label:"2015年"},
         {value:2016,label:"2016年"},{value:2017,label:"2017年"},{value:2018,label:"2018年"},
         {value:2019,label:"2019年"},{value:2020,label:"2020年"},{value:2021,label:"2021年"},
-      ]
+      ],
+      genTargetInfo:{
+        bgtId:'',
+        agencyCode:'',
+        proCode:''
+      }
+
     }
   },
   created() {
     console.log("created中")
     this.getBgtList()
     },
+
   methods:{
-    gentleTarget(id){
-      console.log(id)
+    gentleTarget(data){
       this.dialogVisible = true
-      for(let i of this.myTableData){
-        console.log('x',i)
-      }
+      this.genTargetInfo.bgtId = data.bgtPmanId
+      this.genTargetInfo.proCode = data.proCode
+      this.genTargetInfo.agencyCode = data.agencyCode
+
+
+
     },
     show(operaIndex,id){
       console.log(id)
@@ -337,22 +252,17 @@ export default {
       this.addOrUpdateVisible = true
     },
     getBgtList(){
-      console.log("获取中")
-      get(this.bgtURL).then(myJson=>{
-        this.myTableData = myJson
-        console.log("mytable",this.myTableData)
-        this.totalNum = this.myTableData.length
-      })
 
-    },
-    //打开修改客户对话框
-    handleChangeRow(scope) {
-      console.log(this.changePayApplyForm);
-      const data=scope.row;
-      /*注入修改信息*/
-      this.changePayApplyForm=data;
-      this.changePayApplyForm.id=data.PAY_APP_ID;
-      this.changeDialogVisible=true;
+
+      get(this.theDraftUrl+"/budgetmaking/listdraft?"+"deptCode="+"&agencyCode="+"&fiscalYear=").then(
+          res=>{
+            console.log(res)
+            this.myTableData = res.data
+            console.log("mytable",this.myTableData)
+            this.totalNum = this.myTableData.length
+          }
+      )
+
     },
     //关闭对话框提示
     close(formName) {
@@ -364,7 +274,45 @@ export default {
     },
     handleConfirm(formName) {
       console.log(formName)
+      this.$confirm('确定提交吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let BigDecimal = require('js-big-decimal')
+        this.formData.indicatorAmount = new BigDecimal(""+this.formData.indicatorAmount).value
+        console.log(new BigDecimal(""+this.formData.indicatorAmount))
+        this.formData.agencyCode = this.genTargetInfo.agencyCode
+        this.formData.projectCode = this.genTargetInfo.proCode
+        this.formData.budgetId = this.genTargetInfo.bgtId
+
+        //http://192.168.110.5:8005/reply
+        put(this.theDraftUrl+"/npc/add",this.formData).then(
+            res => {
+              console.log(res)
+              if(res.code === 200){
+                this.$message({
+                  type: 'success',
+                  message: '提交成功!请前往下发界面！'
+                });
+              }else{
+                this.$message({
+                  type: 'error',
+                  message: '提交失败!请检查网络或服务端接口！'
+                });
+              }
+            }
+        )
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消。'
+        });
+      });
+
       this.dialogVisible=false;
+
     },
     handleChangeBtnClick(formName) {
       this.$refs[formName].validate((valid) => {
@@ -385,13 +333,13 @@ export default {
     },
     //选择一页显示多少行
     handleSizeChange(val) {
-      this.currentPage = 1;
-      this.pageSize = val;
+      this.current = 1;
+      this.size = val;
     },
     //跳转其他页
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
-      this.currentPage = val;
+      this.current = val;
     },
   }
 }

@@ -13,7 +13,7 @@
       <span style="width:100%;border-radius:5pt;background-color:rgba(224,221,221,0.6);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
               margin-top: 10px;color:rgba(61,128,179,0.6);">单位待接受指标</span>
       <el-table
-          :data="$store.state.budget_index_info.budgetIndex.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
+          :data="this.myTableData.slice((this.currentPage-1)*this.pageSize,this.currentPage*this.pageSize)"
           stripe
           max-height="600px"
           @selection-change="handleSelectionChange"
@@ -24,78 +24,26 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="项目代码">
-                <span>{{ props.row.PRO_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="指标说明">
-                <span>{{ props.row.BGT_DEC }}</span>
-              </el-form-item>
-              <el-form-item label="指标可执行标志">
-                <span>{{ props.row.BGT_EXE_FLAG }}</span>
-              </el-form-item>
-              <el-form-item label="是否追踪">
-                <span>{{ props.row.IS_TRACK }}</span>
-              </el-form-item>
-              <el-form-item label="预算次级代码">
-                <span>{{ props.row.BUDGET_LEVEL_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="上级指标文号">
-                <span>{{ props.row.SUP_BGT_DOC_NO }}</span>
-              </el-form-item>
-              <el-form-item label="需要追踪项目代码">
-                <span>{{ props.row.TRACK_PRO_CODE }}</span>
+                <span>{{ props.row.projectCode }}</span>
               </el-form-item>
               <el-form-item label="单位代码">
-                <span>{{ props.row.AGENCY_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="指标类型代码">
-                <span>{{ props.row.BGT_TYPE_CODE }}</span>
+                <span>{{ props.row.agencyCode }}</span>
               </el-form-item>
               <el-form-item label="指标金额">
-                <span>{{ props.row.AMOUNT }}</span>
-              </el-form-item>
-              <el-form-item label="指标管理处室代码">
-                <span>{{ props.row.BGT_MOF_DEP_CODE }}</span>
+                <span>{{ props.row.indicatorAmount }}</span>
               </el-form-item>
               <el-form-item label="发文时间">
-                <span>{{ props.row.DOC_DATE }}</span>
-              </el-form-item>
-              <el-form-item label="源指标主键">
-                <span>{{ props.row.ORI_BGT_ID }}</span>
-              </el-form-item>
-              <el-form-item label="资金来源代码">
-                <span>{{ props.row.FOUND_TYPE_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="项目年度预算主键">
-                <span>{{ props.row.BGT_PMAN_ID }}</span>
-              </el-form-item>
-              <el-form-item label="是否删除">
-                <span>{{ props.row.IS_DELETED }}</span>
-              </el-form-item>
-              <el-form-item label="指标来源代码">
-                <span>{{ props.row.SOURCE_TYPE_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="财政区划代码">
-                <span>{{ props.row.MOF_DIV_CODE }}</span>
+                <span>{{ props.row.indicatorPaperTime }}</span>
               </el-form-item>
               <el-form-item label="预算年度">
-                <span>{{ props.row.FISCAL_YEAR }}</span>
-              </el-form-item>
-              <el-form-item label="本机指标文号">
-                <span>{{ props.row.COR_BGT_DOC_NO }}</span>
+                <span>{{ props.row.fiscalYear }}</span>
               </el-form-item>
               <el-form-item label="指标文号题">
-                <span>{{ props.row.BGT_DOC_TITLE }}</span>
+                <span>{{ props.row.indicatorPaperTitle }}</span>
               </el-form-item>
-              <el-form-item label="创建时间">
-                <span>{{ props.row.CREATE_AT }}</span>
+              <el-form-item style="width: 100%;" label="指标说明">
+                <span>{{ props.row.indicatorDescribe }}</span>
               </el-form-item>
-              <el-form-item label="更新时间">
-                <span>{{ props.row.UPDATE_AT }}</span>
-              </el-form-item>
-              <el-form-item label="版本">
-                <span>{{ props.row.VERSION }}</span>
-              </el-form-item>
-
             </el-form>
           </template>
         </el-table-column>
@@ -106,35 +54,28 @@
         >
         </el-table-column>
         <el-table-column
-            prop="FISCAL_YEAR"
+            prop="fiscalYear"
             label="预算年度"
-            width="120"
+            width="180"
         >
         </el-table-column>
         <el-table-column
-            prop="BGT_DOC_TITLE"
+            prop="indicatorPaperTitle"
             label="指标文标题"
             width="180"
         >
         </el-table-column>
         <el-table-column
-            prop="DOC_DATE"
-            label="发文时间"
-            width="180px"
-            align="center"
-        >
-        </el-table-column>
-        <el-table-column
-            prop="BUDGET_LEVEL_CODE"
-            label="预算级次代码"
-            width="200px"
+            prop="indicatorAmount"
+            label="指标金额"
+            width="240px"
             align="center"
         >
         </el-table-column>
         <el-table-column
             prop="action"
             label="操作"
-            width="300px"
+            width="260px"
             align="center"
         >
           <template slot-scope="scope">
@@ -142,7 +83,7 @@
             <!--            @click.native.prevent="handleChangeRow(scope)"-->
             <el-button
                 type="primary"
-                @click.native.prevent="accept"
+                @click.native.prevent="accept(scope.row.indicatorPaperNumber)"
             >
               <i class="iconfont icon-xiugai"></i>
               确认接受
@@ -161,10 +102,10 @@
                    @size-change="handleSizeChange"
                    @current-change="handleCurrentChange"
                    :current-page="currentPage"
-                   :page-sizes="[6,10,15,20]"
+                   :page-sizes="[4,10,15,20]"
                    :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper"
-                   :total="$store.state.budget_index_info.budgetIndex.length"
+                   :total="total"
                    style="margin-top: 520px;position:absolute;z-index: 1;margin-left: 370px;"
     >
     </el-pagination>
@@ -175,19 +116,31 @@
 </template>
 
 <script>
+import {get,post} from '../../../utils/request'
 export default {
   name: "AcTarget",
   data(){
     return{
+      myTableData:[],
       currentPage:1,
-      pageSize:6,
+      pageSize:4,
       total:5,
+      sendUrl:"http://192.168.110.85:8001/info/",
+      acUrl:"http://192.168.110.85:8001/reply/"
     }
   },
   created() {
     this.getBudget()
   },
   methods:{
+    accept(number){
+      post(this.acUrl+"agency/"+number).then(
+          res => {
+            console.log(res)
+          }
+      )
+      this.getBudget()
+    },
     viewTargetDetail(data){
       this.$router.push(
           {path:'/target_detail',
@@ -197,7 +150,25 @@ export default {
     },
     /*获取支付申请*/
     getBudget(){
-      this.$store.dispatch('budget_index_info/getBudgetIndex')
+      //this.$store.dispatch('budget_index_info/getBudgetIndex')
+      let id = this.$store.state.user_info.info.agencyId
+      get(this.sendUrl+"unfinished/" + id).then(
+          res => {
+            this.myTableData = res.data
+            let trans = []
+            for(let i of this.myTableData){
+              if(i.executable === 3){
+                trans.push(i)
+              }
+            }
+            this.myTableData = trans
+            console.log(this.myTableData.length)
+            this.total = this.myTableData.length
+            console.log(this.myTableData,"表格数据")
+          }
+      )
+
+
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;

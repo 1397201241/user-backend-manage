@@ -386,7 +386,7 @@ export const menuList = [
         {
           "id": 341,
           "parentId": 295,
-          "menuName": "支付凭证列表",
+          "menuName": "单位凭证列表",
           "url": "/pay_voucher_list",
           "icon": "el-icon-edit",
           "orderNum": 1,

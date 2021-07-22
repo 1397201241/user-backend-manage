@@ -68,7 +68,7 @@ export default {
         setupYear: "",
         proCode: "",
         proName: "",
-        agencyCode: "100000",
+        agencyCode: "010100",
         proTerm: "",
         proTotalAmt: "",
         proDepreview: "",
@@ -131,7 +131,7 @@ export default {
       }
     },
     setRroCode(){
-      //生成项目代码
+      //生成项目代码 = 类型码+年月日+时分秒
       let time = new Date()
       let year = time.getFullYear();
       let month = time.getMonth()+1;
@@ -157,8 +157,9 @@ export default {
       this.formData.IS_END = 0
       //转换金币格式为bigdecimal
       this.formData.proTotalAmt = new bigDecimal(""+this.formData.proTotalAmt).value
-      console.log(this.formData)
-      post("http://192.168.110.146:8003/project/add",this.formData)
+      this.formData.agencyCode = this.$store.state.user_info.info.agencyCode
+      console.log(this.formData.agencyCode)
+      post("http://192.168.110.85:8001/project/add",this.formData)
       this.putMessageOut()
     },
     putMessageOut(){
@@ -199,6 +200,7 @@ export default {
   },
   mounted() {
     this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_FALSE')
+    console.log(this.$store.state.user_info.info)
   }
 }
 </script>
