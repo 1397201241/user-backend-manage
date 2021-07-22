@@ -200,7 +200,7 @@
                 apply.agencyCode=this.formData.agencyCode;
                 apply.proCode=this.formData.proCode;
                 apply.applyUp=this.formData.applyUp;
-                fetch("http://192.168.110.146:8004/budgetmaking/addbudgetdraft?proReview="+this.formData.proReview,{
+                fetch("http://192.168.110.85:8001/budgetmaking/addbudgetdraft?proReview="+this.formData.proReview,{
                     method:'POST',
                     headers:{
                         "Content-Type": 'application/json',

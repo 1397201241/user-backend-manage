@@ -2,8 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {getToken,getUsernameToken} from "../utils/auth";
 import store from '../store'
+import {getInfo} from "../api/user";
 
 const PayVoucher = ()=>import('../components/page/audit/PayVoucher');
+const PayVoucherList1 = ()=>import('../components/page/audit/PayVoucherList');
 const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
 const ProApply = ()=>import("../components/page/Project/ProApply");
 const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
@@ -83,7 +85,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    meta:{title:'首页'},
+    meta:{title:'首页',requireAuth:true},
     children:[
       {
         path:'/reply',
@@ -203,7 +205,7 @@ const routes = [
         path: '/welcome',
         name:'Welcome',
         component:Welcome,
-        meta: {title: '欢迎页面'/*,requireAuth:true*/}
+        meta: {title: '欢迎页面',requireAuth:true}
       },
       {
         path: '/project',
@@ -217,6 +219,12 @@ const routes = [
         name:'PayVoucher',
         component:PayVoucher,
         meta: {title: '支付凭证',requireAuth:true}
+      },
+      {
+        path: '/pay_voucher_list1',
+        name:'PayVoucherList1',
+        component:PayVoucherList1,
+        meta: {title: '支付凭证回单',requireAuth:true}
       },
       {
         path: '/capital_liquidation',
@@ -321,19 +329,14 @@ router.beforeEach((to, from, next) => {
     if (token) {
       //判断用户信息是否已获取，这里只能通过长度判断
       //正常情况下刷新会丢失store里的状态,因此每次跳转前获取一次（存在性能问题）
-      console.log("11")
       if (store.state.user_info.info.length===0){
-        console.log("1111")
-        fetch('http://192.168.110.85:8001/bm-fasp-tcauser/username/'+username,{
-          method:'GET',
-          mode:'cors'
-        })
-            .then(res=>res.json())
-            .then(res=>{
-              const data=res.data;
-              store.commit('user_info/SET_INFO',data);
-              next()
-            })
+        getInfo(username).then(res=>{
+          console.log(res)
+          const data=res;
+          store.dispatch('user_info/setInfo', {data}).then(()=>{
+            next()
+          });
+        }).catch(err=>console.log(err))
       }else {
         next()
       }

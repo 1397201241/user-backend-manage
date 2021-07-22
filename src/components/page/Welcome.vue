@@ -4,30 +4,32 @@
   <el-container  direction="vertical">
     <span style="text-align: left;margin-left: 20px">基础信息管理</span>
     <el-container style="margin-left: 0">
-      <el-card :body-style="{padding:'0'}"
-               style="height: 120px;width: 250px;position: relative"
-      >
-        <img src="./../../assets/imgs/card9.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/welcome')"><span>欢迎界面</span></div>
-      </el-card>
+
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card10.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>用户列表</span></div>
+        <div class="card-title" @click="manageUser"><span>用户列表</span></div>
+      </el-card>
+      <el-card :body-style="{padding:'0'}" disabled
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card12.jpg" style="width: 100%"/>
+        <div class="card-title" @click="manageAgency"><span>单位管理</span></div>
+      </el-card>
+      <el-card :body-style="{padding:'0'}"
+               style="height: 120px;width: 250px;position: relative"
+      >
+        <img src="./../../assets/imgs/card9.jpg" style="width: 100%"/>
+        <div class="card-title" @click="$router.push('/agency_project_list')"><span>项目列表</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
         <img src="./../../assets/imgs/card11.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>角色权限</span></div>
+        <div class="card-title" @click="$router.push('/budget_apply_list4')"><span>审核列表</span></div>
       </el-card>
-      <el-card :body-style="{padding:'0'}"
-               style="height: 120px;width: 250px;position: relative"
-      >
-        <img src="./../../assets/imgs/card12.jpg" style="width: 100%"/>
-        <div class="card-title" @click="$router.push('/role_list')"><span>单位管理</span></div>
-      </el-card>
+
     </el-container>
     <span style="text-align: left;margin-left: 20px">预算信息管理</span>
     <el-container style="margin-left: 0">
@@ -61,7 +63,7 @@
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/card5.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card14.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/add_pay')"><span>新建支付申请</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
@@ -73,7 +75,7 @@
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
       >
-        <img src="./../../assets/imgs/card7.jpg" style="width: 100%"/>
+        <img src="./../../assets/imgs/card5.jpg" style="width: 100%"/>
         <div class="card-title" @click="$router.push('/capital_liquidation')"><span>资金清算</span></div>
       </el-card>
       <el-card :body-style="{padding:'0'}"
@@ -83,7 +85,7 @@
         <div class="card-title" @click="$router.push('/liquidation')"><span>清算凭证</span></div>
       </el-card>
     </el-container>
-    <span style="text-align: left;margin-left: 20px">项目管理</span>
+    <!--<span style="text-align: left;margin-left: 20px">项目管理</span>
     <el-container style="margin-left: 0">
       <el-card :body-style="{padding:'0'}"
                style="height: 120px;width: 250px;position: relative"
@@ -110,7 +112,7 @@
         <div class="card-title" @click="$router.push('/project')"><span>查看项目</span></div>
       </el-card>
 
-    </el-container>
+    </el-container>-->
   </el-container>
 </div>
 </template>
@@ -125,6 +127,30 @@
   }
   },
   methods:{
+    manageUser(){
+      if (this.$store.state.user_info.info.name!=='admin'){
+        this.$notify({
+          title: '警告',
+          message: '对不起，您没有用户管理权限',
+          duration:2000,
+          type: 'warning'
+        });
+      }else {
+        this.$router.push('/users')
+      }
+    },
+    manageAgency(){
+      if (this.$store.state.user_info.info.name!=='admin'){
+        this.$notify({
+          title: '警告',
+          message: '对不起，您没有单位管理权限',
+          duration:2000,
+          type: 'warning'
+        });
+      }else {
+        this.$router.push('/agency')
+      }
+    }
   },
   created() {
 

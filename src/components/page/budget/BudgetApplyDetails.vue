@@ -91,7 +91,7 @@
         name: "AgencyBudgetApply",
         data(){
             return {
-                baseURL:'http://192.168.110.146:8004/budgetmaking',
+                baseURL:'http://192.168.110.85:8001/budgetmaking',
                 formData:{
                     adjAmt:'',
                     agencyCode:"",

@@ -1,55 +1,85 @@
 <template>
     <el-container style="padding:-30px -150px -150px -30px" direction="vertical">
         <el-divider content-position="left"><span style="color: red;font-size: large">划款清算申请</span></el-divider>
-        <!--划款清算申请-->
         <el-table
-                :show-header='false'
-                :data="data"
-                border
-                style="width: 100%;margin-top: 20px;margin-bottom: 20px">
-            <el-table-column prop="key"></el-table-column>
-            <el-table-column prop="value"></el-table-column>
-            <el-table-column prop="key2"></el-table-column>
-            <el-table-column prop="value2"></el-table-column>
-            <el-table-column prop="key3"></el-table-column>
-            <el-table-column prop="value3"></el-table-column>
+                ref="multipleTable"
+                :data="auditData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+                tooltip-effect="dark"
+                max-height="240"
+                style="min-height: 240px"
+                @selection-change="handleSelectionChange">
+            <el-table-column
+                    type="selection"
+                    width="50">
+            </el-table-column>
+            <el-table-column
+                    prop="liquCertId"
+                    label="清算凭证ID"
+                    width="200">
+            </el-table-column>
+            <!--<el-table-column
+                    prop="operatorId"
+                    label="操作者ID"
+                    width="120">
+            </el-table-column>-->
+            <el-table-column
+                    prop="liquCertNum"
+                    label="清算凭证号">
+            </el-table-column>
+            <el-table-column
+                    prop="amout"
+                    label="金额">
+                <template slot-scope="scope">$ {{ scope.row.amout }}</template>
+            </el-table-column>
+            <!--<el-table-column
+                    prop="agentBank"
+                    label="代理银行"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="clearBank"
+                    label="清算银行">
+            </el-table-column>-->
+            <!--<el-table-column
+                    label="操作">
+              <template slot-scope="scope">
+                <el-button type="primary" size="mini" @click="send(scope.row)">进行申请</el-button>
+                <el-button type="primary" size="mini" @click=viewPayVoucherDetail(scope.row)>查看详情</el-button>
+              </template>
+            </el-table-column>-->
         </el-table>
-        <el-divider content-position="left"><span style="color: red;font-size: large">财政支付汇总清算额度通知单</span></el-divider>
-        <!--财政支付汇总清算额度通知单-->
-        <el-table
-                :show-header='false'
-                :data="payData"
-                border
-                style="width: 100%;margin-top: 20px;margin-bottom: 20px">
-            <el-table-column prop="key"></el-table-column>
-            <el-table-column prop="value"></el-table-column>
-            <el-table-column prop="key2"></el-table-column>
-            <el-table-column prop="value2"></el-table-column>
-            <el-table-column prop="key3"></el-table-column>
-            <el-table-column prop="value3"></el-table-column>
-        </el-table>
-        <!--划款申请按钮-->
-        <div style="margin-top: 40px">
+        <el-pagination
+                style="padding-top: 15px;margin-left: 0;"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                background
+                :current-page.sync="current"
+                :page-sizes="[2, 3, 4]"
+                :page-size="pageSize"
+                layout="total,sizes,prev,pager,next,jumper"
+                :total="total">
+        </el-pagination>
+        <div style="margin-top: 20px">
             <el-button type="primary" @click="pay">
                 <i class="iconfont icon-yinhangqiazhifuzhangdanfukuanjinqianchucunqia"></i>
-                确认支付</el-button>
-            <el-button type="primary" @click="send1">
+                清算支付</el-button>
+            <el-button type="primary" @click="send1" disabled>
                 <i class="iconfont icon-fasong"></i>
                 发送代理银行回单</el-button>
-            <el-button type="primary" @click="send2">
+            <el-button type="primary" @click="send2" disabled>
                 <i class="iconfont icon-fasong"></i>
                 发送财政部门回单</el-button>
         </div>
+
     </el-container>
 </template>
 
 <script>
-    import {get} from "../../../utils/request";
-
     export default {
         name: "PayVoucher",
         data(){
             return {
+                auditData:[],
                 data:[
                     {
                         key : "清算凭证主键",
@@ -251,7 +281,7 @@
                         { required: true, message: '请输入用户更新时间', trigger: 'blur' }
                     ]
                 },
-                bgtURL:"http://localhost:3000/bgt_pm?AGENCY_CODE=4623",
+                bgtURL:"http://192.168.110.182:8004/audit",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
@@ -259,13 +289,50 @@
             }
         },
         created() {
-
+            this.getAuditVoucherList()
         },
         methods:{
-            getBgtList(){
-                get(this.bgtURL).then(myJson=>{
-                    this.myTableData = myJson
+            /**
+             * @description 获取清算凭证
+             */
+            getAuditVoucherList(){
+                fetch(this.bgtURL+"/all",{
+                    method:'GET',
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    mode:'cors'
                 })
+                    .then(res=>res.json())
+                    .then(myJson=>{
+                        console.log(myJson.data)
+                        this.auditData = myJson.data;
+                        this.total=myJson.data.length
+                    }).catch(err=>{
+                    console.log(err)
+                })
+            },
+            /**
+             * @description 确认支付
+             */
+            pay(){
+                fetch(this.bgtURL+"/auditAll",{
+                    method:'GET',
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    mode:'cors'
+                })
+                    .then(res=>res.json())
+                    .then(myJson=>{
+                        console.log(myJson.data)
+                        this.$router.push('/welcome')
+                        //this.auditData = myJson.data;
+                        //this.total=myJson.data.length
+                    }).catch(err=>{
+                    console.log(err)
+                })
+                alert('向代理银行支付')
             },
             handleAddBtnClick(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -295,9 +362,7 @@
                     .catch(()=> {});
             },
 
-            pay(){
-                alert('向代理银行支付')
-            },
+
             send1(){
                 alert('发送代理银行《划款清算凭证回单》')
             },

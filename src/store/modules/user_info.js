@@ -57,6 +57,16 @@ const mutations = {
 
 // actions 内部可以执行异步操作，context.commit()提交mutations来修改状态
 const actions = {
+
+    /**
+     * @description 设置用户基本信息
+     * @param commit
+     * @param params
+     * @return {Promise<unknown>}
+     */
+    setInfo: ({commit},params) => {
+        commit('SET_INFO',params.data)
+    },
     //获取用户账号密码
     getUser: ({commit}) => {
         get('http://localhost:3000/user').then(res=>{

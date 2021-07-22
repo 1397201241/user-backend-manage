@@ -35,7 +35,7 @@ const mutations = {
   },
   // 添加tabs
   ADD_TABS(state, data) {
-    state.openTab.push(data)
+    state.openTab.unshift(data)
   },
   // 添加tabs
   ADD_TABS2(state, data) {
@@ -72,6 +72,7 @@ const actions = {
         "/welcome":"欢迎界面",
         "/project":"项目列表",
         "/agency":"单位管理",
+        "/pay_voucher_list1":"支付凭证回单",
         "/pay_voucher":"支付凭证",
         "/capital_liquidation":"资金清算",
         "/liquidation":"清算凭证",

@@ -46,20 +46,26 @@
       <el-table-column
               prop="agencyName"
               label="所在单位"
-              width="200"
+              width="240"
       >
       </el-table-column>
       <el-table-column
-              prop="agencyLeaderPerName"
-              label="单位负责人"
-              width="180"
+              prop="agencyCode"
+              label="单位代码"
+              width="120"
       >
       </el-table-column>
       <el-table-column
-              prop="agencyAdd"
-              label="单位地址"
-              width="200"
+              prop="agencyId"
+              label="单位ID"
+              width="120"
       >
+      </el-table-column>
+      <el-table-column
+              label="密码"
+              width="120"
+      >
+        <template>**************</template>
       </el-table-column>
       <el-table-column
               prop="action"
@@ -97,21 +103,15 @@
             :before-close="handleClose">
       <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
         <el-container>
-          <el-form-item label="用户ID" prop="guid">
-            <el-input v-model="addUserForm.guid" clearable placeholder="请输入用户ID"></el-input>
-          </el-form-item>
-          <el-form-item label="用户身份证" prop="idCode">
-            <el-input v-model="addUserForm.idCode" clearable placeholder="请输入身份证号"></el-input>
-          </el-form-item>
-        </el-container>
-        <el-container>
           <el-form-item label="用户名" prop="name">
             <el-input v-model="addUserForm.name" clearable placeholder="请输入用户名"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="addUserForm.password" clearable placeholder="请输入用户密码"></el-input>
           </el-form-item>
+
         </el-container>
+
         <el-container>
           <el-form-item label="单位名称" prop="agencyName">
             <el-input v-model="addUserForm.agencyName" clearable placeholder="请输入单位名称"></el-input>
@@ -128,6 +128,9 @@
             <el-input v-model="addUserForm.upagencyId" clearable placeholder="请输入上级机构ID"></el-input>
           </el-form-item>
         </el-container>
+        <el-form-item label="用户身份证" prop="idCode">
+          <el-input v-model="addUserForm.idCode" clearable placeholder="请输入身份证号"></el-input>
+        </el-form-item>
         <el-form-item align="center">
           <el-button type="primary" @click="handleAddBtnClick('addForm')" icon="el-icon-plus">
             立即添加</el-button>
@@ -142,14 +145,6 @@
             width="600px"
             :before-close="handleClose">
       <el-form :model="changeUserForm" :rules="rules" ref="changeForm" label-width="100px" class="demo-ruleForm">
-        <el-container>
-          <el-form-item label="用户ID" prop="guid">
-            <el-input v-model="changeUserForm.guid" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="用户身份证" prop="idCode">
-            <el-input v-model="changeUserForm.idCode" clearable></el-input>
-          </el-form-item>
-        </el-container>
         <el-container>
           <el-form-item label="用户名" prop="name">
             <el-input v-model="changeUserForm.name" clearable></el-input>
@@ -174,6 +169,9 @@
             <el-input v-model="changeUserForm.upagencyId" clearable></el-input>
           </el-form-item>
         </el-container>
+        <el-form-item label="用户身份证" prop="idCode">
+          <el-input v-model="changeUserForm.idCode" clearable></el-input>
+        </el-form-item>
         <el-form-item align="center">
           <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
           <el-button @click="cancelForm('changeForm')">取消</el-button>

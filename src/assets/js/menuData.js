@@ -7,7 +7,7 @@ export const menuList = [
       "icon": "el-icon-setting",
       "orderNum": 1,
       "open": 1,
-      "disabled": false,
+      "disabled": true,
       "perms": null,
       "type": 0,
       "children": [
@@ -397,6 +397,19 @@ export const menuList = [
           "children": []
         },
         {
+          "id": 3841,
+          "parentId": 295,
+          "menuName": "支付凭证回单列表",
+          "url": "/pay_voucher_list1",
+          "icon": "el-icon-edit",
+          "orderNum": 1,
+          "open": 0,
+          "disabled": false,
+          "perms": null,
+          "type": 0,
+          "children": []
+        },
+        {
           "id": 349,
           "parentId": 295,
           "menuName": "支付凭证",
@@ -404,7 +417,7 @@ export const menuList = [
           "icon": "el-icon-edit",
           "orderNum": 1,
           "open": 0,
-          "disabled": false,
+          "disabled": true,
           "perms": null,
           "type": 0,
           "children": []

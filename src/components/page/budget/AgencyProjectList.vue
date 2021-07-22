@@ -50,42 +50,42 @@
                 <el-table-column
                         prop="proId"
                         label="项目ID"
-                        width="240">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="proName"
                         label="项目名"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="proCode"
                         label="项目代码"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="agencyCode"
                         label="单位代码"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="applyLink"
                         label="申报环节"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="proTerm"
                         label="项目期限"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="setupYear"
                         label="设立年份"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         prop="createAt"
                         label="创建时间"
-                        width="180">
+                        width="120">
                 </el-table-column>
                 <el-table-column
                         fixed="right"
@@ -118,7 +118,7 @@
         data(){
             return {
                 myTableData:[],
-                bgtURL:"http://192.168.110.146:8004/budgetmaking/projectispublic/010102",
+                bgtURL:"http://192.168.110.85:8001/budgetmaking/projectispublic/010102",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,

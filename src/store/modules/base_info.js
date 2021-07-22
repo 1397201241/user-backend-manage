@@ -37,9 +37,9 @@ const actions = {
         })
             .then(res=>res.json())
             .then(res=>{
-                let users=[];
                 const data=res.data;
-                console.log(data)
+                commit('SET_USERS',data)
+                /*console.log(data)
                 for (const user of data){
                     let newUser=user;
                     fetch('http://192.168.110.85:8001/bm-bas-agency-info/id/'+user.agencyId,{
@@ -58,7 +58,7 @@ const actions = {
                         })
                 }
                 console.log(users)
-                commit('SET_USERS',users)
+                commit('SET_USERS',users)*/
             });
     },
     /**

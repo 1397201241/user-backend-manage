@@ -5,13 +5,22 @@ import request, {put,get} from '../utils/request'
  * @param token {string} 存储在浏览器cookie的token(这里是用户名)
  * @return {Promise<any | void>} 用户基本信息
  */
-export function getInfo(token) {
+/*export function getInfo(token) {
     return fetch('http://localhost:3000/user?username='+token)
         .then(res=>res.json())
         .then(myJson=>myJson[0])
         .catch(err=>new Error("获取用户基本信息失败"+err));
+}*/
+/**
+ * @description 获取用户基本信息
+ * @param username {string} 存储在浏览器cookie的token(这里是用户名)
+ * @return {Promise<any | void>} 用户基本信息
+ */
+export function getInfo(username) {
+    return get('http://192.168.110.85:8001/bm-fasp-tcauser/username/'+username)
+        .then(myJson=>myJson.data)
+        .catch(err=>new Error("获取用户基本信息失败"+err));
 }
-
 /**
  * @description 获取用户的角色信息
  * @param uid {number} 用户ID

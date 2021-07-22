@@ -4,12 +4,10 @@ export default function request(method, url,body) {
     body = undefined;
   } else {
     //转化为json
-
     if(typeof body !== "string"){
       body = body && JSON.stringify(body);
       console.log("要传的数据",body)
     }
-
   }
   return fetch(url, {
     method,
@@ -22,8 +20,7 @@ export default function request(method, url,body) {
     mode:"cors",
     body
   })
-      //使用json()读取并解析数据
-      .then(res => res.json())
+      .then(res => res.json()) //使用json()读取并解析数据
 }
 export const get = (url) => request('GET', url);
 export const post = (url, body) => request('POST', url, body);

@@ -18,10 +18,13 @@ export function setToken(token) {
 }
 
 export function setUsernameToken(token) {
-    console.log("sadasda")
     return Cookies.set(username, token)
 }
 
 export function removeToken() {
     return Cookies.remove(TokenKey)
+}
+
+export function removeUsernameToken() {
+    return Cookies.remove(username)
 }

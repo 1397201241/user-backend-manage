@@ -122,7 +122,7 @@
         data(){
             return {
                 myTableData:[],
-                bgtURL:"http://192.168.110.146:8004/budgetmaking/list/budget/apply",
+                bgtURL:"http://192.168.110.85:8001/budgetmaking/list/budget/apply",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,

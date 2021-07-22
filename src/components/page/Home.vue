@@ -7,7 +7,7 @@
         <span>预算管理一体化系统</span>
       </div>
 
-      <!--      用户头像及下拉框-->
+      <!--用户头像及下拉框-->
       <div class="headRight">
         <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.name}}</span>
         <el-dropdown>
@@ -36,9 +36,10 @@
 
       <el-main>
         <!-- 内容区 -->
-        <div class="app-wrap">
+        <div class="appWrap" >
           <!-- 此处放置el-tabs代码 -->
           <el-tabs
+
               v-model="$store.state.tab_info.activeIndex"
               type="border-card"
               closable
@@ -48,14 +49,15 @@
           >
             <!-- 获取vuex中的openTab数组数据，循环展示 -->
             <el-tab-pane
+                    :class="{welcomeStyle:isWelcomeWrap}"
                 :key="index"
                 v-for="(item, index) in $store.state.tab_info.openTab"
                 :label="item.name"
                 :name="item.route"
             >
-              <div class="content-wrap" style="height: 100%;">
+              <div class="content-wrap" style="height: 100%;" >
                 <!-- 展示路由内容 -->
-                <router-view>
+                <router-view >
                   <!--<Pie v-if="$route.path==='/draft_budget2'"></Pie>-->
                 </router-view>
               </div>
@@ -77,15 +79,35 @@ const Welcome = ()=>import('./Welcome');
 const Agency = ()=>import('./Agency');
 const Project = ()=>import('./Project/Project');
 import {menuList} from "../../assets/js/menuData";
-import {removeToken} from "../../utils/auth";
-
+import {removeToken,removeUsernameToken} from "../../utils/auth";
 export default {
   name: "Home",
   data () {
     return {
       activePath: '',
-      menuList: menuList
+      menuList:menuList,
+      isWelcomeWrap:false
     }
+  },
+  beforeCreate() {
+
+  },
+  created() {
+    if (this.$route.path==='/welcome'){
+      this.isWelcomeWrap=true
+    }
+    if (this.$store.state.user_info.info.name==='admin'){
+      let newMenuList=menuList;
+      newMenuList[0].disabled=false;
+      this.menuList=newMenuList
+    }
+  },
+  mounted () {
+    // 刷新时以当前路由做为tab加入tabs
+    // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
+    // 当当前路由是首页时，添加首页到store，并设置激活状态
+    console.log(this.$store.state.user_info.info)
+    this.$store.dispatch('tab_info/setTab',this.$route.path)
   },
   // eslint-disable-next-line vue/no-unused-components
   components: { MenuTree,User,Role,Welcome,Project,Agency},
@@ -130,25 +152,22 @@ export default {
     dropOut(){
       //清除cookie
       removeToken();
+      removeUsernameToken();
       //清除用户信息
       this.$store.commit('base_info/SET_INFO',[]);
       //清除权限
       this.$store.commit('base_info/SET_PERMISSIONS',[]);
       //清除token
       this.$store.commit('base_info/SET_TOKEN','');
+      //清除用户信息
+      this.$store.commit('user_info/SET_INFO',[]);
       //跳转
       this.$router.push({
         path:'/login'
       });
     }
   },
-  mounted () {
-    // 刷新时以当前路由做为tab加入tabs
-    // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
-    // 当当前路由是首页时，添加首页到store，并设置激活状态
-    console.log(this.$store.state.user_info.info)
-    this.$store.dispatch('tab_info/setTab',this.$route.path)
-  },
+
   watch:{
     '$route'(to,from){
       //项目申请界面按钮显示与关闭
@@ -180,6 +199,7 @@ export default {
           "/welcome":"欢迎界面",
           "/project":"项目列表",
           "/agency":"单位管理",
+          "/pay_voucher_list1":"支付凭证回单",
           "/pay_voucher":"支付凭证",
           "/capital_liquidation":"资金清算",
           "/liquidation":"清算凭证",
@@ -211,6 +231,7 @@ export default {
           "/add_pay":"新建支付申请",
           "/add_pay_2":"新建申请",
           "/pay_voucher_list":"支付凭证",
+
           "/pay_voucher_detail":"支付凭证详情"
         };
         if(path_name_list[to.path]){
@@ -242,7 +263,7 @@ export default {
     justify-content: space-between;
     padding-left: 0;
     align-items: center;
-    box-shadow:  3px 0px 5px 2px #9fc1db;
+    box-shadow:  3px 0 5px 2px #9fc1db;
 
     .headRight {
       margin-left: 750px;
@@ -316,7 +337,7 @@ export default {
   .mainContainer {
     height: 100%;
   }
-  .app-wrap{
+  .appWrap{
     margin: -12px -15px -15px -12px;
     .el-tabs{
       height: 630px;

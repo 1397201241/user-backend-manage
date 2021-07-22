@@ -157,16 +157,11 @@
     {
       "id": 2,
       "PAY_APP_ID": 2,
-      "PAY_APP_NUM": "102",
+      "PAY_APP_NUM": "10102",
       "CREATE_AT": "2021-07-13",
       "UPDATE_AT": "2021-07-07",
-<<<<<<< HEAD
       "AGENCY_CODE": "101",
       "USE": "建立图书馆",
-=======
-      "AGENCY_CODE": "福建省教育局",
-      "FOUNDS_USE": "建立图书馆",
->>>>>>> 84be4045d36372193cc0606594c2d741b5af29af
       "AMOUNT": "8000000",
       "PAYEE_ACCT_NAME": "Qin Li",
       "PAYEE_ACCT_NUM": "450923199901022444",
@@ -182,7 +177,7 @@
       "PAY_APP_NUM": "103",
       "CREATE_AT": "2021-07-13",
       "UPDATE_AT": "2021-07-03",
-      "AGENCY_CODE": "福建省教育局",
+      "AGENCY_CODE": "10102",
       "USE": "贫困补助",
       "AMOUNT": "8000000",
       "PAYEE_ACCT_NAME": "金克斯",
@@ -462,24 +457,12 @@
     {
       "id": 1,
       "rid": 2,
-      "permission_id": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "permission_id": []
     },
     {
       "id": 2,
       "rid": 1,
-      "permission_id": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "permission_id": []
     }
   ],
   "JSEncrypt": [
