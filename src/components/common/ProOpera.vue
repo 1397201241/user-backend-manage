@@ -25,12 +25,18 @@
         </el-input>
       </el-form-item>
         <el-form-item label="项目期限" prop="proTearm">
-          <el-input v-model="formData.proTearm" placeholder="请输入项目期限" clearable :style="{width: '80%'}">
-          </el-input>
+          <el-select v-model="formData.proTerm" placeholder="请选择" :style="{width: '100%'}">
+            <el-option
+                v-for="item in proTermOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-container>
         <el-form-item label="项目类型" prop="proKind">
-          <el-cascader v-model="formData.proKindCode" :options="proKindOption" :show-all-levels="false" placeholder="请选择" :style="{width: '110%'}">
+          <el-cascader v-model="formData.proKindCode" :options="proKindOption" :show-all-levels="false" placeholder="请选择" :style="{width: '100%'}">
           </el-cascader>
         </el-form-item>
       <el-form-item label="项目简介" prop="proDesc">

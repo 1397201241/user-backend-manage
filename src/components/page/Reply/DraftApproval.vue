@@ -10,7 +10,7 @@
     </el-breadcrumb>
     <el-card>
       <!--数据展示区-->
-      <el-card style="margin:30px 0 0 30px; height: 490px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.85;">
+      <el-card style="margin:30px 0 0 30px; height: 490px;width: 1200px;background-color: white;z-index: 1;position:absolute;opacity: 0.9;">
         <span style="width:100%;border-radius:5pt;background-color:rgba(224,221,221,0.53);position: absolute;z-index: 1;font-size: 40px;font-family: 幼圆;margin-left: -580px;
               margin-top: 10px;color:rgba(61,128,179,0.6);">待审核草案列表</span>
         <el-table

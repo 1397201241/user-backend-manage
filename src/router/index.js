@@ -251,6 +251,7 @@ const routes = [
             path: '/pro_apply/exam',
             name:'ProApply_exam',
             component:ProApply_exam,
+            meta:{title:"审核项目申报",requireAuth:true}
           },
         ]
       },

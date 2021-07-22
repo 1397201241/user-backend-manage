@@ -8,23 +8,15 @@
     <el-card class="pro_apex_card">
       <div class="projectBtBox">
         <el-form :inline="true">
-<!--            <el-cascader
-                placeholder="选择部门"
-                v-model="value"
-                :options="depOptions">
-            </el-cascader>-->
           <el-cascader
-              placeholder="选择单位"
-              v-model="value"
+              placeholder="选择所属部门/单位"
+              v-model="valueAgency"
               :options="agencyOptions">
           </el-cascader>
-          <el-cascader
-              placeholder="起始年份"
-              v-model="value"
-              :options="options">
-          </el-cascader>
-          <el-button @click="console.log('重新获取')" type="primary"  icon="el-icon-refresh" style="margin-left: 10px">刷新</el-button>
-          <el-button  type="primary" icon="el-icon-search" style="margin-left: 5px">查看</el-button>
+          <el-button @click="iRefresh"  icon="el-icon-refresh" style="width: 120px;margin-left: 10px">刷新</el-button>
+          <el-button  type="primary" icon="el-icon-search" style="width: 160px;margin-left: 5px"
+                      @click="viewDetail"
+          >查看</el-button>
         </el-form>
       </div>
       <el-table
@@ -42,73 +34,64 @@
           <template slot-scope="props">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="项目名称">
-                <span>{{ props.row.PRO_NAME }}</span>
+                <span>{{ props.row.proName }}</span>
               </el-form-item>
               <el-form-item label="项目ID">
-                <span>{{ props.row.PRO_ID }}</span>
+                <span>{{ props.row.proId }}</span>
               </el-form-item>
               <el-form-item label="项目代码">
-                <span>{{ props.row.PRO_CODE }}</span>
+                <span>{{ props.row.proCode }}</span>
               </el-form-item>
               <el-form-item label="设立年份">
-                <span>{{ props.row.SETUP_YEAR }}</span>
+                <span>{{ props.row.setupYear }}</span>
               </el-form-item>
               <el-form-item label="单位代码">
-                <span>{{ props.row.AGENCY_CODE }}</span>
+                <span>{{ props.row.agencyCode }}</span>
               </el-form-item>
               <el-form-item label="项目期限">
-                <span>{{ props.row.PRO_TERM }}</span>
-              </el-form-item>
-              <el-form-item label="项目类型">
-                <span>{{ props.row.PRO_CAT_CODE }}</span>
+                <span>{{ props.row.proTerm }}</span>
               </el-form-item>
               <el-form-item label="项目预算">
-                <span>{{ props.row.PRO_TOTAL_AMT }}</span>
-              </el-form-item>
-              <el-form-item label="单位建议">
-                <span>{{ props.row.PRO_AGENCY_VIEW }}</span>
+                <span>{{ props.row.proTotalAmt }}</span>
               </el-form-item>
               <el-form-item label="部门建议">
-                <span>{{ props.row.PRO_DEPREVIEW }}</span>
+                <span>{{ props.row.proDepreview }}</span>
               </el-form-item>
               <el-form-item label="财政部建议">
-                <span>{{ props.row.PRO_BGTREVIEW }}</span>
+                <span>{{ props.row.proBgtreview }}</span>
               </el-form-item>
               <el-form-item label="部门建议代码">
-                <span>{{ props.row.DEP_AUD_OPNION_CODE }}</span>
+                <span>{{ props.row.depAudOpnionCode }}</span>
               </el-form-item>
               <el-form-item label="财政建议代码">
-                <span>{{ props.row.MOF_AUD_OPNION_CODE }}</span>
+                <span>{{ props.row.mofAudOpinionCode }}</span>
               </el-form-item>
               <el-form-item label="项目类别">
-                <span>{{ props.row.PRO_KIND }}</span>
+                <span>{{ props.row.proKind }}</span>
               </el-form-item>
               <el-form-item label="项目类别代码">
-                <span>{{ props.row.PRO_KIND_CODE }}</span>
-              </el-form-item>
-              <el-form-item label="去向单位代码">
-                <span>{{ props.row.APPLY_LINK }}</span>
+                <span>{{ props.row.proKindCode }}</span>
               </el-form-item>
               <el-form-item label="项目介绍">
-                <span>{{ props.row.PRO_DESC }}</span>
+                <span>{{ props.row.proDesc }}</span>
               </el-form-item>
               <el-form-item label="更新时间">
-                <span>{{ props.row.UPDATE_AT }}</span>
+                <span>{{ props.row.updateAt }}</span>
               </el-form-item>
               <el-form-item label="结束代码">
-                <span>{{ props.row.IS_END }}</span>
+                <span>{{ props.row.isTerminated }}</span>
               </el-form-item>
               <el-form-item label="删除代码">
-                <span>{{ props.row.IS_DELETED }}</span>
+                <span>{{ props.row.isDelete }}</span>
               </el-form-item>
               <el-form-item label="表单创建时间">
-                <span>{{ props.row.CREATE_AT }}</span>
+                <span>{{ props.row.createAt }}</span>
               </el-form-item>
               <el-form-item label="申报环节">
-                <span>{{ props.row.APPLY_LINK }}</span>
+                <span>{{ props.row.applyLink }}</span>
               </el-form-item>
               <el-form-item label="版本号">
-                <span>{{ props.row.VERSION }}</span>
+                <span>{{ props.row.version }}</span>
               </el-form-item>
             </el-form>
           </template>
@@ -116,24 +99,24 @@
         <el-table-column
             label="设立年份"
             width="160">
-          <template slot-scope="scope">{{ scope.row.SETUP_YEAR }}</template>
+          <template slot-scope="scope">{{ scope.row.setupYear }}</template>
         </el-table-column>
         <el-table-column
-            prop="PRO_NAME"
+            prop="proName"
             label="项目名称"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="PRO_TOTAL_AMT"
+            prop="proTotalAmt"
             label="预算"
             width="180">
         </el-table-column>
         <el-table-column
-            prop="PRO_APPLY_LINK"
+            prop="applyLink"
             label="当前流程"
             width="180">
           <template slot-scope="scope">
-            <el-tag effect="dark" :color="scope.row.PRO_APPLY_LINK_COLOR" type="info">{{scope.row.PRO_APPLY_LINK}}</el-tag>
+            <el-tag effect="dark" :color="scope.row.PRO_APPLY_LINK_COLOR" type="info">{{scope.row.applyLink}}</el-tag>
           </template>
 
         </el-table-column>
@@ -164,6 +147,8 @@
 
 <script>
 import {get} from "../../../utils/request";
+/*const mof = /^\d+0{4}$/
+const dep = /^\d+0{2}$/*/
 
 export default {
   name: "ProApply_exam",
@@ -173,9 +158,8 @@ export default {
   },
   data(){
     return{
-      depOptions:[],
       agencyOptions:[],
-      value:[],
+      valueAgency:'',
       options: [
         {
           value: '2014',
@@ -201,8 +185,8 @@ export default {
       current:1,
       size:5,
       totalNum:5,
-      projectURL:'http://localhost:3000/project',
-      agencyURL:'http://localhost:3000/agency',
+      projectURL:'http://192.168.110.146:8003',
+      agencyURL:'http://192.168.110.79:8002/bm-bas-agency-info/subAgency/',
 
     }
   },
@@ -210,13 +194,33 @@ export default {
     this.$store.commit('tab_info/CHANGE_PROAPPBTSHOW_FALSE')
   },
   methods:{
+    viewDetail(){
+      console.log(this.valueAgency[0])
+      get(this.projectURL+"/project/list/dept/project/agency?agencyCode="+this.valueAgency[0]).then(
+          myJson=>{
+            console.log(myJson)
+            this.myTableData = myJson.data
+          }
+      )
+    },
+    iRefresh() {
+      this.valueAgency = ''
+    },
     setAgencyAndDepartOptions(){
-      get(this.agencyURL).then(myJson=>{
-        let agencyData = myJson
-        for(let i of agencyData){
-          this.agencyOptions.push({label:i.AGENCY_NAME,value:i.AGENCY_ID})
-        }
-      })
+      console.log(this.$store.state.user_info.info)
+      get(this.agencyURL+this.$store.state.user_info.info.agencyId).then(
+          myJson=>{
+            console.log(myJson)
+            for(let i of myJson.data){
+              this.agencyOptions.push({label:i.agencyName,value:i.agencyCode})
+            }
+          }
+      )
+
+      this.depOptions = [
+        {label:"1号部门",value:"10001"},{label:"2号部门",value:"10002"},{label:"3号部门",value:"10003"},
+        {label:"4号部门",value:"10004"},{label:"5号部门",value:"10005"},{label:"6号部门",value:"10006"},
+      ]
       /*get(this.agencyURL).then(myJson=>{
         let agencyData = myJson
         for(let i of agencyData){
@@ -236,31 +240,32 @@ export default {
     },
     setApplyLink(){
       for(let i of this.myTableData){
-        console.log(i.APPLY_LINK)
+        console.log(i.applyLink+"???")
         i.PRO_APPLY_LINK_COLOR = '#53615a'
-        switch (i.APPLY_LINK){
+        switch (Number(i.applyLink)){
           case 2:
-            i.PRO_APPLY_LINK = "部门审核中"
-            console.log(i.PRO_APPLY_LINK)
+            i.applyLink = "部门审核中"
             break
           case 1:
-            i.PRO_APPLY_LINK = "部门未审核"
+            i.applyLink = "部门未审核"
             break
           case 3:
-            i.PRO_APPLY_LINK = "部门申请中"
+            i.applyLink = "部门申请中"
             break
           case 4:
-            i.PRO_APPLY_LINK = "财政部在审"
+            i.applyLink = "财政部在审"
             break
           case 5:
-            i.PRO_APPLY_LINK = "项目公示中"
+            i.applyLink = "项目公示中"
             break
           case 6:
-            i.PRO_APPLY_LINK = "公示已结束"
+            i.applyLink = "公示已结束"
             break
           case 0:
-            i.PRO_APPLY_LINK = "新建未提交"
+            i.applyLink = "新建未提交"
             break
+          default:
+            i.applyLink = "新建未提交"
         }
       }
     },
@@ -278,16 +283,29 @@ export default {
       console.log(this.multipleSelection)
     },
     getProjectList(){
-      get(this.projectURL).then(myJson=>{
-        this.myTableData = myJson
-        console.log("获取数据中，表格数据是",this.myTableData)
+      /*get("http://192.168.110.146:8003/project/list/agency?agencyCode=100000").then(myJson=>{
+        console.log(myJson.data)
+        this.myTableData = myJson.data
         this.totalNum = this.myTableData.length
-
         this.setApplyLink()
-      })
-    },
-  }
-}
+      })*/
+      get(this.projectURL+"/project/list/dept/project?id="+this.$store.state.user_info.info.guid).then(
+          myJson=>{
+            this.myTableData = myJson.data
+            this.totalNum = this.myTableData.length
+            this.setApplyLink()
+            console.log(myJson)
+          }
+      )
+    }
+  }}
+
+
+
+
+
+
+
 </script>
 
 <style lang="less" scoped>
