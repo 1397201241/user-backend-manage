@@ -1,6 +1,7 @@
 <template>
     <el-container style="padding:-30px -150px -150px -30px" direction="vertical">
-        <el-divider content-position="left"><span style="color: red;font-size: large">划款清算申请</span></el-divider>
+        <el-divider content-position="left"><span style="color: red;font-size: large">划款清算信息</span></el-divider>
+        <!--清算凭证-->
         <el-table
                 ref="multipleTable"
                 :data="auditData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
@@ -70,7 +71,6 @@
                 <i class="iconfont icon-fasong"></i>
                 发送财政部门回单</el-button>
         </div>
-
     </el-container>
 </template>
 
@@ -80,7 +80,7 @@
         data(){
             return {
                 auditData:[],
-                data:[
+                /*data:[
                     {
                         key : "清算凭证主键",
                         value : 7911,
@@ -219,28 +219,9 @@
                         IS_DELETE:0,
                         VERSION:'0.0.1',
                     }
-                ],
-                addDialogVisible:false,
-                generateDialogVisible:false,
-                //添加的客户
-                addUserForm: {
-                    id: '',
-                    PAY_APP_ID: '',
-                    PAY_APP_NUM: '',
-                    CREATE_AT: '',
-                    UPDATE_AT: '',
-                    AGENCY_CODE: '',
-                    USE: '',
-                    AMOUNT: '',
-                    PAYEE_ACCT_NAME: '',
-                    PAYEE_ACCT_NUM: '',
-                    PAYEE_ACCT_BANK_NAME: '',
-                    AUDIT_STATUS: '',
-                    IS_DELETE: '',
-                    VERSION: ''
-                },
+                ],*/
                 //表单校验
-                rules: {
+                /*rules: {
                     PAY_APP_ID: [
                         { required: true, message: '请输入ID', trigger: 'blur' }
                     ],
@@ -280,12 +261,11 @@
                     VERSION: [
                         { required: true, message: '请输入用户更新时间', trigger: 'blur' }
                     ]
-                },
+                },*/
                 bgtURL:"http://192.168.110.182:8004/audit",
                 currentPage: 1, // 当前页码
-                total: 20, // 总条数
+                total: 0, // 总条数
                 pageSize: 4, // 每页的数据条数,
-
             }
         },
         created() {
@@ -305,7 +285,6 @@
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson.data)
                         this.auditData = myJson.data;
                         this.total=myJson.data.length
                     }).catch(err=>{
@@ -333,41 +312,6 @@
                     console.log(err)
                 })
                 alert('向代理银行支付')
-            },
-            handleAddBtnClick(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        let newPayApply=this.$refs[formName].model;
-                        newPayApply.id=this.$refs[formName].model.PAY_APP_ID;
-                        if (newPayApply){
-                            this.$store.dispatch('pay_apply_info/addPayApply',{newPayApply})
-                        }
-                    } else {
-                        return false;
-                    }
-                });
-                //触发父组件的对话框状态修改事件
-                this.addDialogVisible = false
-            },
-            cancelForm(formName) {
-                this.$refs[formName].resetFields();
-                this.addDialogVisible=false;
-            },
-            //关闭对话框提示
-            handleClose(done) {
-                this.$confirm('确认关闭？')
-                    .then(()=> {
-                        done();
-                    })
-                    .catch(()=> {});
-            },
-
-
-            send1(){
-                alert('发送代理银行《划款清算凭证回单》')
-            },
-            send2(){
-                alert('发送财政部门《财政支付汇总清算额度通知单回单》和《划款清算凭证回单》')
             },
             //选择框
             handleSelectionChange(val) {

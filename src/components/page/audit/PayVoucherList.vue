@@ -89,7 +89,7 @@
         @current-change="handleCurrentChange"
         background
         :current-page.sync="current"
-        :page-sizes="[5, 10, 20, 30]"
+        :page-sizes="[2, 3, 4, 5]"
         :page-size="size"
         layout="total,sizes,prev,pager,next,jumper"
         :total="totalNum">
@@ -99,46 +99,27 @@
 </template>
 
 <script>
-import {get} from "../../../utils/request";
+
 export default {
-  name: "Payvoucher",
+  name: "PayVoucher",
   data(){
     return{
       dialogVisible:false,
-      formData:{
-        PAY_CERT_ID: 13225945966,
-        PAY_CERT_NUM: 35052619980622,
-        TOTAL_AMOUNT: "",
-        PAID_AMOUNT: "",
-        PAYEE_ACCT_NAME: "Qin Li",
-        PAYEE_ACCT_NUM: "450923199901022444",
-        PAYEE_ACCT_BANK_NAME: "湖南省建设银行",
-        PAY_ACCT_NAME: "Qin Li",
-        PAY_ACCT_NUM: "450923199901022444",
-        PAY_ACCT_BANK_NAME: "湖南省建设银行",
-        CREATE_AT: "2021/7/14下午2:40:18",
-        UPDATE_AT: "2021/7/14下午2:40:18",
-        IS_DELETE: 0,
-        VERSION: "1.0.3"
-      },
       bgtURL:"http://192.168.110.182:8004/audit",
       myTableData:[],
       noticeData:[],
       totalNum:5,
       current:1,
       size:6,
-      rules: {
-        PAID_AMOUNT: [{
-          required: true, message: '请输入申请金额', trigger: 'blur'
-        }]
-      }
     }
   },
   created() {
-    this.getVoucherDatas()
     this.getPayVoucherList()
   },
   methods:{
+    /**
+     * @description 获取支付凭证回单列表
+     */
     getPayVoucherList(){
       fetch(this.bgtURL+"/getAll",{
         method:'GET',
@@ -154,8 +135,12 @@ export default {
         console.log(err)
       })
     },
-    send(data){
-      console.log(data)
+    /**
+     * @description 发送清算银行，下载获取通知单
+     * @param data {Array} 支付凭证回单列表
+     */
+    send(){
+      //todo {封装}
       fetch(this.bgtURL+"/addQuotaNotice",{
         method:'POST',
         headers:{
@@ -166,56 +151,24 @@ export default {
       })
               .then(res=>res.json())
               .then(myJson=>{
-                this.noticeData=myJson.data
-                console.log(myJson.data)
-
+                this.noticeData=myJson.data;
+                this.totalNum=myJson.data.length;
               }).catch(err=>{
         console.log(err)
       })
     },
-    close() {
-      this.dialogVisible=false;
-      let BigDecimal = require('js-big-decimal')
-      console.log(new BigDecimal("0.09"))
-    },
-    handleConfirm() {
-      this.dialogVisible=false;
-    },
-    viewPayVoucherDetail(data){
-      console.log(data)
-      this.$router.push(
-          {path:'/pay_voucher_detail',
-            query:{name:"data",data:JSON.stringify(data)}})
-    },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
+
     handleSelectionChange(val) {
       this.multipleSelection = val;
       console.log(this.multipleSelection)
     },
     handleSizeChange(val){
-      //赋值，然后重新查询
       this.size=val;
-      /*this.getUserList()*/
     },
     handleCurrentChange(val){
-      console.log(this.current)
       this.current=val;
-      /*this.getUserList()*/
     },
-    async getVoucherDatas(){
-      await get(this.url).then(myJson=>{
-        this.myTableData = myJson
-        this.totalNum = this.myTableData.length
-      })
-    }
+
   },
 }
 </script>

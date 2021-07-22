@@ -46,7 +46,6 @@
 
 <script>
     import {FormValidate} from "../../utils/validate";
-    import JSEncrypt from 'jsencrypt'
     import querystring from 'querystring';
     import {setToken, setUsernameToken} from "../../utils/auth";
     export default {
@@ -64,9 +63,6 @@
                     callback();
                 }
             };
-            /*const validateUserName = (rule,value,callback)=>{
-              console.log("??")
-            }*/
             return {
                 verificationC:'',//验证码
                 loginForm:{//登录表单
@@ -99,57 +95,11 @@
         },
         created() {
             this.$store.commit('tab_info/CLEAN_TABS');
-            //this.getAccount()
-
         },
         mounted() {
             this.createCode()
         },
         methods:{
-
-            /*模拟后台用户验证*/
-            authenticationUser(username, encryptPassword){
-                let users=[];
-                for (let user of this.$store.state.user_info.user){
-                    users.push(user['username'])
-                }
-                //用户存在判断
-                if (users.includes(username)){
-                    //创建解密对象实例
-                    let jsEncrypt=new JSEncrypt();
-                    this.$store.dispatch('user_info/getPrivateKey').then(
-                        //私钥
-                        privateKey=>{
-                            //设置解密的私钥
-                            jsEncrypt.setPrivateKey(privateKey);
-                            //密码解密
-                            let decryptPassword=jsEncrypt.decrypt(encryptPassword);
-                            this.$store.dispatch('user_info/authenticationUser',{username,decryptPassword}).then(()=>{
-                                this.$router.push({
-                                    path:'/',
-                                    query:{
-                                        user:{username},
-                                        // user:user
-                                    }
-                                });
-                                this.$notify.success({
-                                    title: '登录成功！',
-                                    duration:1500
-                                });
-                            });
-                        }
-                    )
-
-                }else {
-                    this.$notify.error({
-                        title: '用户不存在！'
-                    });
-                }
-            },
-            /*获取用户账号密码*/
-            getAccount(){
-                this.$store.dispatch('user_info/getUser')
-            },
             /*登录*/
             handleLogin() {
                 this.$refs['loginForm'].validate(valid=>{
@@ -166,9 +116,9 @@
                             /*credentials:"include",*/
                             mode:"cors",
                             body:querystring.stringify(loginForm)
-                            })
+                        })
                             .then(res=>{
-                              console.log(res)
+                                console.log(res)
                                 let token=res.headers.get('Authorization');
                                 setUsernameToken(username);
                                 setToken(token);
@@ -271,6 +221,50 @@
                     return `rgb(${r}, ${g}, ${b})`
                 }
             },
+            /*模拟后台用户验证*/
+            /*authenticationUser(username, encryptPassword){
+                let users=[];
+                for (let user of this.$store.state.user_info.user){
+                    users.push(user['username'])
+                }
+                //用户存在判断
+                if (users.includes(username)){
+                    //创建解密对象实例
+                    let jsEncrypt=new JSEncrypt();
+                    this.$store.dispatch('user_info/getPrivateKey').then(
+                        //私钥
+                        privateKey=>{
+                            //设置解密的私钥
+                            jsEncrypt.setPrivateKey(privateKey);
+                            //密码解密
+                            let decryptPassword=jsEncrypt.decrypt(encryptPassword);
+                            this.$store.dispatch('user_info/authenticationUser',{username,decryptPassword}).then(()=>{
+                                this.$router.push({
+                                    path:'/',
+                                    query:{
+                                        user:{username},
+                                        // user:user
+                                    }
+                                });
+                                this.$notify.success({
+                                    title: '登录成功！',
+                                    duration:1500
+                                });
+                            });
+                        }
+                    )
+
+                }else {
+                    this.$notify.error({
+                        title: '用户不存在！'
+                    });
+                }
+            },*/
+            /*/!*获取用户账号密码*!/
+            getAccount(){
+                this.$store.dispatch('user_info/getUser')
+            },*/
+
         }
     }
 </script>
