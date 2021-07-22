@@ -1,5 +1,19 @@
 export const menuList = [
+  {
+    "id": 253,
+    "parentId": 0,
+    "menuName": "欢迎页面",
+    "url": "/welcome",
+    "icon": "el-icon-star-off",
+    "orderNum": 1,
+    "open": 0,
+    "disabled": false,
+    "perms": "welcome:view",
+    "type": 0,
+    "children": []
+  },
     {
+
       "id": 1,
       "parentId": 0,
       "menuName": "用户管理",
@@ -11,19 +25,7 @@ export const menuList = [
       "perms": null,
       "type": 0,
       "children": [
-        {
-          "id": 253,
-          "parentId": 1,
-          "menuName": "欢迎页面",
-          "url": "/welcome",
-          "icon": "el-icon-star-off",
-          "orderNum": 1,
-          "open": 0,
-          "disabled": false,
-          "perms": "welcome:view",
-          "type": 0,
-          "children": []
-        },
+
         {
           "id": 226,
           "parentId": 1,
