@@ -304,14 +304,13 @@
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson.data)
-                        this.$router.push('/welcome')
+                        console.log(myJson)
+                        this.auditData = [];
                         //this.auditData = myJson.data;
                         //this.total=myJson.data.length
                     }).catch(err=>{
                     console.log(err)
                 })
-                alert('向代理银行支付')
             },
             //选择框
             handleSelectionChange(val) {

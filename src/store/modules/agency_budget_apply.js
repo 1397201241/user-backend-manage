@@ -4,6 +4,7 @@ const state = () => ({
     agencyCode: 2,//单位代码
     myProject:[],
     budget_apply_project:{},//预算申报源项目
+    budget_apply_list:[], //预算申报
     budget_apply:{} //预算申报
 
 });
@@ -26,6 +27,9 @@ const mutations = {
     //全体用户账号密码，todo:不安全做法
     SET_BUDGET_APPLY: (state, budget_apply) => {
         state.budget_apply=budget_apply
+    },
+    SET_BUDGET_APPLY_LIST: (state, budget_apply) => {
+        state.budget_apply_list.push(budget_apply)
     },
     SET_BUDGET_APPLY_PROJECT: (state, budget_apply_project) => {
         state.budget_apply_project=budget_apply_project

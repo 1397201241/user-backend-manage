@@ -1,7 +1,7 @@
 <template>
     <el-container direction="vertical" style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px">
         <el-card style="width: 100%">
-            <el-steps align-center class="my-step" :active="formData.applyLink">
+            <el-steps align-center class="my-step" :active="1">
                 <el-step title="单位提交">
                     <i class="iconfont icon-tijiao" slot="icon"></i>
                 </el-step>
@@ -47,7 +47,7 @@
             <el-form ref="elForm" :model="formData" :rules="rules"  label-width="80px"
                      style="margin-top: 30px;width: 100%;height: 350px">
                 <el-form-item label="项目简介" prop="PRO_DESC" style="width: 100%">
-                    <el-input v-model="formData.PRO_DESC" placeholder="请输入项目简介" disabled>
+                    <el-input v-model="formData.PRO_DESC" placeholder=" 大唐丝绸之路风情小镇是咸阳市委、市政府，乾县县委/县政府重点工程，是乾陵大景区重点配套工程，2014年度中国最佳旅游创意策划项目，大关中旅游龙头项目。" disabled>
                     </el-input>
                 </el-form-item>
                 <el-container>

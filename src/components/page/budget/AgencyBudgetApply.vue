@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import {post} from "../../../utils/request";
+
     export default {
         name: "AgencyBudgetApply",
         data(){
@@ -196,27 +198,38 @@
         },
         methods: {
             handleAddBtnClick(){
-                let apply={};//
-                apply.agencyCode=this.formData.agencyCode;
-                apply.proCode=this.formData.proCode;
-                apply.applyUp=this.formData.applyUp;
-                fetch("http://192.168.110.85:8001/budgetmaking/addbudgetdraft?proReview="+this.formData.proReview,{
-                    method:'POST',
-                    headers:{
-                        "Content-Type": 'application/json',
-                        "Accept": 'application/json',
-                        "Origin": '*',
-                        "Access-Control-Allow-Origin": '*',
-                    },
-                    body:JSON.stringify(apply),
-                    mode:'cors'
-                })
-                    .then(myJson=>{
-                        console.log(myJson);
-                        this.$router.push('/budget_apply_list')
-                    }).catch(err=>{
+                let ramdomId=Math.floor(Math.random()*10000);
+                let apply={
+                    "id": ramdomId,
+                    "BGT_PMAN_ID": ramdomId,
+                    "MOF_DIV_CODE": "350000",
+                    "FISCAL_YEAR": "1",
+                    "AGENCY_CODE": "010100",
+                    "PRO_KIND_CODE": "03",
+                    "PRO_CODE": "665424332",
+                    "APPLY_UP": 12000,
+                    "FIN_AUDIT_MONEY": 0,
+                    "DEPT_CODE": "6534",
+                    "APPLY_LINK": "0",
+                    "REPLY_AMT": 0,
+                    "ADJ_AMT": 0,
+                    "CUR_AMT": 0,
+                    "BUDGET_LEVEL_CODE": "3",
+                    "FOUND_TYPE_CIDE": "001345",
+                    "UPDATE_AT": "2021/7/15上午10:36:22",
+                    "CREATE_AT": "2021/7/14下午2:40:18",
+                    "IS_DELETE": 0,
+                    "VERSION": "1.0.5"
+                };//
+                apply.AGENCY_CODE=this.formData.agencyCode;
+                apply.PRO_CODE=this.formData.proCode;
+                apply.APPLY_UP=this.formData.applyUp;
+                post('http://localhost:3000/bgt_pm',apply).then(res=>{
+                    this.$router.push('/budget_apply_list')
+                }).catch(err=>{
                     console.log(err)
                 })
+
 
             }
         }

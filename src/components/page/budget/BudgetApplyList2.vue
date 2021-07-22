@@ -67,26 +67,26 @@
                 </el-table-column>
                 <el-table-column
                         label="项目代码"
-                        prop="proCode"
+                        prop="PRO_CODE"
                         width="160">
                 </el-table-column>
                 <el-table-column
-                        prop="agencyCode"
+                        prop="AGENCY_CODE"
                         label="单位代码"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="applyUp"
+                        prop="APPLY_UP"
                         label="申报数"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="fiscalYear"
+                        prop="FISCAL_YEAR"
                         label="预算年度"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="applyLink"
+                        prop="APPLY_LINK"
                         label="申报环节"
                         width="180">
                 </el-table-column>
@@ -122,7 +122,7 @@
         data(){
             return {
                 myTableData:[],
-                bgtURL:"http://192.168.110.85:8001/budgetmaking/list/budget/apply",
+                bgtURL:"http://localhost:3000",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
@@ -136,21 +136,19 @@
              * @description 获取预算申报列表（部门）
              */
             getBgtList(){
-                let agencyId=this.$store.state.base_info.info.agencyId;
-                console.log(agencyId)
-                fetch(this.bgtURL+"/dept?agencyId=2",{
+                /*let agencyId=this.$store.state.base_info.info.agencyId;
+                console.log(agencyId)*/
+                fetch(this.bgtURL+"/bgt_pm?APPLY_LINK=1",{
                     method:'GET',
                     headers:{
-                        "Accept": 'application/json',
-                        "Origin": '*',
-                        "Access-Control-Allow-Origin": '*',
+                        "Content-Type":"application/json"
                     },
                     mode:'cors'
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson.data);
-                        this.myTableData = myJson.data
+                        console.log(myJson)
+                        this.myTableData = myJson
                     }).catch(err=>{
                     console.log(err)
                 })

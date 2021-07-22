@@ -6,8 +6,8 @@
                     ref="multipleTable"
                     :data="myTableData.slice((currentPage-1)*pageSize,currentPage*pageSize)"
                     tooltip-effect="dark"
-                    max-height="375"
-                    style="width: 100%">
+                    max-height="260"
+                    style="width: 100%;min-height: 260px">
                 <el-table-column type="expand">
                     <template slot-scope="props">
                         <el-form label-position="left" inline class="demo-table-expand">
@@ -67,9 +67,10 @@
                         label="单位代码"
                         width="120">
                 </el-table-column>
+
                 <el-table-column
-                        prop="applyLink"
-                        label="申报环节"
+                        prop="setupYear"
+                        label="设立年份"
                         width="120">
                 </el-table-column>
                 <el-table-column
@@ -77,14 +78,15 @@
                         label="项目期限"
                         width="120">
                 </el-table-column>
+
                 <el-table-column
-                        prop="setupYear"
-                        label="设立年份"
+                        prop="proTotalAmount"
+                        label="项目金额"
                         width="120">
                 </el-table-column>
                 <el-table-column
-                        prop="createAt"
-                        label="创建时间"
+                        prop="applyLink"
+                        label="申报环节"
                         width="120">
                 </el-table-column>
                 <el-table-column
@@ -119,8 +121,9 @@
             return {
                 myTableData:[],
                 bgtURL:"http://192.168.110.85:8001/budgetmaking/projectispublic/010102",
+                proURL:"http://localhost:3000/project",
                 currentPage: 1, // 当前页码
-                total: 20, // 总条数
+                total: 0, // 总条数
                 pageSize: 4, // 每页的数据条数,
             }
         },
@@ -129,7 +132,7 @@
         },
         methods:{
             getBgtList(){
-                fetch(this.bgtURL,{
+                fetch(this.proURL,{
                     method:'GET',
                     headers:{
                         "Content-Type":"application/json"
@@ -138,8 +141,8 @@
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson.data);
-                        this.myTableData = myJson.data
+                        console.log(myJson);
+                        this.myTableData = myJson
                     }).catch(err=>{
                     console.log(err)
                 })

@@ -17,49 +17,49 @@
                     <template slot-scope="props">
                         <el-form label-position="left" inline class="demo-table-expand">
                             <el-form-item label="项目年度预算ID">
-                                <span>{{ props.row.bgtPmanId }}</span>
+                                <span>{{ props.row.BGT_PMAN_ID }}</span>
                             </el-form-item>
                             <el-form-item label="预算年度">
-                                <span>{{ props.row.fiscalYear }}</span>
+                                <span>{{ props.row.FISCAL_YEAR }}</span>
                             </el-form-item>
                             <el-form-item label="单位代码">
-                                <span>{{ props.row.agencyCode }}</span>
+                                <span>{{ props.row.AGENCY_CODE }}</span>
                             </el-form-item>
                             <el-form-item label="项目类别码">
-                                <span>{{ props.row.proKindeCode }}</span>
+                                <span>{{ props.row.PRO_KIND_CODE }}</span>
                             </el-form-item>
                             <el-form-item label="创建时间">
-                                <span>{{ props.row.createAt }}</span>
+                                <span>{{ props.row.CREATE_AT }}</span>
                             </el-form-item>
                             <el-form-item label="项目代码">
-                                <span>{{ props.row.proCode }}</span>
+                                <span>{{ props.row.PRO_CODE }}</span>
                             </el-form-item>
                             <el-form-item label="申报环节">
-                                <span>{{ props.row.applyLink }}</span>
+                                <span>{{ props.row.APPLY_LINK }}</span>
                             </el-form-item>
                             <el-form-item label="财政审核数">
-                                <span>{{ props.row.finAuditMoney }}</span>
+                                <span>{{ props.row.FIN_AUDIT_MONEY }}</span>
                             </el-form-item>
                             <el-form-item label="更新时间">
-                                <span>{{ props.row.updateAt }}</span>
+                                <span>{{ props.row.UPDATE_AT }}</span>
                             </el-form-item>
                             <el-form-item label="部门代码">
-                                <span>{{ props.row.deptCode }}</span>
+                                <span>{{ props.row.DEPT_CODE }}</span>
                             </el-form-item>
                             <el-form-item label="申报数">
-                                <span>{{ props.row.applyUp }}</span>
+                                <span>{{ props.row.APPLY_UP }}</span>
                             </el-form-item>
                             <el-form-item label="年初批复数">
-                                <span>{{ props.row.replyAmt }}</span>
+                                <span>{{ props.row.REPLY_AMT }}</span>
                             </el-form-item>
                             <el-form-item label="调整金额">
-                                <span>{{ props.row.adjAmt }}</span>
+                                <span>{{ props.row.ADJ_AMT }}</span>
                             </el-form-item>
                             <el-form-item label="变动后预算数">
-                                <span>{{ props.row.curAmt }}</span>
+                                <span>{{ props.row.CUR_AMT }}</span>
                             </el-form-item>
                             <el-form-item label="欢乐锁">
-                                <span>{{ props.row.version }}</span>
+                                <span>{{ props.row.VERSION }}</span>
                             </el-form-item>
 
                         </el-form>
@@ -67,27 +67,27 @@
                 </el-table-column>
                 <el-table-column
                         label="项目代码"
-                        prop="proCode"
+                        prop="PRO_CODE"
                         width="160">
                 </el-table-column>
 
                 <el-table-column
-                        prop="agencyCode"
+                        prop="AGENCY_CODE"
                         label="单位代码"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="applyUp"
+                        prop="APPLY_UP"
                         label="申报数"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="fiscalYear"
+                        prop="FISCAL_YEAR"
                         label="预算年度"
                         width="180">
                 </el-table-column>
                 <el-table-column
-                        prop="applyLink"
+                        prop="APPLY_LINK"
                         label="申报环节"
                         width="180">
                 </el-table-column>
@@ -119,12 +119,14 @@
 
 <script>
 
+    import {post, put} from "../../../utils/request";
+
     export default {
         name: "BudgetApplyList",
         data(){
             return {
                 myTableData:[],
-                bgtURL:"http://192.168.110.85:8001/budgetmaking",
+                bgtURL:"http://localhost:3000",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
@@ -138,9 +140,9 @@
              * @description 获取单位未提交的预算申请
              */
             getBgtList(){
-                let agencyCode=this.$store.state.base_info.info.agencyCode;
-                console.log(agencyCode)
-                fetch(this.bgtURL+"/list/budget?agencyCode=010101",{
+                /*let agencyCode=this.$store.state.base_info.info.agencyCode;
+                console.log(agencyCode);*/
+                fetch(this.bgtURL+"/bgt_pm?APPLY_LINK=0",{
                     method:'GET',
                     headers:{
                         "Content-Type":"application/json"
@@ -149,8 +151,8 @@
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson.data);
-                        this.myTableData = myJson.data
+                        console.log(myJson)
+                        this.myTableData = myJson
                     }).catch(err=>{
                     console.log(err)
                 })
@@ -161,22 +163,22 @@
              */
             apply(scope){
                 let data=scope.row;
-                fetch(this.baseURL+"/apply?code="+data.agencyCode+"&bgtPmanId="+data.bgtPmanId,{
-                    method:'POST',
+                data.APPLY_LINK=1
+                console.log(data)
+                fetch(this.bgtURL+"/bgt_pm/"+data.id,{
+                    method:'PUT',
                     headers:{
-                        "Accept": 'application/json',
-                        "Origin": '*',
-                        "Access-Control-Allow-Origin": '*',
+                        "Content-Type":"application/json"
                     },
+                    body:JSON.stringify(data),
                     mode:'cors'
                 })
                     .then(res=>res.json())
                     .then(myJson=>{
-                        console.log(myJson);
-                        this.$router.push('/budget_apply_details')
+                        this.getBgtList()
                     }).catch(err=>{
                     console.log(err)
-                    })
+                })
             },
             //选择框
             handleSelectionChange(val) {
