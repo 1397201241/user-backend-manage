@@ -155,11 +155,10 @@
                         const username=this.loginForm.username;
                         loginForm.username=this.loginForm.username;
                         loginForm.password=this.loginForm.password;
-                        fetch('http://192.168.110.79:8001/login',{
+                        fetch('http://192.168.110.85:8001/login',{
                             method:'POST',
                             headers:{
                                 "Content-Type": 'application/x-www-form-urlencoded',
-                                /*"Accept": 'application/json;charset=UTF-8',*/
                             },
                             /*credentials:"include",*/
                             mode:"cors",

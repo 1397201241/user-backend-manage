@@ -26,44 +26,6 @@
             @selection-change="handleSelectionChange"
             style="min-height: 276px;max-width: 1200px"
     >
-      <!--数据扩展区-->
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="用户ID">
-              <span>{{ props.row.USER_ID }}</span>
-            </el-form-item>
-            <el-form-item label="密码">
-              <span>{{ props.row.USER_PASSWORD }}</span>
-            </el-form-item>
-            <el-form-item label="账号">
-              <span>{{ props.row.USER_ACCOUNT }}</span>
-            </el-form-item>
-            <el-form-item label="身份证">
-              <span>{{ props.row.ID_CARD_NUM }}</span>
-            </el-form-item>
-            <el-form-item label="备注">
-              <span>{{ props.row.NOTE }}</span>
-            </el-form-item>
-            <el-form-item label="更新时间">
-              <span>{{ props.row.UPDATE_TIME }}</span>
-            </el-form-item>
-            <el-form-item label="创建时间">
-              <span>{{ props.row.CREATE_TIME }}</span>
-            </el-form-item>
-            <el-form-item label="版本">
-              <span>{{ props.row.VERSION }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
-      <el-table-column
-              type="index"
-              label="序号"
-              width="50"
-              align="center"
-      >
-      </el-table-column>
       <el-table-column
               type="selection"
               width="50"
@@ -71,51 +33,37 @@
       >
       </el-table-column>
       <el-table-column
-              prop="USER_TYPE"
-              label="用户类型"
+              prop="name"
+              label="用户名"
               width="120"
       >
       </el-table-column>
       <el-table-column
-              prop="MOF_CODE"
-              label="所属财政"
-              width="100">
+              prop="idCode"
+              label="身份证号码"
+              width="180">
       </el-table-column>
       <el-table-column
-              prop="AGENCY_CODE"
-              label="所属机构"
-              width="100"
-      >
-      </el-table-column>
-      <el-table-column
-              prop="USER_NAME"
-              label="用户名"
-              width="180"
-      >
-      </el-table-column>
-      <el-table-column
-              prop="ID_CARD_NUM"
-              label="身份证"
+              prop="agencyName"
+              label="所在单位"
               width="200"
       >
       </el-table-column>
       <el-table-column
-              prop="TEL"
-              label="电话"
-              width="120"
+              prop="agencyLeaderPerName"
+              label="单位负责人"
+              width="180"
       >
       </el-table-column>
       <el-table-column
-              prop="STATUS"
-              label="状态"
-              width="80px"
-              align="center"
+              prop="agencyAdd"
+              label="单位地址"
+              width="200"
       >
       </el-table-column>
       <el-table-column
               prop="action"
               label="操作"
-              width="150px"
               align="center"
       >
         <template slot-scope="scope">
@@ -147,59 +95,43 @@
             width="600px"
             center
             :before-close="handleClose">
-      <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="120px" id="addCustomer" class="demo-ruleForm">
+      <el-form :model="addUserForm" :rules="rules" ref="addForm" label-width="100px" class="demo-ruleForm">
         <el-container>
-          <el-form-item label="用户ID" prop="user_id">
-            <el-input v-model="addUserForm.user_id" clearable></el-input>
+          <el-form-item label="用户ID" prop="guid">
+            <el-input v-model="addUserForm.guid" clearable placeholder="请输入用户ID"></el-input>
           </el-form-item>
-
-
-          <el-form-item label="用户类型" prop="user_type">
-            <el-select v-model="addUserForm.user_type" clearable placeholder="用户类型">
-              <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-              </el-option>
-            </el-select>
+          <el-form-item label="用户身份证" prop="idCode">
+            <el-input v-model="addUserForm.idCode" clearable placeholder="请输入身份证号"></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="所属财政" prop="mof_code">
-            <el-input v-model="addUserForm.mof_code" clearable></el-input>
+          <el-form-item label="用户名" prop="name">
+            <el-input v-model="addUserForm.name" clearable placeholder="请输入用户名"></el-input>
           </el-form-item>
-          <el-form-item label="所属机构" prop="agency_code">
-            <el-input v-model="addUserForm.agency_code" clearable></el-input>
-          </el-form-item>
-        </el-container>
-        <el-container>
-          <el-form-item label="用户名" prop="user_name">
-            <el-input v-model="addUserForm.user_name" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="用户账号" prop="user_account">
-            <el-input v-model="addUserForm.user_account" clearable></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="addUserForm.password" clearable placeholder="请输入用户密码"></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="用户密码" prop="user_password">
-            <el-input v-model="addUserForm.user_password" clearable></el-input>
+          <el-form-item label="单位名称" prop="agencyName">
+            <el-input v-model="addUserForm.agencyName" clearable placeholder="请输入单位名称"></el-input>
           </el-form-item>
-          <el-form-item label="用户身份证" prop="id_card_num">
-            <el-input v-model="addUserForm.id_card_num" clearable></el-input>
+          <el-form-item label="单位代码" prop="agencyCode">
+            <el-input v-model="addUserForm.agencyCode" clearable placeholder="请输入单位代码"></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="用户电话" prop="tel">
-            <el-input v-model="addUserForm.tel" clearable></el-input>
+          <el-form-item label="单位ID" prop="agencyId">
+            <el-input v-model="addUserForm.agencyId" clearable placeholder="请输入单位ID"></el-input>
           </el-form-item>
-          <el-form-item label="用户状态" prop="status">
-            <el-input v-model="addUserForm.status" clearable></el-input>
+          <el-form-item label="上级机构ID" prop="upagencyId">
+            <el-input v-model="addUserForm.upagencyId" clearable placeholder="请输入上级机构ID"></el-input>
           </el-form-item>
         </el-container>
-        <el-form-item>
-          <el-button type="primary" @click="handleAddBtnClick('addForm')">立即添加</el-button>
-          <el-button @click="cancelForm('addForm')">取消</el-button>
+        <el-form-item align="center">
+          <el-button type="primary" @click="handleAddBtnClick('addForm')" icon="el-icon-plus">
+            立即添加</el-button>
+          <el-button @click="cancelForm('addForm')" icon="el-icon-refresh">取消</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -209,53 +141,45 @@
             :visible.sync="changeUserDialogVisible"
             width="600px"
             :before-close="handleClose">
-      <el-form :model="changeUserForm" :rules="rules" ref="changeForm" label-width="120px" id="change_user" class="demo-ruleForm">
+      <el-form :model="changeUserForm" :rules="rules" ref="changeForm" label-width="100px" class="demo-ruleForm">
         <el-container>
-          <el-form-item label="用户ID" prop="user_id">
-            <el-input v-model="changeUserForm.user_id"></el-input>
+          <el-form-item label="用户ID" prop="guid">
+            <el-input v-model="changeUserForm.guid" clearable></el-input>
           </el-form-item>
-          <el-form-item label="用户类型" prop="user_type">
-            <el-input v-model="changeUserForm.user_type"></el-input>
+          <el-form-item label="用户身份证" prop="idCode">
+            <el-input v-model="changeUserForm.idCode" clearable></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="所属财政" prop="mof_code">
-            <el-input v-model="changeUserForm.mof_code"></el-input>
+          <el-form-item label="用户名" prop="name">
+            <el-input v-model="changeUserForm.name" clearable></el-input>
           </el-form-item>
-          <el-form-item label="所属机构" prop="agency_code">
-            <el-input v-model="changeUserForm.agency_code"></el-input>
-          </el-form-item>
-        </el-container>
-        <el-container>
-          <el-form-item label="用户名" prop="user_name">
-            <el-input v-model="changeUserForm.user_name"></el-input>
-          </el-form-item>
-          <el-form-item label="用户账号" prop="user_account">
-            <el-input v-model="changeUserForm.user_account"></el-input>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="changeUserForm.password" clearable></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="用户密码" prop="user_password">
-            <el-input v-model="changeUserForm.user_password"></el-input>
+          <el-form-item label="单位名称" prop="agencyName">
+            <el-input v-model="changeUserForm.agencyName" clearable></el-input>
           </el-form-item>
-          <el-form-item label="用户身份证" prop="id_card_num">
-            <el-input v-model="changeUserForm.id_card_num"></el-input>
+          <el-form-item label="单位代码" prop="agencyCode">
+            <el-input v-model="changeUserForm.agencyCode" clearable></el-input>
           </el-form-item>
         </el-container>
         <el-container>
-          <el-form-item label="用户电话" prop="tel">
-            <el-input v-model="changeUserForm.tel"></el-input>
+          <el-form-item label="单位ID" prop="agencyId">
+            <el-input v-model="changeUserForm.agencyId" clearable></el-input>
           </el-form-item>
-          <el-form-item label="用户状态" prop="status">
-            <el-input v-model="changeUserForm.status"></el-input>
+          <el-form-item label="上级机构ID" prop="upagencyId">
+            <el-input v-model="changeUserForm.upagencyId" clearable></el-input>
           </el-form-item>
         </el-container>
-
-        <el-form-item>
+        <el-form-item align="center">
           <el-button type="primary" @click="handleChangeBtnClick('changeForm')">立即修改</el-button>
           <el-button @click="cancelForm('changeForm')">取消</el-button>
         </el-form-item>
       </el-form>
+
     </el-dialog>
   </el-container>
 
@@ -266,6 +190,7 @@
   import QueryPanel from "../../components/common/QueryPanel";
   /*import {FormValidate} from "../../utils/validate"*/
   import {get} from "../../utils/request";
+  import {getToken, getUsernameToken} from "../../utils/auth";
   export default {
     name: "Users",
     components: {ActionBar,QueryPanel},
@@ -297,41 +222,29 @@
         userQuery:{name:'',mobile:''},
         //客户信息
         customers: [],
-        //添加的客户
+        /*添加的用户*/
         addUserForm: {
-          user_id:'',
-          user_type:'',
-          mof_code: '',
-          agency_code: '',
-          user_name: '',
-          user_account: '',
-          user_password: '',
-          id_card_num: '',
-          tel: '',
-          note: '',
-          status: '',
-          create_time: '',
-          update_time: '',
-          version: '',
+          guid:'',
+          name:'',
+          password:'',
+          agencyName: '',
+          agencyCode: '',
+          agencyId: '',
+          idCode:'',
+          upagencyId: '',
         },
-        //修改的客户
+        /*修改的用户*/
         changeUserForm:{
-          user_id:'',
-          user_type:'',
-          mof_code: '',
-          agency_code: '',
-          user_name: '',
-          user_account: '',
-          user_password: '',
-          id_card_num: '',
-          tel: '',
-          note: '',
-          status: '',
-          create_time: '',
-          update_time: '',
-          version: '',
+          guid:'',
+          name:'',
+          password:'',
+          agencyName: '',
+          agencyCode: '',
+          agencyId: '',
+          idCode:'',
+          upagencyId: '',
         },
-        //修改的客户
+        /*删除的客户*/
         deleteUserForm:{
           user_id:'',
           user_type:'',
@@ -348,58 +261,56 @@
           update_time: '',
           version: '',
         },
-        //选中的信息
-        multipleSelection:[],
-        //表单校验
+        multipleSelection:[],//选中的信息
+        /*表单校验
+        * todo:根据业务场景完善字段校验
+        *  */
         rules: {
-          user_id: [
-            { required: true, message: '请输入ID', trigger: 'blur' }
+          /*guid: [
+            { required: true, message: '用户ID不能为空', trigger: 'blur' }
+          ],*/
+          name:[
+            { required: true, message: '用户类型不能为空', trigger: 'blur' },
           ],
-          user_type:[
-            { required: true, message: '请输入用户类型', trigger: 'blur' },
+          password:[
+            { required: true, message: '用户密码不能为空', trigger: 'blur' },
           ],
-          mof_code:[
-            { required: true, message: '请输入用户所属财政', trigger: 'blur' },
+          agencyName:[
+            { required: true, message: '单位名称不能为空', trigger: 'blur' },
           ],
-          agency_code:[
-            { required: true, message: '请输入用户所属机构', trigger: 'blur' },
+          agencyCode:[
+            { required: true, message: '单位代码不能为空', trigger: 'blur' },
           ],
-          user_name:[
-            { required: true, message: '请输入用户姓名', trigger: 'blur' },
+          agencyId:[
+            { required: true, message: '单位ID不能为空', trigger: 'blur' },
           ],
-          user_account:[
-            { required: true, message: '请输入用户账号', trigger: 'blur' },
+          idCode:[
+            { required: true, message: '身份证号不能为空', trigger: 'blur' },
           ],
-          user_password:[
-            { required: true, message: '请输入用户密码', trigger: 'blur' },
-          ],
-          id_card_num:[
-            { required: true, message: '请输入用户身份证', trigger: 'blur' },
-          ],
-          tel:[
-            { required: true, message: '请输入用户电话', trigger: 'blur' },
-          ],
-          note: [
-            { required: true, message: '请输入用户备注', trigger: 'blur' },
-          ],
-          status: [
-            { required: true, message: '请输入用户状态', trigger: 'blur' }
-          ],
-          create_time: [
-            { required: true, message: '请输入用户创建时间', trigger: 'blur' }
-          ],
-          update_time: [
-            { required: true, message: '请输入用户更新时间', trigger: 'blur' }
-          ],
-          version: [
-            { required: true, message: '请输入用户更新时间', trigger: 'blur' }
+          upagencyId:[
+            { required: true, message: '上级机构ID不能为空', trigger: 'blur' },
           ]
         }
       }
     },
     created:function(){
-      // 初始化状态
       this.getUsers()
+      let token=getToken()
+      let username=getUsernameToken()
+      console.log(token)
+      console.log(username)
+      /*fetch('http://192.168.110.79:8001/bm-fasp-tcauser/username/'+username,{
+        method:'GET',
+        headers:{
+          "Authorization":token
+        },
+        mode:'cors'
+      })
+              .then(res=>res.json())
+              .then(res=>{
+                console.log(res)
+              });*/
+      // 初始化状态
     },
     mounted() {
 
@@ -413,11 +324,24 @@
       onQueryBtnClick(){
         let {name, mobile} = this.userQuery;
         if (name!==''){
-          get("http://localhost:3000/USERS?USER_NAME=" + name)
-                  .then(myJson => {
-                            this.$store.commit('base_info/SET_USERS',myJson);
-                          }
-                  ).catch(err => console.log(err));
+          fetch('http://192.168.110.85:8001/bm-fasp-tcauser/username/'+name,{
+            method:'GET',
+            headers:{
+              "Content-Type": 'application/json',
+            },
+            mode:'cors'
+          })
+                  .then(res=>res.json())
+                  .then(res=>{
+                    console.log(res.data)
+                    let user=[]
+                    user.push(res.data)
+                    this.$store.commit('base_info/SET_USERS',user);
+                  })
+                  .catch(err=>{
+                    console.log(err)
+                  })
+
         }else if (mobile!==''){
           get("http://localhost:3000/USERS?USER_TEL="+mobile)
                   .then(myJson=>{
@@ -430,28 +354,36 @@
       handleAddBtnClick(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let newUser = {
-              "id": this.$refs[formName].model.user_id,
-              "USER_ID": this.$refs[formName].model.user_id,
-              "USER_TYPE": this.$refs[formName].model.user_type,
-              "MOF_CODE": this.$refs[formName].model.mof_code,
-              "AGENCY_CODE": this.$refs[formName].model.agency_code,
-              "USER_NAME": this.$refs[formName].model.user_name,
-              "USER_ACCOUNT": this.$refs[formName].model.user_account,
-              "USER_PASSWORD": this.$refs[formName].model.user_password,
-              "ID_CARD_NUM": this.$refs[formName].model.id_card_num,
-              "TEL": this.$refs[formName].model.tel,
-              "NOTE": this.$refs[formName].model.note,
-              "STATUS": this.$refs[formName].model.status,
-              "CREATE_TIME": this.$refs[formName].model.create_time,
-              "UPDATE_TIME": this.$refs[formName].model.update_time,
-              "VERSION": this.$refs[formName].model.version
-            };
+            let newUser = {};
+            //newUser.guid=this.$refs[formName].model.guid
+            newUser.name=this.$refs[formName].model.name
+            newUser.password=this.$refs[formName].model.password
+            newUser.agencyName=this.$refs[formName].model.agencyName
+            newUser.agencyCode=this.$refs[formName].model.agencyCode
+            newUser.agencyId=this.$refs[formName].model.agencyId
+            newUser.idCode=this.$refs[formName].model.idCode
+            newUser.upagencyId=this.$refs[formName].model.upagencyId
+            console.log(newUser)
             if (newUser) {
-              this.$store.dispatch('base_info/addUser',{newUser});
+              fetch('http://192.168.110.85:8001/bm-fasp-tcauser/add',{
+                method:'POST',
+                headers:{
+                  "Content-Type":"application/json"
+                },
+                body:JSON.stringify(newUser),
+                mode:'cors'
+              })
+                      .then(res=>res.json())
+                      .then(res=>{
+                        console.log(res);
+                        this.getUsers();
+                        this.addUserDialogVisible=false;
+                      })
+                      .catch(err=>{
+                        console.log(err)
+                      });
             }
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
@@ -462,27 +394,21 @@
       handleChangeBtnClick(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            let newUser={
-              "id": this.$refs[formName].model.user_id,
-              "USER_ID": this.$refs[formName].model.user_id,
-              "USER_TYPE": this.$refs[formName].model.user_type,
-              "MOF_CODE": this.$refs[formName].model.mof_code,
-              "AGENCY_CODE": this.$refs[formName].model.agency_code,
-              "USER_NAME": this.$refs[formName].model.user_name,
-              "USER_ACCOUNT": this.$refs[formName].model.user_account,
-              "USER_PASSWORD": this.$refs[formName].model.user_password,
-              "ID_CARD_NUM": this.$refs[formName].model.id_card_num,
-              "TEL": this.$refs[formName].model.tel,
-              "NOTE": this.$refs[formName].model.note,
-              "STATUS": this.$refs[formName].model.status,
-              "CREATE_TIME": this.$refs[formName].model.create_time,
-              "UPDATE_TIME": this.$refs[formName].model.update_time,
-              "VERSION": this.$refs[formName].model.version
-            };
-            if (newUser){
-              this.$store.dispatch('base_info/changeUser',{newUser})
+            let newUser = {};
+            newUser.guid=this.$refs[formName].model.guid
+            newUser.name=this.$refs[formName].model.name
+            newUser.password=this.$refs[formName].model.password
+            newUser.agencyName=this.$refs[formName].model.agencyName
+            newUser.agencyCode=this.$refs[formName].model.agencyCode
+            newUser.agencyId=this.$refs[formName].model.agencyId
+            newUser.idCode=this.$refs[formName].model.idCode
+            newUser.guid=this.$refs[formName].model.upagencyId
+            console.log(newUser)
+            if (newUser) {
+              this.$store.dispatch('base_info/changeUser',{newUser});
             }
           } else {
+            console.log('error submit!!');
             return false;
           }
         });
@@ -497,27 +423,39 @@
       /*删除用户信息*/
       handleDeleteBtnClick(){
         const {multipleSelection}=this;
-        this.$store.dispatch('base_info/deleteUser',{multipleSelection});
+        let delRequest=[];
+        for(let i of multipleSelection){
+          delRequest.push(
+                  fetch('http://192.168.110.85:8001/bm-fasp-tcauser/delete/'+i.guid,{
+                    method:'DELETE',
+                    headers:{
+                      "Content-Type":"application/json"
+                    },
+                    mode:'cors'
+                  })
+                          .catch(err=>{
+                            console.log(err)
+                          })
+          )
+        }
+        Promise.allSettled(delRequest).then(res=>{
+          console.log(res);
+          this.getUsers()
+        })
       },
       //打开修改客户对话框
       handleChangeRow(scope) {
         /*const index=scope.$index;*/
         const data=scope.row;
         /*注入修改信息*/
-        this.changeUserForm.user_id=data.USER_ID
-        this.changeUserForm.user_type=data.USER_TYPE
-        this.changeUserForm.mof_code=data.MOF_CODE
-        this.changeUserForm.agency_code=data.AGENCY_CODE
-        this.changeUserForm.user_name=data.USER_NAME
-        this.changeUserForm.user_account=data.USER_ACCOUNT
-        this.changeUserForm.user_password=data.USER_PASSWORD
-        this.changeUserForm.id_card_num=data.ID_CARD_NUM
-        this.changeUserForm.tel=data.TEL
-        this.changeUserForm.note=data.NOTE
-        this.changeUserForm.status=data.STATUS
-        this.changeUserForm.create_time=data.CREATE_TIME
-        this.changeUserForm.update_time=data.UPDATE_TIME
-        this.changeUserForm.version=data.VERSION
+        this.changeUserForm.guid=data.guid
+        this.changeUserForm.name=data.name
+        this.changeUserForm.password=data.password
+        this.changeUserForm.agencyName=data.agencyName
+        this.changeUserForm.agencyCode=data.agencyCode
+        this.changeUserForm.agencyId=data.agencyId
+        this.changeUserForm.idCode=data.idCode
+        this.changeUserForm.upagencyId=data.upagencyId
         this.changeUserDialogVisible=true;
         //rows.splice(index, 1);
       },
@@ -559,7 +497,7 @@
   .iconfont{
     font-size: 12px;
   }
-  .demo-table-expand {
+  /*.demo-table-expand {
     font-size: 0;
     .el-form-item{
       margin-right: 0;
@@ -569,5 +507,5 @@
         color: #5908b1;
       }
     }
-  }
+  }*/
 </style>

@@ -3,7 +3,8 @@ import {del, get, post, put} from "../../utils/request";
 const state = () => ({
     agencyCode: 2,//单位代码
     myProject:[],
-    budget_apply:{}
+    budget_apply_project:{},//预算申报源项目
+    budget_apply:{} //预算申报
 
 });
 
@@ -26,6 +27,9 @@ const mutations = {
     SET_BUDGET_APPLY: (state, budget_apply) => {
         state.budget_apply=budget_apply
     },
+    SET_BUDGET_APPLY_PROJECT: (state, budget_apply_project) => {
+        state.budget_apply_project=budget_apply_project
+    },
 };
 
 // actions 内部可以执行异步操作，context.commit()提交mutations来修改状态
@@ -43,7 +47,10 @@ const actions = {
         }).catch(err=>console.log(err));
     },
     getBudgetApply ({commit},params) {
-        commit('SET_BUDGET_APPLY',params.project)
+        commit('SET_BUDGET_APPLY',params.data)
+    },
+    getBudgetApplyProject ({commit},params) {
+        commit('SET_BUDGET_APPLY_PROJECT',params.project)
     },
 
 

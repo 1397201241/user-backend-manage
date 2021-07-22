@@ -1,6 +1,6 @@
 <template>
     <el-container style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px" direction="vertical">
-        <el-divider content-position="left"><span style="color: red;font-size: large">项目预算申报列表（单位）</span></el-divider>
+        <el-divider content-position="left"><span style="color: red;font-size: large">预算申报列表</span></el-divider>
         <el-card style="width: 100%">
             <el-table
                     ref="multipleTable"
@@ -70,7 +70,6 @@
                         prop="proCode"
                         width="160">
                 </el-table-column>
-
                 <el-table-column
                         prop="agencyCode"
                         label="单位代码"
@@ -96,8 +95,7 @@
                         label="操作"
                         width="200">
                     <template slot-scope="scope">
-                        <el-button type="primary" size="mini" @click="apply(scope)">提交申报</el-button>
-                        <el-button type="primary" size="mini" @click="$router.push('/budget_apply_details')">
+                        <el-button type="primary" size="mini" @click="checkDetail(scope)">
                             查看详情</el-button>
                     </template>
                 </el-table-column>
@@ -124,7 +122,7 @@
         data(){
             return {
                 myTableData:[],
-                bgtURL:"http://192.168.110.146:8004/budgetmaking",
+                bgtURL:"http://192.168.110.146:8004/budgetmaking/list/budget/apply",
                 currentPage: 1, // 当前页码
                 total: 20, // 总条数
                 pageSize: 4, // 每页的数据条数,
@@ -135,15 +133,17 @@
         },
         methods:{
             /**
-             * @description 获取单位未提交的预算申请
+             * @description 获取预算申报列表（财政）
              */
             getBgtList(){
-                let agencyCode=this.$store.state.base_info.info.agencyCode;
-                console.log(agencyCode)
-                fetch(this.bgtURL+"/list/budget?agencyCode=010101",{
+                let agencyId=this.$store.state.base_info.info.agencyId;
+                console.log(agencyId);
+                fetch(this.bgtURL+"/mof?agencyId=3",{
                     method:'GET',
                     headers:{
-                        "Content-Type":"application/json"
+                        "Accept": 'application/json',
+                        "Origin": '*',
+                        "Access-Control-Allow-Origin": '*',
                     },
                     mode:'cors'
                 })
@@ -155,32 +155,21 @@
                     console.log(err)
                 })
             },
-            /**
-             * @description 提交申报
-             * @param scope
-             */
-            apply(scope){
-                let data=scope.row;
-                fetch(this.baseURL+"/apply?code="+data.agencyCode+"&bgtPmanId="+data.bgtPmanId,{
-                    method:'POST',
-                    headers:{
-                        "Accept": 'application/json',
-                        "Origin": '*',
-                        "Access-Control-Allow-Origin": '*',
-                    },
-                    mode:'cors'
-                })
-                    .then(res=>res.json())
-                    .then(myJson=>{
-                        console.log(myJson);
-                        this.$router.push('/budget_apply_details')
-                    }).catch(err=>{
-                    console.log(err)
-                    })
-            },
             //选择框
             handleSelectionChange(val) {
                 this.multipleSelection = val;
+            },
+            /**
+             * @description 跳转下发预算控制数（财政）
+             * @param scope
+             */
+            checkDetail(scope){
+                let data=scope.row;
+                console.log(data);
+                this.$store.dispatch("agency_budget_apply/getBudgetApply",{data}).then(()=>{
+                    this.$router.push('/budget_apply_details2')
+                })
+
             },
             //选择一页显示多少行
             handleSizeChange(val) {

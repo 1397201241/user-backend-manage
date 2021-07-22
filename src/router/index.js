@@ -11,7 +11,6 @@ const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
 const Users = ()=>import('../components/page/Users');
-const Test = ()=>import('../components/page/Test');
 const Agency = ()=>import('../components/page/Agency');
 const ActionBar = ()=>import('../components/common/ActionBar');
 const Welcome = ()=>import('../components/page/Welcome');
@@ -33,9 +32,12 @@ const BudgetApplyDetails2 = ()=>import('../components/page/budget/BudgetApplyDet
 const BudgetApplyDetails3 = ()=>import('../components/page/budget/BudgetApplyDetails3');
 const BudgetApplyList = ()=>import('../components/page/budget/BudgetApplyList');
 const BudgetApplyList2 = ()=>import('../components/page/budget/BudgetApplyList2');
+const BudgetApplyList3 = ()=>import('../components/page/budget/BudgetApplyList3');
+const BudgetApplyList4 = ()=>import('../components/page/budget/BudgetApplyList4');
 const AgencyProjectList = ()=>import('../components/page/budget/AgencyProjectList');
 const DraftBudget = ()=>import('../components/page/budget/DraftBudget');
 const DraftBudget2 = ()=>import('../components/page/budget/DraftBudget2');
+const DraftBudgetList = ()=>import('../components/page/budget/DraftBudgetList');
 const Pie = ()=>import('../components/common/Pie');
 const RoleList = ()=>import('../components/page/RoleList')
 const AcTarget = ()=>import('../components/page/Reply/AcTarget')
@@ -54,12 +56,6 @@ const routes = [
     name: 'Home',
     meta:{title:'首页',requireAuth:true},
     component: Home
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    meta:{title:'首页',requireAuth:true},
-    component: Test
   },
   {
     path: '/ActionBar',
@@ -87,7 +83,7 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    meta:{title:'首页',requireAuth:true},
+    meta:{title:'首页'},
     children:[
       {
         path:'/reply',
@@ -99,7 +95,7 @@ const routes = [
         path:'/users',
         name:'Users',
         component:Users,
-        meta:{title:'用户列表',requireAuth:true},
+        meta:{title:'用户列表'/*,requireAuth:true*/},
       },
       {
         path:'/payApply',
@@ -135,61 +131,79 @@ const routes = [
         path:'/agency_budget_apply',
         name:'AgencyBudgetApply',
         component:AgencyBudgetApply,
-        meta:{title:'新建申报',requireAuth:true},
+        meta:{title:'新建申报'/*,requireAuth:true*/},
       },
       {
         path:'/budget_apply_list',
         name:'BudgetApplyList',
         component:BudgetApplyList,
-        meta:{title:'申报列表',requireAuth:true},
+        meta:{title:'申报列表'/*,requireAuth:true*/},
       },
       {
         path:'/budget_apply_list2',
         name:'BudgetApplyList2',
         component:BudgetApplyList2,
-        meta:{title:'申报列表',requireAuth:true},
+        meta:{title:'申报列表'/*,requireAuth:true*/},
+      },
+      {
+        path:'/budget_apply_list3',
+        name:'BudgetApplyList3',
+        component:BudgetApplyList3,
+        meta:{title:'申报列表'/*,requireAuth:true*/},
+      },
+      {
+        path:'/budget_apply_list4',
+        name:'BudgetApplyList4',
+        component:BudgetApplyList4,
+        meta:{title:'申报列表'/*,requireAuth:true*/},
       },
       {
         path:'/agency_project_list',
         name:'AgencyProjectList',
         component:AgencyProjectList,
-        meta:{title:'项目列表',requireAuth:true},
+        meta:{title:'项目列表'/*,requireAuth:true*/},
       },
       {
         path:'/budget_apply_details',
         name:'MyBudgetApply',
         component:BudgetApplyDetails,
-        meta:{title:'申请详情',requireAuth:true},
+        meta:{title:'申请详情'/*,requireAuth:true*/},
       },
       {
         path:'/budget_apply_details2',
         name:'BudgetApplyDetails2',
         component:BudgetApplyDetails2,
-        meta:{title:'申请详情',requireAuth:true},
+        meta:{title:'申请详情'/*,requireAuth:true*/},
       },
       {
         path:'/budget_apply_details3',
         name:'BudgetApplyDetails3',
         component:BudgetApplyDetails3,
-        meta:{title:'申请详情',requireAuth:true},
+        meta:{title:'申请详情'/*,requireAuth:true*/},
       },
       {
         path:'/draft_budget',
         name:'DraftBudget',
         component:DraftBudget,
-        meta:{title:'单位预算草案',requireAuth:true},
+        meta:{title:'单位预算草案'/*,requireAuth:true*/},
       },
       {
         path:'/draft_budget2',
         name:'DraftBudget2',
         component:DraftBudget2,
-        meta:{title:'部门预算草案',requireAuth:true},
+        meta:{title:'部门预算草案'/*,requireAuth:true*/},
+      },
+      {
+        path:'/draft_budget_list',
+        name:'DraftBudgetList',
+        component:DraftBudgetList,
+        meta:{title:'单位预算草案列表'/*,requireAuth:true*/},
       },
       {
         path: '/welcome',
         name:'Welcome',
         component:Welcome,
-        meta: {title: '欢迎页面',requireAuth:true}
+        meta: {title: '欢迎页面'/*,requireAuth:true*/}
       },
       {
         path: '/project',
@@ -301,13 +315,15 @@ const router = new VueRouter({
 //全局钩子，路由拦截(权限相关)
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
-    let token=getToken();
-    let username=getUsernameToken();
+    let token=getToken();//JWT
+    let username=getUsernameToken();//用户名
     if (token) {
       //判断用户信息是否已获取，这里只能通过长度判断
       //正常情况下刷新会丢失store里的状态,因此每次跳转前获取一次（存在性能问题）
+      console.log("11")
       if (store.state.user_info.info.length===0){
-        fetch('http://192.168.110.79:8002/bm-fasp-tcauser/username/'+username,{
+        console.log("1111")
+        fetch('http://192.168.110.85:8001/bm-fasp-tcauser/username/'+username,{
           method:'GET',
           mode:'cors'
         })

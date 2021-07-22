@@ -6,9 +6,9 @@ const state = () => ({
     token:getToken(),
     username:'',
     //账户信息
+    role:'',
     user: [],
-    //用户信息
-    info:[],
+    info:[],//用户信息
     //权限信息
     permissions:[]
 
@@ -35,6 +35,18 @@ const mutations = {
     },
     //设置用户信息
     SET_INFO: (state, info) => {
+        const npc = /^\d+0{6}$/;
+        const mof = /^\d+0{4}$/;
+        const dep = /^\d+0{2}$/;
+        if(npc.test(info.agencyCode)){
+            state.role="人大代表"
+        }else if (mof.test(info.agencyCode)){
+            state.role="财政人员"
+        }else if (dep.test(info.agencyCode)){
+            state.role="部门人员"
+        }else{
+            state.role="单位人员"
+        }
         state.info=info;
     },
     //设置用户信息

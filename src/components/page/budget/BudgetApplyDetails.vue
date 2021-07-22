@@ -1,7 +1,7 @@
 <template>
     <el-container direction="vertical" style="width: 1280px;height: 560px;padding:-30px -150px -150px -30px">
         <el-card style="width: 100%">
-            <el-steps align-center class="my-step" :active="formData.APPLY_LINK">
+            <el-steps align-center class="my-step" :active="formData.applyLink">
                 <el-step title="单位提交">
                     <i class="iconfont icon-tijiao" slot="icon"></i>
                 </el-step>
@@ -18,29 +18,29 @@
                 <el-container>
                     <div class="my-icon"><i class="iconfont icon-xiangmumingcheng iconClass" slot="icon" style="line-height: 40px"></i></div>
                     <el-container direction="vertical" class="my-card">
-                        <span class="my-title">项目名称</span>
-                        <span class="my-title1">水上乐园</span>
+                        <span class="my-title">项目代码</span>
+                        <span class="my-title1">{{formData.proCode}}</span>
                     </el-container>
                 </el-container>
                 <el-container>
                     <div class="my-icon"><i class="iconfont icon-danweidaima iconClass" slot="icon" style="line-height: 40px"></i></div>
                     <el-container direction="vertical" class="my-card">
                         <span class="my-title">单位代码</span>
-                        <span class="my-title1">101 水上乐园</span>
+                        <span class="my-title1">{{formData.agencyCode}}</span>
                     </el-container>
                 </el-container>
                 <el-container>
                     <div class="my-icon"><i class="iconfont icon-jine iconClass" slot="icon" style="line-height: 40px"></i></div>
                     <el-container direction="vertical" class="my-card">
                         <span class="my-title">申报金额</span>
-                        <span class="my-title1">￥10,212</span>
+                        <span class="my-title1">{{formData.applyUp}}</span>
                     </el-container>
                 </el-container>
                 <el-container>
                     <div class="my-icon"><i class="iconfont icon-niandu iconClass" slot="icon" style="line-height: 40px"></i></div>
                     <el-container direction="vertical" class="my-card">
                         <span class="my-title">预算年度</span>
-                        <span class="my-title1">02 年</span>
+                        <span class="my-title1">{{formData.fiscalYear}}</span>
                     </el-container>
                 </el-container>
             </el-container>
@@ -51,12 +51,8 @@
                     </el-input>
                 </el-form-item>
                 <el-container>
-                    <el-form-item label="部门建议" prop="PRO_DEPREVIEW" style="width: 100%">
-                        <el-input  v-model="formData.PRO_DEPREVIEW" placeholder="部门建议（暂无">
-                        </el-input>
-                    </el-form-item>
-                    <el-form-item label="财政建议" prop="PRO_BGTREVIEW" style="width: 100%">
-                        <el-input  v-model="formData.PRO_BGTREVIEW" placeholder="财政建议（暂无">
+                    <el-form-item label="部门建议" prop="proReview" style="width: 100%">
+                        <el-input  v-model="formData.proReview" placeholder="部门建议（暂无">
                         </el-input>
                     </el-form-item>
                 </el-container>
@@ -82,7 +78,7 @@
                 </el-container>
                 <el-form-item>
                     <el-button type="primary">暂存</el-button>
-                    <el-button type="primary">提交</el-button>
+                    <el-button type="primary" @click="suggest">提交部门建议</el-button>
                     <el-button type="primary" @click="changeApplyStatus">模拟</el-button>
                 </el-form-item>
             </el-form>
@@ -95,33 +91,24 @@
         name: "AgencyBudgetApply",
         data(){
             return {
+                baseURL:'http://192.168.110.146:8004/budgetmaking',
                 formData:{
-                    AGENCY_CODE:'后台自动获取（还是确认选取）',
-                    APPLY_LINK:1,
-                    CREATE_AT:"2021-07-12",
-                    DEP_AUD_OPNION_CODE:1,
-                    IS_DELETE:0,
-                    IS_TERMINATED:0,
-                    MOF_AUD_OPNION_CODE:1,
-                    PRO_AGENCY_VIEW:"这项目很牛逼！（在这一步填写还是下一波）",
-                    PRO_CAT_CODE:"04",
-                    PRO_CODE:"101",
-                    PRO_DEPREVIEW:"",
-                    PRO_BGTREVIEW:"",
-                    PRO_DESC:"该项目旨在给人们闲暇之余带来无限欢乐~(选取项目代码后自动填充)",
-                    PRO_ID:"13225945965(自动获取)",
-                    PRO_KIND:"文娱",
-                    PRO_KIND_CODE:"03",
-                    PRO_NAME:"水上乐园（自动获取）",
-                    FISCAL_YEAR:"01(后台获取)",
-                    APPLY_UP:"￥100，121（自动获取）",//申报金额金额
-                    SETUP_YEAR:"2015(自动获取)",
-                    UPDATE_AT:"2021/7/14下午2:40:18",
-                    VERSION:"1.03.5（后台生成）",
-                    FIN_AUDIT_MONEY:'',
-                    REPLY_AMT:"",
-                    CUR_AMT:"",
-                    id:"1",
+                    adjAmt:'',
+                    agencyCode:"",
+                    applyLink:"",
+                    applyUp:'',
+                    bgtPmanId:"''",
+                    createAt:"",
+                    curAmt:'',
+                    deptCode:"",
+                    finAuditMoney:'',
+                    fiscalYear:"",
+                    isDelete:'',
+                    proCode:"",
+                    proKindCode:"'",
+                    replyAmt:'',
+                    updateAt:"",
+                    version:''
                 },
                 agencyCodeOptions:[
                     {
@@ -157,12 +144,37 @@
             }
         },
         created() {
-
+            this.formData=this.$store.state.agency_budget_apply.budget_apply//要给出建议的预算
         },
         mounted() {
 
         },
         methods: {
+            /**
+             * @description 部门给出建议
+             */
+            suggest(){
+                let proReview=this.formData.proReview;
+                let proCode=this.formData.proCode;
+                let bgtPmanId=this.formData.bgtPmanId;
+                console.log(proReview,proCode,bgtPmanId);
+                fetch(this.baseURL+"/examine?bgtPmanId=1417735272220712962&proCode=0220210720143246&proReview=预算合理111",{
+                    method:'GET',
+                    headers:{
+                        "Accept": 'application/json',
+                        "Origin": '*',
+                        "Access-Control-Allow-Origin": '*',
+                    },
+                    mode:'cors'
+                })
+                    .then(res=>res.json())
+                    .then(myJson=>{
+                        console.log(myJson.data);
+                    }).catch(err=>{
+                    console.log(err)
+                })
+                console.log(proReview)
+            },
             changeApplyStatus(){
                 this.formData.APPLY_LINK+=1;
                 if (this.formData.APPLY_LINK===2){
@@ -186,7 +198,6 @@
                     this.formData.CUR_AMT='10,121'
                 }
             }
-
         }
     }
 </script>

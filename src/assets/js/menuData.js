@@ -90,6 +90,19 @@ export const menuList = [
           "type": 0,
           "children": [
             {
+              "id": 1564,
+              "parentId": 229,
+              "menuName": "项目列表",
+              "url": "/agency_project_list",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
               "id": 1666,
               "parentId": 229,
               "menuName": "新建申报",
@@ -105,7 +118,7 @@ export const menuList = [
             {
               "id": 1766,
               "parentId": 229,
-              "menuName": "申报列表",
+              "menuName": "新建申报列表",
               "url": "/budget_apply_list",
               "icon": "el-icon-star-off",
               "orderNum": 2,
@@ -116,10 +129,51 @@ export const menuList = [
               "children": []
             },
             {
-              "id": 1564,
+              "id": 1694,
               "parentId": 229,
-              "menuName": "项目列表",
-              "url": "/agency_project_list",
+              "menuName": "审核列表（待编制草案）",
+              "url": "/budget_apply_list4",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+
+          ]
+        },
+        {
+          "id": 2219,
+          "parentId": 312,
+          "menuName": "部门审核",
+          "url": "",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children": [
+            {
+              "id": 1666,
+              "parentId": 2219,
+              "menuName": "申报列表（一审）",
+              "url": "/budget_apply_list2",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
+              "id": 1766,
+              "parentId": 2219,
+              "menuName": "申报列表（二审）",
+              "url": "/budget_apply_list5",
               "icon": "el-icon-star-off",
               "orderNum": 2,
               "open": 0,
@@ -129,6 +183,59 @@ export const menuList = [
               "children": []
             },
           ]
+        },
+        {
+          "id": 2719,
+          "parentId": 312,
+          "menuName": "财政审核",
+          "url": "",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children": [
+            {
+              "id": 1656,
+              "parentId": 2719,
+              "menuName": "申报列表（一审）",
+              "url": "/budget_apply_list3",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+            {
+              "id": 1466,
+              "parentId": 2719,
+              "menuName": "申报列表（二审）",
+              "url": "/budget_apply_list6",
+              "icon": "el-icon-star-off",
+              "orderNum": 2,
+              "open": 0,
+              "disabled": false,
+              "perms": "",
+              "type": 0,
+              "children": []
+            },
+          ]
+        },
+        {
+          "id": 21442,
+          "parentId": 312,
+          "menuName": "申报列表",
+          "url": "/budget_apply_list2",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
         },
         {
           "id": 21312,
@@ -144,10 +251,23 @@ export const menuList = [
           "children":[]
         },
         {
-          "id": 2312,
+          "id": 2112,
           "parentId": 312,
           "menuName": "部门预算草案",
           "url": "/draft_budget2",
+          "icon": "el-icon-date",
+          "orderNum": 1,
+          "open": 1,
+          "disabled": false,
+          "perms": "el-icon-date",
+          "type": 0,
+          "children":[]
+        },
+        {
+          "id": 21124,
+          "parentId": 312,
+          "menuName": "预算草案列表",
+          "url": "/draft_budget_list",
           "icon": "el-icon-date",
           "orderNum": 1,
           "open": 1,
@@ -164,7 +284,7 @@ export const menuList = [
           "icon": "el-icon-edit",
           "orderNum": 3,
           "open": 0,
-          "disabled": false,
+          "disabled": true,
           "perms": null,
           "type": 0,
           "children": []
@@ -177,7 +297,7 @@ export const menuList = [
           "icon": "el-icon-date",
           "orderNum": 4,
           "open": 1,
-          "disabled": false,
+          "disabled": true,
           "perms": "el-icon-date",
           "type": 0,
           "children": []
@@ -448,7 +568,7 @@ export const menuList = [
           "children":[]
         },
         {
-          "id": 73,
+          "id": 733,
           "parentId": 7,
           "menuName": "预算指标下达",
           "url": "/target_down",
