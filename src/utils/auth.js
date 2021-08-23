@@ -2,6 +2,7 @@
 * token的setter,getter以及remove
 * */
 //cookie的轻量化API
+// @ts-ignore
 import Cookies from 'js-cookie'
 
 const TokenKey='token';

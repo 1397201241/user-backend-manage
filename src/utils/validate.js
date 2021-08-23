@@ -17,16 +17,6 @@ const  FormValidate =function () {
                     callback()
                 }
             },
-            VerificationCode: function (rule, value, callback) {
-                if (!value) {
-                    callback(new Error('请输入验证码'));
-                }
-                if (value !== this.verificationC) {
-                    callback(new Error('验证码错误'));
-                } else {
-                    callback();
-                }
-            },
             // 邮箱的正则
             Email: function (rule, value, callback) {
                 if (!value) {
@@ -61,7 +51,7 @@ const  FormValidate =function () {
                 }
             },
             // 密码的验证
-            Password: (rule,value,callback)=>{
+            Password: (rule, value, callback)=>{
                 //密码正则
                 const password=/^[0-9a-zA-Z_]{6,20}$/g;
                 if (!value) {

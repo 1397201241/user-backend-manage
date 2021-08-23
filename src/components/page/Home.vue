@@ -9,7 +9,7 @@
 
       <!--用户头像及下拉框-->
       <div class="headRight">
-        <span style="color: white;font-size: 30px">Hello,{{this.$store.state.user_info.info.name}}</span>
+        <span style="color: white;font-size: 30px">Hello,{{this.$store.state.userInfo.info.username}}</span>
         <el-dropdown>
           <img src="../../assets/imgs/head.png">
           <el-dropdown-menu slot="dropdown">
@@ -97,9 +97,11 @@ export default {
     if (this.$route.path==='/welcome'){
       this.isWelcomeWrap=true
     }
-    if (this.$store.state.user_info.info.name==='admin'){
+    if (this.$store.state.userInfo.info.name==='admin'){
       let newMenuList=menuList;
-      newMenuList[0].disabled=false;
+      console.log(menuList)
+      newMenuList[1].disabled=false;
+      console.log(newMenuList)
       this.menuList=newMenuList
     }
   },
@@ -107,7 +109,7 @@ export default {
     // 刷新时以当前路由做为tab加入tabs
     // 当前路由不是首页时，添加首页以及另一页到store里，并设置激活状态
     // 当当前路由是首页时，添加首页到store，并设置激活状态
-    console.log(this.$store.state.user_info.info)
+    console.log(this.$store.state.userInfo.info)
     this.$store.dispatch('tab_info/setTab',this.$route.path)
   },
   // eslint-disable-next-line vue/no-unused-components
@@ -162,10 +164,7 @@ export default {
       this.$store.commit('base_info/SET_TOKEN','');
       //清除用户信息
       this.$store.commit('user_info/SET_INFO',[]);
-
       //跳转
-
-
       this.$router.push({
         path:'/login'
       });

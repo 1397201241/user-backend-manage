@@ -56,8 +56,8 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    meta:{title:'首页',requireAuth:true},
-    component: Home
+    meta:{title:'首页'},
+    component: ()=>import('../views/Home')
   },
   {
     path: '/ActionBar',

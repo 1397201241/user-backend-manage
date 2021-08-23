@@ -1,26 +1,22 @@
 import {getToken, setToken,} from '../../utils/auth'
-import {getInfo, getPermission, getUserRole,getPermissionID} from '../../api/user'
-import {get} from "../../utils/request";
+import {getInfo, getPermission, getPermissionID, getUserRole} from '../../api/user'
+import request from "../../utils/request";
+
 // 登录组件状态信息
 const state = () => ({
     token:getToken(),
     username:'',
     //账户信息
     role:'',
-    user: [],
+    users: [],
     info:[],//用户信息
     //权限信息
     permissions:[]
 
 });
-
-// getters 相当于计算属性
-const getters = {
-    info:state=>{
-        return state.info
-    }
-};
-
+const getters={
+    
+}
 // 提交 mutation 是更改状态的唯一方法，并且这个过程是同步的。
 const mutations = {
     SET_TOKEN: (state, token) => {
@@ -30,12 +26,12 @@ const mutations = {
         state.username = username
     },
     //全体用户账号密码，todo:不安全做法
-    SET_USER: (state, user) => {
-        state.user=user
+    SET_USER: (state, users) => {
+        state.users=users
     },
     //设置用户信息
     SET_INFO: (state, info) => {
-        const npc = /^\d+0{6}$/;
+        /*const npc = /^\d+0{6}$/;
         const mof = /^\d+0{4}$/;
         const dep = /^\d+0{2}$/;
         if(npc.test(info.agencyCode)){
@@ -46,7 +42,7 @@ const mutations = {
             state.role="部门人员"
         }else{
             state.role="单位人员"
-        }
+        }*/
         state.info=info;
     },
     //设置用户信息
@@ -69,18 +65,27 @@ const actions = {
     },
     //获取用户账号密码
     getUser: ({commit}) => {
-        get('http://localhost:3000/user').then(res=>{
-            commit('SET_USER',res)
-        }).catch(err=>console.log(err));
+        request({
+            url: '/user',
+            method: 'get'
+        }).then(res => {
+            commit('SET_USER', res)
+        }).catch(err => console.log(err));
     },
-    //用户验证
-    authenticationUser({commit,state}, params) {
+    /**
+     * @description 用户匹配验证
+     * @todo 后端集成
+     * @param commit
+     * @param state
+     * @param params
+     */
+    authenticationUser({commit, state}, params) {
         return new Promise((resolve) => {
-            for (let user of state.user){
+            for (const user of state.users) {
                 //用户匹配判断
-                if (params.username===user['username']&&params.decryptPassword===user['password']){
+                if (params.username === user.username && params.decryptPassword === user.password) {
                     //服务端
-                    commit('SET_TOKEN',params.username);
+                    commit('SET_TOKEN', params.username);
                     //客户端
                     setToken(params.username);
                     resolve()
@@ -101,8 +106,8 @@ const actions = {
                 .then(response=>{
                     //基本信息
                     const info=response;
-                    let permissions=[];
-                    let permissionRequest=[];
+                    const permissions=[];
+                    const permissionRequest=[];
                     //获取用户ID对应的角色ID
                     getUserRole(info.id).then(res=>{
                         const user_role=res;
@@ -115,12 +120,16 @@ const actions = {
                                 for (const id of permission_id){
                                     permissionRequest.push(
                                         //获取权限ID对应的权限
-                                        getPermission(id).then(permission=>permission.title)
+                                        getPermission(id).then(permission=> {
+                                            const {title}= permission;
+                                            return title;
+                                        })
                                             .catch(err=> new Error("获取权限信息失败"+err))
                                     )
                                 }
                                 Promise.allSettled(permissionRequest).then(result=>{
-                                    for (const item of result){
+                                    const result1 = result;
+                                    for (const item of result1){
                                         if(item.status==='fulfilled'){
                                             permissions.push(item.value)
                                         }
@@ -135,20 +144,39 @@ const actions = {
                 .catch(err=> new Error("获取用户信息失败"+err))
         });
     },
-    //获取公钥
+    /**
+     * @description 获取公钥
+     */
     getPublicKey(){
-        return get('http://localhost:3000/JSEncrypt')
-            .then(myJson=>myJson[0].publicKey)
+        return request({
+            url:'/JSEncrypt',
+            method:'get'
+        })
+            .then(myJson=>{
+                const res=myJson;
+                const jsEncrypt = res[0];
+                return jsEncrypt.publicKey
+            })
             .catch(err=> console.log(err));
     },
-    //获取私钥
+    /**
+     * @description 获取私钥
+     */
     getPrivateKey(){
-        return get('http://localhost:3000/JSEncrypt')
-            .then(myJson=>myJson[0].privateKey)
+        return request({
+            url:'/JSEncrypt',
+            method:'get'
+        })
+            .then(myJson=>{
+                const res=myJson;
+                const jsEncrypt = res[0];
+                return jsEncrypt.privateKey
+            })
             .catch(err=> console.log(err));
     },
 
 };
+
 
 export default {
     namespaced: true,

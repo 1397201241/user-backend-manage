@@ -6,12 +6,19 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import * as echarts from 'echarts'
 import axios from "axios";
+import Antd from 'ant-design-vue';
+import 'ant-design-vue/dist/antd.css';
+import 'xe-utils'
+import VXETable from 'vxe-table'
+import 'vxe-table/lib/style.css'
 
-Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false;
-Vue.use(ElementUI);
+Vue.prototype.$echarts = echarts;
 Vue.prototype.$axios = axios;
 
+Vue.use(ElementUI);
+Vue.use(Antd);
+Vue.use(VXETable)
 new Vue({
   router,
   store,

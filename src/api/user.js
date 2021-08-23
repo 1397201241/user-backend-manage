@@ -1,4 +1,4 @@
-import request, {put,get} from '../utils/request'
+import request from '../utils/request'
 
 /**
  * @description 获取用户基本信息
@@ -17,9 +17,11 @@ import request, {put,get} from '../utils/request'
  * @return {Promise<any | void>} 用户基本信息
  */
 export function getInfo(username) {
-    return get('http://192.168.110.85:8001/bm-fasp-tcauser/username/'+username)
-        .then(myJson=>myJson.data)
-        .catch(err=>new Error("获取用户基本信息失败"+err));
+    return request({
+        url: '/user?username=' + username,
+        method: 'get'
+    }).then((res)=>res[0])
+        .catch(err => new Error("获取用户基本信息失败" + err));
 }
 /**
  * @description 获取用户的角色信息
@@ -27,9 +29,8 @@ export function getInfo(username) {
  * @return {Promise<any | void>} 用户角色信息
  */
 export function getUserRole(uid) {
-    return fetch('http://localhost:3000/user_role?uid='+uid)
-        .then(res=>res.json())
-        .then(myJson=>myJson[0])
+    return request.get('/user_role?uid='+uid)
+        .then((myJson)=>myJson[0])
         .catch(err=> console.log(err));
 }
 
@@ -39,19 +40,17 @@ export function getUserRole(uid) {
  * @return {Promise<[] | void>} permission_id 权限ID
  */
 export function getPermissionID(rid) {
-    return fetch('http://localhost:3000/role_permission?rid='+rid)
-        .then(res=>res.json())
-        .then(myJson=>myJson[0].permission_id)
+    return request.get('/role_permission?rid='+rid)
+        .then((myJson)=>myJson[0].permission_id)
         .catch(err=> console.log(err));
 }
-
 /**
  * @description 获取权限信息
  * @param permission_id {number} 权限id
  * @return {Promise<any | void>} 权限信息
  */
 export function getPermission(permission_id) {
-    return get('http://localhost:3000/permission/'+permission_id).catch(err=> console.log(err));
+    return request.get('/permission/'+permission_id).catch(err=> console.log(err));
 }
 
 /**
@@ -59,7 +58,7 @@ export function getPermission(permission_id) {
  * @return {Promise<*>} 用户列表
  */
 export function getUsers() {
-    return get('http://localhost:3000/user')
+    return request.get('/user')
         .catch(err=>{
             console.log(err)
         })
@@ -72,7 +71,7 @@ export function getUsers() {
  * @return {Promise<* | void>}
  */
 export function changeUserRole(id, newUserRole) {
-    return put('http://localhost:3000/user_role/'+id, newUserRole)
+    return request.put('/user_role/'+id, newUserRole)
         .catch(err=> console.log(err))
 }
 
@@ -81,7 +80,7 @@ export function changeUserRole(id, newUserRole) {
  * @return {Promise<* | void>} 角色信息 {id, name, description}
  */
 export function getRole() {
-    return get('http://localhost:3000/role').catch(err=>console.log(err))
+    return request.get('http://localhost:3000/role').catch(err=>console.log(err))
 }
 
 /**
@@ -90,8 +89,8 @@ export function getRole() {
  * @return {Promise<* | void>}
  */
 export function getRolePermission(rid) {
-    return get('http://localhost:3000/role_permission?rid='+rid)
-        .then(myJson=>myJson[0])
+    return request.get('http://localhost:3000/role_permission?rid='+rid)
+        .then((myJson)=>myJson[0])
         .catch(err=>console.log(err))
 }
 /**
@@ -101,12 +100,7 @@ export function getRolePermission(rid) {
  * @return {Promise<* | void>}
  */
 export function changeRolePermission(id, newRolePermission) {
-    return put('http://localhost:3000/role_permission/'+id, newRolePermission)
+    return request.put('http://localhost:3000/role_permission/'+id, newRolePermission)
         .catch(err=> console.log(err))
 }
-export function logout() {
-    return request({
-        url: '/vue-element-admin/user/logout',
-        method: 'post'
-    })
-}
+

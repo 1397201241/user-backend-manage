@@ -1,4 +1,3 @@
-import querystring from "querystring";
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,60 +5,29 @@ import querystring from "querystring";
     <title>Title</title>
 </head>
 <body>
-<span id="main" style="width: 400px;height: 400px"></span>
+    <span id="main" style="width: 400px;height: 400px"></span>
+    <img name="hello" style="width: 400px;height: 400px"></img>
 </body>
 <script>
+    var a=[]
+    var b=[1,2,3]
+    var c=a
+    a[0]=0
+    delete b[2]
+    console.log(b)
+    console.log(1 in b)
+    for (var i=0,j=10;j<15;i++,j++){
+        console.log(i)
+        console.log(j)
+    }
+    for (var i=0;i<10;a[i++]=0);
+    let o={}
+    o.s="s"
+    o["for-me"]="fpr"
+    console.log(o.hasOwnProperty('toString'))
+    console.log(('toString' in o))
+    console.log(Object)
+    console.log(Object.prototype)
 
-    /*import * as echarts from 'echarts';
-
-    var chartDom = document.getElementById('main');
-    var myChart = echarts.init(chartDom);
-    var option;
-
-    option = {
-        tooltip: {
-            trigger: 'item'
-        },
-        legend: {
-            top: '5%',
-            left: 'center'
-        },
-        series: [
-            {
-                name: '访问来源',
-                type: 'pie',
-                radius: ['40%', '70%'],
-                avoidLabelOverlap: false,
-                itemStyle: {
-                    borderRadius: 10,
-                    borderColor: '#fff',
-                    borderWidth: 2
-                },
-                label: {
-                    show: false,
-                    position: 'center'
-                },
-                emphasis: {
-                    label: {
-                        show: true,
-                        fontSize: '40',
-                        fontWeight: 'bold'
-                    }
-                },
-                labelLine: {
-                    show: false
-                },
-                data: [
-                    {value: 1048, name: '搜索引擎'},
-                    {value: 735, name: '直接访问'},
-                    {value: 580, name: '邮件营销'},
-                    {value: 484, name: '联盟广告'},
-                    {value: 300, name: '视频广告'}
-                ]
-            }
-        ]
-    };
-
-    option && myChart.setOption(option);*/
 </script>
 </html>

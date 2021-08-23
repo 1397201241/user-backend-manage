@@ -722,7 +722,7 @@
       "APPLY_UP": 12,
       "FIN_AUDIT_MONEY": 12,
       "DEPT_CODE": "6534",
-      "APPLY_LINK": "0",
+      "APPLY_LINK": 1,
       "REPLY_AMT": 12,
       "ADJ_AMT": 12,
       "CUR_AMT": 12,

@@ -225,7 +225,7 @@ export default {
 
       let id = this.$store.state.user_info.info.agencyId
       console.log(id)
-      get('http://192.168.110.5:8005/info/unfinished/'+id).then(
+      get('http://192.168.110.85:8001/info/unfinished/'+id).then(
           res => {
             this.myTableData = res.data
             console.log(res)

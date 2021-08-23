@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import pay_apply_info from './modules/pay_apply_info.js'
-import user_info from './modules/user_info.js'
+import userInfo from './modules/userInfo.js'
 import tab_info from "./modules/tab_info";
 import base_info from "./modules/base_info";
 import budget_index_info from "./modules/budget_index_info";
@@ -12,7 +12,7 @@ const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
   modules: {
-    user_info,
+    userInfo,
     tab_info,
     base_info,
     pay_apply_info,
