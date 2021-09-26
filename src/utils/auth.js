@@ -11,19 +11,19 @@ const username='username';
 export function getToken() {
     return Cookies.get(TokenKey)
 }
-export function getUsernameToken() {
-    return Cookies.get(username)
-}
 export function setToken(token) {
     return Cookies.set(TokenKey, token)
+}
+export function removeToken() {
+    return Cookies.remove(TokenKey)
+}
+
+export function getUsernameToken() {
+    return Cookies.get(username)
 }
 
 export function setUsernameToken(token) {
     return Cookies.set(username, token)
-}
-
-export function removeToken() {
-    return Cookies.remove(TokenKey)
 }
 
 export function removeUsernameToken() {

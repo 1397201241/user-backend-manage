@@ -389,7 +389,7 @@
     .iconfont{
         font-size: 12px;
     }
-    /*.demo-table-expand {
+    /*.demo-vxeTable-expand {
       font-size: 0;
       .el-form-item{
         margin-right: 0;

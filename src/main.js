@@ -11,8 +11,13 @@ import 'ant-design-vue/dist/antd.css';
 import 'xe-utils'
 import VXETable from 'vxe-table'
 import 'vxe-table/lib/style.css'
+// VXETable渲染器注册
+import './components/renderers/index'
+// 阿里图标库
+import './assets/css/iconfont.css'
 
 Vue.config.productionTip = false;
+// vue实例挂载以下属性
 Vue.prototype.$echarts = echarts;
 Vue.prototype.$axios = axios;
 

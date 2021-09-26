@@ -17,6 +17,19 @@ const  FormValidate =function () {
                     callback()
                 }
             },
+            /*验证码校验*/
+            ValidateVerificationCode:function (rule, value, callback){
+                if (!value) {
+                    callback(new Error('请输入验证码'));
+                }else {
+                    callback()
+                }
+                /*if (value !== this.verificationC) {
+                  callback(new Error('验证码错误'));
+                } else {
+                  callback();
+                }*/
+            },
             // 邮箱的正则
             Email: function (rule, value, callback) {
                 if (!value) {

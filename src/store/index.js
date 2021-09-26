@@ -8,8 +8,8 @@ import budget_index_info from "./modules/budget_index_info";
 import agency_budget_apply from "./modules/agency_budget_apply";
 Vue.use(Vuex);
 
-const debug = process.env.NODE_ENV !== 'production';
-
+const debug = process.env.NODE_ENV !== 'production'; // 开发环境 true
+//const debug = true; // 产品环境 false
 export default new Vuex.Store({
   modules: {
     userInfo,

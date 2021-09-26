@@ -10,7 +10,7 @@
       <a-form-model-item style="font-size: 20px;color: #22ccdd;text-align: center">
         预算管理一体化系统
       </a-form-model-item>
-      <a-form-model-item ref="username" prop="username" >
+      <a-form-model-item has-feedback ref="username" prop="username" >
         <a-input
             v-model="loginForm.username"
             placeholder="Username"
@@ -18,7 +18,7 @@
           <a-icon slot="prefix" type="user" style="color: rgba(0,0,0,.25)"/>
         </a-input>
       </a-form-model-item>
-      <a-form-model-item ref="password" prop="password">
+      <a-form-model-item has-feedback ref="password" prop="password">
         <a-input
             v-model="loginForm.password"
             type="password"
@@ -27,25 +27,26 @@
           <a-icon slot="prefix" type="lock" style="color: rgba(0,0,0,.25)"/>
         </a-input>
       </a-form-model-item>
-      <a-form-model-item  class="verification-code" prop="verificationCode">
+      <a-form-model-item class="verification-code" prop="verificationCode">
         <a-input
             v-model="loginForm.verificationCode"
             ref="verificationCode"
             placeholder="验证码"
-            :maxLength=4
+            :maxLength=5
             autocomplete="off"
+            style="margin-right: 15px"
         >
           <i slot="prefix" class="iconfont icon-xiugai"></i>
         </a-input>
-
-        <canvas id="canvas"
+        <img :src="verificationC" style="height: 32px;width: 128px;cursor: pointer" @click="getVerificationCode">
+<!--        <canvas id="canvas"
                 ref="code"
                 width="120px"
                 height="32px"
                 style="margin-left: 20px;background-color: #c6e2ff"
                 @click="createCode"
         >
-        </canvas>
+        </canvas>-->
       </a-form-model-item>
       <a-form-model-item>
         <a-checkbox
@@ -91,30 +92,20 @@
 <script>
 import {FormValidate} from "../../utils/validate";
 import {JSEncrypt} from "jsencrypt";
-//import querystring from 'querystring';
+
+import {getVerificationCode} from "../../api/user";
 //import {setToken, setUsernameToken} from "../../utils/auth";
-//import request from "../../utils/request";
+
 export default {
   name: "Login",
   data() {
-    /*验证码校验*/
-    const validateVerificationCode = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入验证码'));
-      }
-      if (value !== this.verificationC) {
-        callback(new Error('验证码错误'));
-      } else {
-        callback();
-      }
-    };
-
     return {
       verificationC: '',//验证码
       loginForm: {//登录表单
         username: '',
         password: '',
-        verificationCode: ''
+        verificationCode: '',
+        key: ''
       },
       loading:false,
       loginRules: { //登录校验
@@ -130,7 +121,7 @@ export default {
         ],
         verificationCode: [
           {
-            validator: validateVerificationCode,
+            validator: FormValidate().Form().ValidateVerificationCode,
             trigger: 'blur'
           }
         ]
@@ -141,24 +132,49 @@ export default {
 
   },
   created() {
-    this.$store.commit('tab_info/CLEAN_TABS');
-    this.getAccount()
+    // this.$store.commit('tab_info/CLEAN_TABS');
+    // this.getAccount()
+    this.getVerificationCode()
   },
   mounted() {
-    this.createCode()
+    //this.createCode()
   },
   methods: {
-
-    /*登录*/
+    // 获取验证码
+    getVerificationCode() {
+      return getVerificationCode().then(res => {
+            this.verificationC = res.data.base64Img;
+            this.loginForm.key=res.data.key
+          }
+      )
+          .catch(err => new Error("获取验证码" + err));
+    },
+    // 登录
     handleLogin() {
-      this.$refs['loginForm'].validate(valid => {
+      this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading=true
-          let loginForm = {};
-          //const username = this.loginForm.username;
+          // this.loading=true
+          // todo: qs => data
+          // todo: api封装
+          let {loginForm} = this
+          this.$store.dispatch('userInfo/login',{loginForm}).then(()=>{
+            this.$router.push('/')
+          }).catch(err=>{
+            new Error("登录失败："+err)
+          })
+          /*login(this.loginForm)
+              .then( res => {
+                    if (res.status === 200) {
+                      setToken(res.headers.authorization)
+                      this.$router.push('/')
+                    }
+                  }
+              )
+              .catch(err => new Error("登录失败" + err));*/
+          /*let loginForm = {};
           loginForm.username = this.loginForm.username;
           loginForm.password = this.loginForm.password;
-          /*fetch('http://192.168.110.85:8001/login', {
+          /!*fetch('http://192.168.110.85:8001/login', {
             method: 'POST',
             headers: {
               "Content-Type": 'application/x-www-form-urlencoded',
@@ -186,7 +202,7 @@ export default {
               })
               .catch(error => {
                 console.log(error)
-              });*/
+              });*!/
           //创建加密对象实例
           let jsEncrypt=new JSEncrypt();
           //获取公钥并加密
@@ -199,10 +215,10 @@ export default {
                   //匹配验证
                   this.authenticationUser(this.loginForm.username,encryptPassword)
               }
-          )
+          )*/
         } else {
           this.$notify.error({
-            title: '登录失败！'
+            title: '验证失败！'
           });
         }
       });
@@ -248,15 +264,13 @@ export default {
       }
     },
     /*创建验证码*/
-    createCode() {
+    /*createCode() {
       let canvas = this.$refs.code;
       let context = canvas.getContext('2d');
       // eslint-disable-next-line no-unused-vars
       let verification_code = "";
       draw();
-      console.log(verification_code);
       this.verificationC = verification_code;
-
       //绘制图形
       function draw() {
         //每次绘画前，清空画板
@@ -284,14 +298,14 @@ export default {
           context.rotate(-deg);
           context.translate(-x, -y);
         }
-        /*//设置干扰线 8条
+        /!*!//设置干扰线 8条
         for (let i = 0; i < 8; i++) {
             context.beginPath();
             context.moveTo(Math.random() * 120, Math.random() * 42);
             context.lineTo(Math.random() * 120, Math.random() * 42);
             context.strokeStyle = getColor();
             context.stroke();
-        }*/
+        }*!/
         //设置干扰点 20 个
         for (let i = 0; i < 20; i++) {
           context.beginPath();
@@ -311,7 +325,7 @@ export default {
         let b = Math.floor(Math.random() * 256);
         return `rgb(${r}, ${g}, ${b})`
       }
-    },
+    },*/
 
     /*获取用户账号密码*/
     getAccount(){

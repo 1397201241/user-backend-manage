@@ -1,4 +1,5 @@
 import request from '../utils/request'
+import querystring from "querystring";
 
 /**
  * @description 获取用户基本信息
@@ -11,6 +12,18 @@ import request from '../utils/request'
         .then(myJson=>myJson[0])
         .catch(err=>new Error("获取用户基本信息失败"+err));
 }*/
+export function getVerificationCode() {
+    return request({
+        url: '/captcha',
+        method: 'get'
+    })
+}
+export function login(loginForm){
+    return request({
+        url: '/login?' + querystring.stringify(loginForm),
+        method: 'post'
+    })
+}
 /**
  * @description 获取用户基本信息
  * @param username {string} 存储在浏览器cookie的token(这里是用户名)

@@ -4,12 +4,11 @@ import {getToken,getUsernameToken} from "../utils/auth";
 import store from '../store'
 import {getInfo} from "../api/user";
 
-const PayVoucher = ()=>import('../components/page/audit/PayVoucher');
+const PayVoucher = () => import("../components/page/audit/PayVoucher");
 const PayVoucherList1 = ()=>import('../components/page/audit/PayVoucherList');
 const ViewProProgress = ()=>import("../components/page/Project/ViewProProgress");
 const ProApply = ()=>import("../components/page/Project/ProApply");
 const ProApply_add = ()=> import("../components/page/Project/ProApply_add");
-const Home = ()=>import('../components/page/Home.vue');
 const Register = ()=>import('../components/page/Register.vue');
 const Login = ()=>import('../components/page/Login.vue');
 const Users = ()=>import('../components/page/Users');
@@ -60,6 +59,24 @@ const routes = [
     component: ()=>import('../views/Home')
   },
   {
+    path: '/renderer',
+    name: 'Renderer',
+    meta:{title: '渲染器'},
+    component: ()=>import('../components/vxeTable/Renderers')
+  },
+  {
+    path: '/drumKit',
+    name: 'DrumKit',
+    meta:{title: '渲染器'},
+    component: ()=>import('../views/DrumKit')
+  },
+  {
+    path: '/atable',
+    name: 'ATable',
+    meta:{title:'首页'},
+    component: ()=>import('../views/test/aTable')
+  },
+  {
     path: '/ActionBar',
     name: 'ActionBar',
     meta:{title:'导航栏',requireAuth:true},
@@ -83,9 +100,9 @@ const routes = [
   },
   {
     path: '/home',
-    name: 'Home',
-    component: Home,
-    meta:{title:'首页',requireAuth:true},
+    name: 'Default',
+    component: ()=>import('../components/page/Home'),
+    meta:{title:'首页'},
     children:[
       {
         path:'/reply',

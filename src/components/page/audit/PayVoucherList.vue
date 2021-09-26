@@ -42,13 +42,13 @@
               prop="payAcctBankName"
               label="收款人名称">
       </el-table-column>
-      <!--<el-table-column
+      <!--<el-vxeTable-column
               label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="send(scope.row)">进行申请</el-button>
           <el-button type="primary" size="mini" @click=viewPayVoucherDetail(scope.row)>查看详情</el-button>
         </template>
-      </el-table-column>-->
+      </el-vxeTable-column>-->
     </el-table>
     <div style="margin-top: 10px">
       <el-button type="primary" size="mini" @click="send()" disabled>下载通知单</el-button>
@@ -75,13 +75,13 @@
         <template slot-scope="scope">$ {{ scope.row.paidAmount }}</template>
       </el-table-column>
 
-      <!--<el-table-column
+      <!--<el-vxeTable-column
               label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="send(scope.row)">进行申请</el-button>
           <el-button type="primary" size="mini" @click=viewPayVoucherDetail(scope.row)>查看详情</el-button>
         </template>
-      </el-table-column>-->
+      </el-vxeTable-column>-->
     </el-table>
     <el-pagination
         style="padding-top: 15px;margin-left: 0;"

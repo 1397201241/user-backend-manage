@@ -24,6 +24,14 @@
         <a class="ant-dropdown-link"> More actions <a-icon type="down"/> </a>
       </span>
     </a-table>
+    <a-button @click="this.openCallapse">张口</a-button>
+    <a-collapse v-model="activeKey"  expand-icon-position="right" style="width: 80%;position: relative;left: 18%">
+      <a-collapse-panel key="1" :showArrow=false >
+        <a-button slot="header" style="width: 80px;position: relative;left: 70%">展开</a-button>
+        <p>{{ text }}</p>
+      </a-collapse-panel>
+
+    </a-collapse>
   </div>
 </template>
 <script>
@@ -89,7 +97,31 @@ export default {
     return {
       data,
       columns,
+      text: `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`,
+      activeKey: ['1'],
+      expandIconPosition: 'left',
     };
+  },
+  watch:{
+    activeKey(key) {
+      console.log(key);
+    },
+
+  },
+  methods: {
+    openCallapse(){
+      if (this.activeKey.length>0){
+        console.log(11)
+        this.activeKey=[]
+      }else {
+        this.activeKey=['1']
+      }
+      console.log("1")
+    },
+    handleClick(event) {
+      // If you don't want click extra trigger collapse, you can prevent this:
+      event.stopPropagation();
+    },
   },
 };
 </script>

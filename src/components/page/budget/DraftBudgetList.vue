@@ -94,14 +94,14 @@
                     prop="APPLY_LINK"
                     label="申报环节">
             </el-table-column>
-            <!--<el-table-column
+            <!--<el-vxeTable-column
                     fixed="right"
                     label="操作"
                     width="200">
                 <template>
                     <el-button type="primary" size="mini" @click="Note">查看详情</el-button>
                 </template>
-            </el-table-column>-->
+            </el-vxeTable-column>-->
         </el-table>
         <!--分页器-->
         <el-pagination align='center'

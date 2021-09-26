@@ -18,11 +18,11 @@
                     label="清算凭证ID"
                     width="200">
             </el-table-column>
-            <!--<el-table-column
+            <!--<el-vxeTable-column
                     prop="operatorId"
                     label="操作者ID"
                     width="120">
-            </el-table-column>-->
+            </el-vxeTable-column>-->
             <el-table-column
                     prop="liquCertNum"
                     label="清算凭证号">
@@ -32,22 +32,22 @@
                     label="金额">
                 <template slot-scope="scope">$ {{ scope.row.amout }}</template>
             </el-table-column>
-            <!--<el-table-column
+            <!--<el-vxeTable-column
                     prop="agentBank"
                     label="代理银行"
                     width="120">
-            </el-table-column>
-            <el-table-column
+            </el-vxeTable-column>
+            <el-vxeTable-column
                     prop="clearBank"
                     label="清算银行">
-            </el-table-column>-->
-            <!--<el-table-column
+            </el-vxeTable-column>-->
+            <!--<el-vxeTable-column
                     label="操作">
               <template slot-scope="scope">
                 <el-button type="primary" size="mini" @click="send(scope.row)">进行申请</el-button>
                 <el-button type="primary" size="mini" @click=viewPayVoucherDetail(scope.row)>查看详情</el-button>
               </template>
-            </el-table-column>-->
+            </el-vxeTable-column>-->
         </el-table>
         <el-pagination
                 style="padding-top: 15px;margin-left: 0;"

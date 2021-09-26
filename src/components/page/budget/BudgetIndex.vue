@@ -109,17 +109,17 @@
                     align="center"
             >
             </el-table-column>
-            <!--<el-table-column
+            <!--<el-vxeTable-column
                     prop="BGT_ID"
                     label="指标主键"
                     width="120"
             >
-            </el-table-column>-->
-            <!--<el-table-column
+            </el-vxeTable-column>-->
+            <!--<el-vxeTable-column
                     prop="MOF_DIV_CODE"
                     label="财政区划代码"
                     width="100">
-            </el-table-column>-->
+            </el-vxeTable-column>-->
             <el-table-column
                     prop="BGT_DOC_TITLE"
                     label="指标文标题"
@@ -157,41 +157,41 @@
             >
             </el-table-column>
 
-            <!--<el-table-column
+            <!--<el-vxeTable-column
                     prop="COR_BGT_DOC_NO"
                     label="本级指标文号"
                     width="100"
             >
-            </el-table-column>
+            </el-vxeTable-column>
 
-            <el-table-column
+            <el-vxeTable-column
                     prop="DOC_DATE"
                     label="发文时间"
                     width="80px"
                     align="center"
             >
-            </el-table-column>
-            <el-table-column
+            </el-vxeTable-column>
+            <el-vxeTable-column
                     prop="BGT_DEC"
                     label="指标说明"
                     width="80px"
                     align="center"
             >
-            </el-table-column>
-            <el-table-column
+            </el-vxeTable-column>
+            <el-vxeTable-column
                     prop="BUDGET_LEVEL_CODE"
                     label="预算级次代码"
                     width="80px"
                     align="center"
             >
-            </el-table-column>
-            <el-table-column
+            </el-vxeTable-column>
+            <el-vxeTable-column
                     prop="SUP_BGT_DOC_NO"
                     label="上级指标文号"
                     width="80px"
                     align="center"
             >
-            </el-table-column>-->
+            </el-vxeTable-column>-->
             <el-table-column
                     prop="action"
                     label="操作"
