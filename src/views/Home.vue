@@ -1,44 +1,30 @@
 <template>
   <a-layout id="home">
-    <a-layout-header>
-      <div class="header">
-        <div class="logo" @click="$router.go(0)"></div>
-        <div>
-          <a-dropdown placement="bottomCenter" class="nav" trigger="click" overlayClassName="home-nav">
-            <a-button icon="menu">功能板块<a-icon type="down"></a-icon></a-button>
-            <a-menu slot="overlay" mode="horizontal">
-              <a-menu-item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">前端</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">后端</a>
-              </a-menu-item>
-              <a-menu-item>
-                <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">笔记</a>
-              </a-menu-item>
-            </a-menu>
-          </a-dropdown>
-          <a-button class="login-button" icon="user" shape="round" @click="login">登录</a-button>
-        </div>
-      </div>
-
+    <a-layout-header :class="background">
+      <Nav :login-button-text="loginButtonText" :login-button-icon="loginButtonIcon"/>
       <div class="introduce">
-        <h1>借咏物而寄相思</h1>
-        <h6>这是借咏物而寄相思的诗，是眷怀友人之作。因物起兴，语虽单纯却富于想象；接着以设问寄语，意味深长地寄托了情思；第三句暗示珍重友谊，表面似乎嘱人相思，背面却深寓自身相思之重！</h6>
-        <div class="register">
-          <a-button type="primary" icon="caret-right">我来了</a-button>
+        <div v-if="$route.name=='Home'">
+          <h1>借咏物而寄相思</h1>
+          <h6>这是借咏物而寄相思的诗，是眷怀友人之作。因物起兴，语虽单纯却富于想象；接着以设问寄语，意味深长地寄托了情思；第三句暗示珍重友谊，表面似乎嘱人相思，背面却深寓自身相思之重！</h6>
+          <div class="register">
+            <a-button type="primary" icon="caret-right">我来了</a-button>
+          </div>
+        </div>
+        <div v-else>
+          <h1>个人首页</h1>
+          <h6>这是借咏物而寄相思的诗，是眷怀友人之作。因物起兴，语虽单纯却富于想象；接着以设问寄语！</h6>
         </div>
       </div>
     </a-layout-header>
-    <a-layout-content>
-      <div class="nav-cards">
+    <a-layout-content :class="contentMargin">
+      <div v-if="$route.name=='Home'" class="nav-cards">
         <div class="card-group">
           <div class="card-a" style="cursor: pointer" @click="$router.push('./renderer')">
             <div class="bg"></div>
             <div style="margin-left: 5%">vxe-table渲染器</div>
             <span style="margin-right: 5%;align-self: flex-end">
               <a-icon type="like" style="margin-right: 3px"></a-icon>
-              12.0k
+              12.8k
               <a-icon type="share-alt" style="margin: 0 3px 0 2px"></a-icon>
               8.7k
             </span>
@@ -104,7 +90,8 @@
         </div>
 
       </div>
-      <div class="background-transition"><div class="background"></div></div>
+      <div v-else style="position: relative;top: -60px;height: 100%;background: #fff;border-radius: 10px"><router-view></router-view></div>
+<!--      <div class="background-transition"><div class="background"></div></div>-->
     </a-layout-content>
   </a-layout>
 </template>
@@ -112,13 +99,27 @@
 <script >
   //import XEUtils from 'xe-utils'
 
+  import {getToken} from "../utils/auth";
+  import Nav from "../components/Nav";
+
   export default {
     name:'Home',
+    components: {Nav},
     data(){
       return {
+        name: "fall_soberly",
+        background: "background1",
+        loginButtonText: "登录",
+        loginButtonIcon: "login",
+        contentMargin: "content-margin1"
       }
     },
     created() {
+      let token = getToken()
+      if (token){
+        this.loginButtonText="退出";
+        this.loginButtonIcon="logout";
+      }
     },
     mounted() {
       window.addEventListener('scroll',this.handleScroll,true)
@@ -138,6 +139,22 @@
           header.classList.remove('header-highlight')
         }
       }
+    },
+    watch:{
+      $route:function(to){
+        if (to.name === 'Home'){
+          this.background="background1"
+          this.contentMargin="content-margin1"
+        }else {
+          this.background="background2"
+          this.contentMargin="content-margin2"
+        }
+      }
+    },
+    computed:{
+      changeName:function (){
+        return this.name.toUpperCase();
+      }
     }
   }
 
@@ -152,6 +169,22 @@
     transform: translate3d(0,60px,100px) scale(1.6);
   }
 }
+.background1{
+  height: 100vh;
+  background-image: linear-gradient(180deg, rgba(205, 186, 186, 0.5), rgba(0, 0, 0, 0.6)), url("../assets/imgs/bg2.jpg");
+}
+.background2{
+  height: 50vh;
+  background-image: linear-gradient(180deg, rgba(205, 186, 186, 0.5), rgba(0, 0, 0, 0.6)), url("../assets/imgs/back_xishi.png");
+}
+.content-margin1{
+  margin-top: 45px;
+  padding: 0 15%;
+}
+.content-margin2{
+  margin-top: 0;
+  padding: 0 5%;
+}
 #home {
   color: white;
   height: 100%;
@@ -159,9 +192,7 @@
   .ant-layout-header {
     //vw vh包含滚动条宽度
     width: 100%;
-    height: 100vh;
     padding: 0;
-    background-image: linear-gradient(180deg, rgba(205, 186, 186, 0.5), rgba(0, 0, 0, 0.6)), url("../assets/imgs/bg2.jpg");
     background-size: auto auto, cover;
     background-position: left top, right bottom;
     .header {
@@ -171,7 +202,7 @@
       padding: 0 15%;
       position: fixed;
       display: flex;
-      transition: background-color 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
       z-index: 1;
       justify-content: space-between;
       align-items: center;
@@ -187,25 +218,34 @@
         //margin-right: 772px;
         line-height: 32px;
       }
-      .nav {
-        height: 32px;
-        line-height: 32px;
-        margin-right: 20px;
-        background-color: inherit;
-        border: inherit;
-        color: #fff;
-        transition: background-color 0.3s ease-in-out;
+      .header-right{
+        display: flex;
+        justify-content: space-between;
+        .nav {
+          height: 32px;
+          line-height: 32px;
+          background-color: inherit;
+          border: inherit;
+          color: #fff;
+          transition: background-color 0.3s ease-in-out;
 
-        .anticon-down {
-          transition: transform 0.3s ease-in-out;
-        }
-
-        &:focus {
-          background-color: rgba(203, 208, 208, 0.15);
-          //animation: sk-scaleout 1s ease-in-out;
           .anticon-down {
-            transform: translateY(-1px) rotate(180deg);
+            transition: transform 0.3s ease-in-out;
           }
+
+          &:focus {
+            background-color: rgba(203, 208, 208, 0.15);
+            //animation: sk-scaleout 1s ease-in-out;
+            .anticon-down {
+              transform: translateY(-1px) rotate(180deg);
+            }
+          }
+        }
+        .avatar{
+          border: inherit;
+          color: #fff;
+          background: rgba(203, 208, 208, 0.15);
+          margin-right: 10px
         }
       }
     }
@@ -269,9 +309,7 @@
   .ant-layout-content {
     height: 100vh;
     width: 100%;
-    padding: 0 15%;
-    margin-top: 45px;
-    background-color: rebeccapurple;
+    background-color: #e7e7e7;
     .nav-cards {
       width: 100%;
       height: 480px;
