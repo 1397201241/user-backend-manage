@@ -1,15 +1,20 @@
 <template>
     <el-container id="navigation_bar">
-        <span :class="{span_select:span_select}" @click="span_select=true"><slot/></span>
-        <el-button size="mini" type="primary" icon="el-icon-refresh" @click="$store.dispatch('base_info/getUsers')">刷新</el-button>
+        <a-input-search
+            placeholder="username"
+            enter-button="搜索"
+            v-model="username"
+            size="large"
+            style="text-align: left;width: 280px"
+            @search="$emit('searchBtnClick',username)"
+        />
+        <el-button size="mini" type="primary" icon="el-icon-refresh" @click="refresh">刷新</el-button>
         <el-button size="mini" type="primary" icon="el-icon-plus" @click="$emit('addBtnClick')">新增</el-button>
-        <el-button size="mini" type="primary">
+<!--        <el-button size="mini" type="primary">
             <i class="iconfont icon-xiugai"></i>
             修改
-        </el-button>
-        <el-button size="mini" type="danger" icon="el-icon-delete" @click="$emit('deleteBtnClick')">删除</el-button>
-        <el-button size="mini" type="primary" icon="el-icon-open" @click="$emit('enableBtnClick')">启用</el-button>
-        <el-button size="mini" type="primary" icon="el-icon-turn-off" @click="$emit('stopBtnClick')">停用</el-button>
+        </el-button>-->
+        <el-button size="mini" type="danger" :disabled="deleteButtonDisabled" icon="el-icon-delete" @click="$emit('deleteBtnClick')">批量删除</el-button>
     </el-container>
 </template>
 
@@ -17,14 +22,26 @@
 
     export default {
         name: "ActionBar",
+        props:{
+          deleteButtonDisabled: {
+            type: Boolean,
+            default: false
+          },
+        },
         data(){
             return {
-                span_select: false
-
+                span_select: false,
+                username:''
             }
         },
         methods:{
-
+          onSearch(){
+            this.$emit('searchBtnClick',this.username)
+          },
+          refresh() {
+            this.username=''
+            this.$emit('searchBtnClick','')
+          }
         }
     }
 </script>
@@ -38,15 +55,12 @@
     }
     #navigation_bar{
         display: flex;
-        padding: 5px;
-        height: 40px;
+        padding: 10px;
         width: 100%;
-        border: 1px solid #22ccdd;
         box-sizing: border-box;
-        background: #c6e2ff;
         span{
             line-height: 27px;
-            margin-right: 500px;
+            margin-right: 10px;
             text-align: center;
             font-size: 16px;
             &:hover{
