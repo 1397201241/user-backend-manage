@@ -12,7 +12,7 @@
         </div>
         <div v-else>
           <h1>个人首页</h1>
-          <h6>这是借咏物而寄相思的诗，是眷怀友人之作。因物起兴，语虽单纯却富于想象；接着以设问寄语！</h6>
+          <h6>既然巅峰留不住，那就进厂包吃住！</h6>
         </div>
       </div>
     </a-layout-header>
@@ -90,7 +90,7 @@
         </div>
 
       </div>
-      <div v-else style="position: relative;top: -60px;height: 100%;background: #fff;border-radius: 10px"><router-view></router-view></div>
+      <div v-else style="position: relative;top: -60px;height: 80%;background: #fff;border-radius: 10px" class="routerView"><router-view></router-view></div>
 <!--      <div class="background-transition"><div class="background"></div></div>-->
     </a-layout-content>
   </a-layout>
@@ -115,6 +115,14 @@
       }
     },
     created() {
+      if (this.$route.name === 'Home'){
+        this.background="background1"
+        this.contentMargin="content-margin1"
+      }
+      else {
+        this.background="background2"
+        this.contentMargin="content-margin2"
+      }
       let token = getToken()
       if (token){
         this.loginButtonText="退出";
@@ -122,13 +130,16 @@
       }
     },
     mounted() {
+
       window.addEventListener('scroll',this.handleScroll,true)
     },
+    updated() {
+      if (this.$route.name === '/menus') {
+        alert('dasda')
+
+      }
+    },
     methods: {
-      // 登录跳转
-      login() {
-        this.$router.push('/login')
-      },
       // 监听滚动，实现导航栏背景变化
       handleScroll(e) {
         let scrollTop = e.target.documentElement.scrollTop
@@ -195,75 +206,6 @@
     padding: 0;
     background-size: auto auto, cover;
     background-position: left top, right bottom;
-    .header {
-      //width: 928px;
-      width: 100%;
-      height: 64px;
-      padding: 0 15%;
-      position: fixed;
-      display: flex;
-      transition: all 0.3s ease-in-out;
-      z-index: 1;
-      justify-content: space-between;
-      align-items: center;
-      .logo {
-        width: 120px;
-        height: 32px;
-        text-align: left;
-        font-size: 1.5em;
-        background: url("../assets/imgs/logo.png");
-        background-size: cover;
-        cursor: pointer;
-        /*设置大了也没关系，弹性布局会自适应*/
-        //margin-right: 772px;
-        line-height: 32px;
-      }
-      .header-right{
-        display: flex;
-        justify-content: space-between;
-        .nav {
-          height: 32px;
-          line-height: 32px;
-          background-color: inherit;
-          border: inherit;
-          color: #fff;
-          transition: background-color 0.3s ease-in-out;
-
-          .anticon-down {
-            transition: transform 0.3s ease-in-out;
-          }
-
-          &:focus {
-            background-color: rgba(203, 208, 208, 0.15);
-            //animation: sk-scaleout 1s ease-in-out;
-            .anticon-down {
-              transform: translateY(-1px) rotate(180deg);
-            }
-          }
-        }
-        .avatar{
-          border: inherit;
-          color: #fff;
-          background: rgba(203, 208, 208, 0.15);
-          margin-right: 10px
-        }
-      }
-    }
-    .header-highlight {
-      //width: 928px;
-      width: 100%;
-      height: 64px;
-      padding: 0 15%;
-      position: fixed;
-      display: flex;
-      background-color: #00acc1;
-      border-bottom: 0;
-      box-shadow: 0px 3px 6px 3px rgba(0, 0, 0, 0.51);
-      border-radius: 5px;
-      z-index: 1;
-      justify-content: space-between;
-      align-items: center;
-    }
     .introduce {
       position: relative;
       width: 550px;
