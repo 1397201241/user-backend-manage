@@ -98,15 +98,17 @@ export default {
 <style lang="less" scoped>
 #drum-kit{
   margin: 0;
-  padding: 0;
-  background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.8)), url("../assets/imgs/b2.jpg");
-  background-repeat: no-repeat,no-repeat;
-  background-size: auto auto,100% 100%;
-  background-attachment: fixed,fixed;
+  padding: 50px;
+
   #keys{
     display: flex;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-image: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.8)), url("../assets/imgs/bg2.jpg")!important;
+    background-size: auto auto,100% 100%;
+    background-repeat: no-repeat,no-repeat;
+    background-attachment: fixed,scroll;
     box-sizing: border-box;
     padding: 10em;
     justify-content: center;
