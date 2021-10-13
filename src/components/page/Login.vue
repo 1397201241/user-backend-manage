@@ -102,10 +102,10 @@ export default {
     return {
       verificationC: '',//验证码
       loginForm: {//登录表单
-        username: '',
-        password: '',
-        verificationCode: '',
-        key: ''
+        username: 'admin',
+        password: '222222',
+        verificationCode: 'nnccb',
+        key: '8dfbc8bf-ee0f-45da-9018-72eac399e85d'
       },
       loading:false,
       loginRules: { //登录校验
@@ -157,8 +157,10 @@ export default {
           // todo: qs => data
           // todo: api封装
           let {loginForm} = this
-          this.$store.dispatch('userInfo/login',{loginForm}).then(()=>{
+          this.$store.dispatch('userInfo/login',{loginForm}).then(res=>{
+            this.$message.success(res.data)
             this.$router.push('/')
+            // todo: 判断用户是否登录
           }).catch(err=>{
             new Error("登录失败："+err)
           })
